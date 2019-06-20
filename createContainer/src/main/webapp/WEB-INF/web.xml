@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- The definition of the Root Spring Container shared by all Servlets 
+		and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:root-context.xml
+			/WEB-INF/config/spring-security.xml
+		</param-value>
+	</context-param>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+
+	<!-- Processes application requests -->
+	<!-- <servlet> <servlet-name>appServlet</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+		<init-param> <param-name>contextConfigLocation</param-name> <param-value>/WEB-INF/config/action-servlet.xml</param-value> 
+		</init-param> <load-on-startup>1</load-on-startup> </servlet> <servlet-mapping> 
+		<servlet-name>appServlet</servlet-name> <url-pattern>/</url-pattern> </servlet-mapping> -->
+	<!-- 맴버 관련 서블릿 요청주소 -->
+	<servlet>
+		<servlet-name>member</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/member-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>member</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+
+
+
+ <!-- 마이페이지 관련 서블릿 요청주소 -->
+ <servlet>
+      <servlet-name>mypage</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+	         <param-name>contextConfigLocation</param-name>
+    	     <param-value>/WEB-INF/config/mypage-servlet.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>mypage</servlet-name>
+      <url-pattern>*.mg</url-pattern>
+   </servlet-mapping>
+   <!-- 관리자 관련 서블릿 요청주소 -->
+   <servlet>
+      <servlet-name>admin</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+	         <param-name>contextConfigLocation</param-name>
+    	     <param-value>/WEB-INF/config/admin-servlet.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>admin</servlet-name>
+      <url-pattern>*.ad</url-pattern>
+   </servlet-mapping>
+   
+
+   <!-- 일러스트 관련 서블릿 요청주소 -->
+   <servlet>
+      <servlet-name>illust</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+	         <param-name>contextConfigLocation</param-name>
+    	     <param-value>/WEB-INF/config/illust-servlet.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>illust</servlet-name>
+      <url-pattern>*.ill</url-pattern>
+   </servlet-mapping>
+   
+   <!-- 쪽지 관련 서블릿 요청주소 -->
+   <servlet>
+      <servlet-name>message</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+	         <param-name>contextConfigLocation</param-name>
+    	     <param-value>/WEB-INF/config/message-servlet.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>message</servlet-name>
+      <url-pattern>*.msg</url-pattern>
+   </servlet-mapping>
+   
+   <!-- 후원 관련 서블릿 요청주소 -->
+   <servlet>
+      <servlet-name>support</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <init-param>
+	         <param-name>contextConfigLocation</param-name>
+    	     <param-value>/WEB-INF/config/support-servlet.xml</param-value>
+      </init-param>
+   </servlet>
+   <servlet-mapping>
+      <servlet-name>support</servlet-name>
+      <url-pattern>*.spt</url-pattern>
+   </servlet-mapping>
+   
+   	<!-- 웹툰 관련 서블릿 요청주소 -->
+	<servlet>
+		<servlet-name>webtoon</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/webtoon-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>webtoon</servlet-name>
+		<url-pattern>*.wt</url-pattern>
+
+	</servlet-mapping>
+   
+ <!-- 웹소설 관련 서블릿 요청주소 -->
+	<servlet>
+		<servlet-name>webNovel</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/config/webNovel-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+		<servlet-mapping>
+		<servlet-name>webNovel</servlet-name>
+		<url-pattern>*.wn</url-pattern>
+      </servlet-mapping>
+ 	<!-- 인코딩 필터 추가 -->
+ 	<filter>
+ 		<filter-name>encodingFilter</filter-name>
+ 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+ 		<init-param>
+ 			<param-name>encoding</param-name>
+ 			<param-value>UTF-8</param-value>
+ 		</init-param>
+ 	</filter>
+ 	<filter-mapping>
+ 		<filter-name>encodingFilter</filter-name>
+ 		<url-pattern>/*</url-pattern>
+ 	</filter-mapping>
+ 
+
+</web-app>

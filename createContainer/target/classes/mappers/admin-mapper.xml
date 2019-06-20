@@ -1,0 +1,69 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+   <resultMap type="com.kh.cc.member.model.vo.Member" id="memberResultSet">
+      <id property="mid" column="MID"/>            DB 기본키
+      <result property="userId" column="USER_ID"/>   일반컬럼
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="email" column="EMAIL"/>
+      <result property="birthDay" column="BIRTHDAY"/>
+      <result property="gender" column="GENDER"/>
+      <result property="phone" column="PHONE"/>
+      <result property="address" column="ADDRESS"/>
+      <result property="enrollDate" column="ENROLL_DATE"/>
+      <result property="modifyDate" column="MODIFY_DATE"/>
+      <result property="status" column="STATUS"/>
+   </resultMap>
+
+   <select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+   		SELECT *
+   		FROM MEMBER
+   		WHERE USER_ID = #{userId}
+   		AND USER_PWD = #{userPwd}
+   		AND STATUS = 'Y'
+   </select>
+   <insert id="insertMember" parameterType="Member">
+   		INSERT INTO MEMBER
+   		VALUES (SEQ_MID.NEXTVAL, #{userId}, #{userPwd}, #{userName},
+   				#{email}, #{birthDay}, #{gender}, #{phone}, #{address},
+ 	  			SYSDATE, SYSDATE, DEFAULT)
+   </insert>
+	<select id="selectPwd" resultType="string" parameterType="string">
+		SELECT USER_PWD
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		AND STATUS = 'Y'
+	</select>
+	<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		AND STATUS = 'Y'
+	</select>
+	
+	<insert id="insertBoard">
+		INSERT INTO BOARD(BID, BTITLE)
+		VALUES(SEQ_BID.NEXTVAL, '새로운 회원이 가입되었습니다.')
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ -->

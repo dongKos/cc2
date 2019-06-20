@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<resultMap type="com.kh.cc.member.model.vo.Member" id="memberResultSet">
+		<id property="mno" column="MNO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="memberType" column="MEMBER_TYPE"/>
+		<result property="intro" column="INTRO"/>
+		<result property="wallet" column="WALLET"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="wCount" column="WCOUNT"/>
+		<result property="status" column="STATUS"/>
+		
+	</resultMap>
+	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER 
+		WHERE USER_ID = #{userId} 
+		AND USER_PWD = #{userPwd} 
+		AND STATUS = 'Y'
+	</select>
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES (MNO_SEQ.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{nickName}, 2, '없음', 0, SYSDATE, #{email}, #{phone}, 0, 'Y')
+	</insert>
+	
+	<!-- 암호화된 비밀번호 조회용 메소드 -->
+	<select id="selectPwd" resultType="java.lang.String" parameterType="java.lang.String">
+		SELECT USER_PWD
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		AND STATUS = 'Y'
+	</select>
+		<select id="selectLoginUser" resultMap="memberResultSet" parameterType="Member">
+		SELECT *
+		FROM MEMBER
+		WHERE USER_ID = #{userId}
+		AND STATUS = 'Y'
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
