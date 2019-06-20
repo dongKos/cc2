@@ -72,9 +72,9 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#about">ABOUT</a></li>
-				<li><a href="#services">SERVICES</a></li>
-				<li><a href="#BOARD">BOARD</a></li>
+				<li><a href="#about">WEBTOON</a></li>
+				<li><a href="#services">WEBNOVEL</a></li>
+				<li><a href="#BOARD">ILLUSTRATION</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->
@@ -86,7 +86,7 @@
 				<!-- 로그인 활성화 상태 -->
 				<c:if test="${ !empty sessionScope.loginUser }">
 					<li>
-						<a href="mypgMain.mg">
+						<a href="${ contextPath }/mypgMain.mg">
 							<c:out value="${ sessionScope.loginUser.userName }님 "/>
 						</a>
 					</li>

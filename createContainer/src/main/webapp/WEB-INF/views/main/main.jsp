@@ -33,6 +33,7 @@
 	<div align="center">
 	<button onclick="location.href='adminMain.ad'">관리자 페이지로 이동</button><br>
 	<button onclick="location.href='illustMain.ill'">일러스트 메인</button>
+	<button onclick="location.href='webtoonMain.wt'">웹툰 메인</button>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
