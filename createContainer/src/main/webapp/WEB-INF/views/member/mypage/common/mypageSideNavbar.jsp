@@ -66,14 +66,32 @@
 	<div id="menus">
 		<ul>
 			<li id="menuTitle">마이페이지</li>
-			<li><button class="btn btn-primary" onclick="page('mypageInterestWork')">관심작품</button></li>
-			<li><button class="btn btn-primary" onclick="page('mypageInterestArtist')">관심작가</button></li>
-			<li><button class="btn btn-primary" onclick="page('mypagePoint')">포인트충전</button></li>
-			<li><button class="btn btn-primary" onclick="page('mypageInformation')">개인정보관리</button></li>
-			<li><button class="btn btn-primary" onclick="page('mypageIllustrator')">일러스트내역</button></li>
+			<li><button class="btn btn-primary" onclick="gointerestWt();">관심작품</button></li>
+         	<li><button class="btn btn-primary" onclick="gointerestWa()">관심작가</button></li>
+			<li><button class="btn btn-primary" onclick="goCreditPage();">포인트충전</button></li>
+			<li><button class="btn btn-primary" onclick="goInfoPage();">개인정보관리</button></li>
+			<li><button class="btn btn-primary" onclick="goIllustAf()">일러스트내역</button></li>
 			<li><button class="btn btn-primary" onclick="page('mypageQuestion')">1:1문의내역</button></li>
 			<li><button class="btn btn-primary" onclick="page('mypageResign')">회원탈퇴</button></li>
 		</ul>
 	</div>
+	<script>
+		function goCreditPage(){
+			location.href="mypgCredit.mg"
+		}
+		function goInfoPage(){
+			location.href="mypgInfoPass.mg"
+		}
+		function gointerestWt(){
+	        location.href="mypgIterestWt.mg";
+	    }
+	    function gointerestWa(){
+	       	location.href="mypgInterestWa.mg";
+	    }
+	    function goIllustAf(){
+	        location.href="mypgIllustAf.mg";
+	    }
+
+	</script>
 </body>
 </html>
