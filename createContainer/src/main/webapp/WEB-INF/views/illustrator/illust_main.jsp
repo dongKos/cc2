@@ -25,62 +25,18 @@
 </head>
 
 <body id="page-top">
+<jsp:include page="common/IllustTopNavbar.jsp"/>
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
-      <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Portfolio</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#about">About</a>
-          </li>
-          <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  
+<jsp:include page="common/illustCarousel.jsp"/>
 
-  <!-- Masthead -->
-  <header class="masthead bg-primary text-white text-center">
-    <div class="container d-flex align-items-center flex-column">
-
-      <!-- Masthead Avatar Image -->
-      <img class="masthead-avatar mb-5" src="${contextPath }/resources/images/illust/img/avataaars.svg" alt="">
-
-      <!-- Masthead Heading -->
-      <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
-
-      <!-- Icon Divider -->
-      <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>
-
-      <!-- Masthead Subheading -->
-      <p class="masthead-subheading font-weight-light mb-0">Graphic Artist - Web Designer - Illustrator</p>
-
-    </div>
-  </header>
 
   <!-- Portfolio Section -->
   <section class="page-section portfolio" id="portfolio">
     <div class="container">
 
       <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">도전 BEST 3</h2>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
@@ -130,6 +86,17 @@
           </div>
         </div>
 
+		<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="display:inline-block; margin:0 auto">포트폴리오 BEST 3</h2>
+
+      <!-- Icon Divider -->
+      <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="divider-custom-line"></div>
+      </div>
+
         <!-- Portfolio Item 4 -->
         <div class="col-md-6 col-lg-4">
           <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
@@ -173,13 +140,13 @@
   </section>
 
   <!-- About Section -->
-  <section class="page-section bg-primary text-white mb-0" id="about">
+  <!-- <section class="page-section bg-primary text-white mb-0" id="about">
     <div class="container">
 
-      <!-- About Section Heading -->
+      About Section Heading
       <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
 
-      <!-- Icon Divider -->
+      Icon Divider
       <div class="divider-custom divider-light">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon">
@@ -188,7 +155,7 @@
         <div class="divider-custom-line"></div>
       </div>
 
-      <!-- About Section Content -->
+      About Section Content
       <div class="row">
         <div class="col-lg-4 ml-auto">
           <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p>
@@ -198,7 +165,7 @@
         </div>
       </div>
 
-      <!-- About Section Button -->
+      About Section Button
       <div class="text-center mt-4">
         <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
           <i class="fas fa-download mr-2"></i>
@@ -207,16 +174,16 @@
       </div>
 
     </div>
-  </section>
+  </section> -->
 
   <!-- Contact Section -->
-  <section class="page-section" id="contact">
+  <!-- <section class="page-section" id="contact">
     <div class="container">
 
-      <!-- Contact Section Heading -->
+      Contact Section Heading
       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
 
-      <!-- Icon Divider -->
+      Icon Divider
       <div class="divider-custom">
         <div class="divider-custom-line"></div>
         <div class="divider-custom-icon">
@@ -225,10 +192,10 @@
         <div class="divider-custom-line"></div>
       </div>
 
-      <!-- Contact Section Form -->
+      Contact Section Form
       <div class="row">
         <div class="col-lg-8 mx-auto">
-          <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+          To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.
           <form name="sentMessage" id="contactForm" novalidate="novalidate">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls mb-0 pb-2">
@@ -268,7 +235,7 @@
       </div>
 
     </div>
-  </section>
+  </section> -->
 
   <!-- Footer -->
   <footer class="footer text-center">
