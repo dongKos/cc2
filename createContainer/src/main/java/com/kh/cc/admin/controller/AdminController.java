@@ -49,27 +49,95 @@ public class AdminController {
 	}
 	
 	//통계관리 - 작가통계 페이지
-	@RequestMapping("showAdminStatistic.ad")
-	public String showAdminStatistic() {
+	@RequestMapping("showStatistic.ad")
+	public String showStatistic() {
 		return "admin/adminStatistic";
 	}
 	
 	//통계관리 - 작가통계 상세 페이지
-	@RequestMapping("showAdminStatisticDetail.ad")
-	public String showAdminStatisticDetail() {
+	@RequestMapping("showStatisticDetail.ad")
+	public String showStatisticDetail() {
 		return "admin/adminStatisticDetail";
 	}
 	
 	//통계관리 - 포인트 내역 
-	@RequestMapping("showAdminStatisticPoint.ad")
-	public String showAdminStatisticPoint() {
+	@RequestMapping("showStatisticPoint.ad")
+	public String showStatisticPoint() {
 		return "admin/adminStatisticPoint";
 	}
 	
 	//통계관리 - 정산내역
-	@RequestMapping("showAdminStatisticCalculate.ad")
-	public String showAdminStatisticCalculate() {
+	@RequestMapping("showStatisticCalculate.ad")
+	public String showStatisticCalculate() {
 		return "admin/adminStatisticCalculate";
 	}
+	
+	//신고 관리 페이지
+	@RequestMapping(value="showReport.ad")
+	public String showReport() {
+		return "admin/adminReport";
+	}
+	
+	//신고 관리 페이지 상세보기
+	@RequestMapping("showReportDetail.ad")
+	public String showReportDetail() {
+		return "admin/adminReportDetail";
+	}
+	
+	//작품 관리 페이지 - 작품 조회
+	@RequestMapping("showWork.ad")
+	public String showWork() {
+		return "admin/adminWork";
+	}
+	
+	//작품 관리 페이지 - 승인 대기 내역 조회
+	@RequestMapping("showWorkApprove.ad")
+	public String showWorkApprove() {
+		return "admin/adminWorkApprove";
+	}
+	
+	//작품 관리 페이지 - 승인 대기 내역 상세 보기
+	@RequestMapping(value="showWorkApproveDetail.ad")
+	public String showWorkApproveDetail() {
+		return "admin/adminWorkApproveDetail";
+	}
+	
+	//작품 관리 페이지 - 후원 대기 내역 조회
+	@RequestMapping("showWorkDormant.ad")
+	public String showWorkDormant() {
+		return "admin/adminWorkDormant";
+	}
+	
+	//작품 관리 페이지 - 후원대기 내역 조회 상세 페이지
+	@RequestMapping("showWorkDormantDetail.ad")
+	public String showWorkDormantDetail() {
+		return "admin/adminWorkDormantDetail";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

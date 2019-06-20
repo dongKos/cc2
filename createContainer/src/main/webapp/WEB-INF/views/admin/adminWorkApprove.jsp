@@ -5,19 +5,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>통계관리 - 작가통계</title>
+<title>작품 관리 - 승인 대기 내역</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
 		$("#refundTable tr").click(function(){
 			var num = $(this).children().eq(0).text();
+			location.href = "showWorkApproveDetail.ad";
 		});
 		
 		//선택된 사이드 메뉴바 표시
-		var selectedUl = $("#statistic").parent().children();
-		var selectedLi = selectedUl.children().children().eq(2);
+		var selectedUl = $("#work").parent().children();
+		var selectedLi = selectedUl.children().children().eq(1);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
+		
 	})
 </script>
 </head>
@@ -42,26 +44,18 @@
             <div class="main-content">
                 <div class="section__content section__content--p30">
                     <div class="container-fluid">
-                    
-                    <div class="row">
-                   	  <div class="col-lg-12">
-                  		 <div class="au-card m-b-30">
-                                <div class="au-card-inner">
-                                    <h3 class="title-2 m-b-40">Bar chart</h3>
-                                    <canvas id="barChart"></canvas>
-                                </div>
-                         </div>
-                       </div>
-                    </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-25">
                                 	<select>
-                                		<option>웹툰</option>
-                                		<option>웹 소설</option>
-                                		<option>일러스트</option>
+                                		<option>댓글</option>
+                                		<option>작품</option>
+                                		<option>게시글</option>
                                 	</select>
+                                	<input type="checkbox" id="selectAll" ondblclick="this.checked=false">
+                                	
                                 	<input type="text">
+                                	
                                 	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
@@ -83,7 +77,7 @@
                                                 <td>iPhone X 64Gb Grey</td>
                                                 <td class="text-right">$999.00</td>
                                                 <td class="text-right">1</td>
-                                                <td class="text-right">$999.00<input type="checkbox"></td>
+                                                <td class="text-right">$999.00<input type="checkbox" class="select"></td>
                                                 	
                                             </tr>
                                             <tr>
@@ -92,7 +86,7 @@
                                                 <td>Samsung S8 Black</td>
                                                 <td class="text-right">$756.00</td>
                                                 <td class="text-right">1</td>
-                                                <td class="text-right">$756.00<input type="checkbox"></td>
+                                                <td class="text-right">$756.00<input type="checkbox" class="select"></td>
                                             </tr>
                                             <tr>
                                                 <td>2018-09-27 02:12</td>
@@ -100,16 +94,35 @@
                                                 <td>Game Console Controller</td>
                                                 <td class="text-right">$22.00</td>
                                                 <td class="text-right">2</td>
-                                                <td class="text-right">$44.00<input type="checkbox"></td>
+                                                <td class="text-right">$44.00<input type="checkbox" class="select"></td>
                                             </tr>
+                                            <tr>
+                                                <td>2018-09-26 23:06</td>
+                                                <td>100395</td>
+                                                <td>iPhone X 256Gb Black</td>
+                                                <td class="text-right">$1199.00</td>
+                                                <td class="text-right">1</td>
+                                                <td class="text-right">$1199.00<input type="checkbox" class="select"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2018-09-25 19:03</td>
+                                                <td>100393</td>
+                                                <td>USB 3.0 Cable</td>
+                                                <td class="text-right">$10.00</td>
+                                                <td class="text-right">3</td>
+                                                <td class="text-right">$30.00<input type="checkbox" class="select"></td>
+                                            </tr>
+                                      
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
+                            
                         </div>
-                            <div align="right">
-                            	<button class="btn btn-primary">삭제</button>
-                            </div>
+                        
+                        <div align="right">
+                        	<button class="btn btn-primary">전체 처리</button>
+                        </div>
                         
                         <div class="row">
                             <div class="col-md-12">

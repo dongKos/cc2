@@ -11,7 +11,13 @@
 	$(function(){
 		$("#refundTable tr").click(function(){
 			var num = $(this).children().eq(0).text();
-		})
+		});
+		
+		//선택된 사이드 메뉴바 표시
+		var selectedUl = $("#board").parent().children();
+		var selectedLi = selectedUl.children().children().eq(0);
+		selectedUl.css({"display":"block"});
+		selectedLi.css({"color":"skyblue"});
 	})
 </script>
 </head>
