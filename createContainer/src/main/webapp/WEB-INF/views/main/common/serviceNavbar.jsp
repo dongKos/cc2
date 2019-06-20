@@ -6,9 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 	.mainLogo{
 		height:50px;
@@ -18,38 +15,37 @@
 		height:60px !important;
 	}
 	.navbar{
-		background:#9ED7F8;
+		background:white;
 		height:60px !important;
 	}
 	.navbar-nav{
 		margin-top:5px;
 		font-size:15px;
-		background:#9ED7F8;
 	}
 	.navbar-header{
-		background:#9ED7F8;
+		background:white;
 	}
 	.navbar-nav li>a{
-		color:white !important;
+		color:black !important;
 	}
 	.navbar-nav li>a:hover{
-		color:gray !important;
-		background: linear-gradient( to bottom, transparent, #84CEFA  );
+		color:#84CEFA !important;
 		border-radius:5px;
 	}
 	.navbar-collapse {
-	    background: #9ED7F8;
 	    padding-right:20px !important;
+	    border-bottom:1px solid #E0E0E0 !important;
 	}
+	.navbar-default {
+    border: none;
+}
 	.navbar-toggle{
 		margin-top:13px;
 	}
 	.navbar-default .navbar-toggle {
-		background-color:#9ED7F8 !important;
 	    border-color: white;
 	}
 	.navbar-toggle:hover {
-    	background-color: #84CEFA  !important;
 	}
 	.icon-bar{
 		background-color:gray !important;
@@ -66,15 +62,15 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#mainMenubar"> 
+			<a class="navbar-brand" href="mainHome.me"> 
 				<img class="mainLogo" src="${ contextPath }/resources/images/logo.png">
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#about">ABOUT</a></li>
-				<li><a href="#services">SERVICES</a></li>
-				<li><a href="#BOARD">BOARD</a></li>
+				<li><a href="webtoonMain.wt">웹툰</a></li>
+				<li><a href="webnovelMain.wn">웹소설</a></li>
+				<li><a href="illustMain.ill">일러스트</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->
@@ -95,7 +91,7 @@
 			</ul>
 		</div>
 	</nav>
-	
+
 	
 	<script>
 		$(document).ready(function() {
@@ -123,5 +119,27 @@
 			});
 		})
 	</script>
+
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

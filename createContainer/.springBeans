@@ -7,8 +7,14 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/config/webnovel-servlet.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/config/message-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/illust-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/mypage-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/support-servlet.xml</config>
+		<config>src/main/webapp/WEB-INF/config/admin-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
