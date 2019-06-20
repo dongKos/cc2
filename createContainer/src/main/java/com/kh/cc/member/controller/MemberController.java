@@ -85,11 +85,12 @@ public class MemberController {
 	public String showInsetForm(@ModelAttribute Member m) {
 		return "main/insertMember";
 	}
-	//회원가입 페이지 이동
+	//메인 페이지 이동
 	@RequestMapping("mainHome.me")
 	public String mainHome(@ModelAttribute Member m) {
 		return "main/main";
 	}
+
 }
 
 
