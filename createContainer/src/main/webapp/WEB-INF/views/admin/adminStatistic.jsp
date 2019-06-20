@@ -11,8 +11,14 @@
 	$(function(){
 		$("#refundTable tr").click(function(){
 			var num = $(this).children().eq(0).text();
-			location.href="showAdminStatisticDetail.ad";
-		})
+			location.href="showStatisticDetail.ad";
+		});
+		
+		//선택된 사이드 메뉴바 표시
+		var selectedUl = $("#statistic").parent().children();
+		var selectedLi = selectedUl.children().children().eq(0);
+		selectedUl.css({"display":"block"});
+		selectedLi.css({"color":"skyblue"});
 	})
 </script>
 </head>

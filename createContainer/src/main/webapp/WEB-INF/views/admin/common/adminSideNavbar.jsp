@@ -43,8 +43,8 @@
            <nav class="navbar-sidebar">
                <ul class="list-unstyled navbar__list">
                <!-- 환불관리 -->
-                   <li class="active has-sub">
-                       <a class="js-arrow" href="#">환불관리</a>
+                   <li class="has-sub">
+                       <a class="js-arrow" href="#" id="refund">환불관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
                                <a href="showRefund.ad">환불 내역 관리</a>
@@ -55,7 +55,7 @@
                   
                   <!-- 회원관리 -->
                    <li class="has-sub">
-                       <a class="js-arrow" href="#">회원관리</a>
+                       <a class="js-arrow" href="#" id="member">회원관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
                                <a href="showMember.ad">회원 목록 조회</a>
@@ -65,7 +65,7 @@
                    </li>
                    <!-- 게시판관리 -->
                    <li class="has-sub">
-                       <a class="js-arrow" href="#">게시판관리</a>
+                       <a class="js-arrow" href="#" id="board">게시판관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
                                <a href="showBoard.ad">게시글 관리</a>
@@ -82,39 +82,39 @@
                        <a class="js-arrow" href="#" id="statistic">통계관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
-                               <a href="showAdminStatistic.ad">작가 통계</a>
+                               <a href="showStatistic.ad">작가 통계</a>
                            </li>
                            <li>
-                               <a href="showAdminStatisticPoint.ad">포인트 내역</a>
+                               <a href="showStatisticPoint.ad">포인트 내역</a>
                            </li>
                            <li>
-                               <a href="showAdminStatisticCalculate.ad">정산 관리</a>
+                               <a href="showStatisticCalculate.ad">정산 관리</a>
                            </li>
                        </ul>
                    </li>
                        
                    <!-- 신고관리 -->
                    <li class="has-sub">
-                       <a class="js-arrow" href="#">신고관리</a>
+                       <a class="js-arrow" href="#" id="report">신고관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
-                               <a href="login.html">신고 조회</a>
+                               <a href="showReport.ad">신고 조회</a>
                            </li>
                        </ul>
                    </li>
                    
 	<!-- 작품관리-->
                    <li class="has-sub">
-                       <a class="js-arrow" href="#">작품관리</a>
+                       <a class="js-arrow" href="#" id="work">작품관리</a>
                        <ul class="list-unstyled navbar__sub-list js-sub-list">
                            <li>
-                               <a href="login.html">작품 조회</a>
+                               <a href="showWork.ad">작품 조회</a>
                            </li>
                            <li>
-                               <a href="login.html">승인 대기 내역 조회</a>
+                               <a href="showWorkApprove.ad">승인 대기 내역 조회</a>
                            </li>
                            <li>
-                               <a href="login.html">후원 대기 내역 조회</a>
+                               <a href="showWorkDormant.ad">후원 대기 내역 조회</a>
                            </li>
                        </ul>
                    </li>

@@ -7,6 +7,15 @@
 <head>
 <title>환불관리 페이지</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script>
+ 	$(function(){
+ 		//선택된 사이드 메뉴바 표시
+		var selectedUl = $("#member").parent().children();
+		var selectedLi = selectedUl.children().children().eq(0);
+		selectedUl.css({"display":"block"});
+		selectedLi.css({"color":"skyblue"});
+ 	});
+ </script>
 </head>
 
 <body class="animsition">
