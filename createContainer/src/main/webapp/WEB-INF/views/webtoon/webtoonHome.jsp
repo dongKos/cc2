@@ -19,7 +19,7 @@
 }
 
 #sideCategory li {
-	padding-left:20%;
+	
 }
 </style>
 </head>

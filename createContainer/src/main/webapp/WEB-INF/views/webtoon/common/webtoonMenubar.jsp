@@ -23,7 +23,7 @@
 </head>
 
 <body>
-	<hr align="center" style="width:60%;">
+	<hr align="center" style="width:70%;">
 	<ul id="menubar">
 		<li><a href="webtoonHome.wt">홈</a></li>
 		<li><a href="webtoonMain.wt">웹툰</a></li>
@@ -31,6 +31,6 @@
 		<li><a href="webtoonChallenge.wt">도전웹툰</a></li>
 		<li><a href="webtoonMypage.wt">마이페이지</a></li>
 	</ul>
-	<hr align="center" style="width:60%;">
+	<hr align="center" style="width:70%;">
 </body>
 </html>

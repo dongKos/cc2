@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
@@ -43,7 +45,28 @@ footer {
 }
 
 table td {
-	padding: 5px;
+	padding-left: 6px;
+}
+
+#sideCategory {
+	list-style: none;
+	display: inline;
+}
+
+#sideCategory li {
+	display: inline-block;
+	padding-left: 90px;
+}
+
+#new div {
+	border: 0.5px solid black;
+	width: 20%;
+	height: 30%
+}
+
+#whole td{
+	padding-bottom:30px;
+	padding-right:5px;
 }
 </style>
 </head>
@@ -51,65 +74,75 @@ table td {
 	<%-- <jsp:include page='../common/navbar.jsp'/>
 	<jsp:include page='common/webtoonNavbar.jsp'/>
 	<jsp:include page='common/webtoonCategoryNavbar.jsp'/> --%>
-	<jsp:include page="common/webtoonMenubar.jsp" />
 	<div class="container-fluid">
 		<div class="row">
-
+			<div class="col-sm-1"></div>
 			<div class="col-sm-9 content">
+				<jsp:include page="common/webtoonMenubar.jsp" />
 				<div class="new">
-					<h3>오늘의 인기 만화</h3>
 					<table id="new">
+						<h3>오늘의 인기 만화</h3>
 						<tbody>
 							<tr>
-								<td><img src="${contextPath}/resources/images/3.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/3.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/3.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/3.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/3.png"
-									style="width: 100%;"></td>
+								<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+								<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+								<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+								<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+								<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<br>
-				<br>
-				<h3>전체</h3>
+				
+				<hr>
+				<div>
+					<div style="display: inline-block;"><h3>추천 도전 만화</h3></div>
+					<div style="display: inline-block; ">
+						<ul id="sideCategory" style="padding-left: 149px;">
+						<li><a href="#">조회수</a></li>
+						<li><a href="#">인기순</a></li>
+						<li><a href="#">별점순</a></li>
+						</ul>
+					</div>
+				</div>
+				<hr>
 				<table id="whole">
 					<tbody>
 						<tr>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
-								style="width: 100%;"></td>
-						</tr>
-						<tr>
-							<td><img src="${contextPath}/resources/images/3.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/3.png"
+							<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+						</tr>
+						<tr>
+							<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+							<td><img src="${contextPath}/resources/images/noimg.png"
+								style="width: 100%;"></td>
+							<td><img src="${contextPath}/resources/images/noimg.png"
 								style="width: 100%;"></td>
 						</tr>
 					</tbody>
