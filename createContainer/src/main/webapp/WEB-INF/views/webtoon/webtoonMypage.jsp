@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="../main/common/serviceNavbar.jsp"/>
 	<jsp:include page="common/webtoonMenubar.jsp"/><br><br><br>
 	<h1 align="center">웹툰 마이 페이지</h1>
 
