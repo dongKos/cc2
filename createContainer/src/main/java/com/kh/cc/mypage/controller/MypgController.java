@@ -35,12 +35,21 @@ public class MypgController {
 		public String showInfo() {
 			return "member/mypage/mypageInformation";
 		}
-		
-		
-		
-		
-		
-		
+	//내 문의 내역 페이지 이동
+		@RequestMapping("mypgQue.mg")
+		public String showQue() {
+			return "member/mypage/mypageQuestion";
+		}
+	//회원탈퇴 페이지 이동
+		@RequestMapping("mypgResign.mg")
+		public String showResign() {
+			return "member/mypage/mypageResign";
+		}
+	//작가페이지
+		@RequestMapping("writerMain.mg")
+		public String showWriter() {
+			return "member/mypage/writerpage";
+		}
 		
 		
 		
