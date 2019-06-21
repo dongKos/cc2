@@ -3,15 +3,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Freelancer - Start Bootstrap Theme</title>
+
+  <!-- Custom fonts for this theme -->
+  <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+  <!-- Theme CSS -->
+  <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
     <div class="container">
       <!-- <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a> -->
       <img src="${contextPath }/resources/images/logo.png" onclick="location='mainHome.me'" style="cursor:pointer; width:15%; height:15%;">
-      <h2 style="color:white">CreateContainer</h2>
+      <a href="illustratorDetail.ill"><h2 style="color:white">CreateContainer</h2></a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>
@@ -32,15 +46,15 @@
     </div>
   </nav>
   
-  <nav style="height:100%; height:60px; margin-top:16%; background-color:gray;">
-  	<div style="float:left; margin-left:23%; margin-top:1%;">
-  		<h2><a href="#" style="color:white">포트폴리오</a></h2>
+  <nav style="height:100%; height:60px; margin-top:-2%; background-color:gray;">
+  	<div style="float:left; margin-left:23%; margin-top:-1%;">
+  		<h2><a href="illustPortpolio.ill" style="color:white">포트폴리오</a></h2>
   	</div>
-  	<div style="float:left; margin-left:10%; margin-top:1%;">
-  		<h2><a href="#" style="color:white">도전</a></h2>
+  	<div style="float:left; margin-left:10%; margin-top:-1%;">
+  		<h2><a href="illustChallenge.ill" style="color:white">도전</a></h2>
   	</div>
-  	<div style="float:left; margin-left:10%; margin-top:1%;">
-  		<h2><a href="#" style="color:white">후원하기</a></h2>
+  	<div style="float:left; margin-left:10%; margin-top:-1%;">
+  		<h2><a href="illustSupport.ill" style="color:white">후원하기</a></h2>
   	</div>
   </nav>
 </body>
