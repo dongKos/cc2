@@ -31,12 +31,16 @@
   	 	<jsp:include page="common/mypageSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
-      <div class="point" style="text-align:center">
-					<h4 align="center" style="margin-top:150px;">비밀번호를 입력하셈.</h4>
+      <div class="point" style="text-align:center;">
+					<h4 align="center" style="margin-top:150px;">현재 계정의 비밀번호를 입력하세요.</h4>
 					
   					<br>
-  					<div style="width:50%; align:center;">
-  					<input type="password" class="form-control" id="pwd" placeholder="Enter password">
+  					<div style="width:50%; margin:0 auto; text-align:center;">
+  					<form>
+  					<input type="password" class="form-control" id="pwd" placeholder="비밀번호 입력">
+  					<br>
+  					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">확인</button>
+  					</form>
   					</div>
 				</div>
     </div>
@@ -45,5 +49,10 @@
     </div>
   </div>
 </div>
+<script>
+	function infoPassConfirm() {
+		location.href="mypgInfo.mg";
+	}
+</script>
 </body>
 </html>

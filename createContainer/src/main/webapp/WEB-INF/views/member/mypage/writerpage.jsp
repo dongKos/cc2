@@ -19,18 +19,19 @@
 <body style="margin-top: 3.5%;">
 
 	
-	<jsp:include page="common/mypagebanner.jsp"/>
+	<jsp:include page="common/writerbanner.jsp"/>
   
 <div class="container">
   <div class="row">
   <jsp:include page="common/mypageNavbar.jsp"/>
     <div class="col-sm-3">
-  	 	<jsp:include page="common/mypageSideNavbar.jsp"/>
+  	 	<jsp:include page="common/WriterpageSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li class="active" style="width:100%;"><a href="#" style="font-weight:bold;">내 문의 내역</a></li>
+    					<li class="active"><a href="#">관심 웹툰</a></li>
+    					<li style="width:50%;"><a href="#">관심 소설</a></li>
     					
   					</ul>
   					<br>

@@ -65,14 +65,15 @@
 	</div>
 	<div id="menus">
 		<ul>
-			<li id="menuTitle">마이페이지</li>
-			<li><button class="btn btn-primary" onclick="gointerestWt();">관심작품</button></li>
-         	<li><button class="btn btn-primary" onclick="gointerestWa()">관심작가</button></li>
-			<li><button class="btn btn-primary" onclick="goCreditPage();">포인트충전</button></li>
-			<li><button class="btn btn-primary" onclick="goInfoPage();">개인정보관리</button></li>
-			<li><button class="btn btn-primary" onclick="goIllustAf()">일러스트내역</button></li>
-			<li><button class="btn btn-primary" onclick="goQuestion();">1:1문의내역</button></li>
-			<li><button class="btn btn-primary" onclick="goResign()">회원탈퇴</button></li>
+			<li id="menuTitle">작가페이지</li>
+			<li><button class="btn btn-primary" onclick="gointerestWt();">my 웹툰</button></li>
+         	<li><button class="btn btn-primary" onclick="gointerestWa()">my 소설</button></li>
+			<li><button class="btn btn-primary" onclick="goCreditPage();">정산 관리</button></li>
+			<li><button class="btn btn-primary" onclick="goInfoPage();">후원 신청</button></li>
+			<li><button class="btn btn-primary" onclick="goIllustAf()">작가 프로필</button></li>
+			<li><button class="btn btn-primary" onclick="goQuestion();">유료 작품 신청</button></li>
+			<li><button class="btn btn-primary" onclick="goResign()">일러스트 요청 목록</button></li>
+			<li><button class="btn btn-primary" onclick="goResign()">휴재 내역</button></li>
 		</ul>
 	</div>
 	<script>

@@ -86,6 +86,10 @@
 				<!-- 로그인 활성화 상태 -->
 				<c:if test="${ !empty sessionScope.loginUser }">
 					<li>
+						<a href="${ contextPath }/writerMain.mg">작가 페이지
+						</a>
+					</li>
+					<li>
 						<a href="${ contextPath }/mypgMain.mg">
 							<c:out value="${ sessionScope.loginUser.userName }님 "/>
 						</a>
