@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Refund">
+<resultMap type="com.kh.cc.admin.model.vo.Refund" id="refundResultSet">
+      <id property="refundCode" column="REFUND_CODE"/>            
+      <result property="requestDate" column="REQUEST_DATE"/>   
+      <result property="completeDate" column="COMPLETE_DATE"/>
+      <result property="price" column="PRICE"/>
+      <result property="status" column="STATUS"/>
+      <result property="refundReason" column="REFUND_REASON"/>
+      <result property="userId" column="USER_ID"/>
+   </resultMap>
+
+   <select id="selectRefundListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REFUND   		
+   </select>
+   <select id="selectRefundList" resultMap="refundResultSet">
+		SELECT *
+		FROM REFUND   
+		ORDER BY REFUND_CODE DESC
+   </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

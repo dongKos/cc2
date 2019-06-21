@@ -1,11 +1,25 @@
 package com.kh.cc.admin.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kh.cc.admin.model.service.AdminService;
+import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.common.Pagination;
 
 @Controller
 public class AdminController {
-
+	
+	@Autowired
+	private AdminService as;
+	
 	//관리자 메인페이지로 이동시켜주는 메소드
 	@RequestMapping(value="adminMain.ad")
 	public String showAdminMain() {
@@ -14,7 +28,21 @@ public class AdminController {
 	
 	//환불 관리 페이지로 이동
 	@RequestMapping("showRefund.ad")
-	public String showRefund() {
+	public String showRefund(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getRefundListCount();
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		
+		ArrayList<Refund> list = as.selectRefundList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		return "admin/adminRefund";
 	}
 	
