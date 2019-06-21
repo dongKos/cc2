@@ -58,11 +58,7 @@ table td {
 	padding-left: 90px;
 }
 
-#new div {
-	border: 0.5px solid black;
-	width: 20%;
-	height: 30%
-}
+
 
 #whole td {
 	padding-bottom: 30px;
@@ -93,6 +89,15 @@ table td {
 #middleTopCategory div {
 	display: inline;
 }
+#area {
+	background-color: red;
+	width: 150px;
+	height: 120px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom:10px;
+	
+}
 #todayWebtoon{
 background-color: red;
 	width: 80%;
@@ -112,30 +117,9 @@ background-color: red;
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-6 content">
-				<div class="new">
-					<table id="new">
-						<h3>오늘의 인기 만화</h3>
-						<tbody>
-							<tr>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-
-				<hr>
 				<div id="middleTopCategory">
 					<div style="display: inline; margin-top: 0px;">
-						<h4>추천 도전 만화</h4>
+						<h4>완결웹툰</h4>
 					</div>
 					<div style="display: inline;">
 						<ul id="sideCategory" style="padding-left: 120px;">
@@ -149,37 +133,26 @@ background-color: red;
 				<table id="whole">
 					<tbody>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
+							<td><div id="area"><h4 align="center">test</h4></div></td>
 						</tr>
+						
 					</tbody>
 				</table>
 			</div>
