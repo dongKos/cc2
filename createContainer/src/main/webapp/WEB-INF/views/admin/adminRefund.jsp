@@ -58,59 +58,64 @@
                                     <table class="table table-borderless table-striped table-earning" id="refundTable">
                                         <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>order ID</th>
-                                                <th>name</th>
-                                                <th class="text-right">price</th>
-                                                <th class="text-right">quantity</th>
-                                                <th class="text-right">total</th>
+                                                <th>번호</th>
+                                                <th>등록일</th>
+                                                <th>사용자 ID</th>
+                                                <th class="text-right">가격</th>
+                                                <th class="text-right">상태</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        	<c:forEach var="r" items="${list }" end="${pi.limit }">
                                             <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>100398</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$999.00</td>
-                                                	
+                                                <td>${r.refundCode}</td>
+                                                <td>${r.requestDate }</td>
+                                                <td>${r.userId }</td>
+                                                <td class="text-right">${r.price }</td>
+                                                <c:if test="${ r.status eq 'N'}">
+                                               		 <td class="text-right">처리 대기</td>
+                                                </c:if>
+                                                <c:if test="${r.status eq Y }">
+                                			    	<td class="text-right">처리 완료</td>            
+                                                </c:if>
                                             </tr>
-                                            <tr>
-                                                <td>2018-09-28 01:22</td>
-                                                <td>100397</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$756.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>100396</td>
-                                                <td>Game Console Controller</td>
-                                                <td class="text-right">$22.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$44.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-26 23:06</td>
-                                                <td>100395</td>
-                                                <td>iPhone X 256Gb Black</td>
-                                                <td class="text-right">$1199.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$1199.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>100393</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="text-right">$10.00</td>
-                                                <td class="text-right">3</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                      
+                                            </c:forEach>
                                         </tbody>
                                     </table>
+                                    <!-- 페이징 영역 -->
+                                    <div id="pagingArea" align="center">
+						                <c:if test="${pi.currentPage <= 1 }">
+						                        [이전]&nbsp;
+						                </c:if>
+						                <c:if test="${pi.currentPage > 1 }">
+						                        <c:url var="blistBack" value="/showRefund.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage - 1 }"/>
+						                        </c:url>
+						                        <a href="${blistBack }">[이전]</a> &nbsp;
+						                </c:if>
+						                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						            <c:if test="${ p eq pi.currentPage }">
+						               <font color="red" size="4"><b>[${ p }]</b></font>
+						            </c:if>
+						            <c:if test="${ p ne pi.currentPage }">
+						               <c:url var="blistCheck" value="showRefund.ad">
+						                  <c:param name="currentPage" value="${ p }"/>
+						               </c:url>
+						               <a href="${ blistCheck }">${ p }</a>
+						            </c:if>
+						         </c:forEach> 
+						                
+						                <c:if test="${pi.currentPage >= pi.maxPage}">
+						                        &nbsp;[다음]
+						                </c:if>
+						                <c:if test="${pi.currentPage < pi.maxPage }">
+						                        <c:url var="blistEnd" value="showRefund.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage + 1 }"/>
+						                        </c:url>
+						                        <a href="${blistEnd }">&nbsp;[다음]</a>
+						                </c:if>
+						      	  </div>
+                                    
                                 </div>
                             </div>
                             

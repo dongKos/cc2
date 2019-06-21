@@ -21,7 +21,19 @@
 
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+     $(function(){
+        $(".portfolio-item").click(function(){
+           console.log("눌림");
+           location.href="illustPortpolioDetail.ill";
+        })
+        
+     })
+  </script>
 </head>
 
 <body id="page-top">
@@ -52,37 +64,37 @@
 
         <!-- Portfolio Item 1 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/cabin.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
         <!-- Portfolio Item 2 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal2">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/cake.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
         <!-- Portfolio Item 3 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal3">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/circus.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
@@ -99,37 +111,37 @@
 
         <!-- Portfolio Item 4 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal4">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/game.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
         <!-- Portfolio Item 5 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal5">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/safe.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
         <!-- Portfolio Item 6 -->
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal6">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/submarine.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
           </div>
         </div>
 
