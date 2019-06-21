@@ -2,7 +2,7 @@ package com.kh.cc.webnovel.model.vo;
 
 import java.sql.Date;
 
-public class Webnovel {
+public class Webnovel implements java.io.Serializable{
 	private int wid;
 	private String userId;
 	private Date wuploadDate;

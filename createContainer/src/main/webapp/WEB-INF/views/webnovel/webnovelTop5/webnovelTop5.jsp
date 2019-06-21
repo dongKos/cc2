@@ -32,8 +32,6 @@
 	<jsp:include page="../../main/common/serviceNavbar.jsp"/>
 	<!-- 웹소설 중단 네비바 -->
 	<jsp:include page="../common/middleNavbar.jsp"/>
-	<!-- 웹소설 장르 네비바 -->
-	<jsp:include page="../common/genreNavbar.jsp"/>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1"></div>

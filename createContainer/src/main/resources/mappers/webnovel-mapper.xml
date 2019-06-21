@@ -4,6 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Webnovel">
+	<!-- 웹소설 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.Webnovel" id="webnovelResultSet">
 		<id property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
@@ -19,12 +20,33 @@
 		<result property="ageGrade" column="AGE_GRADE"/>
 		<result property="genre" column="GENRE"/>
 	</resultMap>
+	<!-- 메인 썸네일 -->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
+		<id property="fid" column="FID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="spCode" column="SP_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
 	
+	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK
-		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{userId}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
+		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
 	</insert>
-	
+	<!-- 작품 메인 사진 등록 메소드 -->
+	<insert id="insertWnPhoto" parameterType="Webnovel">
+		INSERT INTO ATTACHMENT
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, 2, null, WID_SEQ.CURRVAL, #{userId})
+	</insert>
 	
 </mapper>
 

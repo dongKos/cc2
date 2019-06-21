@@ -1,9 +1,9 @@
 package com.kh.cc.webnovel.controller;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cc.common.CommonUtils;
+import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
+import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 
 @Controller
 public class WebnovelController {
@@ -26,48 +29,81 @@ public class WebnovelController {
 	
 	//웹소설 등록insertNovel.wn
 	@RequestMapping(value="insertNovel.wn")
-	public String insertNovel(Model model, Webnovel wn, HttpServletRequest request, HttpSession session,
-			@RequestParam(name="photo", required=false) MultipartFile photo) {
+	public String insertNovel(Model model, Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
+							@RequestParam(name="photo", required=false) MultipartFile photo) {
+		m = (Member) session.getAttribute("loginUser");
+		System.out.println("멤버? " + m);
 		
-		Member m = (Member) session.getAttribute("loginUser");
+		
 		String userId = m.getUserId();
-		
-		wn.setuserId(userId);
-		
+		wn.setuserId(userId); 
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		String filePath = root + "\\uploadFiles\\webnovelMain";
-		
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeFileName = CommonUtils.getRandomString();
-		ws.insertWebnovel(wn);
-		System.out.println("저장 경로 확인 : " + filePath + "\\" + changeFileName + ext);
+		
+		wp.setOriginName(originFileName);
+		wp.setChangeName(changeFileName + ext);
+		wp.setFilePath(filePath);
+		wp.setUserId(userId);
+		
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 			
-			ws.insertWebnovel(wn);
+			ws.insertWebnovel(wn, wp);
 			
 			return "webnovel/insertWebnovel/webnovelList";
-		} catch (IllegalStateException | IOException e) {
-			
-			
+		} catch (Exception e) {
 			new File(filePath + "\\" + changeFileName + ext).delete();
 			
 			model.addAttribute("msg", "작품 등록 실패!!");
 			
 			return "common/errorPage";
 		}
-		//System.out.println(wn);
-		//System.out.println("파일 경로 : " + filePath);
-		//System.out.println("ext : " + ext);
-		//System.out.println("changeFileName : " + changeFileName);
-		//System.out.println("userId : " + userId);
-		//System.out.println("웹소설 정보 : " + wn);
 		
-		//return "webnovel/insertWebnovel/webnovelList";
 	}
+
+//	@RequestMapping(value="selectWnList.wn")
+//	public String selectWnList(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, Member m) {
+//		m = (Member) session.getAttribute("loginUser");
+//		
+//		//ArrayList<HashMap<String, Object>> list;
+//		//HashMap<String,Object> hmap = new HashMap<String,Object>();
+//		
+//		int currentPage = 1;
+//		
+//		if(request.getParameter("currentPage") != null) {
+//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		}	
+//		
+//		//전체 목록 카운트
+//		int listCount = ws.selectListCount(m);
+//		
+//		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+//		
+//		
+//		return "";
+//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//웹소설 메인홈 이동
 	@RequestMapping("webnovelMain.wn")
 	public String webnovelMain() {
