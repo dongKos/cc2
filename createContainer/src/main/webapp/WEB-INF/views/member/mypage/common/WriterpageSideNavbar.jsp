@@ -49,7 +49,7 @@
 </head>
 <body>
 	<div class="profile">
-		<table border='1' bordercolor="lightgray">
+		<table>
 			<tr>
 				<td><img src="${contextPath}/resources/images/icon/avatar-06.jpg"></td>
 				<td>김동환님</td>
@@ -66,38 +66,43 @@
 	<div id="menus">
 		<ul>
 			<li id="menuTitle">작가페이지</li>
-			<li><button class="btn btn-primary" onclick="gointerestWt();">my 웹툰</button></li>
-         	<li><button class="btn btn-primary" onclick="gointerestWa()">my 소설</button></li>
-			<li><button class="btn btn-primary" onclick="goCreditPage();">정산 관리</button></li>
-			<li><button class="btn btn-primary" onclick="goInfoPage();">후원 신청</button></li>
-			<li><button class="btn btn-primary" onclick="goIllustAf()">작가 프로필</button></li>
-			<li><button class="btn btn-primary" onclick="goQuestion();">유료 작품 신청</button></li>
-			<li><button class="btn btn-primary" onclick="goResign()">일러스트 요청 목록</button></li>
-			<li><button class="btn btn-primary" onclick="goResign()">휴재 내역</button></li>
+			<li><button class="btn btn-primary" onclick="goWriteMyWt();">My 웹툰</button></li>
+            <li><button class="btn btn-primary" onclick="goWriteMyNo()">My 웹소설</button></li>
+         	<li><button class="btn btn-primary" onclick="goAdministration();">정산 관리</button></li>
+         	<li><button class="btn btn-primary" onclick="goSupport();">후원 신청</button></li>
+			<li><button class="btn btn-primary" onclick="gowriterProfile()">작가 프로필</button></li>
+			<li><button class="btn btn-primary" onclick="goReqPremium();">유료 작품 신청</button></li>
+			<li><button class="btn btn-primary" onclick="goReqIllust()">일러스트 요청 목록</button></li>
+			<li><button class="btn btn-primary" onclick="goRest()">휴재 내역</button></li>
 		</ul>
 	</div>
 	<script>
-		function goCreditPage(){
-			location.href="mypgCredit.mg"
+		function gowriterProfile(){
+			location.href="writerInfoPass.mg"
 		}
-		function goInfoPage(){
-			location.href="mypgInfoPass.mg"
+		function goReqPremium(){
+			location.href="writerReqPremium.mg"
 		}
-		function gointerestWt(){
-	        location.href="mypgIterestWt.mg";
+		function goReqIllust(){
+			location.href="writerReqIllust.mg"
+		}
+		function goRest(){
+			location.href="writerRest.mg"
+		}
+		function goWriteMyWt(){
+	        location.href="writeWtFree.mg"
 	    }
-	    function gointerestWa(){
-	       	location.href="mypgInterestWa.mg";
+	    function goWriteMyNo(){
+	        location.href="writeWnoFree.mg"
 	    }
-	    function goIllustAf(){
-	        location.href="mypgIllustAf.mg";
+	    function goAdministration(){
+	        location.href="Administration.mg"
 	    }
-	    function goQuestion(){
-	        location.href="mypgQue.mg";
+	    function goSupport(){
+	        location.href="Support.mg"
 	    }
-	    function goResign(){
-	        location.href="mypgResign.mg";
-	    }
+
+		
 
 	</script>
 </body>

@@ -18,38 +18,38 @@
 		height:60px !important;
 	}
 	.navbar{
-		background:#CCCDFF;
+		background:#9ED7F8;
 		height:60px !important;
 	}
 	.navbar-nav{
 		margin-top:5px;
 		font-size:15px;
-		background:#CCCDFF;
+		background:#9ED7F8;
 	}
 	.navbar-header{
-		background:#CCCDFF;
+		background:#9ED7F8;
 	}
 	.navbar-nav li>a{
 		color:white !important;
 	}
 	.navbar-nav li>a:hover{
 		color:gray !important;
-		background: linear-gradient( to bottom, transparent, #B3B4FC );
+		background: linear-gradient( to bottom, transparent, #84CEFA  );
 		border-radius:5px;
 	}
 	.navbar-collapse {
-	    background: #CCCDFF;
+	    background: #9ED7F8;
 	    padding-right:20px !important;
 	}
 	.navbar-toggle{
 		margin-top:13px;
 	}
 	.navbar-default .navbar-toggle {
-		background-color:#CCCDFF !important;
+		background-color:#9ED7F8 !important;
 	    border-color: white;
 	}
 	.navbar-toggle:hover {
-    	background-color: #B3B4FC !important;
+    	background-color: #84CEFA  !important;
 	}
 	.icon-bar{
 		background-color:gray !important;

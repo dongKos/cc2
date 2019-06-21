@@ -49,7 +49,7 @@
 </head>
 <body>
 	<div class="profile">
-		<table border='1' bordercolor="lightgray">
+		<table>
 			<tr>
 				<td><img src="${contextPath}/resources/images/icon/avatar-06.jpg"></td>
 				<td>김동환님</td>
