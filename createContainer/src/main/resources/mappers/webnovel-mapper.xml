@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Webnovel">
+	<resultMap type="com.kh.cc.webnovel.model.vo.Webnovel" id="webnovelResultSet">
+		<id property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="wuploadDate" column="WUPLOAD_DATE"/>
+		<result property="wTitle" column="WTITLE"/>
+		<result property="wIntro" column="WINTRO"/>
+		<result property="vCount" column="VCOUNT"/>
+		<result property="wCycle" column="WCYCLE"/>
+		<result property="gradeType" column="GRADE_TYPE"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="workStatus" column="WORK_STATUS"/>
+		<result property="workDate" column="WORK_DATE"/>
+		<result property="ageGrade" column="AGE_GRADE"/>
+		<result property="genre" column="GENRE"/>
+	</resultMap>
+	
+	<insert id="insertWebnovel" parameterType="Webnovel">
+		INSERT INTO WORK
+		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{userId}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

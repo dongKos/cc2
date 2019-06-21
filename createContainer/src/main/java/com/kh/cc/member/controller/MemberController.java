@@ -33,7 +33,7 @@ public class MemberController {
 			
 			
 			session.setAttribute("loginUser", loginUser);
-			
+	
 			return "redirect:index.jsp";
 		} catch (LoginException e) {
 			model.addAttribute("msg", e.getMessage());
@@ -49,7 +49,7 @@ public class MemberController {
 		
 		return "redirect:index.jsp";
 	}
-	//회원가입 정보 받는곳
+	//회원가입 메소드
 	@RequestMapping("insertMember.me")
 	public String insertMember(Member m, Model model) {
 		
