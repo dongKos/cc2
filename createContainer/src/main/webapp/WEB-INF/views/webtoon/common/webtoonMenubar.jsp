@@ -1,36 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
-#menubar {
-	
-	list-style: none;
-	text-align:center;
+.middleNav{
+	margin-top:60px;
+	text-align: center;
+	border-bottom:1px solid #E0E0E0;
 }
-
-#menubar li {
-	display:inline-block;
-	padding-left: 90px;
+.middleMenu{
+	margin:0 auto;
+}
+.middleItem{
+	height:50px;
+	width:130px;
+	font-weight:bold;
+	font-size:15px;
+	color:gray;
+}
+.middleItem:hover{
+	cursor:pointer;
+	color:#84CEFA;
+}
+.line{
+	font-size:25px;
+	color:#D5D5D5;
+	margin-top:10px;
 }
 </style>
-
-
 </head>
-
 <body>
-	<hr align="center" style="width:70%;">
-	<ul id="menubar">
-		<li><a href="webtoonHome.wt">홈</a></li>
-		<li><a href="webtoonMain.wt">웹툰</a></li>
-		<li><a href="webtoonTop5.wt">TOP5</a></li>
-		<li><a href="webtoonChallenge.wt">도전웹툰</a></li>
-		<li><a href="webtoonMypage.wt">마이페이지</a></li>
-	</ul>
-	<hr align="center" style="width:70%;">
+	<div class="middleNav">
+		<table class="middleMenu">
+			<tr>
+				<td class="middleItem" onClick="location.href='webtoonHome.wt'">홈</td>
+				<td class="middleItem" onClick="location.href='webtoonMain.wt'">웹툰</td>
+				<td class="middleItem" onClick="location.href='webtoonTop5.wt'">TOP5</td>
+				<td class="middleItem" onClick="location.href='webtoonChallenge.wt'">도전!!</td>
+				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
+				<td class="line">&#x2758;</td>
+				<td class="middleItem" onClick="location.href='insertWt.wt'">작품 올리기</td>
+			</tr>
+		</table>
+	</div>
 </body>
 </html>

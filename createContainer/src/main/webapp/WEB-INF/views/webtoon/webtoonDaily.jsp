@@ -93,11 +93,26 @@ table td {
 #middleTopCategory div {
 	display: inline;
 }
-#todayWebtoon{
-background-color: red;
+
+#area {
+	background-color: red;
+	width: 60px;
+	height: 80px;
+	margin-right: 10px;
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+#todayWebtoon {
+	background-color: red;
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
+}
+
+#day {
+	display: inline-block;
+	margin-right: 20px;
 }
 </style>
 </head>
@@ -114,7 +129,7 @@ background-color: red;
 			<div class="col-sm-6 content">
 				<div class="new">
 					<table id="new">
-						<h3>오늘의 인기 만화</h3>
+						<h3>신규웹툰</h3>
 						<tbody>
 							<tr>
 								<td><img src="${contextPath}/resources/images/noimg.png"
@@ -135,7 +150,7 @@ background-color: red;
 				<hr>
 				<div id="middleTopCategory">
 					<div style="display: inline; margin-top: 0px;">
-						<h4>추천 도전 만화</h4>
+						<h4>요일별 전체 웹툰</h4>
 					</div>
 					<div style="display: inline;">
 						<ul id="sideCategory" style="padding-left: 120px;">
@@ -146,42 +161,87 @@ background-color: red;
 					</div>
 				</div>
 				<hr>
-				<table id="whole">
-					<tbody>
-						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-						</tr>
-						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-						</tr>
-						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-						</tr>
-						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-						</tr>
-					</tbody>
-				</table>
+
+				<div id="dayText" style="display: inline;">
+					<h3>월&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						금&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						토&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일</h3>
+				</div>
+				<hr>
+
+				<div id="mondayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="tuesdayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="wednesdayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="thursdayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="fridayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="saturdayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
+				<div id="sundayArea" style="display: inline-block;">
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+					<div id="area">test</div>
+				</div>
+
 			</div>
 
 			<div class="col-sm-2 sidenav">
@@ -218,6 +278,21 @@ background-color: red;
 
 		</div>
 	</div>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 </body>
 </html>
