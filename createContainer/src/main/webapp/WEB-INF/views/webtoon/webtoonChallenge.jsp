@@ -64,49 +64,85 @@ table td {
 	height: 30%
 }
 
-#whole td{
-	padding-bottom:30px;
-	padding-right:5px;
+#whole td {
+	padding-bottom: 30px;
+	padding-right: 5px;
+}
+
+#challengeArea {
+	background-color: red;
+	width: 80%;
+	height: 170px;
+	margin: 0 auto;
+}
+
+#event {
+	background-color: red;
+	width: 80%;
+	height: 200px;
+	margin: 0 auto;
+}
+
+#notice {
+	background-color: red;
+	width: 80%;
+	height: 150px;
+	margin: 0 auto;
+}
+
+#middleTopCategory div {
+	display: inline;
+}
+#todayWebtoon{
+background-color: red;
+	width: 80%;
+	height: 150px;
+	margin: 0 auto;
 }
 </style>
 </head>
 <body style="margin-top: 3.5%;">
-	<%-- <jsp:include page='../common/navbar.jsp'/>
-	<jsp:include page='common/webtoonNavbar.jsp'/>
-	<jsp:include page='common/webtoonCategoryNavbar.jsp'/> --%>
+
+	<!-- 서비스 상단 네비바 -->
+	<jsp:include page="../main/common/serviceNavbar.jsp" />
+	<jsp:include page="common/webtoonMenubar.jsp" />
+	<jsp:include page="common/djcNavbar.jsp" />
+	<jsp:include page="common/genreNavbar.jsp" />
+	<br>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-1"></div>
-			<div class="col-sm-9 content">
-				<jsp:include page="common/webtoonMenubar.jsp" />
+			<div class="col-sm-2"></div>
+			<div class="col-sm-6 content">
 				<div class="new">
 					<table id="new">
 						<h3>오늘의 인기 만화</h3>
 						<tbody>
 							<tr>
 								<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+									style="width: 100%;"></td>
 								<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+									style="width: 100%;"></td>
 								<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+									style="width: 100%;"></td>
 								<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+									style="width: 100%;"></td>
 								<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+									style="width: 100%;"></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				
+
 				<hr>
-				<div>
-					<div style="display: inline-block;"><h3>추천 도전 만화</h3></div>
-					<div style="display: inline-block; ">
-						<ul id="sideCategory" style="padding-left: 149px;">
-						<li><a href="#">조회수</a></li>
-						<li><a href="#">인기순</a></li>
-						<li><a href="#">별점순</a></li>
+				<div id="middleTopCategory">
+					<div style="display: inline; margin-top: 0px;">
+						<h4>추천 도전 만화</h4>
+					</div>
+					<div style="display: inline;">
+						<ul id="sideCategory" style="padding-left: 120px;">
+							<li><a href="#">조회수</a></li>
+							<li><a href="#">인기순</a></li>
+							<li><a href="#">별점순</a></li>
 						</ul>
 					</div>
 				</div>
@@ -149,12 +185,40 @@ table td {
 				</table>
 			</div>
 
-			<%-- <div class="col-sm-3 sidenav">
-				<jsp:include page="common/webtoonSideNavbar.jsp" />
-			</div> --%>
+			<div class="col-sm-2 sidenav">
+				<h2>베스트도전만화</h2>
+				<div id="challengeArea">
+					<h3>도전만화 이미지</h3>
+				</div>
+				<br> <br> <br> <br>
+				<div id="event">
+					<br>
+					<h4 align="center">이벤트</h4>
+				</div>
+				<br> <br> <br> <br>
+				<div id="todayWebtoon">
+					<br>
+					<h4 align="center">오늘 업데이트 된 웹툰</h4>
+				</div>
+				<br> <br> <br> <br>
+				<div id="notice">
+					<br>
+					<h4 align="center">공지사항</h4>
+					<ul>
+						<li><a herf="#">공지사항1</a></li>
+						<li><a herf="#">공지사항1</a></li>
+						<li><a herf="#">공지사항1</a></li>
+						<li><a herf="#">공지사항1</a></li>
+					</ul>
+				</div>
+				<br> <br>
+				<h4>
+					<a href="#">만화FAQ</a>
+				</h4>
+			</div>
 
 		</div>
 	</div>
-	<%-- <jsp:include page='../common/footer.jsp' /> --%>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>

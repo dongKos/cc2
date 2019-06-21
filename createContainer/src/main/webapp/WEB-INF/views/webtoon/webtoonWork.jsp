@@ -93,12 +93,41 @@ table td {
 #middleTopCategory div {
 	display: inline;
 }
-#todayWebtoon{
-background-color: red;
+
+#todayWebtoon {
+	background-color: red;
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
 }
+
+#workMainImg {
+	background-color: red;
+	width: 35%;
+	margin-left: 70px;
+	height: 120px;
+	margin-top: 10px;
+}
+
+.workRoundImg {
+	background-color: red;
+	width: 110px;
+	height: 80px;
+	padding-left: 10px;
+}
+
+#new {
+	padding-left: 10px;
+}
+
+.new-content {
+	display: table-cell;
+	padding-top:10px;
+}
+#workSubMenu{
+	padding-left:10px;
+}
+
 </style>
 </head>
 <body style="margin-top: 3.5%;">
@@ -106,78 +135,73 @@ background-color: red;
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
+	<jsp:include page="common/djcNavbar.jsp" />
 	<br>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-6 content">
 				<div class="new">
-					<table id="new">
-						<h3>Top5</h3>
-						<tbody>
-							<tr>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-							</tr>
-						</tbody>
-					</table>
+					<div id="workMainImg" class="new-content">
+						<h4 align="center">test</h4>
+					</div>
+					<div id="workSubMenu" class="new-content">
+						<h3 style="display: inline-block;">작품명</h3>
+						<h4 style="display: inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;작가명</h4>
+
+						<p>
+							솔직 담백 최강의 개그 만화 <br>인트로인트로인트로인트로
+						</p>
+						<button type="button" class="btn btn-primary btn-sm">관심웹툰</button>
+						<button type="button" class="btn btn-primary btn-sm">첫화보기</button>
+						<button type="button" class="btn btn-primary btn-sm">다른작품보기</button>
+					</div>
 				</div>
 
 				<hr>
-				<div id="middleTopCategory">
-					<div style="display: inline; margin-top: 0px;">
-						<h4>전체</h4>
-					</div>
-					<div style="display: inline;">
-						<ul id="sideCategory" style="padding-left: 120px;">
-							<li><a href="#">조회수</a></li>
-							<li><a href="#">인기순</a></li>
-							<li><a href="#">별점순</a></li>
-						</ul>
-					</div>
-				</div>
-				<hr>
+
+
 				<table id="whole">
 					<tbody>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<div>
+								<div class="workRoundImg" style="display:inline-block">
+									<h4>test</h4>
+								</div>
+								<h4 style="display:inline-block; margin-bottom: 5px;">&nbsp;&nbsp;&nbsp;
+								1 화&nbsp;&nbsp;&nbsp;&nbsp;
+								나도웹툰작가할랭&nbsp;&nbsp;
+								별점&nbsp;&nbsp;
+								2019.05.23</h4>
+								<hr>
+							</div>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<div>
+								<div class="workRoundImg" style="display:inline-block">
+									<h4>test</h4>
+								</div>
+								<h4 style="display:inline-block; margin-bottom: 5px;">&nbsp;&nbsp;&nbsp;
+								2화&nbsp;&nbsp;&nbsp;&nbsp;
+								나도웹툰작가할랭&nbsp;&nbsp;
+								별점&nbsp;&nbsp;
+								2019.05.23</h4>
+								<hr>
+							</div>
 						</tr>
 						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-						</tr>
-						<tr>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
-							<td><img src="${contextPath}/resources/images/noimg.png"
-								style="width: 100%;"></td>
+							<div>
+								<div class="workRoundImg" style="display:inline-block">
+									<h4>test</h4>
+								</div>
+								<h4 style="display:inline-block; margin-bottom: 5px;">&nbsp;&nbsp;&nbsp;
+								3 화&nbsp;&nbsp;&nbsp;&nbsp;
+								나도웹툰작가할랭&nbsp;&nbsp;
+								별점&nbsp;&nbsp;
+								2019.05.23</h4>
+								<hr>
+							</div>
 						</tr>
 					</tbody>
 				</table>
@@ -233,5 +257,15 @@ background-color: red;
 	<br>
 	<br>
 	<br>
+	<script>
+		
+			$(function(){
+				$(".workRoundImg").click(function(){
+					location.href="webtoonWorkRound.wt";
+				//alert("hello");
+				});
+			});
+	
+	</script>
 </body>
 </html>
