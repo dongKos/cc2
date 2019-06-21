@@ -22,13 +22,13 @@
 <body style="margin-top: 3.5%;">
 
 	
-	<jsp:include page="common/mypagebanner.jsp"/>
+	<jsp:include page="common/writerbanner.jsp"/>
   
 <div class="container">
   <div class="row">
   <jsp:include page="common/mypageNavbar.jsp"/>
     <div class="col-sm-3">
-  	 	<jsp:include page="common/mypageSideNavbar.jsp"/>
+  	 	<jsp:include page="common/WriterpageSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
       <div class="point" style="text-align:center;">
@@ -36,11 +36,10 @@
 					
   					<br>
   					<div style="width:50%; margin:0 auto; text-align:center;">
-  					<form action="mypgInfo.mg" method="post">
-  					<input type="text" id="userId" name="userId" style="display:none;" value="${ sessionScope.loginUser.userId }">
-  					<input type="password" class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호 입력">
+  					<form>
+  					<input type="password" class="form-control" id="pwd" placeholder="비밀번호 입력">
   					<br>
-  					<button type="submit" class="btn btn-info">확인</button>
+  					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">확인</button>
   					</form>
   					</div>
 				</div>
@@ -52,7 +51,7 @@
 </div>
 <script>
 	function infoPassConfirm() {
-		location.href="mypgInfo.mg";
+		location.href="writerInfo.mg";
 	}
 </script>
 </body>

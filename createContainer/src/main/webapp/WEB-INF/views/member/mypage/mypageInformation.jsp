@@ -38,37 +38,37 @@
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">아이디:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id="userId" name="userId" placeholder="dd" readonly value="${ sessionScope.loginUser.userId }">
     					</div>
   					</div> 
   					<div class="form-group">
-    					<label class="control-label col-sm-2" for="userId">닉네임:</label>
+    					<label class="control-label col-sm-2" for="userName">이름:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id="userName" name="userName" placeholder="dd" readonly value="${ sessionScope.loginUser.userName }">
     					</div>
-  					</div> 
+  					</div>
   					<div class="form-group">
-    					<label class="control-label col-sm-2" for="userId">이름:</label>
+    					<label class="control-label col-sm-2" for="nickName">닉네임:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id=nickName name="nickName" placeholder="사용할 닉네임을 입력하세요." value="${ sessionScope.loginUser.nickName }">
     					</div>
-  					</div> 
+  					</div>  
   					<div class="form-group">
-    					<label class="control-label col-sm-2" for="userId">전화번호:</label>
+    					<label class="control-label col-sm-2" for="phone">전화번호:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id="phone" name="phone" placeholder="dd">
     					</div>
   					</div> 
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">이메일:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id="userId" name="nickName" placeholder="dd">
     					</div>
   					</div> 
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">생년월일:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" placeholder="dd">
+      						<input type="text" class="form-control" id="userId" name="nickName" placeholder="dd">
     					</div>
   					</div> 
   					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">수정</button>
