@@ -39,10 +39,10 @@
 				<td class="middleItem" onClick="location.href='webnovelMain.wn'">홈</td>
 				<td class="middleItem" onClick="location.href='webnovelCategory.wn'">웹소설</td>
 				<td class="middleItem" onClick="location.href='webnovelTop5.wn'">TOP5</td>
-				<td class="middleItem" onClick="location.href=''">도전!!</td>
+				<td class="middleItem" onClick="location.href='webnovelChallenge.wn'">도전!!</td>
 				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
 				<td class="line">&#x2758;</td>
-				<td class="middleItem" onClick="location.href='insertWn.wn'">작품 올리기</td>
+				<td class="middleItem" onClick="location.href='webnovelList.wn'">작품 올리기</td>
 			</tr>
 		</table>
 	</div>
