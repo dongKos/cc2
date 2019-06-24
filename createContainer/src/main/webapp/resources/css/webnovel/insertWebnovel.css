@@ -73,7 +73,7 @@ input[type=radio]:checked + label:before{
 	background-color:#CFEEF9;
 	color:skyblue;
 }
-.insertWnFrom{
+.insertWnForm{
 	background-color:#FBFBFB;
 	margin-top:30px;
 	min-width:670px;

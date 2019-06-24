@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button class="wnrBtn" type="button" onclick="">신규 회차 등록</button>
+								<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid}">신규 회차 등록</button>
 								<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid}">작품 정보 수정</button>
 								<button class="wnrBtn" type="button">휴재 신청</button>
 							</td>

@@ -22,7 +22,7 @@
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 			<div class="col-sm-10 col-md-10 col-xs-10">
 				<form action="updateNovel.wn" method="post" enctype="multipart/form-data">
-					<div class="insertWnFrom">
+					<div class="insertWnForm">
 						<div class="title">
 							<div class="webnovelTitle">새 작품 등록</div>
 						</div>

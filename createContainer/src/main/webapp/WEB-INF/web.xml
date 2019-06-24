@@ -86,7 +86,7 @@
    </servlet-mapping>
    
    <!-- 쪽지 관련 서블릿 요청주소 -->
-   <servlet>
+   <!-- <servlet>
       <servlet-name>message</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
@@ -97,10 +97,10 @@
    <servlet-mapping>
       <servlet-name>message</servlet-name>
       <url-pattern>*.msg</url-pattern>
-   </servlet-mapping>
+   </servlet-mapping> -->
    
    <!-- 후원 관련 서블릿 요청주소 -->
-   <servlet>
+  <!--  <servlet>
       <servlet-name>support</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
@@ -112,7 +112,7 @@
       <servlet-name>support</servlet-name>
       <url-pattern>*.spt</url-pattern>
    </servlet-mapping>
-   
+    -->
    	<!-- 웹툰 관련 서블릿 요청주소 -->
 	<servlet>
 		<servlet-name>webtoon</servlet-name>

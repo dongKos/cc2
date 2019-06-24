@@ -8,6 +8,7 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelRound;
 
 public interface WebnovelDao {
 	//작품등록 메소드
@@ -19,11 +20,15 @@ public interface WebnovelDao {
 	//웹소설 메인 목록 리스트
 	ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 	//웹소설 수정폼 이동
-	Webnovel selectWnUpdateOne(SqlSessionTemplate sqlSession, int wid);
+	Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid);
 	//웹소설 메인 수정
 	int updateWebnovel(SqlSessionTemplate sqlSession, Webnovel wn);
 	//웹소설 메인 사진 수정
 	int updateWnPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp);
+	//웹소설 회차 등록
+	int insertWnRound(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//웹소설 사진 등록
+	int insertWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp);
 
 
 }
