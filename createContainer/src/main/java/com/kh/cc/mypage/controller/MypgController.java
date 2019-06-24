@@ -1,5 +1,8 @@
 package com.kh.cc.mypage.controller;
 
+import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +10,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.cc.common.CommonUtils;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
+import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -219,12 +227,45 @@ public class MypgController {
               return "member/mypage/writeSupport";
            }
            
+          
+           //작가페이지 - 작가프로필설정
+           @RequestMapping(value="insertWriter.mg")
+       	public String insertNovel(Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
+       			@RequestParam(name="photo", required=false) MultipartFile photo) {
+       		m = (Member) session.getAttribute("loginUser");
+       		String userId = m.getUserId();
+       		wn.setUserId(userId); 
+       		
+       		String root = request.getSession().getServletContext().getRealPath("resources");
+       		
+       		String filePath = root + "\\uploadFiles\\webnovelMain";
+       		String originFileName = photo.getOriginalFilename();
+       		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+       		String changeFileName = CommonUtils.getRandomString();
+       		
+       		wp.setOriginName(originFileName);
+       		wp.setChangeName(changeFileName + ext);
+       		wp.setFilePath(filePath);
+       		wp.setUserId(userId);
+       		
+       		try {
+       			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+       			
+       			ws.insertWebnovel(wn, wp);
+       			
+       			return "webnovel/insertWebnovel/webnovelList";
+       		} catch (Exception e) {
+       			new File(filePath + "\\" + changeFileName + ext).delete();
+       			
+       			model.addAttribute("msg", "작품 등록 실패!!");
+       			
+       			return "common/errorPage";
+       		}
+       		
+       	}
            
-  /*
-   * //공지사항
-   * 
-   * @RequestMapping("Notice.mg") public String showNoticeList() { return
-   * "cs/notice"; }
-   */
+           
+           
+ 
 }
 

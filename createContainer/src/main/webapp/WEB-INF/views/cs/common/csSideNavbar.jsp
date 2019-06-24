@@ -20,7 +20,9 @@
 		align:center;
 	}
 	#menus {
-		border: 1px solid lightgray;
+		
+		width:200px;
+		height:20px;
 	}
 	#menus ul {
 		padding: 5px;
@@ -51,22 +53,22 @@
 	
 	<div id="menus">
 		<ul>
-			<li id="menuTitle">마이페이지</li>
+			
 			<li><button class="btn btn-primary" onclick="goNotice();">공지사항</button></li>
-         	<li><button class="btn btn-primary" onclick="gointerestWa()">FAQ</button></li>
-			<li><button class="btn btn-primary" onclick="goCreditPage();">사이트 이용안내</button></li>
+         	<li><button class="btn btn-primary" onclick="goFaq();">FAQ</button></li>
+			<li><button class="btn btn-primary" onclick="goGuide();">사이트 이용안내</button></li>
 		
 		</ul>
 	</div>
 	<script>
 		function goNotice(){
-			location.href="mypgCredit.mg"
+			location.href="NoticeList.mg"
 		}
-		function goInfoPage(){
-			location.href="mypgInfoPass.mg"
+		function goFaq(){
+			location.href="Faq.mg"
 		}
-		function gointerestWt(){
-	        location.href="mypgIterestWt.mg";
+		function goGuide(){
+	        location.href="Guide.mg";
 	    }
 	   
 	</script>

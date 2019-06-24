@@ -35,7 +35,14 @@
   					</ul>
       <div class="point" style="width:80%; margin:0 auto;">
   					<br>
-  					<form class="form-horizontal" action="/action_page.php" style="margin-top:50px;">
+  					
+  					
+  					
+  					<form action="insertNovel.wn" class="form-horizontal" method="post" style="margin-top:50px;" enctype="multipart/form-data">
+  					
+  					
+  					
+  					
   					<div class="form-group">
     					<img src="${contextPath}/resources/images/icon/avatar-06.jpg">
     					<div class="col-sm-12" style="text-align:center;">
