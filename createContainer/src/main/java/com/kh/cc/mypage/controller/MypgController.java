@@ -65,6 +65,14 @@ public class MypgController {
 				return "common/errorPage";
 			}
 		}
+	//개인정보 수정하는 기능
+		@RequestMapping("memberUpdate.mg")
+		public String memberUpdate(Member m, Model model, HttpSession session) {
+			int result = 0;
+			
+			return "common/errorPage";
+		}
+	
 	//내 문의 내역 페이지 이동
 		@RequestMapping("mypgQue.mg")
 		public String showQue() {
