@@ -13,6 +13,8 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <style>
 .col-sm-9 {
 	
@@ -80,35 +82,179 @@
 	border-radius: 50%;
 	background: white;
 }
+
+#thumbnailArea {
+	border: 0.5px solid grey;
+	width: 50px;
+	height: 50px;
+}
+
+.col-sm-8 {
+	border: 0.5px solid grey;
+	padding-top: 20px;
+	padding-bottom: 30px;
+	margin-bottom: 40px;
+}
+
 </style>
 </head>
 <body>
-	<div class="col-sm-1"></div>
-	<div class="col-sm-9">
-		<form action="">
+	<jsp:include page="../main/common/serviceNavbar.jsp" />
+	<jsp:include page="common/webtoonMenubar.jsp" />
+	<br>
+	<br>
+	<br>
+	<div class="col-sm-2"></div>
+	<div class="col-sm-8">
+	<!-- insertWebtoon.wt -->
+		<form action="insertWebtoon.wt" method="post" enctype="multipart/form-data">
 			<table class="insert">
 				<tr>
 					<td>
 						<h4>
-							작품 제목&nbsp;&nbsp;&nbsp;<input type="text">
-						</h4>
+							작품 제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
+								name="wTitle" style="width: 530px;">
+						</h4> <br>
+					</td>
+				</tr>
+
+				<tr>
+					<td>
+						<h4>
+							장르&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG1">현대</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG2">개그</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG3">판타지</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG4">액션</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG5">순정</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG6">공포</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="genre"
+									value="GR_CTG7">스포츠</label>
+							</div>
+						</h4> <br>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						<!-- <label class="container" >에피소드
-						<input type="radio" name="radio"> <span class="checkmark"></span> -->
-						<label class="container">One <input type="radio"
-							checked="checked" name="radio"> <span class="checkmark"></span>
-					</label> <label class="container">Two <input type="radio"
-							name="radio"> <span class="checkmark"></span>
-					</label> </label>
+						<h4>
+							줄거리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="wIntro"></textarea>
+						</h4> <br>
 					</td>
 				</tr>
-
+				<tr>
+					<td>
+						<h4>
+							연재주기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="MON">월요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="TUES">화요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="WED">수요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="THUR">목요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="FRI">금요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="SAT">토요일</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="wCycle" value="SUN">일요일</label>
+							</div>
+						</h4> <br>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>썸네일 이미지</h4>
+						<div class="thumbnailArea">
+							<img id="thumbnail">
+						</div> <br>
+					</td>
+					<td>
+						<div id="fileArea">
+							<input type="file" id="thumbInsert" name="photo"
+								onchange="loadImg(this, 1)">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<h4>
+							연령제한&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="ageGrade" value="T">전연령</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="ageGrade" value="T">15세</label>
+							</div>
+							<div class="checkbox-inline">
+								<label><input type="checkbox" name="ageGrade" value="AD">19세</label>
+							</div>
+						</h4>
+					</td>
+				</tr>
 			</table>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="reset" class="btn btn-primary btn-sm">취소하기</button>
+			&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="submit"  class="btn btn-primary btn-sm">등록하기</button>
 		</form>
 	</div>
-
+	<br>
+	<br>
+	<br>
+	<br>
+	<script>
+		$(function() {
+			/* $("#fileArea").hide(); */
+			
+			$("#thumbnail").click(function(){
+				$("#thumbInsert").click();
+			});
+		});
+		
+		function loadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(e){
+					switch(num){
+					case 1 :
+						$("#thumbnail").attr("src", e.target.result); break;
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
+	</script>
 </body>
 </html>

@@ -23,7 +23,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.kh.cc" />
+	<context:component-scan base-package="com.kh.cc.webtoon" />
 	<!-- @Transactional 어노테이션 붙은 클래스를 트랜젝션 처리 가능하도록 해주는 설정 -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 	
