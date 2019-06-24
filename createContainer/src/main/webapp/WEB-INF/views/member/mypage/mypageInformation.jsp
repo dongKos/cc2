@@ -34,7 +34,7 @@
   					</ul>
       <div class="point" style="width:80%; margin:0 auto;">
   					<br>
-  					<form class="form-horizontal" action="/action_page.php">
+  					<form class="form-horizontal" action="memberUpdate.mg" method="post">
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">아이디:</label>
     					<div class="col-sm-10">
@@ -56,19 +56,52 @@
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="phone">전화번호:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="phone" name="phone" placeholder="dd">
+      						<input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호를 입력 해 주세요." value="${ sessionScope.loginUser.phone }">
     					</div>
   					</div> 
   					<div class="form-group">
-    					<label class="control-label col-sm-2" for="userId">이메일:</label>
+    					<label class="control-label col-sm-2" for="email">이메일:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" name="nickName" placeholder="dd">
+      						<input type="text" class="form-control" id="email" name="email" placeholder="이메일을 입력 해 주세요." value="${ sessionScope.loginUser.email }">
     					</div>
   					</div> 
   					<div class="form-group">
-    					<label class="control-label col-sm-2" for="userId">생년월일:</label>
+    					<label class="control-label col-sm-2" for="birthday">생년월일:</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" id="userId" name="nickName" placeholder="dd">
+      						<table width="100%">
+      						<tr>
+								<td colspan=3>
+									<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 선택 해 주세요." readonly>
+								</td>
+							</tr>
+							<tr>
+							<td>&nbsp;</td>
+							</tr>
+      							<tr>
+								<td width="33%">
+									<select name="birthYear" id="birthYear">
+										<% for(int i = 2001; i >= 1920; i--) { %>
+										<option value=<%= i %>><%= i %>년</option>
+										<% } %>
+									</select>
+								</td>
+								<td>
+									<select name="birthMonth" id="birthMonth">
+										<% for(int i = 1; i <= 12; i++) { %>
+										<option value=<%= i %>><%= i %>월</option>
+										<% } %>
+									</select>
+								</td>
+								<td>
+									<select name="birthDay" id="birthDay">
+										<% for(int i = 1; i <= 31; i++) { %>
+										<option value=<%= i %>><%= i %>일</option>
+										<% } %>
+									</select>
+								</td>
+							</tr>
+							
+      						</table>
     					</div>
   					</div> 
   					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">수정</button>
@@ -80,5 +113,28 @@
     </div>
   </div>
 </div>
+<script>
+	$("#birthYear").change(function(){
+		var birthYear = $("#birthYear").children("option:selected").val();
+		var birthMonth = $("#birthMonth").children("option:selected").val();
+		var birthDay = $("#birthDay").children("option:selected").val();
+		
+		$("#birthday").attr("value", birthYear + "/" + birthMonth + "/" + birthDay);
+	})
+	$("#birthMonth").change(function(){
+		var birthYear = $("#birthYear").children("option:selected").val();
+		var birthMonth = $("#birthMonth").children("option:selected").val();
+		var birthDay = $("#birthDay").children("option:selected").val();
+		
+		$("#birthday").attr("value", birthYear + "/" + birthMonth + "/" + birthDay);
+	})
+	$("#birthDay").change(function(){
+		var birthYear = $("#birthYear").children("option:selected").val();
+		var birthMonth = $("#birthMonth").children("option:selected").val();
+		var birthDay = $("#birthDay").children("option:selected").val();
+		
+		$("#birthday").attr("value", birthYear + "/" + birthMonth + "/" + birthDay);
+	})
+</script>
 </body>
 </html>
