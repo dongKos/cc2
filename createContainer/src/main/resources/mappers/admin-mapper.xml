@@ -44,6 +44,11 @@
    		FROM REFUND
    		WHERE STATUS = #{str}
    </select>
+   <select id="selectRefundAjaxCount" parameterType="String" resultType="_int">
+   		SELECT COUNT(*)
+   		FROM REFUND
+   		WHERE STATUS = #{str}
+   </select>
 </mapper>
 
 

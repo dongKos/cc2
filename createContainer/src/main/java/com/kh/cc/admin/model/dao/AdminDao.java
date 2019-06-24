@@ -17,6 +17,8 @@ public interface AdminDao {
 	
 	int refundComplete(SqlSessionTemplate sqlSession, int refundCode);
 	
-	ArrayList<Refund> refundStatus(SqlSessionTemplate sqlSession, String statusVal);
+	ArrayList<Refund> refundStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi);
+
+	int getRefundAjaxCount(SqlSessionTemplate sqlSession, String statusVal);
 	
 }
