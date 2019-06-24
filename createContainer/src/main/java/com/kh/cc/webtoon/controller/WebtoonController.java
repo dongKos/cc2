@@ -123,7 +123,7 @@ public class WebtoonController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		String filePath = root + "\\uplaodFiles\\webtoonImg\\webtoonWork";
+		String filePath = root + "\\uplaodFiles\\webtoonImg\\webtoonMain";
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeFileName = CommonUtils.getRandomString();
@@ -140,11 +140,11 @@ public class WebtoonController {
 		 
 		
 		try {
-			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
-			
 			System.out.println("이거 잘 작동하나?? ");
 			
 			ws.insertWebtoon(wt, wp);
+			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+			
 			
 			return "webtoon/webtoonUpload";
 			
