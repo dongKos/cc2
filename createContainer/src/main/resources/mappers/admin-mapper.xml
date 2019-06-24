@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Refund">
+<mapper namespace="admin">
 <resultMap type="com.kh.cc.admin.model.vo.Refund" id="refundResultSet">
       <id property="refundCode" column="REFUND_CODE"/>            
       <result property="requestDate" column="REQUEST_DATE"/>   
@@ -14,14 +14,35 @@
       <result property="userId" column="USER_ID"/>
    </resultMap>
 
+	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REFUND   		
    </select>
+   <!-- 전체 환불 목록 조회 -->
    <select id="selectRefundList" resultMap="refundResultSet">
 		SELECT *
 		FROM REFUND   
 		ORDER BY REFUND_CODE DESC
+   </select>
+   <!-- 환불내역 상세조회 -->
+   <select id="selectOneRefund" parameterType="_int" resultMap="refundResultSet">
+   		SELECT *
+   		FROM REFUND
+   		WHERE REFUND_CODE = #{refundCode}
+   		
+   </select>
+   <!-- 환불 처리 -->
+   <update id="refundComplete" parameterType="_int">
+   		UPDATE REFUND
+   		SET STATUS = 'Y'
+   		WHERE REFUND_CODE = #{refundCode}
+   </update>
+   <!-- 환불 내역 조건검색(처리 대기 / 처리 완료) -->
+   <select id="refundStatus" parameterType="String" resultMap="refundResultSet">
+   		SELECT *
+   		FROM REFUND
+   		WHERE STATUS = #{str}
    </select>
 </mapper>
 

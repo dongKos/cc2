@@ -19,17 +19,35 @@ public class AdminServiceImpl implements AdminService{
 	private SqlSessionTemplate sqlSession;
 	@Autowired
 	private DataSourceTransactionManager transactionManager;
-
+	
 	
 	//전체 환불내역 게시글 수 조회 메소드
 	@Override
 	public int getRefundListCount() {
 		return ad.getRefundListCount(sqlSession);
 	}
-
+	
 	//전체 환불 내역 불러오는 메소드
 	@Override
 	public ArrayList<Refund> selectRefundList(AdminPageInfo pi) {
 		return ad.selectRefundList(sqlSession, pi);
+	}
+	
+	//환불내역 페이지 상세조회
+	@Override
+	public Refund selectOneRefund(int num) {
+		return ad.selectOneRefund(sqlSession, num);
+	}
+	
+	//환불 내역 처리 하는 메소드
+	@Override
+	public int refundComplte(int refundCode) {
+		return ad.refundComplete(sqlSession,refundCode);
+	}
+
+	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
+	@Override
+	public ArrayList<Refund> refundStatus(String statusVal) {
+		return ad.refundStatus(sqlSession, statusVal);
 	}
 }

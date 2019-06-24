@@ -12,6 +12,12 @@
  		location.href="showRefund.ad";
  	}
  	
+ 	function refundComplete(){
+ 		var refundCode = $("#refundComplete").val();
+ 		console.log(refundCode);
+ 		location.href="refundComplete.ad?refundCode=" + refundCode;
+ 	}
+ 	
  	$(function(){
  		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#refund").parent().children();
@@ -53,21 +59,26 @@
                                             <h3 class="text-center title-2">환불 신청 내역 상세보기</h3>
                                         </div>
                                         <hr>
-                                        <form action="" method="post" novalidate="novalidate">
+                                          <div class="form-group">
+                                                <label for="refundComplete" class="control-label mb-1">사용자 ID</label>
+                                                <input id="refundComplete" name="refundComplete" type="text" class="form-control" 
+                                                	value="${reqRefund.refundCode}">
+                                            </div>
+                                        
                                             <div class="form-group">
                                                 <label for="cc-payment" class="control-label mb-1">사용자 ID</label>
-                                                <input id="cc-pament" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false" value="일반 사용자 01">
+                                                <input id="cc-pament" name="cc-payment" type="text" class="form-control" 
+                                                	value="<c:out value='${reqRefund.userId}'/>">
                                             </div>
                                             <div class="form-group has-success">
                                                 <label for="cc-name" class="control-label mb-1">환불 금액</label>
-                                                <input id="cc-name" name="cc-name" type="text" class="form-control cc-name valid">
+                                                <input id="cc-name" name="cc-name" type="number" class="form-control cc-name valid" 
+                                                	value="<c:out value='${reqRefund.price }'/>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="cc-number" class="control-label mb-1">환불 사유</label>
-                                                <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" value="" data-val="true"
-                                                    data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number"
-                                                    autocomplete="cc-number">
-                                                <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
+                                                <input id="cc-number" name="cc-number" type="text" class="form-control cc-number identified visa" 
+                                                	value="<c:out value='${reqRefund.refundReason }'/>" >
                                             </div>
                                             <div>
                                             
@@ -76,13 +87,21 @@
                                             	   <button class="btn" onclick="goBack()">뒤로가기</button>
                                             	</div>
                                             	<div class="col-lg-6">
-                                            	   <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-                                                    <span id="payment-button-amount">환불처리</span>
-                                                   </button>
+                                            	<!-- 환불 처리된 건 -->
+                                            	   <c:if test="${reqRefund.status eq 'Y' }">
+	                                            	   <button class="btn btn-lg btn-info btn-block" onclick="refundComplete()" disabled>
+	                                                   		환불처리
+	                                                   </button>
+                                            	   </c:if>
+                                            	<!-- 환불 미처리 건 -->
+                                            	    <c:if test="${reqRefund.status eq 'N' }">
+	                                            	   <button class="btn btn-lg btn-info btn-block" onclick="refundComplete()">
+	                                                   		환불처리
+	                                                   </button>
+                                            	   </c:if>
                                             	</div>
                                             </div>
                                             </div>
-                                        </form>
                                     </div>
                             </div>
                             </div>

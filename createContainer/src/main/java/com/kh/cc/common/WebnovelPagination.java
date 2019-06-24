@@ -6,8 +6,8 @@ public class WebnovelPagination {
 	public static WebnovelPageInfo getPageInfo(int currentPage, int listCount) {
 		WebnovelPageInfo pi = null;
 		
-		int limit = 10;
-		int buttonCount = 10;
+		int limit = 5;
+		int buttonCount = 5;
 		int maxPage;
 		int startPage;
 		int endPage;
