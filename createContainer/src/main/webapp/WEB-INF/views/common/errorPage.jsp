@@ -8,5 +8,9 @@
 </head>
 <body>
 	<h1 align="center">${msg }</h1>
+	<script>
+			alert("${msg}");
+			location.href="index.jsp"
+	</script>
 </body>
 </html>

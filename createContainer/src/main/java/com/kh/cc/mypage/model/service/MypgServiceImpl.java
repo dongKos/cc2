@@ -33,4 +33,12 @@ public class MypgServiceImpl implements MypgService{
 		
 		return result;
 	}
+
+	@Override
+	public Member updateMember(Member m) {
+		Member upm;
+		
+		upm = md.updateMember(sqlSession, m);
+		return upm;
+	}
 }

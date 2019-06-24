@@ -68,43 +68,11 @@
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="birthday">생년월일:</label>
     					<div class="col-sm-10">
-      						<table width="100%">
-      						<tr>
-								<td colspan=3>
-									<input type="text" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 선택 해 주세요." readonly>
-								</td>
-							</tr>
-							<tr>
-							<td>&nbsp;</td>
-							</tr>
-      							<tr>
-								<td width="33%">
-									<select name="birthYear" id="birthYear">
-										<% for(int i = 2001; i >= 1920; i--) { %>
-										<option value=<%= i %>><%= i %>년</option>
-										<% } %>
-									</select>
-								</td>
-								<td>
-									<select name="birthMonth" id="birthMonth">
-										<% for(int i = 1; i <= 12; i++) { %>
-										<option value=<%= i %>><%= i %>월</option>
-										<% } %>
-									</select>
-								</td>
-								<td>
-									<select name="birthDay" id="birthDay">
-										<% for(int i = 1; i <= 31; i++) { %>
-										<option value=<%= i %>><%= i %>일</option>
-										<% } %>
-									</select>
-								</td>
-							</tr>
-							
-      						</table>
+      						
+									<input type="date" class="form-control" id="birthday" name="birthday" placeholder="생년월일을 선택 해 주세요." value="${ sessionScope.loginUser.birthday }">
     					</div>
   					</div> 
-  					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">수정</button>
+  					<button type="button" class="btn btn-info" id="modify">수정</button>
   					</form>
 				</div>
     </div>
@@ -113,6 +81,26 @@
     </div>
   </div>
 </div>
+<script>
+	$("#modify").click(function(){
+		var userId = $("#userId").val();
+		var nickName = $("#nickName").val();
+		var phone = $("#phone").val();
+		var email = $("#email").val();
+		var birthday = $("#birthday").val();
+		$.ajax({
+			url:'memberUpdate.mg',
+			type:'POST',
+			data:{userId:userId,nickName:nickName,phone:phone,email:email,birthday:birthday},
+			success:function(data) {
+					alert("수정이 완료 되었습니다. 다시 로그인 해 주세요.")
+					location.href = "${ contextPath }/mypgInfoPass.mg";
+			}, error:function(data) {
+				alert("수정실패");
+			}
+		})
+	})
+</script>
 <script>
 	$("#birthYear").change(function(){
 		var birthYear = $("#birthYear").children("option:selected").val();
