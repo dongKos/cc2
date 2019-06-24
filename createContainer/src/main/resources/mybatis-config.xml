@@ -9,11 +9,13 @@
   		<typeAlias type="com.kh.cc.member.model.vo.Member" alias="Member"/>
   		<typeAlias type="com.kh.cc.admin.model.vo.Refund" alias="Refund"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.Webnovel" alias="Webnovel"/>
+  		<typeAlias type="com.kh.cc.webtoon.model.vo.Webtoon" alias="Webtoon"/>
   	</typeAliases>
   	<mappers>
   		<mapper resource="mappers/refund-mapper.xml"/>
   		<mapper resource="mappers/member-mapper.xml"/>
   		<mapper resource="mappers/webnovel-mapper.xml"/>
+  		<mapper resource="mappers/webtoon-mapper.xml"/>
   	</mappers>
   
   </configuration>
