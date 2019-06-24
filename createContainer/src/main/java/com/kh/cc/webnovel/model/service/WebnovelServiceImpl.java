@@ -11,6 +11,7 @@ import com.kh.cc.webnovel.model.dao.WebnovelDao;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelRound;
 
 @Service
 public class WebnovelServiceImpl implements WebnovelService{
@@ -70,9 +71,27 @@ public class WebnovelServiceImpl implements WebnovelService{
 	}
 	//웹소설 수정폼 이동
 	@Override
-	public Webnovel selectWnUpdateOne(int wid) {
-		return wd.selectWnUpdateOne(sqlSession, wid);
+	public Webnovel selectWnOne(int wid) {
+		return wd.selectWnOne(sqlSession, wid);
+	}
+	//웹소설 회차 등록
+	@Override
+	public int insertWnRound(WebnovelRound wnr, WebnovelPhoto wp) {
+		int result = 0;
+		
+		int result1 = wd.insertWnRound(sqlSession, wnr);
+		int result2 = wd.insertWnrPhoto(sqlSession, wp);
+		System.out.println("작품 회차 사진 등록 성공? : " + result2);
+		
+//		if(result1 > 0 && result2 > 0) {
+//			result = 1;
+//		}else {
+//			result = 0;
+//		}
+		
+//		return result;
+		return result1;
 	}
 	
-
+	
 }

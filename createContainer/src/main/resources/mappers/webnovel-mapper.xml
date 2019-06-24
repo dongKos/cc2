@@ -67,7 +67,7 @@
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 작품 수정 정보 조회, 이동 -->
-	<select id="selectWnUpdateOne" parameterType="_int" resultMap="webnovelResultSet">
+	<select id="selectWntOne" parameterType="_int" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
@@ -89,6 +89,15 @@
 		    CHANGE_NAME = #{changeName}
 		WHERE FID = #{fid}
 	</update>
+	<!-- 작품 회차 등록 -->
+	<insert id="insertWnRound" parameterType="WebnovelRound">
+		INSERT INTO WORK_ROUND VALUES (WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 1, #{wid}, #{rContent})
+	</insert>
+	<!-- 작품 회차 사진 등록 메소드 -->
+	<insert id="insertWnrPhoto" parameterType="WebnovelPhoto">
+		INSERT INTO ATTACHMENT 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'sub', 0, null, 2, null, #{wid}, #{userId}) 
+	</insert>
 </mapper>
 
 

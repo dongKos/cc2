@@ -10,6 +10,7 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelRound;
 
 @Repository
 public class WebnovelDaoImpl implements WebnovelDao{
@@ -43,8 +44,8 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	}
 	//웹소설 수정폼 이동
 	@Override
-	public Webnovel selectWnUpdateOne(SqlSessionTemplate sqlSession, int wid) {
-		return sqlSession.selectOne("Webnovel.selectWnUpdateOne", wid);
+	public Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webnovel.selectWntOne", wid);
 	}
 	//웹소설 메인 수정
 	@Override
@@ -55,6 +56,20 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	@Override
 	public int updateWnPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp) {
 		return sqlSession.update("Webnovel.updateWnPhoto", wp);
+	}
+	//웹소설 회차 등록
+	@Override
+	public int insertWnRound(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.insert("Webnovel.insertWnRound", wnr);
+	}
+	//웹소설 회차 사진 등록
+	@Override
+	public int insertWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp) {
+		int result = sqlSession.insert("Webnovel.insertWnrPhoto", wp);
+		
+		System.out.println("회차 사진 dao : " + result);
+		
+		return result;
 	}
 	
 
