@@ -11,4 +11,10 @@ public interface AdminService {
 
 	int getRefundListCount();
 
+	Refund selectOneRefund(int num);
+
+	int refundComplte(int refundCode);
+
+	ArrayList<Refund> refundStatus(String statusVal);
+
 }

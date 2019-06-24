@@ -1,6 +1,8 @@
 package com.kh.cc.admin.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
@@ -46,10 +49,64 @@ public class AdminController {
 		return "admin/adminRefund";
 	}
 	
+	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
+	@RequestMapping("refundStatus.ad")
+	public ModelAndView refundStatus(String statusVal, ModelAndView mv) {
+		ArrayList<Refund> list = null;
+		
+		if(statusVal.equals("1")) {
+			//처리대기 목록 
+			list = as.refundStatus(statusVal);
+		}else {
+			//처리완료 목록
+			list = as.refundStatus(statusVal);
+		}
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
+ 		for(int i = 0; i < list.size(); i++) {
+ 			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			
+			String rDate = fmt.format(list.get(i).getRequestDate());
+			String cDate = fmt.format(list.get(i).getCompleteDate());
+			
+			hmap.put("refundCode", list.get(i).getRefundCode());
+			hmap.put("requestDate", rDate);
+			hmap.put("completeDate", cDate);
+			hmap.put("price", list.get(i).getPrice());
+			hmap.put("status", list.get(i).getStatus());
+			hmap.put("refundReason", list.get(i).getRefundReason());
+			hmap.put("userId", list.get(i).getUserId());
+			
+			list2.add(hmap);
+		}
+		
+		mv.addObject("list", list2);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
 	//환불 관리 페이지 상세보기
 	@RequestMapping("showRefundDetail.ad")
-	public String showRefundDetail() {
+	public String showRefundDetail(HttpServletRequest request, Model model) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		Refund reqRefund = as.selectOneRefund(num);
+		
+		model.addAttribute("reqRefund", reqRefund);
+		
 		return "admin/adminRefundDetail";
+	}
+	
+	//환불 처리 기능
+	@RequestMapping("refundComplete.ad")
+	public String refundComplete(HttpServletRequest request) {
+		int refundCode = Integer.parseInt(request.getParameter("refundCode"));
+		
+		int result = as.refundComplte(refundCode);
+		
+		return "redirect:showRefund.ad";
 	}
 	
 	//회원 관리 페이지

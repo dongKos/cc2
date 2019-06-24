@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ 
+	page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -9,8 +10,10 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
+		//상세보기 페이지 이동
 		$("#refundTable tr").click(function(){
 			var num = $(this).children().eq(0).text();
+			
 			location.href = "showRefundDetail.ad?num=" + num;
 		});
 		
@@ -19,7 +22,29 @@
 		var selectedLi = selectedUl.children().children().eq(0);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
-		
+
+		//처리 상태 조건 검색 ajax
+		var status = $("#status");
+		status.change(function(){
+			var statusVal = $(this).val();
+			console.log(statusVal);
+			
+			$.ajax({
+				url:"refundStatus.ad",
+				data:{statusVal:statusVal},
+				success:function(data){
+					console.log(data.list);
+					
+					var table = $('#refundTable tbody');
+					table.remove();
+					
+					
+				},
+				error:function(){
+					console.log("실패!");
+				}
+			})
+		})
 	})
 </script>
 </head>
@@ -47,9 +72,10 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-25">
-                                	<select>
-                                		<option>처리대기</option>
-                                		<option>처리완료</option>
+                                	<select id="status">
+                                		<option selected>선택하세요</option>
+                                		<option value="1">처리대기</option>
+                                		<option value="2">처리완료</option>
                                 	</select>
                                 	<input type="text">
                                 	<button class="btn btn-primary" type="submit">검색</button>
@@ -75,7 +101,7 @@
                                                 <c:if test="${ r.status eq 'N'}">
                                                		 <td class="text-right">처리 대기</td>
                                                 </c:if>
-                                                <c:if test="${r.status eq Y }">
+                                                <c:if test="${r.status eq 'Y' }">
                                 			    	<td class="text-right">처리 완료</td>            
                                                 </c:if>
                                             </tr>

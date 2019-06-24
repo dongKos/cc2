@@ -11,7 +11,7 @@
   		<typeAlias type="com.kh.cc.webnovel.model.vo.Webnovel" alias="Webnovel"/>
   	</typeAliases>
   	<mappers>
-  		<mapper resource="mappers/refund-mapper.xml"/>
+  		<mapper resource="mappers/admin-mapper.xml"/>
   		<mapper resource="mappers/member-mapper.xml"/>
   		<mapper resource="mappers/webnovel-mapper.xml"/>
   	</mappers>
