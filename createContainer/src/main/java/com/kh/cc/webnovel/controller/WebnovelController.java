@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,13 +31,10 @@ public class WebnovelController {
 	//웹소설 등록insertNovel.wn
 	@RequestMapping(value="insertNovel.wn")
 	public String insertNovel(Model model, Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
-							@RequestParam(name="photo", required=false) MultipartFile photo) {
+			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
-		System.out.println("멤버? " + m);
-		
-		
 		String userId = m.getUserId();
-		wn.setuserId(userId); 
+		wn.setUserId(userId); 
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
@@ -65,29 +63,112 @@ public class WebnovelController {
 		}
 		
 	}
-
-//	@RequestMapping(value="selectWnList.wn")
-//	public String selectWnList(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session, Member m) {
-//		m = (Member) session.getAttribute("loginUser");
-//		
-//		//ArrayList<HashMap<String, Object>> list;
-//		//HashMap<String,Object> hmap = new HashMap<String,Object>();
-//		
-//		int currentPage = 1;
-//		
-//		if(request.getParameter("currentPage") != null) {
-//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-//		}	
-//		
-//		//전체 목록 카운트
-//		int listCount = ws.selectListCount(m);
-//		
-//		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
-//		
-//		
-//		return "";
-//	}
 	
+	//웹소설 메인 수정
+	@RequestMapping(value="updateNovel.wn")
+	public String updateNovel(Model model, Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
+			@RequestParam(name="photo", required=false) MultipartFile photo) {
+		m = (Member) session.getAttribute("loginUser");
+		int wid = (int) session.getAttribute("wid");
+		int fid = (int) session.getAttribute("fid");
+		String userId = m.getUserId();
+		wn.setUserId(userId);
+		wn.setWid(wid);
+		
+		wp.setFid(fid);
+		
+		String changeName = request.getParameter("changeName");
+		System.out.println(changeName);
+		if(!photo.isEmpty()) {
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles\\webnovelMain";
+			String originFileName = photo.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			
+			wp.setOriginName(originFileName);
+			wp.setChangeName(changeFileName + ext);
+			wp.setFilePath(filePath);
+			wp.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				
+				ws.updateWebnovel(wn, wp);
+				
+				new File(filePath + "\\" + changeName).delete();
+				
+				session.removeAttribute("wid");
+				session.removeAttribute("fid");
+				
+				return "webnovel/insertWebnovel/webnovelList";
+			} catch (Exception e) {
+				new File(filePath + "\\" + changeFileName + ext).delete();
+				
+				model.addAttribute("msg", "작품 등록 실패!!");
+				
+				return "common/errorPage";
+			}
+		}else {
+			
+			ws.updateWebnovel(wn);
+			
+			return "webnovel/insertWebnovel/webnovelList";
+		}
+	}
+	
+	//웹소설 목록
+	@RequestMapping(value="selectWnList.wn")
+	public String selectWnList(HttpServletRequest request, HttpSession session, Member m, Model model) {
+		m = (Member) session.getAttribute("loginUser");
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.selectListCount(m);
+		
+		
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Webnovel> list = ws.selectWnList(pi, m);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "webnovel/insertWebnovel/webnovelList";
+	}
+	
+	
+	//웹소설 수정폼 이동
+	@RequestMapping("selectWnUpdateOne.wn")
+	public String updateWebnovel(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn) {
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wn = ws.selectWnUpdateOne(wid);
+		
+		session.setAttribute("wid", wn.getWid());
+		session.setAttribute("fid", wn.getFid());
+		
+		model.addAttribute("wn", wn);
+		
+		return "webnovel/insertWebnovel/updateWebnovel";
+	}
+	//웹소설 회차 리스트 이동WORK_ROUND
+	@RequestMapping("selectWnRoundList.wn")
+	public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn) {
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wn = ws.selectWnUpdateOne(wid);
+		
+		System.out.println(wn);
+		
+		model.addAttribute("wn", wn);
+		
+		return "webnovel/insertWebnovel/selectWnRoundList";
+	}
 	
 	
 	
@@ -133,5 +214,10 @@ public class WebnovelController {
 	@RequestMapping("insertWebnovel.wn")
 	public String insertWebnovel() {
 		return "webnovel/insertWebnovel/insertWebnovel";
+	}
+	//웹소설 취소 이동
+	@RequestMapping("cancelWebnovel.wn")
+	public String cancelWebnovel() {
+		return "webnovel/insertWebnovel/webnovelList";
 	}
 }

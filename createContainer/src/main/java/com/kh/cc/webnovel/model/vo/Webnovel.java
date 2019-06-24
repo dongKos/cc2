@@ -16,11 +16,14 @@ public class Webnovel implements java.io.Serializable{
 	private Date workDate;
 	private String ageGrade;
 	private int genre;
+	private String changeName;
+	private int fid;
 	
 	public Webnovel() {}
 
 	public Webnovel(int wid, String userId, Date wuploadDate, String wTitle, String wIntro, int vCount, String wCycle,
-			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, int genre) {
+			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, int genre,
+			String changeName, int fid) {
 		super();
 		this.wid = wid;
 		this.userId = userId;
@@ -35,13 +38,15 @@ public class Webnovel implements java.io.Serializable{
 		this.workDate = workDate;
 		this.ageGrade = ageGrade;
 		this.genre = genre;
+		this.changeName = changeName;
+		this.fid = fid;
 	}
 
 	public int getWid() {
 		return wid;
 	}
 
-	public String getuserId() {
+	public String getUserId() {
 		return userId;
 	}
 
@@ -89,11 +94,19 @@ public class Webnovel implements java.io.Serializable{
 		return genre;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public int getFid() {
+		return fid;
+	}
+
 	public void setWid(int wid) {
 		this.wid = wid;
 	}
 
-	public void setuserId(String userId) {
+	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
@@ -141,13 +154,25 @@ public class Webnovel implements java.io.Serializable{
 		this.genre = genre;
 	}
 
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
+
 	@Override
 	public String toString() {
 		return "Webnovel [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wTitle=" + wTitle
 				+ ", wIntro=" + wIntro + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
 				+ ", workType=" + workType + ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade="
-				+ ageGrade + ", genre=" + genre + "]";
+				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + "]";
 	}
+
+	
+
+	
 
 	
 	
