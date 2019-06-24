@@ -20,19 +20,19 @@ public class WebtoonServiceImpl implements WebtoonService{
 	@Override
 	public int insertWebtoon(Webtoon wt, WebtoonPhoto wp) {
 		System.out.println("웹툰서비스 Impl 들어옴");
-		int result = 0;
+		System.out.println("webtoon : " + wt);
+		System.out.println("webtoonPhoto : " + wp);
+		//int result = 0;
 		
 		int result1 = wd.insertWebtoon(sqlSession, wt);
-		System.out.println("리저트1" + result1);
-		int result2 = wd.insertWtPhoto(sqlSession, wp);
-		System.out.println("리저트2" + result2);
-		if(result1 > 0 && result2 > 0) {
-			result = 1;
-		}else {
-			result = 0;
-		}
-		
-		return result;
+		//System.out.println("리저트1" + result1);
+		/*
+		 * int result2 = wd.insertWtPhoto(sqlSession, wp); System.out.println("리저트2" +
+		 * result2); if(result1 > 0 && result2 > 0) { result = 1; }else { result = 0; }
+		 */
+		System.out.println("웹툰서비스 Impl eksu옴");
+		System.out.println("result1 :" + result1);
+		return result1;
 	}
 
 }
