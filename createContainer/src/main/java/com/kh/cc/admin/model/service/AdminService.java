@@ -15,6 +15,12 @@ public interface AdminService {
 
 	int refundComplte(int refundCode);
 
-	ArrayList<Refund> refundStatus(String statusVal);
+	ArrayList<Refund> refundStatus(String statusVal, AdminPageInfo pi);
+
+	int getMemberListCount();
+
+	ArrayList<Refund> selectMemberList(AdminPageInfo pi);
+
+	int getRefundAjaxCount(String statusVal);
 
 }

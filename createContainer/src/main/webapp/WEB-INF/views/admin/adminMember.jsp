@@ -47,14 +47,15 @@
                             <div class="col-lg-12">
                                 <div class="m-b-25">
                                 	<select>
-                                		<option>처리대기</option>
-                                		<option>처리완료</option>
+                                		<option>일반회원</option>
+                                		<option>작가</option>
+                                		<option>블랙리스트</option>
                                 	</select>
                                 	<input type="text">
                                 	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
-                                    <table class="table table-borderless table-striped table-earning" id="refundTable">
+                                    <table class="table table-borderless table-striped table-earning" id="memberTable">
                                         <thead>
                                             <tr>
                                                 <th>date</th>
@@ -66,48 +67,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                             	<c:forEach var="r" items="${list }" end="${pi.limit }">
                                             <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>100398</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$999.00</td>
-                                                	
+                                                <td>${r.refundCode}</td>
+                                                <td>${r.requestDate }</td>
+                                                <td>${r.userId }</td>
+                                                <td class="text-right">${r.price }</td>
+                                                <c:if test="${ r.status eq 'N'}">
+                                               		 <td class="text-right">처리 대기</td>
+                                                </c:if>
+                                                <c:if test="${r.status eq 'Y' }">
+                                			    	<td class="text-right">처리 완료</td>            
+                                                </c:if>
                                             </tr>
-                                            <tr>
-                                                <td>2018-09-28 01:22</td>
-                                                <td>100397</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$756.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>100396</td>
-                                                <td>Game Console Controller</td>
-                                                <td class="text-right">$22.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$44.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-26 23:06</td>
-                                                <td>100395</td>
-                                                <td>iPhone X 256Gb Black</td>
-                                                <td class="text-right">$1199.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$1199.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>100393</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="text-right">$10.00</td>
-                                                <td class="text-right">3</td>
-                                                <td class="text-right">$30.00</td>
-                                            </tr>
-                                      
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

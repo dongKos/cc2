@@ -47,7 +47,26 @@ public class AdminServiceImpl implements AdminService{
 
 	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
 	@Override
-	public ArrayList<Refund> refundStatus(String statusVal) {
-		return ad.refundStatus(sqlSession, statusVal);
+	public ArrayList<Refund> refundStatus(String statusVal, AdminPageInfo pi) {
+		return ad.refundStatus(sqlSession, statusVal, pi);
+	}
+
+	//전체 회원 수 조회 
+	@Override
+	public int getMemberListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<Refund> selectMemberList(AdminPageInfo pi) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//환불내역 애이젝스로 분기한거 개수 조회
+	@Override
+	public int getRefundAjaxCount(String statusVal) {
+		return ad.getRefundAjaxCount(sqlSession, statusVal);
 	}
 }

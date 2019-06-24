@@ -8,13 +8,15 @@
 <title>환불관리 페이지</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <script>
+ 	//이전 페이지로 돌아가기
  	function goBack(){
- 		location.href="showRefund.ad";
+ 		var currentPage = location.search.split("=")[2];
+ 		location.href="showRefund.ad?currentPage=" + currentPage;
+ 		/* history.back(); */
  	}
  	
+ 	//환불 신청완료
  	function refundComplete(){
- 		var refundCode = $("#refundComplete").val();
- 		console.log(refundCode);
  		location.href="refundComplete.ad?refundCode=" + refundCode;
  	}
  	

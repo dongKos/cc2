@@ -9,13 +9,13 @@
 <title>환불관리 페이지</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	//상세보기 페이지 이동
+	function trClick(num){
+		location.href = "showRefundDetail.ad?num=" + num + "&currentPage=" + ${pi.currentPage};
+	}
+
 	$(function(){
-		//상세보기 페이지 이동
-		$("#refundTable tr").click(function(){
-			var num = $(this).children().eq(0).text();
-			
-			location.href = "showRefundDetail.ad?num=" + num;
-		});
+		
 		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#refund").parent().children();
@@ -27,25 +27,151 @@
 		var status = $("#status");
 		status.change(function(){
 			var statusVal = $(this).val();
-			console.log(statusVal);
 			
 			$.ajax({
 				url:"refundStatus.ad",
 				data:{statusVal:statusVal},
 				success:function(data){
-					console.log(data.list);
 					
-					var table = $('#refundTable tbody');
-					table.remove();
+					//테이블 재 생성
+					var table = $("#refundTable");
+					var tbody = $('tbody');
+					tbody.html(" ");
 					
+					for(var i = 0; i < data.list.length; i ++){
+						var tr = $("<tr onclick='trClick(" + data.list[i].refundCode + ")'>");
+						var rCodeTd = $("<td>").text(data.list[i].refundCode);
+						var rDateTd = $("<td>").text(data.list[i].requestDate);
+						var rUserTd = $("<td>").text(data.list[i].userId);
+						var priceTd = $("<td class='text-right'>").text(data.list[i].price);
+						if(data.list[i].status == 'Y'){
+							var statusTd = $("<td class='text-right'>").text("처리완료");
+						}else{
+							var statusTd = $("<td class='text-right'>").text("처리대기");
+						}
+						tr.append(rCodeTd);
+						tr.append(rDateTd);
+						tr.append(rUserTd);
+						tr.append(priceTd);
+						tr.append(statusTd);
+						tbody.append(tr);
+						table.append(tbody);
+					}
+					
+					//페이징 처리
+					var pagingArea = $("#pagingArea");
+					pagingArea.html("");
+					
+					var currentPage = ${pi.currentPage};
+					var startPage = ${pi.startPage};
+					var endPage = ${pi.endPage};
+					var maxPage = ${pi.maxPage};
+					
+					//이전 버튼 
+					if(currentPage <= 1){
+						pagingArea.text("[이전]");
+					}else{
+						pagingArea.append("<button onclick='refundPaging("+ (currentPage -1)+ ","+ statusVal+")'>[이전]</button>");
+					}
+					
+					//숫자 페이지 버튼
+					for(var i = startPage; i < endPage; i++){
+						if(i == currentPage){
+							pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+							
+						}else{
+							pagingArea.append("<button onclick='refundPaging("+ i + ","+ statusVal+")'>" + i +"</button>");
+						}
+					}
+					
+					//다음 버튼
+					if(currentPage >= maxPage){
+						pagingArea.text("[다음]");
+					}else{
+						pagingArea.append("<button onclick='refundPaging("+ (currentPage + 1) + ","+ statusVal+")'>[다음]</button>");
+					}
 					
 				},
 				error:function(){
 					console.log("실패!");
 				}
-			})
+			});
+		});
+		
+	});
+	
+	function refundPaging(currentPage, statusVal){
+		var currentPage = currentPage;
+		var statusVal = statusVal;
+		
+		$.ajax({
+			url:"refundPaging.ad",
+			data:{currentPage:currentPage, statusVal:statusVal},
+			type:"get",
+			success:function(data){
+				//테이블 재 생성
+				var table = $("#refundTable");
+				var tbody = $('tbody');
+				tbody.html(" ");
+				
+				for(var i = 0; i < data.list.length; i ++){
+					var tr = $("<tr onclick='trClick(" + data.list[i].refundCode + ")'>");
+					var rCodeTd = $("<td>").text(data.list[i].refundCode);
+					var rDateTd = $("<td>").text(data.list[i].requestDate);
+					var rUserTd = $("<td>").text(data.list[i].userId);
+					var priceTd = $("<td class='text-right'>").text(data.list[i].price);
+					if(data.list[i].status == 'Y'){
+						var statusTd = $("<td class='text-right'>").text("처리완료");
+					}else{
+						var statusTd = $("<td class='text-right'>").text("처리대기");
+					}
+					tr.append(rCodeTd);
+					tr.append(rDateTd);
+					tr.append(rUserTd);
+					tr.append(priceTd);
+					tr.append(statusTd);
+					tbody.append(tr);
+					table.append(tbody);
+				}
+				
+				//페이징 처리
+				var pagingArea = $("#pagingArea");
+				pagingArea.html("");
+				
+				var startPage = ${pi.startPage};
+				var endPage = ${pi.endPage};
+				var maxPage = ${pi.maxPage};
+				//이전 버튼 
+				if(currentPage <= 1){
+					pagingArea.text("[이전]");
+				}else{
+					pagingArea.append("<button onclick='refundPaging("+ (currentPage -1)+ ","+ statusVal+")'>[이전]</button>");
+				}
+				
+				//숫자 페이지 버튼
+				for(var i = startPage; i < endPage; i++){
+					if(i == currentPage){
+						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+						
+					}else{
+						pagingArea.append("<button onclick='refundPaging("+ i + ","+ statusVal+")'>" + i +"</button>");
+					}
+				}
+				
+				//다음 버튼
+				if(currentPage >= maxPage){
+					pagingArea.text("[다음]");
+				}else{
+					pagingArea.append("<button onclick='refundPaging("+ (currentPage + 1) + ","+ statusVal+")'>[다음]</button>");
+					console.log("다음 버튼 눌렀을때 현재 페이지"+currentPage);
+					console.log("다음 버튼 눌렀을때 맥스 페이지" + maxPage);
+				}
+			},
+			error:function(){
+				console.log("실패!");
+			}
 		})
-	})
+	}
 </script>
 </head>
 
@@ -93,7 +219,7 @@
                                         </thead>
                                         <tbody>
                                         	<c:forEach var="r" items="${list }" end="${pi.limit }">
-                                            <tr>
+                                            <tr onclick="trClick(${r.refundCode});">
                                                 <td>${r.refundCode}</td>
                                                 <td>${r.requestDate }</td>
                                                 <td>${r.userId }</td>
