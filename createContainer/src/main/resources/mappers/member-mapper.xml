@@ -46,6 +46,17 @@
 		AND STATUS = 'Y'
 	</select>
 	
+	<!-- 멤버 업데이트 메소드 -->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET NICKNAME = #{nickName},
+			PHONE = #{phone},
+			EMAIL = #{email},
+			BIRTHDAY = #{birthday}
+		WHERE USER_ID = #{userId}
+		
+	</update>
+	
 </mapper>
 
 

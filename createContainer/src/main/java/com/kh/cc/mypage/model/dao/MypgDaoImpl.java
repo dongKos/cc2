@@ -12,4 +12,14 @@ public class MypgDaoImpl implements MypgDao{
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Member.selectPwd", m.getUserId());
 	}
+
+	@Override
+	public Member updateMember(SqlSessionTemplate sqlSession, Member m) {
+		Member nmem;
+		nmem = sqlSession.selectOne("Member.updateMember", m);
+		nmem = sqlSession.selectOne("Member.selectLoginUser", m);
+		
+		return nmem;
+		
+	}
 }

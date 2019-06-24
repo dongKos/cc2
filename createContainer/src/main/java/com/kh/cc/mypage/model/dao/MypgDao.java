@@ -8,4 +8,6 @@ public interface MypgDao {
 
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 
+	Member updateMember(SqlSessionTemplate sqlSession, Member m);
+
 }
