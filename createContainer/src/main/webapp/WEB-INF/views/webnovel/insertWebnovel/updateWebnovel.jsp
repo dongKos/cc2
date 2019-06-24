@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 			<div class="col-sm-10 col-md-10 col-xs-10">
-				<form action="insertNovel.wn" method="post" enctype="multipart/form-data">
+				<form action="updateNovel.wn" method="post" enctype="multipart/form-data">
 					<div class="insertWnFrom">
 						<div class="title">
 							<div class="webnovelTitle">새 작품 등록</div>
@@ -31,7 +31,7 @@
 								<tr>
 									<td class="wnText">작품 제목</td>
 									<td class="wnContent">
-										<input class="insertWnInput" type="text" name="wTitle" placeholder="제목을 입력해주세요." maxlength="40" autofocus required>
+										<input class="insertWnInput" type="text" name="wTitle" placeholder="제목을 입력해주세요." maxlength="40" value="${ wn.wTitle }" autofocus required>
 									</td>
 								</tr>
 								<tr>
@@ -48,7 +48,9 @@
 									<td class="wnText">대표 썸네일</td>
 									<td class="wnContent">
 										<div class="imgBox">
-											<img id="thumbnail">
+											<img id="thumbnail" src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
+											<input type="hidden" name="changeName" value="${ wn.changeName }">
+											
 										</div>
 									</td>
 								</tr>
@@ -57,7 +59,7 @@
 								</tr>
 								<tr>
 									<td colspan="2" class="wnContent">
-										<textarea class="introduction" name="wIntro"></textarea>
+										<textarea class="introduction" name="wIntro">${ wn.wIntro }</textarea>
 									</td>
 								</tr>
 								<tr>
@@ -65,7 +67,7 @@
 								</tr>
 								<tr>
 									<td colspan="2" class="wnContent">
-										<textarea class="cycle" name="wCycle"></textarea>
+										<textarea class="cycle" name="wCycle">${ wn.wCycle }</textarea>
 									</td>
 								</tr>
 								<tr>
@@ -85,8 +87,8 @@
 											<input type="file" id="wnMainThumbnail" name="photo" onchange="loadImg(this,1)">
 										</div>
 										<div class="wnBtn">
-											<button class="cancelWnBtn" type="button" onclick="location='cancelWebnovel.wn'">등록 취소</button>&nbsp;&nbsp;&nbsp;
-											<button class="insertWnBtn" type="submit">작품 등록</button>
+											<button class="cancelWnBtn" type="button" onclick="location='insertWebnovel.wn'">수정취소</button>&nbsp;&nbsp;&nbsp;
+											<button class="insertWnBtn" type="submit">수정하기</button>
 										</div>
 									</td>
 								</tr>
@@ -98,9 +100,10 @@
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 		</div>
 	</div>
+	
 	<br><br><br><br><br>
 	<br><br><br><br><br>
-	zz
+	<h1>${ wn.genre }</h1>
 	<script>
 		$(function(){
 			$("#fileArea").hide();
@@ -122,6 +125,21 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
+		
+		$(function(){
+        	$("input[name=genre]").each(function (){
+        		var arr = ${ wn.genre };
+        		//$("#genre").prop("checked", true);
+        		console.log(arr);
+        		for(var i = 0; i < arr.length; i++) {
+        			if($(this).val() == arr[i]) {
+        				$(this).attr("checked", true);
+        			}
+        		}
+        	})
+        	
+        
+        });
 	</script>
 </body>
 </html>

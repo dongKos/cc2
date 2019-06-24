@@ -42,7 +42,7 @@
 				<td class="middleItem" onClick="location.href='webnovelChallenge.wn'">도전!!</td>
 				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
 				<td class="line">&#x2758;</td>
-				<td class="middleItem" onClick="location.href='webnovelList.wn'">작품 올리기</td>
+				<td class="middleItem" onClick="location.href='selectWnList.wn'">작품 올리기</td>
 			</tr>
 		</table>
 	</div>

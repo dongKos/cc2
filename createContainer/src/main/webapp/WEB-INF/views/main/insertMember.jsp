@@ -54,7 +54,7 @@
 				<input class="insertInput" type="text" name="phone" placeholder="01012345678  ( - 를 제외하고 입력하세요.)" maxlength="20"  required><br><br>
 				
 				<label><span class="star">*</span>이메일</label>
-				<input class="insertInput" type="email" name="email" placeholder="이메일을 입력해주세요." maxlength="20"  required><br><br>
+				<input class="insertInput" type="email" name="email" placeholder="이메일을 입력해주세요." maxlength="40"  required><br><br>
 			</div>
 			
 			

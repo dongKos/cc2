@@ -19,6 +19,7 @@
 		<result property="workDate" column="WORK_DATE"/>
 		<result property="ageGrade" column="AGE_GRADE"/>
 		<result property="genre" column="GENRE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
@@ -39,15 +40,55 @@
 	
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
-		INSERT INTO WORK
+		INSERT INTO WORK 
 		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
 	</insert>
 	<!-- 작품 메인 사진 등록 메소드 -->
-	<insert id="insertWnPhoto" parameterType="Webnovel">
-		INSERT INTO ATTACHMENT
-		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, 2, null, WID_SEQ.CURRVAL, #{userId})
+	<insert id="insertWnPhoto" parameterType="WebnovelPhoto">
+		INSERT INTO ATTACHMENT 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, 2, null, WID_SEQ.CURRVAL, #{userId}) 
 	</insert>
-	
+	<!-- 메인썸네일 리스트 카운트 -->
+	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE USER_ID = 'user01'
+		AND WORK_TYPE = 'WN'
+		AND GRADE_TYPE = 1
+	</select>
+	<!-- 메인썸네일 리스트 조회 -->
+	<select id="selectWnList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE W.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	<!-- 작품 수정 정보 조회, 이동 -->
+	<select id="selectWnUpdateOne" parameterType="_int" resultMap="webnovelResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE A.WID = #{wid} 
+	</select>
+	<!-- 작품 메인 수정 -->
+	<update id="updateWebnovel" parameterType="Webnovel">
+		UPDATE WORK
+		SET WTITLE = #{wTitle},
+		    WINTRO = #{wIntro},
+		    WCYCLE = #{wCycle},
+		    GENRE = #{genre}
+		WHERE WID = #{wid}
+	</update>
+	<!-- 작품 메인 수정 -->
+	<update id="updateWnPhoto" parameterType="WebnovelPhoto">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = #{originName},
+		    CHANGE_NAME = #{changeName}
+		WHERE FID = #{fid}
+	</update>
 </mapper>
 
 
