@@ -80,7 +80,9 @@ public class WebnovelController {
 		wp.setFid(fid);
 		
 		String changeName = request.getParameter("changeName");
-		System.out.println(changeName);
+		
+		System.out.println("수정 바뀐 이름 : " + changeName);
+		System.out.println(wn);
 		if(!photo.isEmpty()) {
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
@@ -104,7 +106,7 @@ public class WebnovelController {
 				session.removeAttribute("wid");
 				session.removeAttribute("fid");
 				
-				return "webnovel/insertWebnovel/webnovelList";
+				return "redirect:selectWnList.wn";
 			} catch (Exception e) {
 				new File(filePath + "\\" + changeFileName + ext).delete();
 				
@@ -158,13 +160,30 @@ public class WebnovelController {
 		
 		return "webnovel/insertWebnovel/updateWebnovel";
 	}
+
 	//웹소설 회차 리스트 이동WORK_ROUND
 	@RequestMapping("selectWnRoundList.wn")
-	public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn) {
+	public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wnr.setWid(wid);
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		
+		int listCount = ws.selectWnrListCount(wnr);
+		
+		System.out.println("회차 리스트 카운트 : " + listCount);
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
 		
 		wn = ws.selectWnOne(wid);
 		
+		ArrayList<WebnovelRound> list = ws.selectWnRoundList(pi, wnr);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		model.addAttribute("wn", wn);
 		
 		return "webnovel/insertWebnovel/selectWnRoundList";
@@ -185,12 +204,18 @@ public class WebnovelController {
 	
 	//웹소설 신규 회차 등록
 	@RequestMapping(value="insertWnRound.wn")
-	public String insertWnRound(Model model,Member m, WebnovelRound wnr, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, 
+	public String insertWnRound(Model model, Webnovel wn, Member m, WebnovelRound wnr, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, 
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = (int) session.getAttribute("wid");
 		String userId = m.getUserId();
+		String workStatus = request.getParameter("workStatus");
+		if(workStatus == null) {
+			workStatus = "COMPLTE";
+		}
 		
+		wn.setWid(wid);
+		wn.setWorkStatus(workStatus);
 		wnr.setWid(wid);
 		wp.setWid(wid);
 		wp.setUserId(userId);
@@ -207,18 +232,14 @@ public class WebnovelController {
 		wp.setFilePath(filePath);
 		wp.setWid(wid);
 		
-		System.out.println("wnr : " + wnr);
-		System.out.println("originFileName : " + originFileName);
-		System.out.println("filePath : " + filePath);
-		
 		try {
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 			
-			ws.insertWnRound(wnr, wp);
+			ws.insertWnRound(wnr, wp, wn);
 			
 			return "redirect:selectWnRoundList.wn?wid=" + wid;
 		} catch (Exception e) {
-			//new File(filePath + "\\" + changeFileName + ext).delete();
+			new File(filePath + "\\" + changeFileName + ext).delete();
 			
 			model.addAttribute("msg", "신규 회차 등록 실패!!");
 			
@@ -226,7 +247,76 @@ public class WebnovelController {
 		}
 		
 	}
+	
+	//웹소설 회차 수정
+	@RequestMapping(value="updateWnRound.wn")
+	public String updateWnRound(Model model, Webnovel wn, Member m, WebnovelRound wnr, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, 
+			@RequestParam(name="photo", required=false) MultipartFile photo) {
+		String changeName = request.getParameter("changeName");
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		
+		wnr.setRid(rid);
+		wnr.setChangeName(changeName);
+		
+		System.out.println("회차 수정하자 : " +wnr);
+		
+		System.out.println(changeName);
+		System.out.println(rid);
+		return "webnovel/insertWebnovel/updateWebnovelRound";
+//		if(!photo.isEmpty()) {
+//			String root = request.getSession().getServletContext().getRealPath("resources");
+//			
+//			String filePath = root + "\\uploadFiles\\webnovelMain";
+//			String originFileName = photo.getOriginalFilename();
+//			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+//			String changeFileName = CommonUtils.getRandomString();
+//			
+//			wp.setOriginName(originFileName);
+//			wp.setChangeName(changeFileName + ext);
+//			wp.setFilePath(filePath);
+//			
+//			try {
+//				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+//				
+//				ws.updateWebnovel(wn, wp);
+//				
+//				new File(filePath + "\\" + changeName).delete();
+//				
+//				session.removeAttribute("wid");
+//				session.removeAttribute("fid");
+//				
+//				return "redirect:selectWnList.wn";
+//			} catch (Exception e) {
+//				new File(filePath + "\\" + changeFileName + ext).delete();
+//				
+//				model.addAttribute("msg", "작품 등록 실패!!");
+//				
+//				return "common/errorPage";
+//			}
+//		}else {
+//			
+//			ws.updateWebnovel(wn);
+//			
+//			return "webnovel/insertWebnovel/webnovelList";
+//		}
+	}
+	
+	//웹소설 회차 수정폼 이동
+	@RequestMapping("selectWnrUpdateForm.wn")
+	public String updateWnRound(HttpServletRequest request, Webnovel wn, HttpSession session, HttpServletResponse response, Model model, WebnovelRound wnr) {
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		wnr = ws.selectWnrOne(rid);
+		int wid = wnr.getWid();
+		wn = ws.selectWnOne(wid);
+		String workStatus = wn.getWorkStatus();
 
+		wnr.setWorkStatus(workStatus);
+		
+		model.addAttribute("wnr", wnr);
+		
+		return "webnovel/insertWebnovel/updateWebnovelRound";
+	}
+	
 	//웹소설 메인홈 이동
 	@RequestMapping("webnovelMain.wn")
 	public String webnovelMain() {
@@ -262,4 +352,6 @@ public class WebnovelController {
 	public String cancelWebnovel() {
 		return "webnovel/insertWebnovel/webnovelList";
 	}
+	
+	
 }
