@@ -29,7 +29,7 @@
 	</c:if>
 	<!-- 관리자 로그인 -->
 	<c:if test="${loginUser.userId eq 'admin' }">
-		<jsp:forward page="../admin/adminMain.jsp"/>
+		<jsp:forward page="../admin/adminMain.jsp"/>  - 
 	</c:if>
 	</div>
 	
@@ -37,6 +37,8 @@
 	<button onclick="location.href='illustMain.ill'">일러스트 메인</button>
 	<button onclick="location.href='webtoonMain.wt'">웹툰 메인</button><br>
 	<button onclick="location.href='webnovelMain.wn'">웹소설 메인</button>
+	<button onclick="location.href='NoticeList.mg'">공지사항</button>
+	
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

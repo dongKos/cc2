@@ -18,6 +18,8 @@ import com.kh.cc.common.CommonUtils;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
+import com.kh.cc.mypage.model.vo.MypgPhoto;
+import com.kh.cc.mypage.model.vo.MypgProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 
@@ -229,35 +231,35 @@ public class MypgController {
            
           
            //작가페이지 - 작가프로필설정
-           @RequestMapping(value="insertWriter.mg")
-       	public String insertNovel(Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
+           @RequestMapping(value="memberUpdate.mg")
+           public String insertNovel(Model model, MypgProfile mp, HttpServletRequest request, HttpSession session, MypgPhoto mphoto, Member m,
        			@RequestParam(name="photo", required=false) MultipartFile photo) {
        		m = (Member) session.getAttribute("loginUser");
        		String userId = m.getUserId();
-       		wn.setUserId(userId); 
+       		mp.setUserId(userId); 
        		
        		String root = request.getSession().getServletContext().getRealPath("resources");
        		
-       		String filePath = root + "\\uploadFiles\\webnovelMain";
+       		String filePath = root + "\\uploadFiles\\mypgProfile";
        		String originFileName = photo.getOriginalFilename();
        		String ext = originFileName.substring(originFileName.lastIndexOf("."));
        		String changeFileName = CommonUtils.getRandomString();
        		
-       		wp.setOriginName(originFileName);
-       		wp.setChangeName(changeFileName + ext);
-       		wp.setFilePath(filePath);
-       		wp.setUserId(userId);
-       		
+       		mphoto.setOriginName(originFileName);
+       		mphoto.setChangeName(changeFileName + ext);
+       		mphoto.setFilePath(filePath);
+       		mphoto.setUserId(userId);
+    
        		try {
        			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
        			
-       			ws.insertWebnovel(wn, wp);
+       			ms.insertmypgProfile(mp, mphoto);
        			
-       			return "webnovel/insertWebnovel/webnovelList";
+       			return "mypage/mypgInformation"; //성공했을 때 돌아가야하는곳
        		} catch (Exception e) {
        			new File(filePath + "\\" + changeFileName + ext).delete();
        			
-       			model.addAttribute("msg", "작품 등록 실패!!");
+       			model.addAttribute("msg", "프로필 설정 실패!!");
        			
        			return "common/errorPage";
        		}
