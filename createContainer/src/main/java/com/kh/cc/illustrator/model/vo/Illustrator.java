@@ -3,6 +3,7 @@ package com.kh.cc.illustrator.model.vo;
 import java.sql.Date;
 
 public class Illustrator {
+	private String userId;			//아이디
 	private int illCode;			//일러스트코드
 	private int illPrice;			//가격
 	private	Date termDate;			//소요시간
@@ -16,9 +17,10 @@ public class Illustrator {
 	
 	public Illustrator() {}
 
-	public Illustrator(int illCode, int illPrice, Date termDate, int changeCount, String illTitle, String illContent,
-			String illType, int recommendCount, int viewCount, String illCategory) {
+	public Illustrator(String userId, int illCode, int illPrice, Date termDate, int changeCount, String illTitle,
+			String illContent, String illType, int recommendCount, int viewCount, String illCategory) {
 		super();
+		this.userId = userId;
 		this.illCode = illCode;
 		this.illPrice = illPrice;
 		this.termDate = termDate;
@@ -29,6 +31,14 @@ public class Illustrator {
 		this.recommendCount = recommendCount;
 		this.viewCount = viewCount;
 		this.illCategory = illCategory;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public int getIllCode() {
@@ -113,11 +123,13 @@ public class Illustrator {
 
 	@Override
 	public String toString() {
-		return "Illustrator [illCode=" + illCode + ", illPrice=" + illPrice + ", termDate=" + termDate
-				+ ", changeCount=" + changeCount + ", illTitle=" + illTitle + ", illContent=" + illContent
+		return "Illustrator [userId=" + userId + ", illCode=" + illCode + ", illPrice=" + illPrice + ", termDate="
+				+ termDate + ", changeCount=" + changeCount + ", illTitle=" + illTitle + ", illContent=" + illContent
 				+ ", illType=" + illType + ", recommendCount=" + recommendCount + ", viewCount=" + viewCount
 				+ ", illCategory=" + illCategory + "]";
 	}
+
+	
 	
 	
 }
