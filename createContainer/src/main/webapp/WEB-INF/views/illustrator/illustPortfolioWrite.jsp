@@ -12,7 +12,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Freelancer - Start Bootstrap Theme</title>
+  <title>일러스트 포트폴리오 등록 페이지</title>
 
   <!-- Custom fonts for this theme -->
   <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,224 +23,86 @@
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script>
-		function portfolioWrite(){
-			console.log("버튼눌림");
-			location.href="illustPortfolioWrite.ill";
-		}
+     $(function(){
+        $(".portfolio-item").click(function(){
+           console.log("눌림");
+           location.href="illustPortpolioDetail.ill";
+        })
+        
+     })
   </script>
 </head>
 
 <body id="page-top">
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 
+<form action="insertPortfolioIllust.ill" method="post" enctype="multipart/form-data">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12" align="center">
+		<h3 style="display:inline-block;">작품제목 :</h3>&nbsp;&nbsp;
+		
+		<input type="text" placeholder="제목을 입력하세요" style="display:inline-block;"><br>
+		<h3 style="display:inline-block;">작품금액 :</h3>&nbsp;&nbsp;
+		
+		<input type="text" placeholder="최소금액을 입력해주세요" style="display:inline-block;"><br>
+		<h3 style="display:inline-block;">작품내용 :</h3>&nbsp;&nbsp;
+		
+		<input type="text" placeholder="내용을 입력하세요" style="display:inline-block;"><br>
+		<h3 style="display:inline-block;">작업기간 :</h3>&nbsp;&nbsp;
+		
+		<input type="text" placeholder="작업기간을 입력하세요" style="display:inline-block;"><br>
+		<h3 style="display:inline-block;">수정회차 :</h3>&nbsp;&nbsp;
+		
+		<input type="text" placeholder="수정회자를 입력하세요" style="display:inline-block;"><br>
+		<h3 style="display:inline-block;">카테고리 :</h3>&nbsp;&nbsp;
+		
+		<input type="checkbox" style="display:inline-block;">일러스트
+		<input type="checkbox" style="display:inline-block;">캐릭터
+		<input type="checkbox" style="display:inline-block;">명함<br>
+		<input type="checkbox" style="display:inline-block; margin-left:6.8%;">로고
+		<input type="checkbox" style="display:inline-block;">PPT
+		<input type="checkbox" style="display:inline-block;">북커버<br>
+		<input type="checkbox" style="display:inline-block; margin-left:6.9%;">인물
+		<input type="checkbox" style="display:inline-block;">풍경
+		<input type="checkbox" style="display:inline-block;">포토샵<br>
+		
+		<h3 style="display:inline-block;">파일형식 :</h3>&nbsp;&nbsp;
+		<input type="checkbox" style="display:inline-block;">PSD
+		<input type="checkbox" style="display:inline-block;">PNG
+		<input type="checkbox" style="display:inline-block;">JPG<br>
+		
+		<h3 style="display:inline-block;">대표 이미지 :</h3>&nbsp;&nbsp;
+		<input type="file" name="photo" style="display:inline-block;"><br>
+		
+		<h3 style="display:inline-block;">서브#1 이미지 :</h3>&nbsp;&nbsp;
+		<input type="file" name="photo" style="display:inline-block;"><br>
+		
+		<h3 style="display:inline-block;">서브#2 이미지 :</h3>&nbsp;&nbsp;
+		<input type="file" name="photo" style="display:inline-block;"><br>
+		
+		<h3 style="display:inline-block;">서브#3 이미지 :</h3>&nbsp;&nbsp;
+		<input type="file" name="photo" style="display:inline-block;"><br>
+		
+		<h3 style="display:inline-block;">서브#4 이미지 :</h3>&nbsp;&nbsp;
+		<input type="file" name="photo" style="display:inline-block;"><br>
+		
+		<button type="submit" class="btn btn-warning" style="font-size:18px; border-color:lightblue; background:lightblue; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">등록하기</button>
+		<button type="button" class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; border-color:lightgray; background:lightgray; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">취소하기</button>
+		</div>
+	</div>
+</div>
+</form>
+
   
-<jsp:include page="common/illustCarousel.jsp"/>
 
 
-<select>
-	<option>카테고리선택</option>
-	<option>일러스트</option>
-	<option>만화</option>
-</select>
-  <!-- Portfolio Section -->
-  <section class="page-section portfolio" id="portfolio">
-    <div class="container">
 
-      <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">포트폴리오 목록</h2>
-      <div style="width:100%; height:auto;">
-      <button type="button"; class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">글등록</button>
-      </div>
-      <!-- Icon Divider -->
-      <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>
-
-      <!-- Portfolio Grid Items -->
-      <div class="row">
-
-        <!-- Portfolio Item 1 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/cabin.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/cake.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/circus.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 4 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/game.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 5 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/safe.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 6 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal6">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/illust/img/portfolio/submarine.png" alt="">
-          </div>
-        </div>
-
-      </div>
-      <!-- /.row -->
-
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <!-- <section class="page-section bg-primary text-white mb-0" id="about">
-    <div class="container">
-
-      About Section Heading
-      <h2 class="page-section-heading text-center text-uppercase text-white">About</h2>
-
-      Icon Divider
-      <div class="divider-custom divider-light">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>
-
-      About Section Content
-      <div class="row">
-        <div class="col-lg-4 ml-auto">
-          <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p>
-        </div>
-        <div class="col-lg-4 mr-auto">
-          <p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p>
-        </div>
-      </div>
-
-      About Section Button
-      <div class="text-center mt-4">
-        <a class="btn btn-xl btn-outline-light" href="https://startbootstrap.com/themes/freelancer/">
-          <i class="fas fa-download mr-2"></i>
-          Free Download!
-        </a>
-      </div>
-
-    </div>
-  </section> -->
-
-  <!-- Contact Section -->
-  <!-- <section class="page-section" id="contact">
-    <div class="container">
-
-      Contact Section Heading
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Contact Me</h2>
-
-      Icon Divider
-      <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>
-
-      Contact Section Form
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19.
-          <form name="sentMessage" id="contactForm" novalidate="novalidate">
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" required="required" data-validation-required-message="Please enter your name.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Email Address</label>
-                <input class="form-control" id="email" type="email" placeholder="Email Address" required="required" data-validation-required-message="Please enter your email address.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Phone Number</label>
-                <input class="form-control" id="phone" type="tel" placeholder="Phone Number" required="required" data-validation-required-message="Please enter your phone number.">
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                <label>Message</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Message" required="required" data-validation-required-message="Please enter a message."></textarea>
-                <p class="help-block text-danger"></p>
-              </div>
-            </div>
-            <br>
-            <div id="success"></div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-    </div>
-  </section> -->
+  
 
   <!-- Footer -->
   <footer class="footer text-center">

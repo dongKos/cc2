@@ -16,6 +16,7 @@
   <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
@@ -92,13 +93,13 @@
   	<div class="collapse navbar-collapse secondNav" id="navbarResponsive">
         <ul class="navbar-nav">
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link" href="illustChallenge.ill" style="color:white; font-size:30px; font-weight:middle;">도전하기</a>
+            <a class="nav-link" href="illustChallenge.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">도전하기</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link" href="illustPortpolio.ill" style="color:white; font-size:30px; font-weight:middle;">포트폴리오</a>
+            <a class="nav-link" href="illustPortpolio.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">포트폴리오</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link" href="illustSupport.ill" style="color:white; font-size:30px; font-weight:middle;">후원하기</a>
+            <a class="nav-link" href="illustSupport.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">후원하기</a>
           </li>
         </ul>
       </div>
