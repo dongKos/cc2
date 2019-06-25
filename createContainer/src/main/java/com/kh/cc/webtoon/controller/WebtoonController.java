@@ -143,7 +143,10 @@ public class WebtoonController {
 			System.out.println("이거 잘 작동하나?? ");
 			
 			ws.insertWebtoon(wt, wp);
+			System.out.println("마지막으로 최종 리턴값 출력");
+			
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+			System.out.println("파일저장 출력");
 			
 			
 			return "webtoon/webtoonUpload";
