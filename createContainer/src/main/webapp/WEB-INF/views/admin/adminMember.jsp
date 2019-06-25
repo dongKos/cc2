@@ -9,9 +9,13 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("#refundTable tr").click(function(){
+		$("#memberTable tr").click(function(){
 			var num = $(this).children().eq(0).text();
-			location.href = "showMemberDetail.ad";
+			if(num == '아이디'){
+				console.log("뿌엥");
+			}else{
+				location.href = "showMemberDetail.ad?num=" + num + "&currentPage=" + ${pi.currentPage};
+			}
 		});
 		
 		//선택된 사이드 메뉴바 표시
@@ -47,9 +51,11 @@
                             <div class="col-lg-12">
                                 <div class="m-b-25">
                                 	<select>
+                                		<option>선택하세요</option>
                                 		<option>일반회원</option>
-                                		<option>작가</option>
+                                		<option>프리미엄 작가</option>
                                 		<option>블랙리스트</option>
+                                		<option>탈퇴회원</option>
                                 	</select>
                                 	<input type="text">
                                 	<button class="btn btn-primary" type="submit">검색</button>
@@ -58,31 +64,59 @@
                                     <table class="table table-borderless table-striped table-earning" id="memberTable">
                                         <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>order ID</th>
-                                                <th>name</th>
-                                                <th class="text-right">price</th>
-                                                <th class="text-right">quantity</th>
-                                                <th class="text-right">total</th>
+                                                <th>아이디</th>
+                                                <th>이름</th>
+                                                <th>구분</th>
+                                                <th class="text-right">가입일</th>
+                                                <th class="text-right">뭐냐여긴</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             	<c:forEach var="r" items="${list }" end="${pi.limit }">
+                                             	<c:forEach var="m" items="${list }" end="${pi.limit }">
                                             <tr>
-                                                <td>${r.refundCode}</td>
-                                                <td>${r.requestDate }</td>
-                                                <td>${r.userId }</td>
-                                                <td class="text-right">${r.price }</td>
-                                                <c:if test="${ r.status eq 'N'}">
-                                               		 <td class="text-right">처리 대기</td>
-                                                </c:if>
-                                                <c:if test="${r.status eq 'Y' }">
-                                			    	<td class="text-right">처리 완료</td>            
-                                                </c:if>
+                                            <td style="display:none">${m.mno }</td>
+                                                <td>${m.userId}</td>
+                                                <td>${m.userName }</td>
+                                                <td>${m.memberType }</td>
+                                                <td class="text-right">${m.joinDate }</td>
+                               			    	<td class="text-right">처리 완료</td>            
                                             </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
+                                     <!-- 페이징 영역 -->
+                                    <div id="pagingArea" align="center">
+						                <c:if test="${pi.currentPage <= 1 }">
+						                        [이전]&nbsp;
+						                </c:if>
+						                <c:if test="${pi.currentPage > 1 }">
+						                        <c:url var="blistBack" value="/showMember.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage - 1 }"/>
+						                        </c:url>
+						                        <a href="${blistBack }">[이전]</a> &nbsp;
+						                </c:if>
+						                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						            <c:if test="${ p eq pi.currentPage }">
+						               <font color="red" size="4"><b>[${ p }]</b></font>
+						            </c:if>
+						            <c:if test="${ p ne pi.currentPage }">
+						               <c:url var="blistCheck" value="showMember.ad">
+						                  <c:param name="currentPage" value="${ p }"/>
+						               </c:url>
+						               <a href="${ blistCheck }">${ p }</a>
+						            </c:if>
+						         </c:forEach> 
+						                
+						                <c:if test="${pi.currentPage >= pi.maxPage}">
+						                        &nbsp;[다음]
+						                </c:if>
+						                <c:if test="${pi.currentPage < pi.maxPage }">
+						                        <c:url var="blistEnd" value="showMember.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage + 1 }"/>
+						                        </c:url>
+						                        <a href="${blistEnd }">&nbsp;[다음]</a>
+						                </c:if>
+						      	  </div>
                                 </div>
                             </div>
                             

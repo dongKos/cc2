@@ -106,6 +106,7 @@
 			data:{currentPage:currentPage, statusVal:statusVal},
 			type:"get",
 			success:function(data){
+				console.log(data);
 				//테이블 재 생성
 				var table = $("#refundTable");
 				var tbody = $('tbody');

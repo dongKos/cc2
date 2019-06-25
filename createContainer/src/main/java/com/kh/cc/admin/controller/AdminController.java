@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.common.Pagination;
+import com.kh.cc.member.model.vo.Member;
 
 @Controller
 public class AdminController {
@@ -50,26 +52,25 @@ public class AdminController {
 	}
 	
 	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
-	@RequestMapping("refundStatus.ad")
-	public ModelAndView refundStatus(HttpServletRequest request, ModelAndView mv) {
+	@RequestMapping(value="refundStatus.ad")
+	public ModelAndView refundStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
 		ArrayList<Refund> list = null;
+		response.setContentType("text/html; charset=UTF-8");
 		String statusVal = request.getParameter("statusVal");
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		int listCount = 0;
-		System.out.println(statusVal);
 		
 		listCount = as.getRefundAjaxCount(statusVal);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
 		list = as.refundStatus(statusVal, pi);
 		
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
- 		for(int i = 0; i < list.size(); i++) {
- 			HashMap<String, Object> hmap = new HashMap<String, Object>();
+		for(int i = 0; i < list.size(); i++) {
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
 			
 			String rDate = fmt.format(list.get(i).getRequestDate());
 			String cDate = fmt.format(list.get(i).getCompleteDate());
@@ -117,7 +118,7 @@ public class AdminController {
 	//회원 관리 페이지
 	@RequestMapping(value="showMember.ad")
 	public String showMember(HttpServletRequest request, Model model) {
-	int currentPage = 1;
+		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -128,16 +129,20 @@ public class AdminController {
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		
-		ArrayList<Refund> list = as.selectMemberList(pi);
+		ArrayList<Member> list = as.selectMemberList(pi);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
-		return "admin/adminmember";
+		return "admin/adminMember";
 	}
 	
 	//회원 관리 페이지 상세보기
 	@RequestMapping("showMemberDetail.ad")
-	public String showMemberDetail() {
+	public String showMemberDetail(HttpServletRequest request, Model model) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		
+		Member reqMember = as.selectOneMember(num);
+		model.addAttribute("reqMember", reqMember);
 		return "admin/adminMemberDetail";
 	}
 	
