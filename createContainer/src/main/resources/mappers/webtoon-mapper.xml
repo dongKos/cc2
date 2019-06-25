@@ -48,6 +48,13 @@
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
 					 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId})
 	</insert>
+	
+	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
+	SELECT COUNT(*)
+	FROM WORK
+	WHERE USER_ID = #{userId}
+	AND WORK_TYPE = 'WT'
+	</select>
 
 
 

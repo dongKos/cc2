@@ -146,7 +146,7 @@ input[type=checkbox]:checked + label:before{
 	padding-top:10px;
 	padding-bottom:10px;
 }
-.cycle{
+.wrComment{
 	width:100%;
 	margin-top:10px;
 	margin-bottom:10px;
@@ -207,7 +207,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td colspan="2" class="wnContent">
-										<textarea class="cycle" name="wCycle"></textarea>
+										<textarea class="wrComment" name="wrComment"></textarea>
 									</td>
 								</tr>
 								<tr>

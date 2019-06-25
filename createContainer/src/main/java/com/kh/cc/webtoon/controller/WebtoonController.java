@@ -1,5 +1,6 @@
 package com.kh.cc.webtoon.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 
@@ -93,15 +94,39 @@ public class WebtoonController {
 	}
 
 	// 웹툰 작품등록폼
+	// select
 	@RequestMapping(value = "webtoonUpload.wt")
 	public String insertWebtoon() {
+		
+		
 		return "webtoon/webtoonUpload";
 	}
 
 	// 웹툰 Work등록폼으로 가기
 	@RequestMapping(value = "insertWork.wt")
-	public String webtoonWorkInsert() {
+	public String webtoonWorkInsert(HttpServletRequest request, HttpSession session, Member m, Model model) {
+		System.out.println("웹툰 작품등록포 가기전 리스트 셀렉트");
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage")!= null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.selectListCount(m);
+		System.out.println("listCount : " + listCount);
+		
+		
+		
+		return "webtoon/webtoonUpload";
+	}
+	
+	@RequestMapping(value="inserWorkForm.wt")
+	public String webtoonInsertWorkForm() {
 		return "webtoon/webtoonWorkInsert";
+		
 	}
 
 	// 웹툰 등록
@@ -123,7 +148,7 @@ public class WebtoonController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		String filePath = root + "\\uplaodFiles\\webtoonImg\\webtoonMain";
+		String filePath = root + "\\uploadFiles\\webtoonMain";
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeFileName = CommonUtils.getRandomString();
@@ -134,7 +159,7 @@ public class WebtoonController {
 		  wp.setFilePath(filePath); 
 		  wp.setUserId(userId);
 		  
-		  System.out.println("파일 패스 : " + filePath);
+		  System.out.println("filePath : " + filePath);
 		  System.out.println("WebtoonPhoto : " + wp);
 		  System.out.println("MultipartFile : " + photo.getOriginalFilename());
 		 
@@ -157,11 +182,9 @@ public class WebtoonController {
 			model.addAttribute("msg","작품등록실패");
 			
 			return "common/errorPage";
-					
 		} 
-
 	}
-
+	
 }
 
 

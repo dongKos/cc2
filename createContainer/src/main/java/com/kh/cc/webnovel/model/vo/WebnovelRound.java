@@ -10,6 +10,7 @@ public class WebnovelRound implements java.io.Serializable{
 	private int approvalCode;
 	private int wid;
 	private String rContent;
+	private String wrComment;
 	private String changeName;
 	private int fid;
 	private String workStatus;
@@ -17,7 +18,7 @@ public class WebnovelRound implements java.io.Serializable{
 	public WebnovelRound() {}
 
 	public WebnovelRound(int rid, String rTitle, int vCount, Date ruploadDate, int approvalCode, int wid,
-			String rContent, String changeName, int fid, String workStatus) {
+			String rContent, String wrComment, String changeName, int fid, String workStatus) {
 		super();
 		this.rid = rid;
 		this.rTitle = rTitle;
@@ -26,6 +27,7 @@ public class WebnovelRound implements java.io.Serializable{
 		this.approvalCode = approvalCode;
 		this.wid = wid;
 		this.rContent = rContent;
+		this.wrComment = wrComment;
 		this.changeName = changeName;
 		this.fid = fid;
 		this.workStatus = workStatus;
@@ -57,6 +59,10 @@ public class WebnovelRound implements java.io.Serializable{
 
 	public String getrContent() {
 		return rContent;
+	}
+
+	public String getWrComment() {
+		return wrComment;
 	}
 
 	public String getChangeName() {
@@ -99,6 +105,10 @@ public class WebnovelRound implements java.io.Serializable{
 		this.rContent = rContent;
 	}
 
+	public void setWrComment(String wrComment) {
+		this.wrComment = wrComment;
+	}
+
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
@@ -115,9 +125,15 @@ public class WebnovelRound implements java.io.Serializable{
 	public String toString() {
 		return "WebnovelRound [rid=" + rid + ", rTitle=" + rTitle + ", vCount=" + vCount + ", ruploadDate="
 				+ ruploadDate + ", approvalCode=" + approvalCode + ", wid=" + wid + ", rContent=" + rContent
-				+ ", changeName=" + changeName + ", fid=" + fid + ", workStatus=" + workStatus + "]";
+				+ ", wrComment=" + wrComment + ", changeName=" + changeName + ", fid=" + fid + ", workStatus="
+				+ workStatus + "]";
 	}
+	
+	
+	
+	
 
+	
 	
 
 	

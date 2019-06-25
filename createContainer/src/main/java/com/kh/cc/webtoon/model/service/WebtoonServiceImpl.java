@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.dao.WebtoonDao;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
@@ -41,6 +42,13 @@ public class WebtoonServiceImpl implements WebtoonService{
 		System.out.println("result : " + result);
 		 
 		return result;
+	}
+
+	//작품등록전 기존에있던 작품 리스트 조회
+	@Override
+	public int selectListCount(Member m) {
+		System.out.println("작품리스트조회 서비스 들어옴");
+		return wd.selectListCount(sqlSession, m);
 	}
 
 }
