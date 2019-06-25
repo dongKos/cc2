@@ -9,6 +9,6 @@ public interface WebtoonDao {
 
 	int insertWebtoon(SqlSessionTemplate sqlSession, Webtoon wt);
 
-	/* int insertWtPhoto(SqlSessionTemplate sqlSession, WebtoonPhoto wp); */
+	 int insertWtPhoto(SqlSessionTemplate sqlSession, WebtoonPhoto wp); 
 
 }

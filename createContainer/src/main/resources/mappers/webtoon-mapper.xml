@@ -46,7 +46,7 @@
 	<insert id="insertWtPhoto" parameterType="Webtoon">
 		INSERT INTO ATTACHMENT
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
-					 'Y', 'ma', 0, null, 'WT', null, WID_SEQ.CURRVAL, #{userId})
+					 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId})
 	</insert>
 
 
