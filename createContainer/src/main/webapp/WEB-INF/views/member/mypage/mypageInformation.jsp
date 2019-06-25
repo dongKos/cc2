@@ -34,7 +34,7 @@
   					</ul>
       <div class="point" style="width:80%; margin:0 auto;">
   					<br>
-  					<form class="form-horizontal" action="memberUpdate.mg" method="post">
+  					<form class="form-horizontal" action="memberUpdate.mg" method="post" enctype="multipart/form-data">
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">아이디:</label>
     					<div class="col-sm-10">
