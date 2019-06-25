@@ -16,11 +16,13 @@ public class Member implements java.io.Serializable{
 	private String phone;
 	private int wCount;
 	private String status;
+	private Date joinDate;
 	
 	public Member () {}
 
 	public Member(int mno, String userId, String userPwd, String userName, String nickName, int memberType,
-			String intro, int wallet, Date birthday, String email, String phone, int wCount, String status) {
+			String intro, int wallet, Date birthday, String email, String phone, int wCount, String status,
+			Date joinDate) {
 		super();
 		this.mno = mno;
 		this.userId = userId;
@@ -35,6 +37,7 @@ public class Member implements java.io.Serializable{
 		this.phone = phone;
 		this.wCount = wCount;
 		this.status = status;
+		this.joinDate = joinDate;
 	}
 
 	public int getMno() {
@@ -89,6 +92,10 @@ public class Member implements java.io.Serializable{
 		return status;
 	}
 
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
 	public void setMno(int mno) {
 		this.mno = mno;
 	}
@@ -141,14 +148,19 @@ public class Member implements java.io.Serializable{
 		this.status = status;
 	}
 
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [mno=" + mno + ", userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName
 				+ ", nickName=" + nickName + ", memberType=" + memberType + ", intro=" + intro + ", wallet=" + wallet
 				+ ", birthday=" + birthday + ", email=" + email + ", phone=" + phone + ", wCount=" + wCount
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", joinDate=" + joinDate + "]";
 	}
 
+	
 	
 	
 	

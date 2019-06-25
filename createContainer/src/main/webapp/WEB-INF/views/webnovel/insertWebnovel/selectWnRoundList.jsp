@@ -55,6 +55,7 @@
 .wnrListArea{
 	margin-top:30px;
 	width:100%;
+	padding:0px 30px 0px 30px;
 }
 .wnrImg{
 	width:170px;
@@ -91,6 +92,10 @@
 	text-align:right;
 	padding-right:30px;
 }
+.wnrArea{
+	background-color:#FBFBFB;
+	padding:0px 20px 50px 20px;
+}
 </style>
 </head>
 <body>
@@ -103,7 +108,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1"></div>
-			<div class="col-sm-10">
+			<div class="col-sm-10 wnrArea">
 				<div class="introArea">
 					<table class="introTable">
 						<tr>
@@ -149,6 +154,8 @@
 							<td class="wnrBtnArea">
 								<button class="wnUpdateBtn">회차 정보 수정</button>
 								<input type="hidden" value="${ wnr.rid }">
+								<input type="hidden" value="${ wnr.fid }">
+								<h1>${ wnr.rid }</h1>
 							</td>
 						</tr>
 						<tr>
@@ -162,9 +169,10 @@
 				<script>
 					$(function(){
 						$('.wnrListArea').find('td').children('button').click(function(){
-							var rid = $(this).parents().children("input").val();
-							
-							location.href = "selectWnrUpdateForm.wn?rid=" + rid;
+							var rid = $(this).parents().children("input").eq(0).val();
+							var fid = $(this).parents().children("input").eq(1).val();
+							console.log(rid);
+							location.href = "selectWnrUpdateForm.wn?rid=" + rid +"&fid=" + fid;
 						});
 					});
 				</script>

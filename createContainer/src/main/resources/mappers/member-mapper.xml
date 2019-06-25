@@ -18,6 +18,7 @@
 		<result property="phone" column="PHONE"/>
 		<result property="wCount" column="WCOUNT"/>
 		<result property="status" column="STATUS"/>
+		<result property="joinDate" column="JOIN_DATE"/>
 		
 	</resultMap>
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
@@ -29,7 +30,7 @@
 	</select>
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (MNO_SEQ.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{nickName}, 2, '없음', 0, SYSDATE, #{email}, #{phone}, 0, 'Y')
+		VALUES (MNO_SEQ.NEXTVAL, #{userId}, #{userPwd}, #{userName}, #{nickName}, 2, '없음', 0, SYSDATE, #{email}, #{phone}, 0, 'Y', SYSDATE)
 	</insert>
 	
 	<!-- 암호화된 비밀번호 조회용 메소드 -->
