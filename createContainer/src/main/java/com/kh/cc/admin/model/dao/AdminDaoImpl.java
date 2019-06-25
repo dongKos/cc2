@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.member.model.vo.Member;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -75,6 +76,26 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return sqlSession.selectOne("admin.selectRefundAjaxCount", str);
 	}
-	
+	//전체 회원 수 조회
+	@Override
+	public int getMemberListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectMemberListCount");
+	}
+
+	//전체 회원 목록 조회
+	@Override
+	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
+		
+	}
+
+	//회원 관리 페이지 상세보기
+	@Override
+	public Member selectOneMember(SqlSessionTemplate sqlSession, int num) {
+		return sqlSession.selectOne("admin.selectOneMember", num);
+	}
 	
 }

@@ -13,6 +13,22 @@
       <result property="refundReason" column="REFUND_REASON"/>
       <result property="userId" column="USER_ID"/>
    </resultMap>
+   <resultMap type="com.kh.cc.member.model.vo.Member" id="memberResultSet">
+      <id property="mno" column="MNO"/>            
+      <result property="userId" column="USER_ID"/>   
+      <result property="userPwd" column="USER_PWD"/>
+      <result property="userName" column="USER_NAME"/>
+      <result property="nickName" column="NICKNAME"/>
+      <result property="memberType" column="MEMBER_TYPE"/>
+      <result property="intro" column="INTRO"/>
+      <result property="wallet" column="WALLET"/>
+      <result property="birthday" column="BIRTHDAY"/>
+      <result property="email" column="EMAIL"/>
+      <result property="phone" column="PHONE"/>
+      <result property="wCount" column="WCOUNT"/>
+      <result property="status" column="STATUS"/>
+      <result property="joinDate" column="JOIN_DATE"/>
+   </resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -48,6 +64,23 @@
    		SELECT COUNT(*)
    		FROM REFUND
    		WHERE STATUS = #{str}
+   </select>
+   <select id="selectMemberListCount" resultType="_int">
+   		SELECT COUNT(*)
+   		FROM MEMBER
+   		WHERE STATUS='Y'
+   </select>
+   
+   <select id="selectMemberList" resultMap="memberResultSet">
+   		SELECT * 
+   		FROM MEMBER
+   		WHERE STATUS = 'Y'
+   </select>
+   <select id="selectOneMember" parameterType="_int" resultMap="memberResultSet">
+   		SELECT *
+   		FROM MEMBER
+   		WHERE STATUS='Y'
+   		AND MNO = #{mno}
    </select>
 </mapper>
 

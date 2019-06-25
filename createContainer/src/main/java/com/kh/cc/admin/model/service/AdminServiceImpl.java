@@ -1,3 +1,4 @@
+
 package com.kh.cc.admin.model.service;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.admin.model.dao.AdminDao;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.member.model.vo.Member;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -44,29 +46,34 @@ public class AdminServiceImpl implements AdminService{
 	public int refundComplte(int refundCode) {
 		return ad.refundComplete(sqlSession,refundCode);
 	}
-
+	
 	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
 	@Override
 	public ArrayList<Refund> refundStatus(String statusVal, AdminPageInfo pi) {
 		return ad.refundStatus(sqlSession, statusVal, pi);
 	}
-
+	
 	//전체 회원 수 조회 
 	@Override
 	public int getMemberListCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ad.getMemberListCount(sqlSession);
 	}
-
+	
+	//전체 회원 목록 조회
 	@Override
-	public ArrayList<Refund> selectMemberList(AdminPageInfo pi) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Member> selectMemberList(AdminPageInfo pi) {
+		return ad.selectMemberList(sqlSession, pi);
 	}
-
+	
 	//환불내역 애이젝스로 분기한거 개수 조회
 	@Override
 	public int getRefundAjaxCount(String statusVal) {
 		return ad.getRefundAjaxCount(sqlSession, statusVal);
+	}
+	
+	//회원 관리 페이지 상세보기
+	@Override
+	public Member selectOneMember(int num) {
+		return ad.selectOneMember(sqlSession, num);
 	}
 }

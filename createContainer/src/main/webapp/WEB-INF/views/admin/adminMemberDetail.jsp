@@ -8,6 +8,12 @@
 <title>환불관리 페이지</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
  <script>
+	//이전 페이지로 돌아가기
+	function goBack(){
+		var currentPage = location.search.split("=")[2];
+		location.href="showMember.ad?currentPage=" + currentPage;
+		/* history.back(); */
+	} 
  	$(function(){
  		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#member").parent().children();
@@ -45,70 +51,42 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <i class="fa fa-user"></i>
-                                        <strong class="card-title pl-2">Profile Card</strong>
+                                        <strong class="card-title pl-2">${ reqMember.userName}</strong>님의 프로필	
+                                        <B style="float:right;">가입일 : ${reqMember.joinDate }</B>
                                     </div>
                                     <div class="card-body">
                                         <div class="mx-auto d-block">
                                             <img class="rounded-circle mx-auto d-block" src="images/icon/avatar-01.jpg" alt="Card image cap">
-                                            <h5 class="text-sm-center mt-2 mb-1">Steven Lee</h5>
+                                            <h4 class="my-3">자기소개</h4>
                                             <div class="location text-sm-center">
-                                                <i class="fa fa-map-marker"></i> California, United States</div>
+                                            	<input type="text" class="form-control" value="${reqMember.intro }">
+                                                </div>
                                         </div>
-                                        <hr>
-                                        <div class="card-text text-sm-center">
-                                            <a href="#">
-                                                <i class="fa fa-facebook pr-1"></i>
-                                            </a>
-                                            <a href="#">
-                                                <i class="fa fa-twitter pr-1"></i>
-                                            </a>
-                                            <a href="#">
-                                                <i class="fa fa-linkedin pr-1"></i>
-                                            </a>
-                                            <a href="#">
-                                                <i class="fa fa-pinterest pr-1"></i>
-                                            </a>
-                                        </div>
+                                       <div class="mx-auto mt-5 d-block">
+                                       		<h4 class="my-3">작가의 등록작품</h4>
+                                       		<img class="card-img-top" src="images/bg-title-01.jpg" alt="Card image cap">
+	                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+	                                            content.
+	                                        </p>
+                                       </div>
+                                       <hr>
+                                       <div class="btn-area">
+	                                       <div class="row">
+	                                  		<div class="col-lg-6" align="center">
+	                                  			<button class="btn btn-warning" onclick="goBack();">뒤로가기</button>
+	                                  		</div>
+	                                  		<div class="col-lg-6" align="center">
+	                                  			<button class="btn btn-primary">수정완료</button>
+	                                  		</div>
+	                                       
+	                                       </div>
+                                       </div>
                                     </div>
                                 </div>
                             </div>
                             
                         </div>
-                        <div class="row">
-                        	<div class="col-md-4">
-                        	      <div class="card">
-                                    <img class="card-img-top" src="images/bg-title-01.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Card Image Title</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            	<div class="col-md-4">
-                        	      <div class="card">
-                                    <img class="card-img-top" src="images/bg-title-01.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Card Image Title</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            	<div class="col-md-4">
-                        	      <div class="card">
-                                    <img class="card-img-top" src="images/bg-title-01.jpg" alt="Card image cap">
-                                    <div class="card-body">
-                                        <h4 class="card-title mb-3">Card Image Title</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                                            content.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">

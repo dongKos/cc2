@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.member.model.vo.Member;
 
 public interface AdminDao {
 	
@@ -20,5 +21,11 @@ public interface AdminDao {
 	ArrayList<Refund> refundStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi);
 
 	int getRefundAjaxCount(SqlSessionTemplate sqlSession, String statusVal);
+
+	int getMemberListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	Member selectOneMember(SqlSessionTemplate sqlSession, int num);
 	
 }
