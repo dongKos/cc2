@@ -34,7 +34,7 @@
   					</ul>
       <div class="point" style="width:80%; margin:0 auto;">
   					<br>
-  					<form class="form-horizontal" action="memberUpdate.mg" method="post" enctype="multipart/form-data">
+  					<form class="form-horizontal" action="memberUpdate2.mg" method="post">
   					<div class="form-group">
     					<label class="control-label col-sm-2" for="userId">아이디:</label>
     					<div class="col-sm-10">
@@ -89,7 +89,7 @@
 		var email = $("#email").val();
 		var birthday = $("#birthday").val();
 		$.ajax({
-			url:'memberUpdate.mg',
+			url:'memberUpdate2.mg',
 			type:'POST',
 			data:{userId:userId,nickName:nickName,phone:phone,email:email,birthday:birthday},
 			success:function(data) {

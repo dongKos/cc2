@@ -1,6 +1,7 @@
 package com.kh.cc.mypage.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,16 +13,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cc.common.CommonUtils;
+import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
 import com.kh.cc.mypage.model.vo.MypgPhoto;
 import com.kh.cc.mypage.model.vo.MypgProfile;
+import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.Webnovel;
-import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -31,103 +35,125 @@ public class MypgController {
 	private MypgService ms;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	@Autowired
+	private WebnovelService ws;
 	
 	
 	//마이페이지 이동
-		@RequestMapping("mypgMain.mg")
-		public String showLoginForm() {
-			return "member/mypage/mypage";
-		}
-		
-	//CC 페이지 이동
-		@RequestMapping("mypgCredit.mg")
-		public String showCreditPage() {
-			return "member/mypage/mypageCredit";
-		}
-	//CC 페이지 - 충전
-		@RequestMapping("mypgCreditCharge.mg")
-		public String showCreditCharge() {
-			return "member/mypage/mypageCreditCharge";
-		}
-	//개인정보관리 페이지이동 - 패스워드
-		@RequestMapping("mypgInfoPass.mg")
-		public String showInfoPassPage() {
-			return "member/mypage/mypageInformationPass";
-		}
-	//개인정보관리 페이지이동
-		@RequestMapping("mypgInfo.mg")
-		public String showInfo(Member m, Model model, HttpSession session) {
-			int result = 0;
-			try {
-				result = ms.checkPwd(m);
-				
-				if(result > 0) {
-					
-					return "member/mypage/mypageInformation";
-				}else {
-					return "redirect:index.jsp";
-				}
-		
-			} catch (MypgException e) {
-				model.addAttribute("msg", e.getMessage());
-				
-				
-				return "common/errorPage";
+			@RequestMapping("mypgMain.mg")
+			public String showLoginForm() {
+				return "member/mypage/mypage";
 			}
-		}
-	//개인정보 수정하는 기능
-		@RequestMapping("memberUpdate.mg")
-		public String memberUpdate(Member m, Model model, HttpSession session) {
-			int result = 0;
 			
-			return "common/errorPage";
-		}
-	
-	//내 문의 내역 페이지 이동
-		@RequestMapping("mypgQue.mg")
-		public String showQue() {
-			return "member/mypage/mypageQuestion";
-		}
-	//회원탈퇴 페이지 이동
-		@RequestMapping("mypgResign.mg")
-		public String showResign() {
-			return "member/mypage/mypageResign";
-		}
-	//작가페이지
-		@RequestMapping("writerMain.mg")
-		public String showWriter() {
-			return "member/mypage/writerpage";
-		}
-	//작가페이지 - 작가프로필 비밀번호 확인
-		@RequestMapping("writerInfoPass.mg")
-		public String showWriterInfoPass() {
-			return "member/mypage/WriterInformationPass";
-		}
-	//작가페이지 - 작가프로필
-		@RequestMapping("writerInfo.mg")
-		public String showWriterInfo() {
-			return "member/mypage/writerInformation";
-		}
-	//작가페이지 - 유료작품 신청
-		@RequestMapping("writerReqPremium.mg")
-		public String showReqPremium() {
-			return "member/mypage/writerReqPremium";
-		}
-	//작가페이지 - 정식 포트폴리오 신청
-		@RequestMapping("writerReqPortfolio.mg")
-		public String showReqPortfolio() {
-			return "member/mypage/writerReqPortfolio";
-		}
-	//작가페이지 - 일러스트 요청 목록
-		@RequestMapping("writerReqIllust.mg")
-		public String showReqIllust() {
-			return "member/mypage/writerReqIllust";
-		}
-	//작가페이지 - 휴재 내역
-		@RequestMapping("writerRest.mg")
-		public String showRest() {
-			return "member/mypage/writerRest";
-		}
+		//CC 페이지 이동
+			@RequestMapping("mypgCredit.mg")
+			public String showCreditPage() {
+				return "member/mypage/mypageCredit";
+			}
+		//CC 페이지 - 충전
+			@RequestMapping("mypgCreditCharge.mg")
+			public String showCreditCharge() {
+				return "member/mypage/mypageCreditCharge";
+			}
+		//개인정보관리 페이지이동 - 패스워드
+			@RequestMapping("mypgInfoPass.mg")
+			public String showInfoPassPage() {
+				return "member/mypage/mypageInformationPass";
+			}
+		//개인정보관리 페이지이동
+			@RequestMapping("mypgInfo.mg")
+			public String showInfo(Member m, Model model, HttpSession session) {
+				int result = 0;
+				try {
+					result = ms.checkPwd(m);
+					
+					if(result > 0) {
+						
+						return "member/mypage/mypageInformation";
+					}else {
+						
+						return "redirect:index.jsp";
+					}
+			
+				} catch (MypgException e) {
+					model.addAttribute("msg", e.getMessage());
+					
+					return "common/errorPage";
+				}
+			}
+		//개인정보 수정하는 기능
+			@RequestMapping("memberUpdate2.mg")
+			public String memberUpdate(Member m, Model model, HttpSession session, SessionStatus status) {
+				Member upm;
+				
+				upm = ms.updateMember(m);
+				status.setComplete();
+				session.setAttribute("loginUser", upm);
+				return "member/mypage/mypageInformation";
+			}
+		
+		//내 문의 내역 페이지 이동
+			@RequestMapping("mypgQue.mg")
+			public String showQue() {
+				return "member/mypage/mypageQuestion";
+			}
+		//회원탈퇴 페이지 이동
+			@RequestMapping("mypgResign.mg")
+			public String showResign() {
+				return "member/mypage/mypageResign";
+			}
+		//작가페이지
+			@RequestMapping("writerMain.mg")
+			public String showWriter() {
+				return "member/mypage/writerpage";
+			}
+		//작가페이지 - 작가프로필 비밀번호 확인
+			@RequestMapping("writerInfoPass.mg")
+			public String showWriterInfoPass() {
+				return "member/mypage/WriterInformationPass";
+			}
+		//작가페이지 - 작가프로필
+			@RequestMapping("writerInfo.mg")
+			public String showWriterInfo() {
+				return "member/mypage/writerInformation";
+			}
+		//작가페이지 - 유료작품 신청
+			@RequestMapping("writerReqPremium.mg")
+			public String selectWnList(HttpServletRequest request, HttpSession session, Member m, Model model) {
+				m = (Member) session.getAttribute("loginUser");
+				
+				int currentPage = 1;
+				
+				if(request.getParameter("currentPage") != null) {
+					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+				}
+				
+				int listCount = ws.selectListCount(m);
+				
+				
+				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+				
+				ArrayList<Webnovel> list = ws.selectWnList(pi, m);
+				model.addAttribute("list", list);
+				model.addAttribute("pi", pi);
+				
+				return "member/mypage/writerReqPremium";
+			}
+		//작가페이지 - 정식 포트폴리오 신청
+			@RequestMapping("writerReqPortfolio.mg")
+			public String showReqPortfolio() {
+				return "member/mypage/writerReqPortfolio";
+			}
+		//작가페이지 - 일러스트 요청 목록
+			@RequestMapping("writerReqIllust.mg")
+			public String showReqIllust() {
+				return "member/mypage/writerReqIllust";
+			}
+		//작가페이지 - 휴재 내역
+			@RequestMapping("writerRest.mg")
+			public String showRest() {
+				return "member/mypage/writerRest";
+			}
 		
 	
 		
