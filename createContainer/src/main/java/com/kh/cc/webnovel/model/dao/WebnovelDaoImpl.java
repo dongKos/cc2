@@ -42,10 +42,10 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		
 		return list;
 	}
-	//웹소설 수정폼 이동
+	//웹소설, 사진 정보
 	@Override
 	public Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid) {
-		return sqlSession.selectOne("Webnovel.selectWntOne", wid);
+		return sqlSession.selectOne("Webnovel.selectWnOne", wid);
 	}
 	//웹소설 메인 수정
 	@Override
@@ -65,11 +65,36 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	//웹소설 회차 사진 등록
 	@Override
 	public int insertWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp) {
-		int result = sqlSession.insert("Webnovel.insertWnrPhoto", wp);
+		return sqlSession.insert("Webnovel.insertWnrPhoto", wp);
+	}
+	//웹소설 완결 상태
+	@Override
+	public int updateWorkStatus(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.update("Webnovel.updateWorkStatus", wn);
+	}
+	//웹소설 회차 목록 카운트
+	@Override
+	public int selectWnrListCount(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.selectOne("Webnovel.selectWnrListCount", wnr);
+	}
+	//웹소설 회차 목록 리스트
+	@Override
+	public ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelRound wnr) {
+		ArrayList<WebnovelRound> list = null;
 		
-		System.out.println("회차 사진 dao : " + result);
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
-		return result;
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnRoundList", wnr, rowBounds);
+		
+		System.out.println("회차 리스트 : " + list);
+		return list;
+	}
+	//웹소설 회차, 정보
+	@Override
+	public WebnovelRound selectWnrOne(SqlSessionTemplate sqlSession, int rid) {
+		return sqlSession.selectOne("Webnovel.selectWnrOne", rid);
 	}
 	
 

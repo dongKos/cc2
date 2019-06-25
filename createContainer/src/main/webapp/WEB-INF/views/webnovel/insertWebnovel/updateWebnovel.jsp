@@ -24,7 +24,7 @@
 				<form action="updateNovel.wn" method="post" enctype="multipart/form-data">
 					<div class="insertWnForm">
 						<div class="title">
-							<div class="webnovelTitle">새 작품 등록</div>
+							<div class="webnovelTitle">작품 정보 수정</div>
 						</div>
 						<div class="content">
 							<table class="insertWnTable">

@@ -52,6 +52,45 @@
 	padding:10px 30px 10px 30px;
 	text-align:left;
 }
+.wnrListArea{
+	margin-top:30px;
+	width:100%;
+}
+.wnrImg{
+	width:170px;
+}
+.subImg{
+	padding: 10px 10px 10px 10px;
+}
+.subImg img{
+	width:140px;
+	height:110px;
+}
+.wnrTable{
+	border-top:1px solid lightgray;
+	width:100%;
+}
+.wnrTable tr>td{
+	height:47px;
+}
+.wnrContent{
+	padding-left:30px;
+}
+.wnUpdateBtn{
+	width:130px;
+	height:30px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.wnrBtnArea{
+	text-align:right;
+	padding-right:30px;
+}
 </style>
 </head>
 <body>
@@ -66,7 +105,6 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
 				<div class="introArea">
-					
 					<table class="introTable">
 						<tr>
 							<td rowspan="3"width="210">
@@ -96,6 +134,78 @@
 					</table>
 				</div>
 				<div class="wnrListArea">
+				<c:forEach var="wnr" items="${ list }">
+					<table class="wnrTable">
+						<tr>
+							<td rowspan="3" class="wnrImg">
+								<div class="subImg">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+								</div>
+							</td>
+							<td colspan="2" class="wnrContent"></td>
+						</tr>
+						<tr>
+							<td class="wnrContent">${ wnr.rTitle }</td>
+							<td class="wnrBtnArea">
+								<button class="wnUpdateBtn">회차 정보 수정</button>
+								<input type="hidden" value="${ wnr.rid }">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="wnrContent">
+								조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+								${ wnr.ruploadDate }
+							</td>
+						</tr>
+					</table>
+				</c:forEach>
+				<script>
+					$(function(){
+						$('.wnrListArea').find('td').children('button').click(function(){
+							var rid = $(this).parents().children("input").val();
+							
+							location.href = "selectWnrUpdateForm.wn?rid=" + rid;
+						});
+					});
+				</script>
+				</div>
+				
+				
+				<div id="pagingArea" align="center">
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="wnrListBack" value="/selectWnRoundList.wn?">
+							<c:param name="wid" value="${ wn.wid }"/>
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${ wnrListBack }">[이전]</a> &nbsp;
+					</c:if>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color="red" size="4"><b>[${ p }]</b></font>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="wnrListCheck" value="/selectWnRoundList.wn">
+								<c:param name="wid" value="${ wn.wid }"/>
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ wnrListCheck }">${ p }</a>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						&nbsp; [다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="wnrListEnd" value="/selectWnRoundList.wn">
+							<c:param name="wid" value="${ wn.wid }"/>
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<a href="${ wnrListEnd }">&nbsp;[다음]</a>
+					</c:if>
 					
 				</div>
 			</div>

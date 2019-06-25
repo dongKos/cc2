@@ -28,7 +28,6 @@ public class WebnovelServiceImpl implements WebnovelService{
 		
 		int result1 = wd.insertWebnovel(sqlSession, wn);
 		int result2 = wd.insertWnPhoto(sqlSession, wp);
-		
 		if(result1 > 0 && result2 > 0) {
 			result = 1;
 		}else {
@@ -69,28 +68,43 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Member m) {
 		return wd.selectWnList(sqlSession, pi, m);
 	}
-	//웹소설 수정폼 이동
+	//웹소설, 사진 정보
 	@Override
 	public Webnovel selectWnOne(int wid) {
 		return wd.selectWnOne(sqlSession, wid);
 	}
 	//웹소설 회차 등록
 	@Override
-	public int insertWnRound(WebnovelRound wnr, WebnovelPhoto wp) {
+	public int insertWnRound(WebnovelRound wnr, WebnovelPhoto wp, Webnovel wn) {
 		int result = 0;
 		
 		int result1 = wd.insertWnRound(sqlSession, wnr);
 		int result2 = wd.insertWnrPhoto(sqlSession, wp);
+		int result3 = wd.updateWorkStatus(sqlSession, wn);
 		System.out.println("작품 회차 사진 등록 성공? : " + result2);
 		
-//		if(result1 > 0 && result2 > 0) {
-//			result = 1;
-//		}else {
-//			result = 0;
-//		}
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
 		
-//		return result;
-		return result1;
+		return result;
+	}
+	//웹소설 회차 목록 카운트
+	@Override
+	public int selectWnrListCount(WebnovelRound wnr) {
+		return wd.selectWnrListCount(sqlSession, wnr);
+	}
+	//웹소설 회차 목록 리스트
+	@Override
+	public ArrayList<WebnovelRound> selectWnRoundList(WebnovelPageInfo pi, WebnovelRound wnr) {
+		return wd.selectWnRoundList(sqlSession, pi, wnr);
+	}
+	//웹소설 회차, 사진 정보
+	@Override
+	public WebnovelRound selectWnrOne(int rid) {
+		return wd.selectWnrOne(sqlSession, rid);
 	}
 	
 	

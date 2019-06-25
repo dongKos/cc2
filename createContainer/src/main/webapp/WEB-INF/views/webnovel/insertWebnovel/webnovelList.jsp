@@ -132,8 +132,6 @@
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
 							
-							console.log(wid);
-							
 							location.href = "selectWnRoundList.wn?wid=" + wid;
 						});
 					});

@@ -172,25 +172,26 @@ input[type=checkbox]:checked + label:before{
 		<div class="row">
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 			<div class="col-sm-10 col-md-10 col-xs-10">
-				<form action="insertWnRound.wn" method="post" enctype="multipart/form-data">
+				<form action="updateWnRound.wn" method="post" enctype="multipart/form-data">
 					<div class="insertWnrFrom">
 						<div class="title">
-							<div class="wnrTitle">신규 회차 등록</div>
+							<div class="wnrTitle">회차 정보 수정</div>
 						</div>
 						<div class="content">
 							<table class="insertWnrTable">
 								<tr>
 									<td class="wnrText">회차 제목</td>
 									<td class="wnrContent">
-										<input type="hidden" value=">${ wn.wid }">
-										<input class="insertWnrInput" type="text" name="rTitle" placeholder="제목을 입력해주세요." maxlength="40" autofocus required>
+										<input type="hidden" name="changeName" value="${ wnr.changeName }">
+										<input type="hidden" name="rid" value="${ wnr.rid }">
+										<input class="insertWnrInput" type="text" name="rTitle" placeholder="제목을 입력해주세요." value="${ wnr.rTitle }"maxlength="40" autofocus required>
 									</td>
 								</tr>
 								<tr>
 									<td class="wnrText">회차 썸네일</td>
 									<td class="wnContent">
 										<div class="imgBox">
-											<img id="roundThumbnail">
+											<img id="roundThumbnail" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 										</div>
 									</td>
 								</tr>
@@ -199,7 +200,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td colspan="2" class="wnrContent">
-										<textarea class="introduction" name="rContent"></textarea>
+										<textarea class="introduction" name="rContent">${ wnr.rContent }</textarea>
 									</td>
 								</tr>
 								<tr>
@@ -212,7 +213,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td colspan="2" class="">
-										<input id="workStatus" type="checkbox" name="workStatus" value="COMPLTE"><label for="workStatus">이 회차가 완결입니다.</label>
+										<input id="workStatus" type="checkbox" name="workStatus" value="${ wnr.workStatus }"><label for="workStatus">이 회차가 완결입니다.</label>
 									</td>
 								</tr>
 								<tr>
@@ -221,8 +222,8 @@ input[type=checkbox]:checked + label:before{
 											<input type="file" id="wnroundThumbnail" name="photo" onchange="loadImg(this,1)">
 										</div>
 										<div class="wnrBtn">
-											<button class="cancelwnrBtn" type="button" onclick="location='cancelWebnovel.wn'">등록 취소</button>&nbsp;&nbsp;&nbsp;
-											<button class="insertwnrBtn" type="submit">작품 등록</button>
+											<button class="cancelwnrBtn" type="button" onclick="location='selectWnRoundList.wn'">등록 취소</button>&nbsp;&nbsp;&nbsp;
+											<button class="insertwnrBtn" type="submit">회차 등록</button>
 										</div>
 									</td>
 								</tr>
@@ -248,6 +249,13 @@ input[type=checkbox]:checked + label:before{
 		});
 		
 		$(function(){
+			console.log($("#workStatus").val());
+			if($("#workStatus").val() == "CLOSE"){
+				$("#workStatus").prop('checked', true);;
+			}else{
+				$("#workStatus").prop('checked', false);;
+			}
+			
 			$("#workStatus").click(function(){
 				var chk = $(this).is(":checked");
 				if(chk) $("#workStatus").val('CLOSE');
