@@ -15,8 +15,6 @@
 	}
 
 	$(function(){
-		
-		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#refund").parent().children();
 		var selectedLi = selectedUl.children().children().eq(0);
@@ -58,7 +56,7 @@
 						table.append(tbody);
 					}
 					
-					//페이징 처리
+					//페이징 처리 - 밑에 있는 애이잭스 페이징 함수를 통해서 페이징 한다
 					var pagingArea = $("#pagingArea");
 					pagingArea.html("");
 					
@@ -100,12 +98,11 @@
 		
 	});
 	
+	//페이징 에이젝스 처리(funcking fucking fuck)
 	function refundPaging(currentPage, statusVal){
-		var currentPage = currentPage;
 		var statusVal = statusVal;
-		
 		$.ajax({
-			url:"refundPaging.ad",
+			url:"refundStatus.ad",
 			data:{currentPage:currentPage, statusVal:statusVal},
 			type:"get",
 			success:function(data){
@@ -138,9 +135,12 @@
 				var pagingArea = $("#pagingArea");
 				pagingArea.html("");
 				
-				var startPage = ${pi.startPage};
-				var endPage = ${pi.endPage};
-				var maxPage = ${pi.maxPage};
+				//페이지 인포 정보도 data에 담겨서 오기 때문에 거기서 꺼내야함
+				var currentPage = data.pi.currentPage;
+				var	startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				var maxPage = data.pi.maxPage;
+				
 				//이전 버튼 
 				if(currentPage <= 1){
 					pagingArea.text("[이전]");
@@ -149,7 +149,7 @@
 				}
 				
 				//숫자 페이지 버튼
-				for(var i = startPage; i < endPage; i++){
+				for(var i = startPage; i <= endPage; i++){
 					if(i == currentPage){
 						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
 						
@@ -160,11 +160,9 @@
 				
 				//다음 버튼
 				if(currentPage >= maxPage){
-					pagingArea.text("[다음]");
+					pagingArea.append("[다음]");
 				}else{
 					pagingArea.append("<button onclick='refundPaging("+ (currentPage + 1) + ","+ statusVal+")'>[다음]</button>");
-					console.log("다음 버튼 눌렀을때 현재 페이지"+currentPage);
-					console.log("다음 버튼 눌렀을때 맥스 페이지" + maxPage);
 				}
 			},
 			error:function(){
