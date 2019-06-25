@@ -89,8 +89,7 @@
 	height: 50px;
 }
 
-.col-sm-8 {
-	border: 0.5px solid grey;
+.col-sm-9 {
 	padding-top: 20px;
 	padding-bottom: 30px;
 	margin-bottom: 40px;
@@ -104,25 +103,25 @@
 	<br>
 	<br>
 	<br>
-	<div class="col-sm-2"></div>
-	<div class="col-sm-8">
+	<div class="col-sm-2"></div>`
+	<div class="col-sm-9">
 	<!-- insertWebtoon.wt -->
 		<form action="insertWebtoon.wt" method="post" enctype="multipart/form-data">
 			<table class="insert">
 				<tr>
 					<td>
 						<h4>
-							작품 제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"
-								name="wTitle" style="width: 530px;">
-						</h4> <br>
+							작품 제목&nbsp;&nbsp;<input type="text"
+								name="wTitle" style="width: 70%;">
+						</h4><hr> <br>
+						
 					</td>
 				</tr>
 
 				<tr>
 					<td>
 						<h4>
-							장르&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;
+							장르&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="genre"
 									value="GR_CTG1">현대</label>
@@ -152,19 +151,22 @@
 									value="GR_CTG7">스포츠</label>
 							</div>
 						</h4> <br>
+				<hr>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<h4>
-							줄거리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="wIntro"></textarea>
+							줄거리&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea name="wIntro"
+							style="width: 70%; height:80%;"></textarea>
 						</h4> <br>
+						<hr>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<h4>
-							연재주기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							연재주기&nbsp;&nbsp;&nbsp;
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="wCycle" value="MON">월요일</label>
 							</div>
@@ -174,9 +176,11 @@
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="wCycle" value="WED">수요일</label>
 							</div>
+							
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="wCycle" value="THUR">목요일</label>
 							</div>
+						
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="wCycle" value="FRI">금요일</label>
 							</div>
@@ -186,15 +190,15 @@
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="wCycle" value="SUN">일요일</label>
 							</div>
-						</h4> <br>
+						</h4> <br><hr>
 					</td>
 				</tr>
 				<tr>
 					<td>
 						<h4>썸네일 이미지</h4>
-						<div class="thumbnailArea">
-							<img id="thumbnail">
-						</div> <br>
+						<div class="thumbnailArea" style="border: 1px solid black; width: 100px; height: 100px;">
+							<img id="thumbnail" style="width: 100%; height: 100%;">
+						</div> <br><hr>
 					</td>
 					<td>
 						<div id="fileArea">
@@ -216,7 +220,7 @@
 							<div class="checkbox-inline">
 								<label><input type="checkbox" name="ageGrade" value="AD">19세</label>
 							</div>
-						</h4>
+						</h4><hr>
 					</td>
 				</tr>
 			</table>
@@ -236,7 +240,7 @@
 	<br>
 	<script>
 		$(function() {
-			/* $("#fileArea").hide(); */
+			$("#fileArea").hide();
 			
 			$("#thumbnail").click(function(){
 				$("#thumbInsert").click();
