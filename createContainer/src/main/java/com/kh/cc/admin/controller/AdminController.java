@@ -92,49 +92,6 @@ public class AdminController {
 		return mv;
 	}
 	
-	@RequestMapping("refundPaging.ad")
-	public ModelAndView refundPaging(HttpServletRequest request, ModelAndView mv) {
-		ArrayList<Refund> list = null;
-		String statusVal = request.getParameter("statusVal");
-		int currentPage = 1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		int listCount = 0;
-		System.out.println("currentPage : "+currentPage);
-		
-		listCount = as.getRefundAjaxCount(statusVal);
-		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		list = as.refundStatus(statusVal, pi);
-		
-		System.out.println("페이징할때 페이지 맥스페이지 " + pi.getMaxPage());
-		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
- 		for(int i = 0; i < list.size(); i++) {
- 			HashMap<String, Object> hmap = new HashMap<String, Object>();
-			
-			String rDate = fmt.format(list.get(i).getRequestDate());
-			String cDate = fmt.format(list.get(i).getCompleteDate());
-			
-			hmap.put("refundCode", list.get(i).getRefundCode());
-			hmap.put("requestDate", rDate);
-			hmap.put("completeDate", cDate);
-			hmap.put("price", list.get(i).getPrice());
-			hmap.put("status", list.get(i).getStatus());
-			hmap.put("refundReason", list.get(i).getRefundReason());
-			hmap.put("userId", list.get(i).getUserId());
-			
-			list2.add(hmap);
-		}
-		
-		mv.addObject("list", list2);
-		mv.addObject("pi", pi);
-		mv.setViewName("jsonView");
-		
-		return mv;
-	}
-	
 	//환불 관리 페이지 상세보기
 	@RequestMapping("showRefundDetail.ad")
 	public String showRefundDetail(HttpServletRequest request, Model model) {
