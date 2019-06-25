@@ -88,7 +88,6 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		
 		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnRoundList", wnr, rowBounds);
 		
-		System.out.println("회차 리스트 : " + list);
 		return list;
 	}
 	//웹소설 회차, 정보

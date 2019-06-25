@@ -77,18 +77,15 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public int insertWnRound(WebnovelRound wnr, WebnovelPhoto wp, Webnovel wn) {
 		int result = 0;
-		
 		int result1 = wd.insertWnRound(sqlSession, wnr);
 		int result2 = wd.insertWnrPhoto(sqlSession, wp);
 		int result3 = wd.updateWorkStatus(sqlSession, wn);
-		System.out.println("작품 회차 사진 등록 성공? : " + result2);
 		
 		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			result = 1;
 		}else {
 			result = 0;
 		}
-		
 		return result;
 	}
 	//웹소설 회차 목록 카운트

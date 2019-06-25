@@ -37,11 +37,11 @@
 								<tr>
 									<td class="wnText">장르</td>
 									<td class="wnContent">
-										<input id="cb1" type="radio" name="genre" value="3"><label for="cb1">판타지</label>
-										<input id="cb2" type="radio" name="genre" value="11"><label for="cb2">무협</label>
-										<input id="cb3" type="radio" name="genre" value="1"><label for="cb3">로맨스</label>
-										<input id="cb4" type="radio" name="genre" value="4"><label for="cb4">현대</label>
-										<input id="cb5" type="radio" name="genre" value="5"><label for="cb5">스릴러</label>
+										<input id="cb1" type="radio" name="genre" value="GR_CTG1"><label for="cb1">판타지</label>
+										<input id="cb2" type="radio" name="genre" value="GR_CTG8"><label for="cb2">무협</label>
+										<input id="cb3" type="radio" name="genre" value="GR_CTG10"><label for="cb3">로맨스</label>
+										<input id="cb4" type="radio" name="genre" value="GR_CTG1"><label for="cb4">현대</label>
+										<input id="cb5" type="radio" name="genre" value="GR_CTG6"><label for="cb5">공포</label>
 									</td>
 								</tr>
 								<tr>

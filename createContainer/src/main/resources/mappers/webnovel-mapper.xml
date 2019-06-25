@@ -14,7 +14,6 @@
 		<result property="vCount" column="VCOUNT"/>
 		<result property="wCycle" column="WCYCLE"/>
 		<result property="gradeType" column="GRADE_TYPE"/>
-		<result property="workType" column="WORK_TYPE"/>
 		<result property="workStatus" column="WORK_STATUS"/>
 		<result property="workDate" column="WORK_DATE"/>
 		<result property="ageGrade" column="AGE_GRADE"/>
@@ -46,6 +45,7 @@
 		<result property="approvalCode" column="APPROVAL_CODE"/>
 		<result property="wid" column="WID"/>
 		<result property="rContent" column="RCONTENT"/>
+		<result property="wrComment" column="WR_COMMENT"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>
 	
@@ -57,13 +57,13 @@
 	<!-- 작품 메인 사진 등록 메소드 -->
 	<insert id="insertWnPhoto" parameterType="WebnovelPhoto">
 		INSERT INTO ATTACHMENT 
-		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, 2, null, WID_SEQ.CURRVAL, #{userId}) 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId}) 
 	</insert>
 	<!-- 메인썸네일 리스트 카운트 -->
 	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK
-		WHERE USER_ID = 'user01'
+		WHERE USER_ID = #{userId}
 		AND WORK_TYPE = 'WN'
 		AND GRADE_TYPE = 1
 	</select>
@@ -103,12 +103,12 @@
 	</update>
 	<!-- 작품 회차 등록 -->
 	<insert id="insertWnRound" parameterType="WebnovelRound">
-		INSERT INTO WORK_ROUND VALUES (WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 1, #{wid}, #{rContent})
+		INSERT INTO WORK_ROUND VALUES (WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 1, #{wid}, #{wrComment}, #{rContent})
 	</insert>
 	<!-- 작품 회차 사진 등록 메소드 -->
 	<insert id="insertWnrPhoto" parameterType="WebnovelPhoto">
 		INSERT INTO ATTACHMENT 
-		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'sub', WRID_SEQ.CURRVAL, null, 2, null, #{wid}, #{userId}) 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'sub', WRID_SEQ.CURRVAL, null, null, #{wid}, #{userId}) 
 	</insert>
 	<!-- 작품 완료 상태 업데이트 -->
 	<update id="updateWorkStatus" parameterType="Webnovel">
