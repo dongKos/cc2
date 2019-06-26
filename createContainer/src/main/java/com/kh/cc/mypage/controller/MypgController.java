@@ -75,7 +75,7 @@ public class MypgController {
 				return "common/errorPage";
 			}
 		}
-	
+
 	
 	//내 문의 내역 페이지 이동
 		@RequestMapping("mypgQue.mg")
