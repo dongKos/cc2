@@ -57,6 +57,7 @@ public class WebnovelController {
 			
 			return "redirect:selectWnList.wn";
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
 			
 			model.addAttribute("msg", "작품 등록 실패!!");
@@ -107,6 +108,7 @@ public class WebnovelController {
 				
 				return "redirect:selectWnList.wn";
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
 				
 				model.addAttribute("msg", "작품 등록 실패!!");
@@ -117,7 +119,7 @@ public class WebnovelController {
 			
 			ws.updateWebnovel(wn);
 			
-			return "webnovel/insertWebnovel/webnovelList";
+			return "redirect:selectWnList.wn";
 		}
 	}
 	
@@ -141,7 +143,7 @@ public class WebnovelController {
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
-		return "webnovel/insertWebnovel/webnovelList";
+		return "webnovel/webnovelContents/selectWebnovelList";
 	}
 	
 	
@@ -157,7 +159,7 @@ public class WebnovelController {
 		
 		model.addAttribute("wn", wn);
 		
-		return "webnovel/insertWebnovel/updateWebnovel";
+		return "webnovel/updateWebnovel/updateWebnovel";
 	}
 
 	//웹소설 회차 리스트 이동WORK_ROUND
@@ -184,7 +186,7 @@ public class WebnovelController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("wn", wn);
 		
-		return "webnovel/insertWebnovel/selectWnRoundList";
+		return "webnovel/webnovelContents/selectWnRoundList";
 	}
 	//웹소설 회차 등록 폼 이동
 	@RequestMapping("insertWnRoundForm.wn")
@@ -253,13 +255,11 @@ public class WebnovelController {
 		String changeName = request.getParameter("changeName");
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		int fid = Integer.parseInt(request.getParameter("fid"));
-		//String fid = request.getQueryString();
+		int wid = Integer.parseInt(request.getParameter("wid"));
+
 		wnr.setRid(rid);
 		wnr.setChangeName(changeName);
-		
-		System.out.println("changeName : " + changeName);
-		System.out.println("rid : " + rid);
-		System.out.println("fid : " + fid);
+		wp.setFid(fid);
 		
 		if(!photo.isEmpty()) {
 			String root = request.getSession().getServletContext().getRealPath("resources");
@@ -272,20 +272,21 @@ public class WebnovelController {
 			wp.setChangeName(changeFileName + ext);
 			wp.setFilePath(filePath);
 			
-			System.out.println("originFileName : " + originFileName);
-			System.out.println("changeFileName : " + changeFileName);
-			System.out.println("filePath : " + filePath);
 			System.out.println(wnr);
 			System.out.println(wp);
-			
+			System.out.println(wn);
 			try {
 				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				if(wn.getWorkStatus() == null) {
+					wn.setWorkStatus("COMPLTE");
+				}
+				ws.updateWnRound(wnr, wp, wn);
 				
-				System.out.println("회차정보수정 접근 성공??" );
-				//new File(filePath + "\\" + changeName).delete();
+				new File(filePath + "\\" + changeName).delete();
 				
-				return "redirect:selectWnrUpdateForm.wn?rid=" + rid;
+				return "redirect:selectWnRoundList.wn?wid=" + wid;
 			} catch (Exception e) {
+				System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
 				
 				model.addAttribute("msg", "회차 정보 수정 실패!!");
@@ -293,31 +294,47 @@ public class WebnovelController {
 				return "common/errorPage";
 			}
 		}else {
-			return "redirect:selectWnrUpdateForm.wn?rid=" + rid;
+			if(wn.getWorkStatus() == null) {
+				wn.setWorkStatus("COMPLTE");
+			}
+			ws.updateWnRound(wnr, wn);
+			return "redirect:selectWnRoundList.wn?wid=" + wid;
 		}
 		
 	}
-	
+
 	//웹소설 회차 수정폼 이동
 	@RequestMapping("selectWnrUpdateForm.wn")
 	public String updateWnRound(HttpServletRequest request, Webnovel wn, HttpSession session, HttpServletResponse response, Model model, WebnovelRound wnr) {
 		int rid = Integer.parseInt(request.getParameter("rid"));
-		int fid = Integer.parseInt(request.getParameter("fid"));
+		wnr = ws.selectWnrOne(rid);
+		int wid = wnr.getWid();
+		
+		wn = ws.selectWnOne(wid);
+		String workStatus = wn.getWorkStatus();
+		
+		wnr.setWorkStatus(workStatus);
+		
+		model.addAttribute("wnr", wnr);
+		
+		return "webnovel/updateWebnovel/updateWebnovelRound";
+		
+	}
+	
+	//웹소설 회차 수정폼 이동
+	@RequestMapping("selectDetailedWebnovel.wn")
+	public String selectDetailedWebnovel(HttpServletRequest request, Webnovel wn, HttpSession session, HttpServletResponse response, Model model, WebnovelRound wnr) {
+		int rid = Integer.parseInt(request.getParameter("rid"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
 		wn = ws.selectWnOne(wid);
-		String workStatus = wn.getWorkStatus();
-
-		wnr.setWorkStatus(workStatus);
-		
-		System.out.println(wnr.getFid());
-		System.out.println(wn.getFid());
-		
-		//int fid = wnr.getFid();
+		System.out.println(wnr);
+		System.out.println(wn);
 		model.addAttribute("wnr", wnr);
+		model.addAttribute("wn", wn);
 		
-		//return "redirect:selectWnrUpdateForm.wn?fid=" + fid;
-		return "redirect:selectWnrUpdateForm.wn";
+		return "webnovel/webnovelContents/selectDetailedWebnovel";
+		
 	}
 	
 	//웹소설 메인홈 이동
@@ -343,7 +360,7 @@ public class WebnovelController {
 	//웹소설 리스트 이동
 	@RequestMapping("webnovelList.wn")
 	public String webnovelList() {
-		return "webnovel/insertWebnovel/webnovelList";
+		return "webnovel/webnovelContents/selectWebnovelList";
 	}
 	//웹소설 등록 이동
 	@RequestMapping("insertWebnovel.wn")
@@ -353,7 +370,7 @@ public class WebnovelController {
 	//웹소설 취소 이동
 	@RequestMapping("cancelWebnovel.wn")
 	public String cancelWebnovel() {
-		return "webnovel/insertWebnovel/webnovelList";
+		return "webnovel/webnovelContents/selectWebnovelList";
 	}
 	
 	

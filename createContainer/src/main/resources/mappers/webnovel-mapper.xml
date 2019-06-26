@@ -14,11 +14,13 @@
 		<result property="vCount" column="VCOUNT"/>
 		<result property="wCycle" column="WCYCLE"/>
 		<result property="gradeType" column="GRADE_TYPE"/>
+		<result property="workType" column="WORK_TYPE"/>
 		<result property="workStatus" column="WORK_STATUS"/>
 		<result property="workDate" column="WORK_DATE"/>
 		<result property="ageGrade" column="AGE_GRADE"/>
 		<result property="genre" column="GENRE"/>
 		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
@@ -31,7 +33,6 @@
 		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
 		<result property="rid" column="RID"/>
 		<result property="illCode" column="ILL_CODE"/>
-		<result property="workType" column="WORK_TYPE"/>
 		<result property="spCode" column="SP_CODE"/>
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
@@ -94,7 +95,7 @@
 		    GENRE = #{genre}
 		WHERE WID = #{wid}
 	</update>
-	<!-- 작품 메인 수정 -->
+	<!-- 작품 메인 사진 수정 -->
 	<update id="updateWnPhoto" parameterType="WebnovelPhoto">
 		UPDATE ATTACHMENT
 		SET ORIGIN_NAME = #{originName},
@@ -138,6 +139,14 @@
 		JOIN ATTACHMENT A ON(WR.RID = A.RID)
 		WHERE A.RID = #{rid}
 	</select>
+	<!-- 회차 정보 수정 -->
+	<update id="updateWnRound" parameterType="WebnovelRound">
+		UPDATE WORK_ROUND
+		SET RTITLE = #{rTitle},
+		    WR_COMMENT = #{wrComment},
+		    RCONTENT = #{rContent}
+		WHERE RID = #{rid}
+	</update>
 </mapper>
 
 

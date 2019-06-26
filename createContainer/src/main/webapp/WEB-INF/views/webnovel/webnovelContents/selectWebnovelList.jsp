@@ -52,9 +52,6 @@
 	width:100%;
 	margin-bottom:50px;
 }
-.titleImg{
-	padding:5px 5px 5px 5px;
-}
 .titleImg img{
 	width:150px;
 	height:120px;
@@ -81,6 +78,30 @@
 	width:10%;
 	border-right:1px solid lightgray;
 }
+.titleImg{
+	position:relative;
+	padding:5px 5px 5px 5px;
+	cursor:pointer;
+}
+.wnStatus{ 
+	position:absolute;
+    top: 5px;
+    left: 5px;
+	width:60px;
+	line-height:40px;
+	z-index:100;
+	font-size:18px;
+	font-weight:bold;
+	background-color:#ffffff;
+	opacity: 0.6;
+	color:red;
+}
+.titleArea{
+	width:100%;
+	line-height:130px;
+	cursor:pointer;
+	margin-bottom:0px;
+}
 </style>
 </head>
 <body>
@@ -105,12 +126,19 @@
 					<table class="wnListTable">
 						<tr>
 							<td class="workImg">
+								<c:set var="workStatus" value="${ wn.workStatus }" />
 								<div class="titleImg">
+								<c:if test="${ workStatus eq 'COMPLTE'}">
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
+								</c:if>
+								<c:if test="${ workStatus eq 'CLOSE'}">
+								<div class="wnStatus">완결</div>
+									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
+								</c:if>
 								</div>
 							</td>
 							<td class="contentTd">
-								${ wn.wTitle }
+								<p class="titleArea">${ wn.wTitle }</p>
 								<input type="hidden" value="${ wn.wid }">
 							</td>
 							<td>
@@ -132,6 +160,10 @@
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
 							
+							location.href = "selectWnRoundList.wn?wid=" + wid;
+						});
+						$('.wnListDiv').find('tr').children().children('p').click(function(){
+							var wid = $(this).parents().children("input").val();
 							location.href = "selectWnRoundList.wn?wid=" + wid;
 						});
 					});

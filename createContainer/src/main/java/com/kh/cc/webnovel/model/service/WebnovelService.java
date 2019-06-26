@@ -30,4 +30,8 @@ public interface WebnovelService {
 	ArrayList<WebnovelRound> selectWnRoundList(WebnovelPageInfo pi, WebnovelRound wnr);
 	//웹소설 회차, 사진 정보
 	WebnovelRound selectWnrOne(int rid);
+	//웹소설 회차 수정(사진 수정 O)
+	int updateWnRound(WebnovelRound wnr, WebnovelPhoto wp, Webnovel wn);
+	//웹소설 회차 수정(사진 수정 X)
+	int updateWnRound(WebnovelRound wnr, Webnovel wn);
 }

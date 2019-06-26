@@ -37,6 +37,10 @@ public interface WebnovelDao {
 	ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelRound wnr);
 	//웹소설 회차, 사진 정보
 	WebnovelRound selectWnrOne(SqlSessionTemplate sqlSession, int rid);
+	//웹소설 작품 회차 수정
+	int updateWnRound(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//웹소설 작품 회차 사진 수정
+	int updateWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp);
 	
 	
 }

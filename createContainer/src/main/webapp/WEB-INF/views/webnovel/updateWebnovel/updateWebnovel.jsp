@@ -103,7 +103,6 @@
 	
 	<br><br><br><br><br>
 	<br><br><br><br><br>
-	<h1>${ wn.genre }</h1>
 	<script>
 		$(function(){
 			$("#fileArea").hide();
@@ -126,7 +125,7 @@
 			}
 		}
 		
-		$(function(){
+	/* 	$(function(){
         	$("input[name=genre]").each(function (){
         		var arr = ${ wn.genre };
         		//$("#genre").prop("checked", true);
@@ -139,7 +138,7 @@
         	})
         	
         
-        });
+        }); */
 	</script>
 </body>
 </html>

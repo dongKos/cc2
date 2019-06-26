@@ -96,6 +96,45 @@
 	background-color:#FBFBFB;
 	padding:0px 20px 50px 20px;
 }
+.introImg{
+	position:relative;
+}
+.wnStatus{ 
+	position:absolute;
+    top: 51px;
+    left: 41px;
+	width:60px;
+	line-height:40px;
+	z-index:100;
+	font-size:18px;
+	font-weight:bold;
+	background-color: #ffffff;
+	opacity: 0.5;
+	color:red;
+}
+.subImg{
+	position:relative;
+}
+.wnrStatus{
+	text-align:center;
+	position:absolute;
+    top: 10px;
+    left: 10px;
+	width:40px;
+	line-height:30px;
+	z-index:100;
+	font-size:16px;
+	font-weight:bold;
+	background-color: #ffffff;
+	opacity: 0.5;
+	color:red;
+}
+.wnrTitleArea{
+	width:300px;
+	line-height:40px;
+	background-color:lightgray;
+	cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -113,9 +152,18 @@
 					<table class="introTable">
 						<tr>
 							<td rowspan="3"width="210">
+								<c:set var="workStatus" value="${ wn.workStatus }" />
+								<c:if test="${ workStatus eq 'COMPLTE'}">
 								<div class="introImg">
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
 								</div>
+								</c:if>
+								<c:if test="${ workStatus eq 'CLOSE'}">
+								<div class="wnStatus">완결</div>
+								<div class="introImg">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
+								</div>
+								</c:if>
 							</td>
 							<td width="220" height="50%">
 								<p class="wnrTitle">${ wn.wTitle }</p>
@@ -125,8 +173,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<p class="wnrIntro">${ wn.wIntro } + 설명설명설명설명설명설명설명설명설명설명설명설명설명설명
-								설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</p>
+								<p class="wnrIntro">${ wn.wIntro }</p>
 							</td>
 						</tr>
 						<tr>
@@ -144,18 +191,25 @@
 						<tr>
 							<td rowspan="3" class="wnrImg">
 								<div class="subImg">
+								<c:if test="${ workStatus eq 'CLOSE'}">
+									<div class="wnrStatus">완결</div>
 									<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+								</c:if>
+								<c:if test="${ workStatus eq 'COMPLTE'}">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+								</c:if>
 								</div>
 							</td>
 							<td colspan="2" class="wnrContent"></td>
 						</tr>
 						<tr>
-							<td class="wnrContent">${ wnr.rTitle }</td>
+							<td class="wnrContent">
+								<p class="wnrTitleArea">${ wnr.rTitle }</p>
+							</td>
 							<td class="wnrBtnArea">
 								<button class="wnUpdateBtn">회차 정보 수정</button>
 								<input type="hidden" value="${ wnr.rid }">
 								<input type="hidden" value="${ wnr.fid }">
-								<h1>${ wnr.rid }</h1>
 							</td>
 						</tr>
 						<tr>
@@ -170,9 +224,12 @@
 					$(function(){
 						$('.wnrListArea').find('td').children('button').click(function(){
 							var rid = $(this).parents().children("input").eq(0).val();
-							var fid = $(this).parents().children("input").eq(1).val();
-							console.log(rid);
-							location.href = "selectWnrUpdateForm.wn?rid=" + rid +"&fid=" + fid;
+							location.href = "selectWnrUpdateForm.wn?rid=" + rid;
+						});
+						$('.wnrListArea').find('td').children('p').click(function(){
+							var rid = $(this).parents().parents().children().children("input").eq(0).val();
+							
+							location.href = "selectDetailedWebnovel.wn?rid=" + rid;
 						});
 					});
 				</script>
