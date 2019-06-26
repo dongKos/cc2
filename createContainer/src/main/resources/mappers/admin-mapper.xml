@@ -13,6 +13,19 @@
       <result property="refundReason" column="REFUND_REASON"/>
       <result property="userId" column="USER_ID"/>
    </resultMap>
+   <resultMap type="com.kh.cc.admin.model.vo.Report" id="reportResultSet">
+      <id property="reportId" column="REPORT_ID"/>            
+      <result property="reportType" column="REPORT_TYPE"/>   
+      <result property="reportDate" column="REPORT_DATE"/>
+      <result property="reportReason" column="REPORT_REASON"/>
+      <result property="reportCategory" column="REPORT_CATEGORY"/>
+      <result property="status" column="STATUS"/>
+      <result property="userId" column="USER_ID"/>
+      <result property="wid" column="WID"/>
+      <result property="rid" column="RID"/>
+      <result property="commentId" column="COMMENT_ID"/>
+      <result property="bid" column="BID"/>
+   </resultMap>
    <resultMap type="com.kh.cc.member.model.vo.Member" id="memberResultSet">
       <id property="mno" column="MNO"/>            
       <result property="userId" column="USER_ID"/>   
@@ -29,6 +42,7 @@
       <result property="status" column="STATUS"/>
       <result property="joinDate" column="JOIN_DATE"/>
    </resultMap>
+   
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -82,9 +96,31 @@
    		WHERE STATUS='Y'
    		AND MNO = #{mno}
    </select>
+	<select id="selectReportCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPORT
+		WHERE STATUS='N'
+	</select>
+	<select id="selectReportList" resultMap="reportResultSet">
+		SELECT * 
+		FROM REPORT
+		WHERE STATUS='N'
+	</select>
+	
+	<select id="reportStatus" parameterType="String" resultMap="reportResultSet">
+		SELECT *
+		FROM REPORT
+		WHERE STATUS = 'N'
+		AND REPORT_TYPE = #{str}
+	</select>
+	
+	<select id="selectReportAjaxCount" resultType="_int" parameterType="String">
+		SELECT COUNT(*)
+		FROM REPORT
+		WHERE STATUS = 'N'
+		AND REPORT_TYPE = #{str}
+	</select>
 </mapper>
-
-
 
 
 

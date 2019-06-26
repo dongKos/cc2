@@ -14,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.illustrator.model.vo.Illustrator;
-import com.kh.cc.illustrator.model.vo.IllustratorPhotoMain;
-import com.kh.cc.illustrator.model.vo.IllustratorPhotoSub;
+import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
 import com.kh.cc.member.model.vo.Member;
 @SessionAttributes("loginUser")
 @Controller
@@ -91,7 +90,7 @@ public class IllustratorController {
 	
 	//일러스트 포트폴리오 글등록
 	@RequestMapping(value="insertPortfolioIllust.ill")
-	public String insertPortfolioIllust(Model model, Illustrator ill, HttpServletRequest request, HttpSession session, IllustratorPhotoMain ipm, Member m,
+	public String insertPortfolioIllust(Model model, Illustrator ill, HttpServletRequest request, HttpSession session, IllustratorPhoto ip, Member m,
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
 		String userId = m.getUserId();
@@ -99,33 +98,29 @@ public class IllustratorController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		String filePathMain = root + "\\uploadFiles\\illustratorMain";
-		String originFileNameMain = photo.getOriginalFilename();
-		String extMain = originFileNameMain.substring(originFileNameMain.lastIndexOf("."));
-		String changeFileNameMain = CommonUtils.getRandomString();
+		ArrayList<String> saveFiles = new ArrayList<String>();
+		ArrayList<String> originFiles = new ArrayList<String>();
+		ArrayList<IllustratorPhoto> subPhoto = new ArrayList<IllustratorPhoto>();
 		
-		ipm.setOriginName(originFileNameMain);
-		ipm.setChangeName(changeFileNameMain);
-		ipm.setFilePath(filePathMain);
-		ipm.setUserId(userId);
 		
-		ArrayList<IllustratorPhotoSub> subPhoto = new ArrayList<IllustratorPhotoSub>();
 		
-		for(IllustratorPhotoSub ips : subPhoto) {
+		String filePath = root + "\\uploadFiles\\illustratorSub";
+		String originFileName = photo.getOriginalFilename();
+		String extSub = originFileName.substring(originFileName.lastIndexOf("."));
+		String changeFileName = CommonUtils.getRandomString();
+		
+		for(int i = originFiles.size() - 1; i >= 0; i--) {
 			
-			String filePathSub = root + "\\uploadFiles\\illustratorSub";
-			String originFileNameSub = photo.getOriginalFilename();
-			String extSub = originFileNameSub.substring(originFileNameSub.lastIndexOf("."));
-			String changeFileNameSub = CommonUtils.getRandomString();
+			System.out.println("for문 실행!");
+			ip.setOriginName(originFiles.get(i));
+			ip.setChangeName(saveFiles.get(i));
+			ip.setFilePath(filePath);
+			ip.setUserId(userId);
 			
-			ips.setOriginName(originFileNameSub);
-			ips.setChangeName(changeFileNameSub);
-			ips.setFilePath(filePathSub);
-			ips.setUserId(userId);
+			subPhoto.add(ip);
 			
-			System.out.println(ipm);
-			System.out.println(ips);
 		}
+		System.out.println(ip);
 		/*
 		 * try { photo.transferTo(new File(filePathMain + "\\" + changeFileNameMain +
 		 * extMain)); photo.transferTo(new File(filePathSub + "\\" + changeFileNameSub +
