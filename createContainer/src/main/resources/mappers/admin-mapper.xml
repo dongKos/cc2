@@ -89,6 +89,7 @@
    		SELECT * 
    		FROM MEMBER
    		WHERE STATUS = 'Y'
+   		ORDER BY MNO DESC
    </select>
    <select id="selectOneMember" parameterType="_int" resultMap="memberResultSet">
    		SELECT *
@@ -120,8 +121,19 @@
 		WHERE STATUS = 'N'
 		AND REPORT_TYPE = #{str}
 	</select>
+	<update id="complteReport" parameterType="_int">
+		UPDATE REPORT
+		SET STATUS = 'Y'
+		WHERE REPORT_ID = #{reportId}
+	</update>
+	<select id="selectOneReport" parameterType="_int" resultMap="reportResultSet">
+		SELECT *
+		FROM REPORT
+		WHERE STATUS = 'N'
+		AND REPORT_ID = #{reportID} 
+	</select>
 </mapper>
-
+	
 
 
 

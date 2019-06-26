@@ -12,11 +12,11 @@
  	function goBack(){
  		var currentPage = location.search.split("=")[2];
  		location.href="showRefund.ad?currentPage=" + currentPage;
- 		/* history.back(); */
  	}
  	
  	//환불 신청완료
  	function refundComplete(){
+ 		var refundCode = ${reqRefund.refundCode};
  		location.href="refundComplete.ad?refundCode=" + refundCode;
  	}
  	

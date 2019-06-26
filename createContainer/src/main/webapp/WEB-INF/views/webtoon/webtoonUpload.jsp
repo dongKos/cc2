@@ -100,7 +100,7 @@
 </style>
 </head>
 <body>
-
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
 
@@ -117,16 +117,17 @@
 					</table>
 				</div>
 				<div class="wtListDiv">
-					<c:forEach var="wt" items="${ requestScope.list}">
+					<c:forEach var="wt" items="${list}">
 						<table class="wtListTable">
 							<tr>
 								<td class="workImg">
 									<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }"/>
 									</div>
 									<div>
-										${ wt.wTilte }
+										${ wt.wTitle }
 									</div>
+									<button class="insertWtRound" onclick="location='insertRoundFrom.wt'">회차등록</button>
 								</td>
 							</tr>
 						</table>
@@ -134,7 +135,7 @@
 					</c:forEach>
 				</div>
 				<br> <br>
-				<button class="insertWnBtn" onclick="location='inserWorkForm.wt'">새
+				<button class="insertWtBtn" onclick="location='inserWorkForm.wt'">새
 					작품 쓰기</button>
 			</div>
 

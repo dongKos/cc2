@@ -36,5 +36,9 @@ public interface AdminDao {
 	ArrayList<Report> reportStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi);
 	
 	int getReportAjaxCount(SqlSessionTemplate sqlSession, String statusVal);
+
+	int completeReport(SqlSessionTemplate sqlSession, int reportId);
+
+	Report selectOneReport(SqlSessionTemplate sqlSession, int reportId);
 	
 }
