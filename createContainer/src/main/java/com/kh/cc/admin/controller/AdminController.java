@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
 import com.kh.cc.member.model.vo.Member;
 
@@ -184,10 +185,77 @@ public class AdminController {
 	
 	//신고 관리 페이지
 	@RequestMapping(value="showReport.ad")
-	public String showReport() {
+	public String showReport(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getReportListCount();
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Report> list = as.selectReportList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
 		return "admin/adminReport";
 	}
 	
+	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
+		@RequestMapping(value="reportStatus.ad")
+		public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
+			ArrayList<Report> list = null;
+			response.setContentType("text/html; charset=UTF-8");
+			String statusVal = request.getParameter("statusVal");
+			int currentPage = 1;
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			int listCount = 0;
+			
+			listCount = as.getReportAjaxCount(statusVal);
+			AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+			list = as.reportStatus(statusVal, pi);
+			
+			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+			ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
+			for(int i = 0; i < list.size(); i++) {
+				HashMap<String, Object> hmap = new HashMap<String, Object>();
+				
+				String rDate = fmt.format(list.get(i).getReportDate());
+				
+				hmap.put("reportId", list.get(i).getReportId());
+				hmap.put("reportType", list.get(i).getReportType());
+				hmap.put("reportDate", rDate);
+				hmap.put("reportReason", list.get(i).getReportReason());
+				hmap.put("reportCategory", list.get(i).getReportCategory());
+				hmap.put("status", list.get(i).getStatus());
+				hmap.put("userId", list.get(i).getUserId());
+				hmap.put("wid", list.get(i).getWid());
+				hmap.put("rid", list.get(i).getRid());
+				hmap.put("commentId", list.get(i).getCommentId());
+				hmap.put("bid", list.get(i).getBid());
+				
+				list2.add(hmap);
+			}
+			
+			mv.addObject("list", list2);
+			mv.addObject("pi", pi);
+			mv.setViewName("jsonView");
+			
+			return mv;
+		}
+	
+	//신고 내역 전체 처리
+	@RequestMapping(value="complteAllReport.ad")
+	public String completeAllReport(HttpServletRequest request) {
+		
+		
+		return "admin/adminReport";
+	}
+		
 	//신고 관리 페이지 상세보기
 	@RequestMapping("showReportDetail.ad")
 	public String showReportDetail() {

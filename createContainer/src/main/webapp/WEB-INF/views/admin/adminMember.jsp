@@ -72,15 +72,15 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                             	<c:forEach var="m" items="${list }" end="${pi.limit }">
-                                            <tr>
-                                            <td style="display:none">${m.mno }</td>
-                                                <td>${m.userId}</td>
-                                                <td>${m.userName }</td>
-                                                <td>${m.memberType }</td>
-                                                <td class="text-right">${m.joinDate }</td>
-                               			    	<td class="text-right">처리 완료</td>            
-                                            </tr>
+                                            <c:forEach var="m" items="${list }" end="${pi.limit }">
+	                                            <tr>
+	                                            	<td style="display:none">${m.mno }</td>
+	                                                <td>${m.userId}</td>
+	                                                <td>${m.userName }</td>
+	                                                <td>${m.memberType }</td>
+	                                                <td class="text-right">${m.joinDate }</td>
+	                               			    	<td class="text-right">처리 완료</td>            
+	                                            </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
