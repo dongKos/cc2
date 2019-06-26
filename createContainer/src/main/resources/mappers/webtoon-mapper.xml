@@ -55,6 +55,17 @@
 	WHERE USER_ID = #{userId}
 	AND WORK_TYPE = 'WT'
 	</select>
+	
+	<select id="selectWtList" parameterType="java.lang.String" resultMap="webtoonResultSet">
+	SELECT *
+	FROM WORK W
+	JOIN ATTACHMENT A ON(A.WID = W.WID)
+	JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+	WHERE M.USER_ID = #{userId}
+	AND W.WORK_TYPE = 'WT'
+	AND A.ATTACHMENT_CATEGORY = 'ma'
+	
+	</select>
 
 
 
