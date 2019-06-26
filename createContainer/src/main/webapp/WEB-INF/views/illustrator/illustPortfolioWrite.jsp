@@ -38,61 +38,57 @@
 </head>
 
 <body id="page-top">
-<jsp:include page="common/IllustTopNavbar.jsp"/>
+<jsp:include page="common/IllustTopNavbar.jsp"/><br><br>
 
 <form action="insertPortfolioIllust.ill" method="post" enctype="multipart/form-data">
 <div class="container">
 	<div class="row">
 		<div class="col-md-12" align="center">
-		<h3 style="display:inline-block;">작품제목 :</h3>&nbsp;&nbsp;
+		<div class="form-group" style="width:100%; margin:30%; margin-top:0%">
+  			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품제목 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" class="form-control" placeholder="작품제목을 입력하세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품금액 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" class="form-control" placeholder="최소금액을 입력해주세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품내용 :&nbsp;&nbsp;&nbsp;</label>
+  			<textarea class="form-control" rows="5" placeholder="내용을 입력하세요" id="comment" style="resize:none; float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"></textarea><br><br><br><br><br><br><br><br><br>
+  			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작업기간 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" class="form-control" placeholder="작업기간을 입력하세요. ex)5일" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">수정회차 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" class="form-control" placeholder="수정회차를 입력하세요. ex)5회" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">카테고리 :&nbsp;&nbsp;&nbsp;</label>
+  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-67.5%"><input type="checkbox" value="">일러스트</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">캐릭터</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">명함</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62.3%"><input type="checkbox" value="">로고</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">PPT</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">북커버</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62%"><input type="checkbox" value="">인물</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">풍경</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">포토샵</label><br><br>
+			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">파일형식 :&nbsp;&nbsp;&nbsp;</label>
+  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-72.3%"><input type="checkbox" value="">PSD</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">PNG</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">JPG</label><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">대표 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#1 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#2 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#3 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#4 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<button type="submit" class="btn btn-warning" style="float:left; margin-left:6%; font-size:18px; border-color:lightblue; background:lightblue; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">등록하기</button>
+			<button type="button" class="btn btn-warning" onclick="portfolioWrite()" style="float:left; margin-left:2%; font-size:18px; border-color:lightgray; background:lightgray; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">취소하기</button>
+		</div>
 		
-		<input type="text" placeholder="제목을 입력하세요" style="display:inline-block;"><br>
-		<h3 style="display:inline-block;">작품금액 :</h3>&nbsp;&nbsp;
-		
-		<input type="text" placeholder="최소금액을 입력해주세요" style="display:inline-block;"><br>
-		<h3 style="display:inline-block;">작품내용 :</h3>&nbsp;&nbsp;
-		
-		<input type="text" placeholder="내용을 입력하세요" style="display:inline-block;"><br>
-		<h3 style="display:inline-block;">작업기간 :</h3>&nbsp;&nbsp;
-		
-		<input type="text" placeholder="작업기간을 입력하세요" style="display:inline-block;"><br>
-		<h3 style="display:inline-block;">수정회차 :</h3>&nbsp;&nbsp;
-		
-		<input type="text" placeholder="수정회자를 입력하세요" style="display:inline-block;"><br>
-		<h3 style="display:inline-block;">카테고리 :</h3>&nbsp;&nbsp;
-		
-		<input type="checkbox" style="display:inline-block;">일러스트
-		<input type="checkbox" style="display:inline-block;">캐릭터
-		<input type="checkbox" style="display:inline-block;">명함<br>
-		<input type="checkbox" style="display:inline-block; margin-left:6.8%;">로고
-		<input type="checkbox" style="display:inline-block;">PPT
-		<input type="checkbox" style="display:inline-block;">북커버<br>
-		<input type="checkbox" style="display:inline-block; margin-left:6.9%;">인물
-		<input type="checkbox" style="display:inline-block;">풍경
-		<input type="checkbox" style="display:inline-block;">포토샵<br>
-		
-		<h3 style="display:inline-block;">파일형식 :</h3>&nbsp;&nbsp;
-		<input type="checkbox" style="display:inline-block;">PSD
-		<input type="checkbox" style="display:inline-block;">PNG
-		<input type="checkbox" style="display:inline-block;">JPG<br>
-		
-		<h3 style="display:inline-block;">대표 이미지 :</h3>&nbsp;&nbsp;
-		<input type="file" name="photo" style="display:inline-block;"><br>
-		
-		<h3 style="display:inline-block;">서브#1 이미지 :</h3>&nbsp;&nbsp;
-		<input type="file" name="photo" style="display:inline-block;"><br>
-		
-		<h3 style="display:inline-block;">서브#2 이미지 :</h3>&nbsp;&nbsp;
-		<input type="file" name="photo" style="display:inline-block;"><br>
-		
-		<h3 style="display:inline-block;">서브#3 이미지 :</h3>&nbsp;&nbsp;
-		<input type="file" name="photo" style="display:inline-block;"><br>
-		
-		<h3 style="display:inline-block;">서브#4 이미지 :</h3>&nbsp;&nbsp;
-		<input type="file" name="photo" style="display:inline-block;"><br>
-		
-		<button type="submit" class="btn btn-warning" style="font-size:18px; border-color:lightblue; background:lightblue; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">등록하기</button>
-		<button type="button" class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; border-color:lightgray; background:lightgray; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">취소하기</button>
 		</div>
 	</div>
 </div>
