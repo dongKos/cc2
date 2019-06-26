@@ -14,6 +14,7 @@
 		location.href="showMember.ad?currentPage=" + currentPage;
 		/* history.back(); */
 	} 
+	
  	$(function(){
  		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#member").parent().children();

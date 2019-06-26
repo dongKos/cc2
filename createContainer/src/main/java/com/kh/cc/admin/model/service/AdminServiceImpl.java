@@ -101,6 +101,18 @@ public class AdminServiceImpl implements AdminService{
 	public int getReportAjaxCount(String statusVal) {
 		return ad.getReportAjaxCount(sqlSession, statusVal);
 	}
+	
+	//신고내역 처리
+	@Override
+	public int completeReport(int reportId) {
+		return ad.completeReport(sqlSession, reportId);
+	}
+
+	//신고 관리 페이지 상세보기
+	@Override
+	public Report selectOneReport(int reportId) {
+		return ad.selectOneReport(sqlSession, reportId);
+	}
 }
 
 
