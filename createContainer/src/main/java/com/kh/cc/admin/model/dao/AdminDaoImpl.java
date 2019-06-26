@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
 
 @Repository
@@ -97,5 +98,59 @@ public class AdminDaoImpl implements AdminDao{
 	public Member selectOneMember(SqlSessionTemplate sqlSession, int num) {
 		return sqlSession.selectOne("admin.selectOneMember", num);
 	}
+
+	//전체 신고목록 수 조회
+	@Override
+	public int getReportListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectReportCount");
+	}
+
+	//전체 신고 내역 목록 조회
+	@Override
+	public ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		return (ArrayList)sqlSession.selectList("admin.selectReportList", null, rowBounds);
+	}
+
+	//신고내역 조회 페이지 REPORT_TYPE 조건검색 AJAX
+	@Override
+	public ArrayList<Report> reportStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi) {
+		String str = "";
+		if(statusVal.equals("1")) {
+			str = "댓글";
+		}else if(statusVal.equals("2")){
+			str = "작품";
+		}else if(statusVal.equals("3")){
+			str = "회차";
+		}else {
+			str= "게시판";
+		}
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.reportStatus", str, rowBounds);
+	}
+
+	//신고내역 애이젝스 조건 검색 개수 조회
+	@Override
+	public int getReportAjaxCount(SqlSessionTemplate sqlSession, String statusVal) {
+		String str = "";
+		if(statusVal.equals("1")) {
+			str = "댓글";
+		}else if(statusVal.equals("2")){
+			str = "작품";
+		}else if(statusVal.equals("3")){
+			str = "회차";
+		}else {
+			str= "게시판";
+		}
+		
+		return sqlSession.selectOne("admin.selectReportAjaxCount", str);
+	}
+	
 	
 }

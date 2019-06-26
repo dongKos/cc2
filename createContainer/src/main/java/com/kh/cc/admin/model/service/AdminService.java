@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
 
 public interface AdminService {
@@ -26,5 +27,13 @@ public interface AdminService {
 	int getRefundAjaxCount(String statusVal);
 
 	Member selectOneMember(int num);
+
+	int getReportListCount();
+
+	ArrayList<Report> selectReportList(AdminPageInfo pi);
+
+	ArrayList<Report> reportStatus(String statusVal, AdminPageInfo pi);
+
+	int getReportAjaxCount(String statusVal);
 	
 }
