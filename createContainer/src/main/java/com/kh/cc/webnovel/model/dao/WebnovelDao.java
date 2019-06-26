@@ -41,6 +41,13 @@ public interface WebnovelDao {
 	int updateWnRound(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	//웹소설 작품 회차 사진 수정
 	int updateWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp);
+	//웹소설 삭제
+	int deleteWebnovel(SqlSessionTemplate sqlSession, Webnovel wn);
+	//웹소설 회차 삭제
+	int deleteWnRound(SqlSessionTemplate sqlSession, Webnovel wn);
+	//웹소설 사진 삭제
+	int deleteWnMainPhoto(SqlSessionTemplate sqlSession, Webnovel wn);
+	ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	
 	
 }
