@@ -35,7 +35,85 @@
     					
   					</ul>
   					<br>
+  			
+  			<div class="wnListDiv">
+				
+				<c:forEach var="wn" items="${ list }">
+				<div style="width:20%; float:left; margin:0 12px;">
+					<table class="wnListTable">
+						<tr>
+							<td class="workImg">
+								<div class="titleImg">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="contentTd" align="center">
+								${ wn.wTitle }
+								<input type="hidden" value="${ wn.wid }">
+							</td>
+						</tr>
+					</table>
 				</div>
+				</c:forEach>
+				
+				
+				<script>
+					$(function(){
+						$('.wnListDiv').find('td').children('button').click(function(){
+							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
+							
+							location.href = "selectWnUpdateOne.wn?wid=" + wid;
+						});
+						$('.wnListDiv').find('td').children('div').children('img').click(function(){
+							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
+							
+							location.href = "selectWnRoundList.wn?wid=" + wid;
+						});
+					});
+			
+				</script>
+				</div>
+				<div style="clear:both;"></div>
+				<div id="pagingArea" align="center">
+					<c:if test="${ pi.currentPage <= 1 }">
+						[이전] &nbsp;
+					</c:if>
+					<c:if test="${ pi.currentPage > 1 }">
+						<c:url var="wnListBack" value="/selectWnList.wn">
+							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
+						</c:url>
+						<a href="${ wnListBack }">[이전]</a> &nbsp;
+					</c:if>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:if test="${ p eq pi.currentPage }">
+							<font color="red" size="4"><b>[${ p }]</b></font>
+						</c:if>
+						<c:if test="${ p ne pi.currentPage }">
+							<c:url var="wnListCheck" value="/selectWnList.wn">
+								<c:param name="currentPage" value="${ p }"/>
+							</c:url>
+							<a href="${ wnListCheck }">${ p }</a>
+						</c:if>
+					</c:forEach>
+					
+					<c:if test="${ pi.currentPage >= pi.maxPage }">
+						&nbsp; [다음]
+					</c:if>
+					<c:if test="${ pi.currentPage < pi.maxPage }">
+						<c:url var="wnListEnd" value="/selectWnList.wn">
+							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
+						</c:url>
+						<a href="${ wnListEnd }">&nbsp;[다음]</a>
+					</c:if>
+					
+				</div>
+	  </div>
     </div>
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     

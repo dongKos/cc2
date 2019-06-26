@@ -4,6 +4,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.MypgPhoto;
+import com.kh.cc.mypage.model.vo.MypgProfile;
 
 @Repository
 public class MypgDaoImpl implements MypgDao{
@@ -21,5 +23,17 @@ public class MypgDaoImpl implements MypgDao{
 		
 		return nmem;
 		
+	}
+
+	@Override
+	public int insertmypgProfile(SqlSessionTemplate sqlSession, MypgProfile mp) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int insertmypgPhoto(SqlSessionTemplate sqlSession, MypgPhoto mphoto) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
