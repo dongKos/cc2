@@ -13,15 +13,20 @@
   		<typeAlias type="com.kh.cc.webnovel.model.vo.Webnovel" alias="Webnovel"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelRound" alias="WebnovelRound"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" alias="WebnovelPhoto"/>
+
+  		<typeAlias type="com.kh.cc.illustrator.model.vo.Illustrator" alias="Illustrator"/>
+  		<typeAlias type="com.kh.cc.illustrator.model.vo.IllustratorPhoto" alias="IllustratorPhoto"/>
+
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebtoonRound" alias="WebtoonRound"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebtoonPhoto" alias="WebtoonPhoto"/>
-  		
+
   	</typeAliases>
   	<mappers>
   		<mapper resource="mappers/admin-mapper.xml"/>
   		<mapper resource="mappers/member-mapper.xml"/>
   		<mapper resource="mappers/webnovel-mapper.xml"/>
   		<mapper resource="mappers/webtoon-mapper.xml"/>
+  		<mapper resource="mappers/illust-mapper.xml"/>
   	</mappers>
   
   </configuration>

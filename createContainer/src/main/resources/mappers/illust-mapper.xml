@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="Illustrator">
+	<!-- 일러스트 등록 메소드 -->
+	<insert id="insertIllMainPhoto" parameterType="IllustratorPhoto">
+		INSERT INTO ATTACHMENT
+		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 
+			'sub', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
+	</insert>
+	<!-- 일러스트 등록 서브 메소드 -->
+	<insert id="insertIllPhoto" parameterType="IllustratorPhoto">
+		INSERT INTO ATTACHMENT
+		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 
+			'ma', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
+	</insert>
+</mapper>
