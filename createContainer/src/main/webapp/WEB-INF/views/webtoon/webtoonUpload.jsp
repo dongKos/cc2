@@ -6,134 +6,175 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
-.col-sm-9 {
-	
+.wtList {
+	text-align: center;
 }
 
-.container {
-	display: block;
-	position: relative;
-	padding-left: 35px;
-	margin-bottom: 12px;
-	cursor: pointer;
-	font-size: 22px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-}
-
-/* Hide the browser's default radio button */
-.container input {
-	position: absolute;
-	opacity: 0;
+.insertWtBtn {
+	width: 250px;
+	height: 40px;
+	margin-top: 5px;
+	background-color: white;
+	color: skyblue;
+	border: 1px solid #84CEFA;
+	font-size: 15px;
+	font-weight: bold;
 	cursor: pointer;
 }
 
-/* Create a custom radio button */
-.checkmark {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height: 25px;
-	width: 25px;
-	background-color: #eee;
-	border-radius: 50%;
+.insertWtBtn:hover {
+	background-color: #84CEFA;
+	color: white;
 }
 
-/* On mouse-over, add a grey background color */
-.container:hover input ~ .checkmark {
-	background-color: #ccc;
+.wtMenu {
+	width: 100%;
+	border-bottom: 1px solid lightgray;
+	margin-bottom: 30px;
 }
 
-/* When the radio button is checked, add a blue background */
-.container input:checked ~ .checkmark {
-	background-color: #2196F3;
+.wtWork {
+	margin-top: 50px;
+	height: 40px;
 }
 
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.checkmark:after {
-	content: "";
-	position: absolute;
-	display: none;
+.wtWork tr>td {
+	width: 140px;
+	color: gray;
+	font-weight: bold;
 }
 
-/* Show the indicator (dot/circle) when checked */
-.container input:checked ~ .checkmark:after {
-	display: block;
+.wtWork tr>td:hover {
+	color: skyblue;
+	cursor: pointer;
 }
 
-/* Style the indicator (dot/circle) */
-.container .checkmark:after {
-	top: 9px;
-	left: 9px;
-	width: 8px;
-	height: 8px;
-	border-radius: 50%;
-	background: white;
+.wtListDiv {
+	width: 100%;
+	margin-bottom: 50px;
 }
 
-#thumbnailArea {
-	border: 0.5px solid grey;
-	width: 50px;
-	height: 50px;
+.titleImg {
+	padding: 5px 5px 5px 5px;
 }
 
-.col-sm-8 {
-	border: 0.5px solid grey;
-	padding-top: 20px;
-	padding-bottom: 30px;
-	margin-bottom: 40px;
+.titleImg img {
+	width: 150px;
+	height: 120px;
+}
+
+.contentTd {
+	width: 50%;
+}
+
+.wtListTable {
+	width: 100%;
+	border: 1px solid lightgray;
+}
+
+.wtUpdateBtn {
+	width: 130px;
+	height: 30px;
+	border-radius: 8px 8px 8px 8px;
+	background-color: skyblue;
+	color: white;
+	border: 1px solid skyblue;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.workImg {
+	width: 10%;
+	border-right: 1px solid lightgray;
 }
 </style>
 </head>
 <body>
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath}" scope="application"/>
+
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
-	<br>
-	<br>
-	<br>
+
 	<div class="container">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-8">
-			<c:forEach var="wt" items="${list }">
-			<table class="wtList">
-				<tr>
-					<td class="workThumbnail">
-						<div class="thumbnail">
-							<img src="${contextPath}/resources/uploadFiles/webtoonMain/${wt.changName}"/>
-						</div>
-					</td>
-					<td class="subContent">
-						${wt.wTitle }
-						
-					</td>
-					<td>
-						<button class="btn btn-primary btn-sm">작품정보수정</button>
-					</td>
-				</tr>
-				
-			</table>
-						
+		<div class="row">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10 wtList">
+				<div class="wtMenu">
+					<table class="wtWork">
+						<tr>
+							<td>도전 작품</td>
+							<td>프리미엄 작품</td>
+						</tr>
+					</table>
+				</div>
+				<div class="wtListDiv">
+					<c:forEach var="wt" items="${ requestScope.list}">
+						<table class="wtListTable">
+							<tr>
+								<td class="workImg">
+									<div class="titleImg">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
+									</div>
+									<div>
+										${ wt.wTilte }
+									</div>
+								</td>
+							</tr>
+						</table>
+						<br>
+					</c:forEach>
+				</div>
+				<br> <br>
+				<button class="insertWnBtn" onclick="location='inserWorkForm.wt'">새
+					작품 쓰기</button>
+			</div>
+
+			<div class="col-sm-1"></div>
+		</div>
+		<div id="pagingArea" align="center">
+			<c:if test="${ pi.currentPage <= 1}">
+				[이전]&nbsp;
+			</c:if>
+			<c:if test="${ pi.currentPage > 1 }">
+				<c:url var="wtlistBack" value="/insertWork.wt">
+					<c:param name="currentPage" value="${ pi.currentPage - 1}" />
+				</c:url>
+				<a href="${ blistBack }">[이전]</a>&nbsp;
+			</c:if>
+
+			<c:forEach var="p" begin="${pi.startPage }" end="${ pi.endPage }">
+				<c:if test="${ p eq pi.currentPage }">
+					<font color="red" size="4"><b>[${ p }]</b></font>
+				</c:if>
+				<c:if test="${ p ne pi.currentPage }">
+					<c:url var="wtlistCheck" value="/insertWork.wt">
+						<c:param name="currentPage" value="${ p }" />
+					</c:url>
+					<a href="${ blistCheck}">${ p }</a>
+				</c:if>
 			</c:forEach>
-			
-			<h3>ㄹ인머림나ㅓ</h3>			
-			<button onclick="location.href='inserWorkForm.wt'"
-					class="btn btn-primary btn-sm">웹툰등록</button>
+
+			<c:if test="${ pi.currentPage >= pi.maxPage}">
+				&nbsp; [다음]
+			</c:if>
+			<c:if test="${ pi.currentPage < pi.maxPage }">
+				<c:url var="wtlistEnd" value="/insertWork.wt">
+					<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+				</c:url>
+				<a href="${ blistEnd }">&nbsp;[다음]</a>
+			</c:if>
 		</div>
 	</div>
+
 </body>
 </html>
 

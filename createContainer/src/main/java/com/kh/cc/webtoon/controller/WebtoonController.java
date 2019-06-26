@@ -3,6 +3,7 @@ package com.kh.cc.webtoon.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cc.common.CommonUtils;
+import com.kh.cc.common.WebtoonPagination;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.service.WebtoonService;
 import com.kh.cc.webtoon.model.vo.Webtoon;
+import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
 
 @Controller
@@ -118,7 +121,13 @@ public class WebtoonController {
 		int listCount = ws.selectListCount(m);
 		System.out.println("listCount : " + listCount);
 		
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
 		
+		ArrayList<Webtoon> list = ws.selectWtList(pi, m);
+		System.out.println("pi : " + pi);
+		System.out.println("list : " + list);
+		
+		model.addAttribute("list",list);
 		
 		return "webtoon/webtoonUpload";
 	}
@@ -136,12 +145,6 @@ public class WebtoonController {
 			WebtoonPhoto wp, @RequestParam(name = "photo", required = false) MultipartFile photo) {
 
 		m = (Member) session.getAttribute("loginUser");
-		System.out.println("웹툰컨트롤러 들어옴");
-
-		System.out.println("photo : " + photo);
-		
-		System.out.println("loginUser : " + m);
-		System.out.println("webtoon : " + wt);
 
 		String userId = m.getUserId();
 		wt.setUserId(userId);
@@ -159,19 +162,14 @@ public class WebtoonController {
 		  wp.setFilePath(filePath); 
 		  wp.setUserId(userId);
 		  
-		  System.out.println("filePath : " + filePath);
-		  System.out.println("WebtoonPhoto : " + wp);
-		  System.out.println("MultipartFile : " + photo.getOriginalFilename());
 		 
 		
 		try {
-			System.out.println("이거 잘 작동하나?? ");
 			
 			ws.insertWebtoon(wt, wp);
-			System.out.println("마지막으로 최종 리턴값 출력");
 			
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
-			System.out.println("파일저장 출력");
+			System.out.println("작품 사진이랑 work등록 완료");
 			
 			
 			return "webtoon/webtoonUpload";
