@@ -35,5 +35,9 @@ public interface AdminService {
 	ArrayList<Report> reportStatus(String statusVal, AdminPageInfo pi);
 
 	int getReportAjaxCount(String statusVal);
+
+	int completeReport(int reportId);
+
+	Report selectOneReport(int reportId);
 	
 }

@@ -201,9 +201,9 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		
 		return "admin/adminReport";
-	}
+		}
 	
-	//환불 관리 페이지 처리대기 / 완료 조건검색 ajax
+		//신고 관리 페이지 처리대기 / 완료 조건검색 ajax
 		@RequestMapping(value="reportStatus.ad")
 		public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
 			ArrayList<Report> list = null;
@@ -252,13 +252,34 @@ public class AdminController {
 	@RequestMapping(value="complteAllReport.ad")
 	public String completeAllReport(HttpServletRequest request) {
 		
+		//전체 처리인경우
+		if(request.getParameter("reportIdArr") != null) {
+			String reportIdArr[] = request.getParameter("reportIdArr").split(",");
+			int iArr[] = new int [reportIdArr.length];
+			
+			for(int i = 0; i < reportIdArr.length; i++) {
+			
+				iArr[i] = Integer.parseInt(reportIdArr[i]);
+				as.completeReport(iArr[i]);
+			}
+		//개별 처리인 경우
+		}else {
+			
+		}
 		
-		return "admin/adminReport";
+		return "redirect:showReport.ad";
 	}
 		
 	//신고 관리 페이지 상세보기
 	@RequestMapping("showReportDetail.ad")
-	public String showReportDetail() {
+	public String showReportDetail(HttpServletRequest request, Model model) {
+	int num = Integer.parseInt(request.getParameter("num"));
+		
+		Report reqReport = as.selectOneReport(num);
+		
+		model.addAttribute("reqReport", reqReport);
+		System.out.println("reqReport" + reqReport);
+		
 		return "admin/adminReportDetail";
 	}
 	
