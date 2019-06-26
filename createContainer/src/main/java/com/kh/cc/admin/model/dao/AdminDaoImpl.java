@@ -152,5 +152,17 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectOne("admin.selectReportAjaxCount", str);
 	}
 	
+	//신고 내역 처리
+	@Override
+	public int completeReport(SqlSessionTemplate sqlSession, int reportId) {
+		return sqlSession.update("admin.complteReport", reportId);
+	}
+	
+	//신고 관리 페이지 상세보기
+	@Override
+	public Report selectOneReport(SqlSessionTemplate sqlSession, int reportId) {
+		return sqlSession.selectOne("admin.selectOneReport", reportId);
+	}
+	
 	
 }

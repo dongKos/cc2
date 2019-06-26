@@ -105,6 +105,29 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	public int updateWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp) {
 		return sqlSession.update("Webnovel.updateWnPhoto", wp);
 	}
+	//웹소설 삭제
+	@Override
+	public int deleteWebnovel(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.update("Webnovel.deleteWebnovel", wn);
+	}
+	//웹소설 회차 삭제
+	@Override
+	public int deleteWnRound(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.update("Webnovel.deleteWnRound", wn);
+	}
+	//웹소설 메인, 서브 사진 삭제
+	@Override
+	public int deleteWnMainPhoto(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.update("Webnovel.deleteWnMainPhoto", wn);
+	}
+	@Override
+	public ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		ArrayList<WebnovelRound> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnRoundList", wnr);
+		
+		return list;
+	}
 	
 
 }

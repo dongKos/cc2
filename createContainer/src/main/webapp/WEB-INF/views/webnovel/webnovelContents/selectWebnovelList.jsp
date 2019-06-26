@@ -65,10 +65,43 @@
 }
 .wnUpdateBtn{
 	width:130px;
-	height:30px;
+	height:25px;
 	border-radius:8px 8px 8px 8px;
 	background-color:skyblue;
 	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.wnDeleteBtn{
+	width:130px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.cancleBtn{
+	width:100px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:skyblue;
+	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.deleteBtn{
+	width:100px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
 	border:1px solid skyblue;
 	font-size:14px;
 	font-weight:bold;
@@ -102,6 +135,9 @@
 	cursor:pointer;
 	margin-bottom:0px;
 }
+.modal-footer{
+	
+}
 </style>
 </head>
 <body>
@@ -122,7 +158,7 @@
 				</div>
 				<div class="wnListDiv">
 				
-				<c:forEach var="wn" items="${ list }">
+				<c:forEach var="wn" items="${ list }" varStatus="status">
 					<table class="wnListTable">
 						<tr>
 							<td class="workImg">
@@ -139,24 +175,55 @@
 							</td>
 							<td class="contentTd">
 								<p class="titleArea">${ wn.wTitle }</p>
-								<input type="hidden" value="${ wn.wid }">
+								<input type="hidden" class="wid" value="${ wn.wid }">
+								
+								<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">&times;</button>
+												<h4 class="modal-title">Modal Header</h4>
+											</div>
+											<div class="modal-body">
+												<p>정말로 삭제 하시겠습니까?<br><br>삭제하시면 복구가 불가능합니다.</p>
+											</div>
+											<div class="modal-footer">
+												<input type="hidden" class="wid" value="${ wn.wid }">
+												<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+												<button type="button" class="deleteBtn" name="deleteBtn" onclick="">삭제하기</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								
 							</td>
 							<td>
-								<button class="wnUpdateBtn">작품 정보 수정</button>
+								<button class="wnUpdateBtn" name="wnUpdateBtn">작품 정보 수정</button><br><br>
+								
+								<button class="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
+								
 							</td>
 						</tr>
 					</table>
 					<br>
 				</c:forEach>
-				
+					
 				
 				<script>
 					$(function(){
-						$('.wnListDiv').find('td').children('button').click(function(){
+						$('.wnListDiv').find($("button[name=deleteBtn]")).click(function(){
+							var wid = $(this).parents().children("input").val();
+							console.log(wid);
+							
+							location.href = "deleteWebnovel.wn?wid=" + wid;
+						});
+						
+						$('.wnListDiv').find($("button[name=wnUpdateBtn]")).click(function(){
 							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
 							
 							location.href = "selectWnUpdateOne.wn?wid=" + wid;
 						});
+						
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
 							

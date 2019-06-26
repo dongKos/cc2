@@ -34,4 +34,8 @@ public interface WebnovelService {
 	int updateWnRound(WebnovelRound wnr, WebnovelPhoto wp, Webnovel wn);
 	//웹소설 회차 수정(사진 수정 X)
 	int updateWnRound(WebnovelRound wnr, Webnovel wn);
+	//웹소설 삭제
+	int deleteWebnovel(Webnovel wn);
+	//웹소설 회차 리스트
+	ArrayList<WebnovelRound> selectWnRoundList(WebnovelRound wnr);
 }

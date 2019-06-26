@@ -10,16 +10,15 @@
 <script>
 
 	//상세보기 페이지 이동
-	function trClick(num){
+	function tdClick(num){
 		location.href = "showReportDetail.ad?num=" + num + "&currentPage=" + ${pi.currentPage};
 	}
-
 	//체크된 신고내역 처리
 	function completeAll(){
 
 		var td2 = $(".select");
-		
 		var reportIdArr = new Array();
+		
 		//선택된 애들 모두 선택해서 신고 
 		td2.each(function(){
 			if($(this).prop("checked")){
@@ -28,16 +27,12 @@
 			}
 		});
 		
-		console.log(reportIdArr);
 		if(reportIdArr.length >=1 ){
 			location.href = "complteAllReport.ad?reportIdArr=" + reportIdArr;
 		};
-		
 	}
 	
 	$(function(){
-		
-		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#report").parent().children();
 		var selectedLi = selectedUl.children().children().eq(0);
@@ -64,24 +59,22 @@
 				data:{statusVal:statusVal},
 				type:"get",
 				success:function(data){
-					console.log(data);
-					console.log(data.list[1].status);
 					//테이블 재 생성
 					var table = $("#refundTable");
 					var tbody = $('tbody');
 					tbody.html(" ");
 					
 					for(var i = 0; i < data.list.length; i ++){
-						var tr = $("<tr onclick='trClick(" + data.list[i].reportId + ")'>");
-						var rCodeTd = $("<td>").text(data.list[i].reportId);
-						var rUserTd = $("<td>").text(data.list[i].userId);
-						var rTypeTd = $("<td>").text(data.list[i].reportType);
-						var rReasonTd = $("<td>").text(data.list[i].reportReason);
-						var rDateTd = $("<td class='text-right'>").text(data.list[i].reportDate);
+						var tr = $("<tr>");
+						var rCodeTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportId);
+						var rUserTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].userId);
+						var rTypeTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportType);
+						var rReasonTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportReason);
+						var rDateTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportDate);
 						if(data.list[i].status == 'Y'){
-							var statusTd = $("<td class='text-right'>").text("처리완료");
+							var statusTd = $("<td class='text-right' onclick='tdClick()'>").text("처리완료");
 						}else{
-							var statusTd = $("<td class='text-right'>").text("처리대기");
+							var statusTd = $("<td class='text-right' onclick='tdClick(" + data.list[i].reportId + ")'>").text("처리대기");
 							statusTd.append($("<input type='checkbox' class='select'>"));
 						}
 						tr.append(rCodeTd);
@@ -155,15 +148,16 @@
 				tbody.html(" ");
 				
 				for(var i = 0; i < data.list.length; i ++){
-					var tr = $("<tr onclick='trClick(" + data.list[i].reportId + ")'>");
-					var rCodeTd = $("<td>").text(data.list[i].userId);
-					var rDateTd = $("<td>").text(data.list[i].reportType);
-					var rUserTd = $("<td>").text(data.list[i].reportReason);
-					var priceTd = $("<td class='text-right'>").text(data.list[i].reportDate);
+					var tr = $("<tr>");
+					var rCodeTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportId);
+					var rUserTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].userId);
+					var rTypeTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportType);
+					var rReasonTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportReason);
+					var rDateTd = $("<td onclick='tdClick(" + data.list[i].reportId + ")'>").text(data.list[i].reportDate);
 					if(data.list[i].status == 'Y'){
-						var statusTd = $("<td class='text-right'>").text("처리완료");
+						var statusTd = $("<td class='text-right' onclick='tdClick()'>").text("처리완료");
 					}else{
-						var statusTd = $("<td class='text-right'>").text("처리대기");
+						var statusTd = $("<td class='text-right' onclick='tdClick(" + data.list[i].reportId + ")'>").text("처리대기");
 						statusTd.append($("<input type='checkbox' class='select'>"));
 					}
 					tr.append(rCodeTd);
@@ -270,12 +264,12 @@
                                         </thead>
                                         <tbody>
                                              <c:forEach var="r" items="${list }" end="${pi.limit }">
-	                                            <tr onclick="trClick(${r.reportId})">
-	                                            	<td>${r.reportId }</td>
-	                                                <td>${r.userId}</td>
-	                                                <td>${r.reportType }</td>
-	                                                <td>${r.reportReason }</td>
-	                                                <td class="text-right">${r.reportDate }</td>
+	                                            <tr>
+	                                            	<td onclick='tdClick(${r.reportId})'>${r.reportId }</td>
+	                                                <td onclick='tdClick(${r.reportId})'>${r.userId}</td>
+	                                                <td onclick='tdClick(${r.reportId})'>${r.reportType }</td>
+	                                                <td onclick='tdClick(${r.reportId})'>${r.reportReason }</td>
+	                                                <td class="text-right" onclick='tdClick(${r.reportId})'>${r.reportDate }</td>
 	                               			    	<td class="text-right">처리 완료<input type="checkbox" class="select"></td>            
 	                                            </tr>
                                             </c:forEach>

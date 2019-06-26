@@ -5,6 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.noticeImg{
+		
+	}
+</style>
 </head>
 <body>
 	<!-- 공지 이미지 -->
@@ -18,13 +23,13 @@
 
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="${ contextPath }/resources/images/mybatis.png" alt="Los Angeles" style="width: 100%;">
+					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="1">
 				</div>
 				<div class="item">
-					<img src="${ contextPath }/resources/images/mybatis.png" alt="Chicago" style="width: 100%;">
+					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="2">
 				</div>
 				<div class="item">
-					<img src="${ contextPath }/resources/images/mybatis.png" alt="New york" style="width: 100%;">
+					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="3">
 				</div>
 			</div>
 

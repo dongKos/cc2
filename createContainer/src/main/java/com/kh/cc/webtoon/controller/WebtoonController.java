@@ -2,7 +2,6 @@ package com.kh.cc.webtoon.controller;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +21,7 @@ import com.kh.cc.webtoon.model.service.WebtoonService;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 @Controller
 public class WebtoonController {
@@ -99,8 +98,7 @@ public class WebtoonController {
 	// 웹툰 작품등록폼
 	// select
 	@RequestMapping(value = "webtoonUpload.wt")
-	public String insertWebtoon() {
-		
+	public String insertWebtoon(HttpServletRequest request, HttpSession session, Member m, Model model) {
 		
 		return "webtoon/webtoonUpload";
 	}
@@ -128,6 +126,7 @@ public class WebtoonController {
 		System.out.println("list : " + list);
 		
 		model.addAttribute("list",list);
+		model.addAttribute("pi", pi);
 		
 		return "webtoon/webtoonUpload";
 	}
@@ -156,13 +155,10 @@ public class WebtoonController {
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
 		String changeFileName = CommonUtils.getRandomString();
 		
-		
 		  wp.setOriginName(originFileName); 
 		  wp.setChangeName(changeFileName + ext);
 		  wp.setFilePath(filePath); 
 		  wp.setUserId(userId);
-		  
-		 
 		
 		try {
 			
@@ -170,7 +166,6 @@ public class WebtoonController {
 			
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 			System.out.println("작품 사진이랑 work등록 완료");
-			
 			
 			return "webtoon/webtoonUpload";
 			
@@ -181,6 +176,27 @@ public class WebtoonController {
 			
 			return "common/errorPage";
 		} 
+	}
+	
+	@RequestMapping(value = "insertRoundFrom.wt")
+	public String insertRoundForm() {
+		
+		
+		return "webtoon/insertRoundForm";
+	}
+	
+	@RequestMapping(value = "insertWnRound.wt")
+	public String insertWnRound(Model model, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
+			 Member m, WebtoonPhoto wp, @RequestParam(name = "photo", required = false) MultipartFile photo) {
+		System.out.println("회차 컨트롤러 들어옴");
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		
+		
+		
+		
+		return "webtoon/insertRoundForm";
 	}
 	
 }
