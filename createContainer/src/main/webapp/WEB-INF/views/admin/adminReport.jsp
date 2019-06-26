@@ -17,7 +17,7 @@
 	//체크된 신고내역 처리
 	function completeAll(){
 
-	    var td2 = $(".select");
+		var td2 = $(".select");
 		
 		var reportIdArr = new Array();
 		//선택된 애들 모두 선택해서 신고 

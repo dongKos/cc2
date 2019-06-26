@@ -77,28 +77,31 @@ public class AdminServiceImpl implements AdminService{
 	public Member selectOneMember(int num) {
 		return ad.selectOneMember(sqlSession, num);
 	}
-
+	
 	//전체 신고목록 수 조회
 	@Override
 	public int getReportListCount() {
 		return ad.getReportListCount(sqlSession);
 	}
-
+	
 	//전체 신고 내역 목록 조회
 	@Override
 	public ArrayList<Report> selectReportList(AdminPageInfo pi) {
 		return ad.selectReportList(sqlSession, pi);
 	}
-
+	
 	//신고내역 조회 페이지 REPORT_TYPE 조건검색 AJAX
 	@Override
 	public ArrayList<Report> reportStatus(String statusVal, AdminPageInfo pi) {
 		return ad.reportStatus(sqlSession, statusVal, pi);
 	}
-
+	
 	//신고내역 애이젝스 조건 검색 개수 조회
 	@Override
 	public int getReportAjaxCount(String statusVal) {
 		return ad.getReportAjaxCount(sqlSession, statusVal);
 	}
 }
+
+
+

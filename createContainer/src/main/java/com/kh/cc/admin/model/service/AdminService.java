@@ -20,9 +20,9 @@ public interface AdminService {
 	
 	ArrayList<Refund> refundStatus(String statusVal, AdminPageInfo pi);
 	
-	int getMemberListCount();
-	
 	ArrayList<Member> selectMemberList(AdminPageInfo pi);
+	
+	int getMemberListCount();
 	
 	int getRefundAjaxCount(String statusVal);
 

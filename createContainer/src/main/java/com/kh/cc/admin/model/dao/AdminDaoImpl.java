@@ -82,7 +82,7 @@ public class AdminDaoImpl implements AdminDao{
 	public int getMemberListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("admin.selectMemberListCount");
 	}
-
+	
 	//전체 회원 목록 조회
 	@Override
 	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
@@ -92,19 +92,19 @@ public class AdminDaoImpl implements AdminDao{
 		return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
 		
 	}
-
+	
 	//회원 관리 페이지 상세보기
 	@Override
 	public Member selectOneMember(SqlSessionTemplate sqlSession, int num) {
 		return sqlSession.selectOne("admin.selectOneMember", num);
 	}
-
+	
 	//전체 신고목록 수 조회
 	@Override
 	public int getReportListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("admin.selectReportCount");
 	}
-
+	
 	//전체 신고 내역 목록 조회
 	@Override
 	public ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
@@ -113,7 +113,7 @@ public class AdminDaoImpl implements AdminDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		return (ArrayList)sqlSession.selectList("admin.selectReportList", null, rowBounds);
 	}
-
+	
 	//신고내역 조회 페이지 REPORT_TYPE 조건검색 AJAX
 	@Override
 	public ArrayList<Report> reportStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi) {
@@ -134,7 +134,7 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return (ArrayList)sqlSession.selectList("admin.reportStatus", str, rowBounds);
 	}
-
+	
 	//신고내역 애이젝스 조건 검색 개수 조회
 	@Override
 	public int getReportAjaxCount(SqlSessionTemplate sqlSession, String statusVal) {

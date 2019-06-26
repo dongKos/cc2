@@ -248,6 +248,14 @@ public class AdminController {
 			return mv;
 		}
 	
+	//신고 내역 전체 처리
+	@RequestMapping(value="complteAllReport.ad")
+	public String completeAllReport(HttpServletRequest request) {
+		
+		
+		return "admin/adminReport";
+	}
+		
 	//신고 관리 페이지 상세보기
 	@RequestMapping("showReportDetail.ad")
 	public String showReportDetail() {
