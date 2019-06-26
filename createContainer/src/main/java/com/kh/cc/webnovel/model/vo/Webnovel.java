@@ -11,6 +11,7 @@ public class Webnovel implements java.io.Serializable{
 	private int vCount;
 	private String wCycle;
 	private int gradeType;
+	private String workType;
 	private String workStatus;
 	private Date workDate;
 	private String ageGrade;
@@ -21,8 +22,8 @@ public class Webnovel implements java.io.Serializable{
 	public Webnovel() {}
 
 	public Webnovel(int wid, String userId, Date wuploadDate, String wTitle, String wIntro, int vCount, String wCycle,
-			int gradeType, String workStatus, Date workDate, String ageGrade, String genre, String changeName,
-			int fid) {
+			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, String genre,
+			String changeName, int fid) {
 		super();
 		this.wid = wid;
 		this.userId = userId;
@@ -32,6 +33,7 @@ public class Webnovel implements java.io.Serializable{
 		this.vCount = vCount;
 		this.wCycle = wCycle;
 		this.gradeType = gradeType;
+		this.workType = workType;
 		this.workStatus = workStatus;
 		this.workDate = workDate;
 		this.ageGrade = ageGrade;
@@ -70,6 +72,10 @@ public class Webnovel implements java.io.Serializable{
 
 	public int getGradeType() {
 		return gradeType;
+	}
+
+	public String getWorkType() {
+		return workType;
 	}
 
 	public String getWorkStatus() {
@@ -128,6 +134,10 @@ public class Webnovel implements java.io.Serializable{
 		this.gradeType = gradeType;
 	}
 
+	public void setWorkType(String workType) {
+		this.workType = workType;
+	}
+
 	public void setWorkStatus(String workStatus) {
 		this.workStatus = workStatus;
 	}
@@ -156,15 +166,11 @@ public class Webnovel implements java.io.Serializable{
 	public String toString() {
 		return "Webnovel [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wTitle=" + wTitle
 				+ ", wIntro=" + wIntro + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
-				+ ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade=" + ageGrade + ", genre="
-				+ genre + ", changeName=" + changeName + ", fid=" + fid + "]";
+				+ ", workType=" + workType + ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade="
+				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + "]";
 	}
-	
-	
-
 
 	
-
 	
 
 	

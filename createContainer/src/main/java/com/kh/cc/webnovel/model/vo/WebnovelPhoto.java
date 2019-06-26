@@ -12,7 +12,6 @@ public class WebnovelPhoto implements java.io.Serializable{
 	private String aCategory;
 	private int rid;
 	private int illCode;
-	private int workType;
 	private int spCode;
 	private int wid;
 	private String userId;
@@ -20,7 +19,7 @@ public class WebnovelPhoto implements java.io.Serializable{
 	public WebnovelPhoto() {}
 
 	public WebnovelPhoto(int fid, String originName, String changeName, String filePath, Date uploadDate, String status,
-			String aCategory, int rid, int illCode, int workType, int spCode, int wid, String userId) {
+			String aCategory, int rid, int illCode, int spCode, int wid, String userId) {
 		super();
 		this.fid = fid;
 		this.originName = originName;
@@ -31,7 +30,6 @@ public class WebnovelPhoto implements java.io.Serializable{
 		this.aCategory = aCategory;
 		this.rid = rid;
 		this.illCode = illCode;
-		this.workType = workType;
 		this.spCode = spCode;
 		this.wid = wid;
 		this.userId = userId;
@@ -71,10 +69,6 @@ public class WebnovelPhoto implements java.io.Serializable{
 
 	public int getIllCode() {
 		return illCode;
-	}
-
-	public int getWorkType() {
-		return workType;
 	}
 
 	public int getSpCode() {
@@ -125,10 +119,6 @@ public class WebnovelPhoto implements java.io.Serializable{
 		this.illCode = illCode;
 	}
 
-	public void setWorkType(int workType) {
-		this.workType = workType;
-	}
-
 	public void setSpCode(int spCode) {
 		this.spCode = spCode;
 	}
@@ -145,9 +135,10 @@ public class WebnovelPhoto implements java.io.Serializable{
 	public String toString() {
 		return "WebnovelPhoto [fid=" + fid + ", originName=" + originName + ", changeName=" + changeName + ", filePath="
 				+ filePath + ", uploadDate=" + uploadDate + ", status=" + status + ", aCategory=" + aCategory + ", rid="
-				+ rid + ", illCode=" + illCode + ", workType=" + workType + ", spCode=" + spCode + ", wid=" + wid
-				+ ", userId=" + userId + "]";
+				+ rid + ", illCode=" + illCode + ", spCode=" + spCode + ", wid=" + wid + ", userId=" + userId + "]";
 	}
+
+	
 	
 	
 }

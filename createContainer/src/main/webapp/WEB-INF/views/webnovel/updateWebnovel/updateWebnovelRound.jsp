@@ -184,6 +184,8 @@ input[type=checkbox]:checked + label:before{
 									<td class="wnrContent">
 										<input type="hidden" name="changeName" value="${ wnr.changeName }">
 										<input type="hidden" name="rid" value="${ wnr.rid }">
+										<input type="hidden" name="fid" value="${ wnr.fid }">
+										<input type="hidden" name="wid" value="${ wnr.wid }">
 										<input class="insertWnrInput" type="text" name="rTitle" placeholder="제목을 입력해주세요." value="${ wnr.rTitle }"maxlength="40" autofocus required>
 									</td>
 								</tr>
@@ -213,7 +215,8 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td colspan="2" class="">
-										<input id="workStatus" type="checkbox" name="workStatus" value="${ wnr.workStatus }"><label for="workStatus">이 회차가 완결입니다.</label>
+										<input id="wnStatus" type="hidden" value="${ wnr.workStatus }">
+										<input id="workStatus" type="checkbox" name="workStatus" value="CLOSE"><label for="workStatus">이 회차가 완결입니다.</label>
 									</td>
 								</tr>
 								<tr>
@@ -249,13 +252,14 @@ input[type=checkbox]:checked + label:before{
 		});
 		
 		$(function(){
-			console.log($("#workStatus").val());
-			if($("#workStatus").val() == "CLOSE"){
-				$("#workStatus").prop('checked', true);;
-			}else{
-				$("#workStatus").prop('checked', false);;
+			if($("#wnStatus").val() == "CLOSE"){
+				$("#workStatus").prop('checked', true);
+			}else if($("#wnStatus").val() == "COMPLTE"){
+				$("#workStatus").prop('checked', false);
 			}
-			
+		});
+		
+		$(function(){
 			$("#workStatus").click(function(){
 				var chk = $(this).is(":checked");
 				if(chk) $("#workStatus").val('CLOSE');

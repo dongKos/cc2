@@ -43,7 +43,6 @@ public class WebnovelServiceImpl implements WebnovelService{
 		
 		int result1 = wd.updateWebnovel(sqlSession, wn);
 		int result2 = wd.updateWnPhoto(sqlSession, wp);
-		
 		if(result1 > 0 && result2 > 0) {
 			result = 1;
 		}else {
@@ -55,8 +54,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 	//웹소설 메인 수정(사진 수정 X)
 	@Override
 	public int updateWebnovel(Webnovel wn) {
-		int result = wd.updateWebnovel(sqlSession, wn);
-		return result;
+		return wd.updateWebnovel(sqlSession, wn);
 	}
 	//웹소설 메인 목록 카운트
 	@Override
@@ -102,6 +100,40 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public WebnovelRound selectWnrOne(int rid) {
 		return wd.selectWnrOne(sqlSession, rid);
+	}
+	//웹소설 회차 수정(사진 수정 O)
+	@Override
+	public int updateWnRound(WebnovelRound wnr, WebnovelPhoto wp, Webnovel wn) {
+		int result = 0;
+		int result1 = wd.updateWnRound(sqlSession, wnr);
+		int result2 = wd.updateWnrPhoto(sqlSession, wp);
+		int result3 = wd.updateWorkStatus(sqlSession, wn);
+		
+		System.out.println("작품회차 리저트 1 : " + result1);
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		return result;
+	}
+	//웹소설 회차 수정(사진 수정 X)
+	@Override
+	public int updateWnRound(WebnovelRound wnr, Webnovel wn) {
+		int result = 0;
+		int result1 = wd.updateWnRound(sqlSession, wnr);
+		System.out.println("result1 : " + result1);
+		int result2 = wd.updateWorkStatus(sqlSession, wn);
+		System.out.println("result2 : " + result2);
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		return result;
+		
 	}
 	
 	

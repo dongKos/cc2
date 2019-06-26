@@ -95,6 +95,16 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	public WebnovelRound selectWnrOne(SqlSessionTemplate sqlSession, int rid) {
 		return sqlSession.selectOne("Webnovel.selectWnrOne", rid);
 	}
+	//웹소설 작품 회차 수정
+	@Override
+	public int updateWnRound(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.update("Webnovel.updateWnRound", wnr);
+	}
+	//웹소설 작품 회차 사진 수정
+	@Override
+	public int updateWnrPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp) {
+		return sqlSession.update("Webnovel.updateWnPhoto", wp);
+	}
 	
 
 }
