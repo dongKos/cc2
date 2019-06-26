@@ -3,8 +3,10 @@ package com.kh.cc.mypage.model.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
-import com.kh.cc.mypage.model.vo.MypgPhoto;
-import com.kh.cc.mypage.model.vo.MypgProfile;
+import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.mypage.model.vo.WriterPhoto;
+import com.kh.cc.mypage.model.vo.WriterProfile;
 
 public interface MypgDao {
 
@@ -12,8 +14,9 @@ public interface MypgDao {
 
 	Member updateMember(SqlSessionTemplate sqlSession, Member m);
 
-	int insertmypgProfile(SqlSessionTemplate sqlSession, MypgProfile mp);
+	//작가페이지 프로필 설정
+	int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp);
 
-	int insertmypgPhoto(SqlSessionTemplate sqlSession, MypgPhoto mphoto);
+	int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto);
 
 }

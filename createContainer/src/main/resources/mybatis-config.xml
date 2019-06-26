@@ -13,6 +13,12 @@
   		<typeAlias type="com.kh.cc.webnovel.model.vo.Webnovel" alias="Webnovel"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelRound" alias="WebnovelRound"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" alias="WebnovelPhoto"/>
+  		<typeAlias type="com.kh.cc.mypage.model.vo.WriterProfile" alias="WriterProfile"/>
+  		
+  		
+  		
+  		
+  		
   		
   	</typeAliases>
   	<mappers>
@@ -20,6 +26,7 @@
   		<mapper resource="mappers/member-mapper.xml"/>
   		<mapper resource="mappers/webnovel-mapper.xml"/>
   		<mapper resource="mappers/webtoon-mapper.xml"/>
+  		<mapper resource="mappers/writer-mapper.xml"/>
   	</mappers>
   
   </configuration>
