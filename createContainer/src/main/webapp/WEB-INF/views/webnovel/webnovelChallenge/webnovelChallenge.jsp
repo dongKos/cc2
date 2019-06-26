@@ -18,8 +18,6 @@
 	height:170px;
 }
 
-
-
 .item{
 	height:350px;
 }

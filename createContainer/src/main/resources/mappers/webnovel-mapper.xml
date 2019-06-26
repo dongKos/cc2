@@ -147,6 +147,21 @@
 		    RCONTENT = #{rContent}
 		WHERE RID = #{rid}
 	</update>
+	<!-- 웹소설 삭제 -->
+	<delete id="deleteWebnovel" parameterType="Webnovel">
+		DELETE FROM WORK 
+		WHERE WID = #{wid}
+	</delete>
+	<!-- 웹소설 회차 삭제 -->
+	<delete id="deleteWnRound" parameterType="Webnovel">
+        DELETE FROM WORK_ROUND 
+        WHERE WID = #{wid}
+	</delete>
+	<!-- 웹소설 메인, 서브 사진 삭제 -->
+	<delete id="deleteWnMainPhoto" parameterType="Webnovel">
+        DELETE FROM ATTACHMENT 
+        WHERE WID = #{wid}
+	</delete>
 </mapper>
 
 

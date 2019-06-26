@@ -122,6 +122,41 @@ public class WebnovelController {
 			return "redirect:selectWnList.wn";
 		}
 	}
+	//웹소설 삭제
+	@RequestMapping(value="deleteWebnovel.wn")
+	public String deleteWebnovel(Model model, Webnovel wn, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wn = ws.selectWnOne(wid);
+		wnr.setRid(wn.getRid());
+		
+		ArrayList<WebnovelRound> list = ws.selectWnRoundList(wnr);
+		list.get(0).getRid();
+		System.out.println("웹소설 리스트 : " + list);
+		
+		String changeName = wn.getChangeName();
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String filePath = root + "\\uploadFiles\\webnovelMain";
+		System.out.println(wn);
+		System.out.println(filePath);
+		int result = ws.deleteWebnovel(wn);
+		
+		if(result > 0) {
+			new File(filePath + "\\" + changeName).delete();
+			
+			for(int i = 0; i < list.size(); i++) {
+				String subChangeName = wnr.getChangeName();
+				new File(filePath + "\\" + subChangeName).delete();
+				System.out.println(list.get(i).getChangeName());
+			}
+			
+		}
+		
+			
+		
+		return "redirect:selectWnList.wn";
+	}
+	
 	
 	//웹소설 목록
 	@RequestMapping(value="selectWnList.wn")
