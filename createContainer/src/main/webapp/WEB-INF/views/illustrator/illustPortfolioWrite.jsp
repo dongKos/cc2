@@ -74,16 +74,16 @@
 			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
 			
 			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#1 이미지 :&nbsp;&nbsp;</h3>
-			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			<input type="file" name="photo1" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
 			
 			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#2 이미지 :&nbsp;&nbsp;</h3>
-			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			<input type="file" name="photo2" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
 			
 			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#3 이미지 :&nbsp;&nbsp;</h3>
-			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			<input type="file" name="photo3" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
 			
 			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#4 이미지 :&nbsp;&nbsp;</h3>
-			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			<input type="file" name="photo4" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
 			
 			<button type="submit" class="btn btn-warning" style="float:left; margin-left:6%; font-size:18px; border-color:lightblue; background:lightblue; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">등록하기</button>
 			<button type="button" class="btn btn-warning" onclick="portfolioWrite()" style="float:left; margin-left:2%; font-size:18px; border-color:lightgray; background:lightgray; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">취소하기</button>
