@@ -6,27 +6,30 @@ public class Webtoon implements java.io.Serializable {
 	private int wid;
 	private String userId;
 	private Date wuploadDate;
-	private String wIntro;
 	private String wTitle;
+	private String wIntro;
 	private int vCount;
 	private String wCycle;
-	private String gradeType;
+	private int gradeType;
 	private String workType;
 	private String workStatus;
 	private Date workDate;
 	private String ageGrade;
 	private String genre;
+	private String changeName;
+	private int fid;
 	
 	public Webtoon() {}
 
-	public Webtoon(int wid, String userId, Date wuploadDate, String wIntro, String wTitle, int vCount, String wCycle,
-			String gradeType, String workType, String workStatus, Date workDate, String ageGrade, String genre) {
+	public Webtoon(int wid, String userId, Date wuploadDate, String wTitle, String wIntro, int vCount, String wCycle,
+			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, String genre,
+			String changeName, int fid) {
 		super();
 		this.wid = wid;
 		this.userId = userId;
 		this.wuploadDate = wuploadDate;
-		this.wIntro = wIntro;
 		this.wTitle = wTitle;
+		this.wIntro = wIntro;
 		this.vCount = vCount;
 		this.wCycle = wCycle;
 		this.gradeType = gradeType;
@@ -35,6 +38,8 @@ public class Webtoon implements java.io.Serializable {
 		this.workDate = workDate;
 		this.ageGrade = ageGrade;
 		this.genre = genre;
+		this.changeName = changeName;
+		this.fid = fid;
 	}
 
 	public int getWid() {
@@ -49,12 +54,12 @@ public class Webtoon implements java.io.Serializable {
 		return wuploadDate;
 	}
 
-	public String getwIntro() {
-		return wIntro;
-	}
-
 	public String getwTitle() {
 		return wTitle;
+	}
+
+	public String getwIntro() {
+		return wIntro;
 	}
 
 	public int getvCount() {
@@ -65,7 +70,7 @@ public class Webtoon implements java.io.Serializable {
 		return wCycle;
 	}
 
-	public String getGradeType() {
+	public int getGradeType() {
 		return gradeType;
 	}
 
@@ -89,6 +94,14 @@ public class Webtoon implements java.io.Serializable {
 		return genre;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public int getFid() {
+		return fid;
+	}
+
 	public void setWid(int wid) {
 		this.wid = wid;
 	}
@@ -101,12 +114,12 @@ public class Webtoon implements java.io.Serializable {
 		this.wuploadDate = wuploadDate;
 	}
 
-	public void setwIntro(String wIntro) {
-		this.wIntro = wIntro;
-	}
-
 	public void setwTitle(String wTitle) {
 		this.wTitle = wTitle;
+	}
+
+	public void setwIntro(String wIntro) {
+		this.wIntro = wIntro;
 	}
 
 	public void setvCount(int vCount) {
@@ -117,7 +130,7 @@ public class Webtoon implements java.io.Serializable {
 		this.wCycle = wCycle;
 	}
 
-	public void setGradeType(String gradeType) {
+	public void setGradeType(int gradeType) {
 		this.gradeType = gradeType;
 	}
 
@@ -141,13 +154,22 @@ public class Webtoon implements java.io.Serializable {
 		this.genre = genre;
 	}
 
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public void setFid(int fid) {
+		this.fid = fid;
+	}
+
 	@Override
 	public String toString() {
-		return "Webtoon [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wIntro=" + wIntro
-				+ ", wTitle=" + wTitle + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
+		return "Webtoon [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wTitle=" + wTitle
+				+ ", wIntro=" + wIntro + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
 				+ ", workType=" + workType + ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade="
-				+ ageGrade + ", genre=" + genre + "]";
+				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + "]";
 	}
 
 	
-}
+	
+	}
