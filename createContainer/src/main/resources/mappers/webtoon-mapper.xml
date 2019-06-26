@@ -18,7 +18,10 @@
 		<result property="workDate" column="WORK_DATE"/>
 		<result property="ageGrade" column="AGE_GRADE"/>
 		<result property="genre" column="GENRE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
 	</resultMap>
+	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webtoon.model.vo.WebtoonPhoto" id="webtoonPhotoResultSet">
 		<id property="fid" column="FID"/>
 		<result property="originName" column="ORIGIN_NAME"/>
@@ -29,7 +32,6 @@
 		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
 		<result property="rid" column="RID"/>
 		<result property="illCode" column="ILL_CODE"/>
-		<result property="workType" column="WORK_TYPE"/>
 		<result property="spCode" column="SP_CODE"/>
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
