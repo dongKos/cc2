@@ -38,4 +38,10 @@ public interface WebnovelService {
 	int deleteWebnovel(Webnovel wn);
 	//웹소설 회차 리스트
 	ArrayList<WebnovelRound> selectWnRoundList(WebnovelRound wnr);
+	//웹소설 회차 삭제
+	int deleteWnRound(WebnovelRound wnr);
+	//웹소설 도전 장르 목록 카운트
+	int challengeGenreCount(String genre);
+	//웹소설 도전 장르 목록 리스트
+	ArrayList<Webnovel> challengeGenreLIst(WebnovelPageInfo pi, String genre);
 }

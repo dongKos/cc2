@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-	<div class="genreNav">
+	<!-- <div class="genreNav">
 		<table class="genreMenu">
 			<tr>
 				<td class="genreItem" onClick="location.href=''">신규</td>
@@ -41,6 +41,6 @@
 				<td class="genreItem" onClick="location.href=''">완결</td>
 			</tr>
 		</table>
-	</div>
+	</div> -->
 </body>
 </html>

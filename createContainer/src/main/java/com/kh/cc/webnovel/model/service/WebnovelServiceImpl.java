@@ -143,7 +143,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 		System.out.println("result1 : " + result1);
 		int result2 = wd.deleteWnRound(sqlSession, wn);
 		System.out.println("result2 : " + result2);
-		int result3 = wd.deleteWnMainPhoto(sqlSession, wn);
+		int result3 = wd.deleteWebnovelPhoto(sqlSession, wn);
 		System.out.println("result3 : " + result3);
 		
 		if(result1 > 0 && result2 >= 0 && result3 > 0) {
@@ -154,9 +154,38 @@ public class WebnovelServiceImpl implements WebnovelService{
 		
 		return result;
 	}
+	//웹소설 회차 리스트
 	@Override
 	public ArrayList<WebnovelRound> selectWnRoundList(WebnovelRound wnr) {
 		return wd.selectWnRoundList(sqlSession, wnr);
+	}
+	//웹소설 회차 삭제
+	@Override
+	public int deleteWnRound(WebnovelRound wnr) {
+		int result = 0;
+		int result1 = wd.deleteWnRoundOne(sqlSession, wnr);
+		System.out.println("result1 : " + result1);
+		int result2 = wd.deleteWnrPhoto(sqlSession, wnr);
+		System.out.println("result2 : " + result2);
+		
+		if(result1 > 0 && result2 >= 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		
+		return result;
+	}
+	//웹소설 도전 장르 목록 카운트
+	@Override
+	public int challengeGenreCount(String genre) {
+		return wd.challengeGenreCount(sqlSession, genre);
+	}
+	//웹소설 도전 장르 목록 리스트
+	@Override
+	public ArrayList<Webnovel> challengeGenreLIst(WebnovelPageInfo pi, String genre) {
+		return wd.challengeGenreLIst(sqlSession, pi, genre);
 	}
 	
 	

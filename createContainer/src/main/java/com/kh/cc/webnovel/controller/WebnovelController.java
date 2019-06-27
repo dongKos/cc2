@@ -3,6 +3,7 @@ package com.kh.cc.webnovel.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.vo.Member;
@@ -126,36 +128,48 @@ public class WebnovelController {
 	@RequestMapping(value="deleteWebnovel.wn")
 	public String deleteWebnovel(Model model, Webnovel wn, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		
 		wn = ws.selectWnOne(wid);
 		wnr.setRid(wn.getRid());
-		
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(wnr);
-		list.get(0).getRid();
-		System.out.println("웹소설 리스트 : " + list);
 		
-		String changeName = wn.getChangeName();
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		String filePath = root + "\\uploadFiles\\webnovelMain";
-		System.out.println(wn);
-		System.out.println(filePath);
+		String mainChangeName = wn.getChangeName();
+		String mainFilePath = root + "\\uploadFiles\\webnovelMain";
+		String subFilePath = root + "\\uploadFiles\\webnovelSub";
+		System.out.println("mainFilePath : " + mainFilePath);
+		
 		int result = ws.deleteWebnovel(wn);
 		
 		if(result > 0) {
-			new File(filePath + "\\" + changeName).delete();
-			
+			new File(mainFilePath + "\\" + mainChangeName).delete();
 			for(int i = 0; i < list.size(); i++) {
-				String subChangeName = wnr.getChangeName();
-				new File(filePath + "\\" + subChangeName).delete();
-				System.out.println(list.get(i).getChangeName());
+				String subChangeName = list.get(i).getChangeName();
+				System.out.println(i+"번째 리스트 : " + list.get(i).getChangeName());
+				new File(subFilePath + "\\" + subChangeName).delete();
 			}
-			
 		}
-		
-			
-		
 		return "redirect:selectWnList.wn";
 	}
+	//웹소설 회차 삭제
+		@RequestMapping(value="deleteWnRound.wn")
+		public String deleteWnRound(Model model, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
+			int rid = Integer.parseInt(request.getParameter("rid"));
+			
+			wnr = ws.selectWnrOne(rid);
+			int wid = wnr.getWid();
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String subFilePath = root + "\\uploadFiles\\webnovelSub";
+			String subChangeName = wnr.getChangeName();
+			System.out.println(wnr);
+			System.out.println(subFilePath);
+			System.out.println("subChangeName : " + subChangeName);
+			int result = ws.deleteWnRound(wnr);
+			if(result > 0) {
+				new File(subFilePath + "\\" + subChangeName).delete();
+			}
+			return "redirect:selectWnRoundList.wn?wid=" + wid;
+		}
 	
 	
 	//웹소설 목록
@@ -164,7 +178,7 @@ public class WebnovelController {
 		m = (Member) session.getAttribute("loginUser");
 		
 		int currentPage = 1;
-		
+		int limit = 5;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
@@ -172,7 +186,7 @@ public class WebnovelController {
 		int listCount = ws.selectListCount(m);
 		
 		
-		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
 		
 		ArrayList<Webnovel> list = ws.selectWnList(pi, m);
 		model.addAttribute("list", list);
@@ -203,6 +217,7 @@ public class WebnovelController {
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		
 		wnr.setWid(wid);
+		int limit = 10;
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
@@ -212,7 +227,7 @@ public class WebnovelController {
 		
 		int listCount = ws.selectWnrListCount(wnr);
 		
-		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
 		
 		wn = ws.selectWnOne(wid);
 		
@@ -371,6 +386,50 @@ public class WebnovelController {
 		return "webnovel/webnovelContents/selectDetailedWebnovel";
 		
 	}
+	//도전웹소설 장르 리스트
+	@RequestMapping("challengeGenre.wn")
+	public void challengeGenre(HttpServletRequest request, HttpServletResponse response, Model model, Webnovel wn) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		response.setContentType("text/html; charset=UTF-8");
+		String genre = request.getParameter("genre");
+		System.out.println(genre);
+		
+		int limit = 16;
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.challengeGenreCount(genre);
+		
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
+		
+		ArrayList<Webnovel> list = ws.challengeGenreLIst(pi, genre);
+		//ArrayList<HashMap<String, Object>> wnrList = new ArrayList<HashMap<String, Object>>();
+		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+		
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(list));
+			response.getWriter().print(mapper.writeValueAsString(pi));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		//model.addAttribute("pi", pi);
+		//model.addAttribute("list", list);
+	
+	}
+	
+	//웹소설 Top5 이동
+	@RequestMapping("webnovelTop5.wn")
+	public String webnovelTop5() {
+		return "webnovel/webnovelTop5/webnovelTop5";
+	}
 	
 	//웹소설 메인홈 이동
 	@RequestMapping("webnovelMain.wn")
@@ -381,11 +440,6 @@ public class WebnovelController {
 	@RequestMapping("webnovelCategory.wn")
 	public String webnovelCategory() {
 		return "webnovel/webnovelCategory/webnovelCategory";
-	}
-	//웹소설 Top5 이동
-	@RequestMapping("webnovelTop5.wn")
-	public String webnovelTop5() {
-		return "webnovel/webnovelTop5/webnovelTop5";
 	}
 	//웹소설 도전!! 이동
 	@RequestMapping("webnovelChallenge.wn")

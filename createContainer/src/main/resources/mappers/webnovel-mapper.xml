@@ -158,10 +158,36 @@
         WHERE WID = #{wid}
 	</delete>
 	<!-- 웹소설 메인, 서브 사진 삭제 -->
-	<delete id="deleteWnMainPhoto" parameterType="Webnovel">
+	<delete id="deleteWebnovelPhoto" parameterType="Webnovel">
         DELETE FROM ATTACHMENT 
         WHERE WID = #{wid}
 	</delete>
+	<!-- 웹소설 회차 한개 삭제 -->
+	<delete id="deleteWnRoundOne" parameterType="WebnovelRound">
+        DELETE FROM WORK_ROUND 
+        WHERE RID = #{rid}
+	</delete>
+	<!-- 웹소설 회차 사진 한개 삭제 -->
+	<delete id="deleteWnrPhoto" parameterType="WebnovelRound">
+        DELETE FROM ATTACHMENT 
+        WHERE RID = #{rid}
+	</delete>
+	<!-- 웹소설 도전 장르 목록 카운트 -->
+	<select id="challengeGenreCount" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		LEFT JOIN ATTACHMENT A ON(A.WID = W.WID)
+		WHERE W.GENRE = #{genre}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+	<!-- 웹소설 도전 장르 목록 리스트 -->
+	<select id="challengeGenreList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+		SELECT *
+		FROM WORK W
+		LEFT JOIN ATTACHMENT A ON(A.WID = W.WID)
+		WHERE W.GENRE = #{genre}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
 </mapper>
 
 

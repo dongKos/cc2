@@ -79,7 +79,40 @@
 }
 .wnUpdateBtn{
 	width:130px;
-	height:30px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:skyblue;
+	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.wnDeleteBtn{
+	width:130px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.cancleBtn{
+	width:100px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:skyblue;
+	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.deleteBtn{
+	width:100px;
+	height:25px;
 	border-radius:8px 8px 8px 8px;
 	background-color:white;
 	color:skyblue;
@@ -135,6 +168,21 @@
 	background-color:lightgray;
 	cursor:pointer;
 }
+.titleArea{
+	width:100%;
+	line-height:130px;
+	cursor:pointer;
+	margin-bottom:0px;
+}
+.modal{
+	margin-top:30%;
+}
+.modal-title{
+	font-weight:bold;
+}
+.modal-footer{
+	text-align:center;
+}
 </style>
 </head>
 <body>
@@ -186,7 +234,7 @@
 					</table>
 				</div>
 				<div class="wnrListArea">
-				<c:forEach var="wnr" items="${ list }">
+				<c:forEach var="wnr" items="${ list }" varStatus="status">
 					<table class="wnrTable">
 						<tr>
 							<td rowspan="3" class="wnrImg">
@@ -207,9 +255,9 @@
 								<p class="wnrTitleArea">${ wnr.rTitle }</p>
 							</td>
 							<td class="wnrBtnArea">
-								<button class="wnUpdateBtn">회차 정보 수정</button>
 								<input type="hidden" value="${ wnr.rid }">
-								<input type="hidden" value="${ wnr.fid }">
+								<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
+								<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
 							</td>
 						</tr>
 						<tr>
@@ -219,13 +267,39 @@
 							</td>
 						</tr>
 					</table>
+					<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">작품 삭제</h4>
+								</div>
+								<div class="modal-body">
+									<p>정말로 삭제 하시겠습니까?<br><br>삭제하시면 복구가 불가능합니다.</p>
+								</div>
+								<div class="modal-footer">
+									<input type="hidden" class="wid" value="${ wnr.rid }">
+									<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+									<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 				</c:forEach>
 				<script>
 					$(function(){
-						$('.wnrListArea').find('td').children('button').click(function(){
-							var rid = $(this).parents().children("input").eq(0).val();
+						$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
+							var rid = $(this).parents().children("input").val();
+							console.log(rid);
+							location.href = "deleteWnRound.wn?rid=" + rid;
+						});	
+						
+						$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
+							var rid = $(this).parents().children("input").val();
 							location.href = "selectWnrUpdateForm.wn?rid=" + rid;
 						});
+						
 						$('.wnrListArea').find('td').children('p').click(function(){
 							var rid = $(this).parents().parents().children().children("input").eq(0).val();
 							

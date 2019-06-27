@@ -46,8 +46,17 @@ public interface WebnovelDao {
 	//웹소설 회차 삭제
 	int deleteWnRound(SqlSessionTemplate sqlSession, Webnovel wn);
 	//웹소설 사진 삭제
-	int deleteWnMainPhoto(SqlSessionTemplate sqlSession, Webnovel wn);
+	int deleteWebnovelPhoto(SqlSessionTemplate sqlSession, Webnovel wn);
+	//웹소설 회차 리스트
 	ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//웹소설 회차 삭제
+	int deleteWnRoundOne(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//웹소설 회차 사진 삭제
+	int deleteWnrPhoto(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//웹소설 도전 장르 목록 카운트
+	int challengeGenreCount(SqlSessionTemplate sqlSession, String genre);
+	//웹소설 도전 장르 목록 리스트
+	ArrayList<Webnovel> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
 	
 	
 }

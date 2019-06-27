@@ -117,14 +117,43 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	}
 	//웹소설 메인, 서브 사진 삭제
 	@Override
-	public int deleteWnMainPhoto(SqlSessionTemplate sqlSession, Webnovel wn) {
-		return sqlSession.update("Webnovel.deleteWnMainPhoto", wn);
+	public int deleteWebnovelPhoto(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.update("Webnovel.deleteWebnovelPhoto", wn);
 	}
+	//웹소설 회차 리스트
 	@Override
 	public ArrayList<WebnovelRound> selectWnRoundList(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
 		ArrayList<WebnovelRound> list = null;
 		
 		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnRoundList", wnr);
+		
+		return list;
+	}
+	//웹소설 회차 선택 삭제
+	@Override
+	public int deleteWnRoundOne(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.update("Webnovel.deleteWnRoundOne", wnr);
+	}
+	//웹소설 회차 사진 삭제
+	@Override
+	public int deleteWnrPhoto(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.update("Webnovel.deleteWnrPhoto", wnr);
+	}
+	//웹소설 도전 장르 목록 카운트
+	@Override
+	public int challengeGenreCount(SqlSessionTemplate sqlSession, String genre) {
+		return sqlSession.selectOne("Webnovel.challengeGenreCount", genre);
+	}
+	//웹소설 도전 장르 목록 리스트
+	@Override
+	public ArrayList<Webnovel> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
+		ArrayList<Webnovel> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.challengeGenreList", genre, rowBounds);
 		
 		return list;
 	}
