@@ -3,6 +3,7 @@ package com.kh.cc.illustrator.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.cc.common.CommonUtils;
+import com.kh.cc.common.IllustratorPagination;
 import com.kh.cc.illustrator.model.service.IllustratorService;
 import com.kh.cc.illustrator.model.vo.Illustrator;
+import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
 import com.kh.cc.member.model.vo.Member;
 @SessionAttributes("loginUser")
@@ -179,6 +182,34 @@ public class IllustratorController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	//일러스트 포트폴리오 목록 조회
+	@RequestMapping(value="selectIllPortfolioList.ill")
+	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+		System.out.println("컨트롤러 접근?");
+		
+		//int currentPage = 1;
+		//int limit = 5;
+		
+		//if(request.getParameter("currentPage") != null) {
+		//	currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		//}
+		
+		int listCount = is.selectListCount();
+		
+		  //IllustratorPageInfo pi = IllustratorPagination.getPageInfo(currentPage, listCount, limit);
+		  
+		  //ArrayList<Illustrator> list = is.selectIllPortfolioList(pi, ill, illCode);
+		  //model.addAttribute("list", list);
+		  //model.addAttribute("pi", pi);
+		  
+		  System.out.println("listCount" + listCount);
+		  //System.out.println("list" + list);
+		 
+		
+		
+		return "Illustrator/illust_Portpolio";
 	}
 	
 	

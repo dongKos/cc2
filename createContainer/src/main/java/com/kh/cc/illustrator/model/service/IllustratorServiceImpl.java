@@ -1,5 +1,7 @@
 package com.kh.cc.illustrator.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,19 @@ public class IllustratorServiceImpl implements IllustratorService{
 		return result;
 		
 	}
+
+
+	@Override
+	public int selectListCount() {
+		System.out.println("ListCount 서비스로 넘어옴?");
+		// TODO Auto-generated method stub
+		return id.selectIllPortfolioList();
+	}
+
+
+	
+
+	
 	
 	
 	

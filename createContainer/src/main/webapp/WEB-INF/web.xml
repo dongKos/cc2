@@ -72,7 +72,7 @@
    
 
    <!-- 일러스트 관련 서블릿 요청주소 -->
-   <!-- <servlet>
+   <servlet>
       <servlet-name>illust</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
@@ -83,7 +83,7 @@
    <servlet-mapping>
       <servlet-name>illust</servlet-name>
       <url-pattern>*.ill</url-pattern>
-   </servlet-mapping> -->
+   </servlet-mapping>
    
    <!-- 쪽지 관련 서블릿 요청주소 -->
    <!-- <servlet>
