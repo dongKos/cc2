@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.dao.MypgDao;
 import com.kh.cc.mypage.model.exception.MypgException;
-import com.kh.cc.mypage.model.vo.MypgPhoto;
-import com.kh.cc.mypage.model.vo.MypgProfile;
+import com.kh.cc.mypage.model.vo.WriterPhoto;
+import com.kh.cc.mypage.model.vo.WriterProfile;
 
 @Service
 public class MypgServiceImpl implements MypgService{
@@ -45,20 +45,26 @@ public class MypgServiceImpl implements MypgService{
 	}
 	
 	
+	
+	
+	
 	//소희
+	//작가페이지 - 프로필설정
 	@Override
-	public int insertmypgProfile(MypgProfile mp, MypgPhoto mphoto) {
+	public int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto) {
 
 		int result = 0;
+		System.out.println("서비스 접근 성공");
+		int result1 = md.updateWriterProfile(sqlSession, mp);
 		
-		int result1 = md.insertmypgProfile(sqlSession, mp);
-		int result2 = md.insertmypgPhoto(sqlSession, mphoto);
-		if(result1 > 0 && result2 > 0) {
-			result = 1;
-		}else {
-			result = 0;
-		}
 		
-		return result;
+//		int result2 = md.insertWriterPhoto(sqlSession, mphoto);
+//		if(result1 > 0 && result2 > 0) {
+//			result = 1;
+//		}else {
+//			result = 0;
+//		}
+		System.out.println("result1 : " + result1);
+		return result1;
 	}
 }
