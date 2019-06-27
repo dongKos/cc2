@@ -4,7 +4,13 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="Illustrator">
-	<!-- 일러스트 등록 메소드 -->
+	<!-- 일러스트 작품 등록 메소드 -->
+	<insert id="insertIllustrator" parameterType="Illustrator">
+		INSERT INTO ILLUSTRATION
+		VALUES (ILLC_SEQ.NEXTVAL, #{illPrice}, #{termDate}, #{changeCount}, #{illTitle}, #{illContent}, 'pri', 0, 0, #{userId}, #{illCategory})
+	</insert>
+
+	<!-- 일러스트 등록 메인 메소드 -->
 	<insert id="insertIllMainPhoto" parameterType="IllustratorPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 

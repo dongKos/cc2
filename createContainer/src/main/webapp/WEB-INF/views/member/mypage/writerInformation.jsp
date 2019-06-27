@@ -38,27 +38,27 @@
   					
   					
   					
-  					<form action="insertNovel.wn" class="form-horizontal" method="post" style="margin-top:50px;" enctype="multipart/form-data">
+  					<form action="memberUpdate.mg" class="form-horizontal" method="post" style="margin-top:50px;" enctype="multipart/form-data">
   					
   					
   					
-  					
+  					<!-- input name, vo name이랑 맞추기 -->
   					<div class="form-group">
     					<img src="${contextPath}/resources/images/icon/avatar-06.jpg">
     					<div class="col-sm-12" style="text-align:center;">
-    						<input type="file" name="profilePhoto" id="profilePhoto">
+    						<input type="file" name="photo" id="profilePhoto">
     						<br>
     						<img src="${ contextPath }/resources/images/mypage/upload.png" id="img1Area" width="30px" style="margin:0 auto;">
     					</div>
   					</div> 
   					<div class="form-group">
     					<div class="col-sm-12">
-      						<textarea id="introduce" style="resize:none; margin-top:50px;" cols="60" rows="6" placeholder="작가 소개글을 적어주세요." name="introduce"></textarea>
+      						<textarea id="introduce" style="resize:none; margin-top:50px;" cols="60" rows="6" name="intro">작가 소개글을 적어주세요.</textarea>
     					</div>
   					</div> 
   					
   					
-  					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">수정</button>
+  					<button class="btn btn-info" type="submit">수정</button>
   					</form>
 				</div>
     </div>

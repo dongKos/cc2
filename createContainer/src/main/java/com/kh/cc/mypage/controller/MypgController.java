@@ -21,8 +21,9 @@ import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
-import com.kh.cc.mypage.model.vo.MypgPhoto;
-import com.kh.cc.mypage.model.vo.MypgProfile;
+import com.kh.cc.mypage.model.vo.WriterPhoto;
+import com.kh.cc.mypage.model.vo.WriterProfile;
+
 import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
@@ -255,34 +256,43 @@ public class MypgController {
               return "member/mypage/writeSupport";
            }
            
-          
+          //RequestParam name = 
            //작가페이지 - 작가프로필설정
            @RequestMapping(value="memberUpdate.mg")
-           public String insertNovel(Model model, MypgProfile mp, HttpServletRequest request, HttpSession session, MypgPhoto mphoto, Member m,
+           public String insertNovel(Model model, WriterProfile mp, HttpServletRequest request, HttpSession session, WriterPhoto mphoto, Member m,
        			@RequestParam(name="photo", required=false) MultipartFile photo) {
+        	   System.out.println("성공했나");
        		m = (Member) session.getAttribute("loginUser");
        		String userId = m.getUserId();
        		mp.setUserId(userId); 
+       		System.out.println(userId);
+       		System.out.println(mp);
+		
+			  String root =
+			  request.getSession().getServletContext().getRealPath("resources");
+			  
+			  String filePath = root + "\\uploadFiles\\writerProfile"; String
+			  originFileName = photo.getOriginalFilename(); String ext =
+			  originFileName.substring(originFileName.lastIndexOf(".")); String
+			  changeFileName = CommonUtils.getRandomString();
+			  
+			  System.out.println("filePath : " + filePath);
+			  System.out.println("originFileName : " + originFileName);
+			  System.out.println("changeFileName : " + changeFileName + ext);
+			  
+			  mphoto.setOriginName(originFileName); mphoto.setChangeName(changeFileName +
+			  ext); mphoto.setFilePath(filePath); mphoto.setUserId(userId);
+			 
        		
-       		String root = request.getSession().getServletContext().getRealPath("resources");
-       		
-       		String filePath = root + "\\uploadFiles\\mypgProfile";
-       		String originFileName = photo.getOriginalFilename();
-       		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-       		String changeFileName = CommonUtils.getRandomString();
-       		
-       		mphoto.setOriginName(originFileName);
-       		mphoto.setChangeName(changeFileName + ext);
-       		mphoto.setFilePath(filePath);
-       		mphoto.setUserId(userId);
     
        		try {
        			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+       			System.out.println("try부분 접근성공?");
+       			ms.insertWriterProfile(mp, mphoto);
        			
-       			ms.insertmypgProfile(mp, mphoto);
-       			
-       			return "mypage/mypgInformation"; //성공했을 때 돌아가야하는곳
+       			return "member/mypage/writeWt"; //성공했을 때 돌아가야하는곳
        		} catch (Exception e) {
+       			System.out.println(e.getMessage());
        			new File(filePath + "\\" + changeFileName + ext).delete();
        			
        			model.addAttribute("msg", "프로필 설정 실패!!");
