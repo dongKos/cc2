@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -146,8 +147,8 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	}
 	//웹소설 도전 장르 목록 리스트
 	@Override
-	public ArrayList<Webnovel> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
-		ArrayList<Webnovel> list = null;
+	public ArrayList<HashMap<String, Object>> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
+		ArrayList<HashMap<String, Object>> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		

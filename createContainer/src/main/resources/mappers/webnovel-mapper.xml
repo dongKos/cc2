@@ -21,6 +21,7 @@
 		<result property="genre" column="GENRE"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
+		<result property="nickname" column="NICKNAME"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
@@ -76,6 +77,7 @@
 		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE W.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND WORK_TYPE = 'WN'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 작품 , 사진 정보-->
@@ -176,7 +178,8 @@
 	<select id="challengeGenreCount" parameterType="java.lang.String" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK W
-		LEFT JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
@@ -184,7 +187,8 @@
 	<select id="challengeGenreList" parameterType="java.lang.String" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
-		LEFT JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>

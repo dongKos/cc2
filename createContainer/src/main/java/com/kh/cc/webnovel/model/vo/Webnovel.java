@@ -19,12 +19,13 @@ public class Webnovel implements java.io.Serializable{
 	private String changeName;
 	private int fid;
 	private int rid ;
+	private String nickname;
 	
 	public Webnovel() {}
 
 	public Webnovel(int wid, String userId, Date wuploadDate, String wTitle, String wIntro, int vCount, String wCycle,
 			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, String genre,
-			String changeName, int fid, int rid) {
+			String changeName, int fid, int rid, String nickname) {
 		super();
 		this.wid = wid;
 		this.userId = userId;
@@ -42,6 +43,7 @@ public class Webnovel implements java.io.Serializable{
 		this.changeName = changeName;
 		this.fid = fid;
 		this.rid = rid;
+		this.nickname = nickname;
 	}
 
 	public int getWid() {
@@ -108,6 +110,10 @@ public class Webnovel implements java.io.Serializable{
 		return rid;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
 	public void setWid(int wid) {
 		this.wid = wid;
 	}
@@ -172,13 +178,20 @@ public class Webnovel implements java.io.Serializable{
 		this.rid = rid;
 	}
 
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
 	@Override
 	public String toString() {
 		return "Webnovel [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wTitle=" + wTitle
 				+ ", wIntro=" + wIntro + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
 				+ ", workType=" + workType + ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade="
-				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + ", rid=" + rid + "]";
+				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + ", rid=" + rid
+				+ ", nickname=" + nickname + "]";
 	}
+
+	
 
 
 	
