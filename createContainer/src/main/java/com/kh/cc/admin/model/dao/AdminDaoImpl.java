@@ -11,6 +11,7 @@ import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -162,6 +163,24 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public Report selectOneReport(SqlSessionTemplate sqlSession, int reportId) {
 		return sqlSession.selectOne("admin.selectOneReport", reportId);
+	}
+
+	//올린 작품이 있는지 조회
+	@Override
+	public int workCount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("admin.workCount", userId);
+	}
+
+	//올린 일러스트가 있는지 조회
+	@Override
+	public int illustCount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("admin.illustCount", userId);
+	}
+
+	//회원이 올린 작품 전체 조회
+	@Override
+	public ArrayList<Webnovel> selectWorkList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("admin.selectWorkList", userId);
 	}
 	
 	

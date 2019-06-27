@@ -42,6 +42,23 @@
       <result property="status" column="STATUS"/>
       <result property="joinDate" column="JOIN_DATE"/>
    </resultMap>
+     <resultMap type="com.kh.cc.webnovel.model.vo.Webnovel" id="workResultSet">
+		<id property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="wuploadDate" column="WUPLOAD_DATE"/>
+		<result property="wTitle" column="WTITLE"/>
+		<result property="wIntro" column="WINTRO"/>
+		<result property="vCount" column="VCOUNT"/>
+		<result property="wCycle" column="WCYCLE"/>
+		<result property="gradeType" column="GRADE_TYPE"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="workStatus" column="WORK_STATUS"/>
+		<result property="workDate" column="WORK_DATE"/>
+		<result property="ageGrade" column="AGE_GRADE"/>
+		<result property="genre" column="GENRE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
+	</resultMap>
    
 
 	<!-- 환불 목록 전체 개수 조회 -->
@@ -74,64 +91,95 @@
    		FROM REFUND
    		WHERE STATUS = #{str}
    </select>
+   <!-- 환불 내역 조건 검색 개수 조회 -->
    <select id="selectRefundAjaxCount" parameterType="String" resultType="_int">
    		SELECT COUNT(*)
    		FROM REFUND
    		WHERE STATUS = #{str}
    </select>
+   <!-- 전체 회원 수 조회 -->
    <select id="selectMemberListCount" resultType="_int">
    		SELECT COUNT(*)
    		FROM MEMBER
    		WHERE STATUS='Y'
    </select>
-   
+   <!-- 전체 회원 정보 조회 -->
    <select id="selectMemberList" resultMap="memberResultSet">
    		SELECT * 
    		FROM MEMBER
    		WHERE STATUS = 'Y'
    		ORDER BY MNO DESC
    </select>
+   <!-- 회원 정보 상세보기 -->
    <select id="selectOneMember" parameterType="_int" resultMap="memberResultSet">
    		SELECT *
    		FROM MEMBER
    		WHERE STATUS='Y'
    		AND MNO = #{mno}
    </select>
+   <!-- 신고 내역 전체 개수 조회 -->
 	<select id="selectReportCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REPORT
 		WHERE STATUS='N'
 	</select>
+	<!-- 신고내역 전체 조회 -->
 	<select id="selectReportList" resultMap="reportResultSet">
 		SELECT * 
 		FROM REPORT
 		WHERE STATUS='N'
 	</select>
-	
+	<!-- 신고 내역 조건검색 전체 조회 -->
 	<select id="reportStatus" parameterType="String" resultMap="reportResultSet">
 		SELECT *
 		FROM REPORT
 		WHERE STATUS = 'N'
 		AND REPORT_TYPE = #{str}
 	</select>
-	
+	<!-- 신고내역 조건검색 개수 조회 -->
 	<select id="selectReportAjaxCount" resultType="_int" parameterType="String">
 		SELECT COUNT(*)
 		FROM REPORT
 		WHERE STATUS = 'N'
 		AND REPORT_TYPE = #{str}
 	</select>
+	<!-- 신고 내역 처리 -->
 	<update id="complteReport" parameterType="_int">
 		UPDATE REPORT
 		SET STATUS = 'Y'
 		WHERE REPORT_ID = #{reportId}
 	</update>
+	<!-- 신고내역 상세보기 -->
 	<select id="selectOneReport" parameterType="_int" resultMap="reportResultSet">
 		SELECT *
 		FROM REPORT
 		WHERE STATUS = 'N'
 		AND REPORT_ID = #{reportID} 
 	</select>
+	<!-- 회원 상세보기 - 올린작품이 있나 조회 -->
+	<select id="workCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE WORK_STATUS = 'COMPLTE'
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 회원 상세보기 - 올린 일러스트가 있나 조회 -->
+	<select id="illustCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM ILLUSTRATION
+		WHERE USER_ID = #{userId}
+	</select>
+	<!-- 회원이 올린 전체 작품 조회 -->
+	<select id="selectWorkList" parameterType="String" resultMap="workResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE W.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	
 </mapper>
 	
 

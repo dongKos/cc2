@@ -19,6 +19,7 @@ import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Controller
 public class AdminController {
@@ -143,6 +144,22 @@ public class AdminController {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		Member reqMember = as.selectOneMember(num);
+		
+		//올린 작품이 있는지 조회
+		int work = as.workCount(reqMember.getUserId());
+		
+		if(work > 0) {
+			//작품이 있다면 그 작품을 조회해온다
+			//작품은 컬럼이 다 같아서 그냥 웹소설로 다 조회해옴
+			ArrayList<Webnovel> list = as.selectWorkList(reqMember.getUserId());
+			System.out.println("작품 조회 : " + list);
+			model.addAttribute("list", list);
+		}
+		//올린 일러스트가 있는지 조회
+		int ill = as.illustCount(reqMember.getUserId());
+		
+		System.out.println("work : " + work);
+		System.out.println("ill : " + ill);
 		model.addAttribute("reqMember", reqMember);
 		return "admin/adminMemberDetail";
 	}

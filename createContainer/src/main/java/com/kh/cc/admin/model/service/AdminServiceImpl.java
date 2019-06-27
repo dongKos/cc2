@@ -13,6 +13,7 @@ import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -112,6 +113,24 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Report selectOneReport(int reportId) {
 		return ad.selectOneReport(sqlSession, reportId);
+	}
+
+	//올린 작품이 있는지 조회
+	@Override
+	public int workCount(String userId) {
+		return ad.workCount(sqlSession, userId);
+	}
+
+	//올린 일러스트가 있는지 조회
+	@Override
+	public int illustCount(String userId) {
+		return ad.illustCount(sqlSession, userId);
+	}
+
+	//회원이 올린 작품 전체 조회
+	@Override
+	public ArrayList<Webnovel> selectWorkList(String userId) {
+		return ad.selectWorkList(sqlSession, userId);
 	}
 }
 
