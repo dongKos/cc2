@@ -4,8 +4,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.member.model.vo.Member;
-import com.kh.cc.mypage.model.vo.MypgPhoto;
-import com.kh.cc.mypage.model.vo.MypgProfile;
+import com.kh.cc.mypage.model.vo.WriterPhoto;
+import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.mypage.model.vo.WriterPhoto;
+import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Repository
 public class MypgDaoImpl implements MypgDao{
@@ -14,7 +17,7 @@ public class MypgDaoImpl implements MypgDao{
 	public String selectEncPassword(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Member.selectPwd", m.getUserId());
 	}
-
+	
 	@Override
 	public Member updateMember(SqlSessionTemplate sqlSession, Member m) {
 		Member nmem;
@@ -24,16 +27,21 @@ public class MypgDaoImpl implements MypgDao{
 		return nmem;
 		
 	}
-
+	
+	
+	//작가페이지 프로필설정
+	
+	
 	@Override
-	public int insertmypgProfile(SqlSessionTemplate sqlSession, MypgProfile mp) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp) {
+		
+		System.out.println("dao접근성공??");
+		System.out.println(mp);
+		return sqlSession.update("WriterProfile.updateIntro", mp);
 	}
-
+	
 	@Override
-	public int insertmypgPhoto(SqlSessionTemplate sqlSession, MypgPhoto mphoto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto) {
+		return sqlSession.insert("mypage.writerInformation", mphoto);
 	}
 }
