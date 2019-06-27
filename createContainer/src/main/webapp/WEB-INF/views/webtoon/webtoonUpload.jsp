@@ -64,7 +64,9 @@
 }
 
 .titleImg {
-	padding: 5px 5px 5px 5px;
+	position:relative;
+	padding:0px 0px 0px 0px;
+	cursor:pointer;
 }
 
 .titleImg img {
@@ -97,6 +99,15 @@
 	width: 10%;
 	border-right: 1px solid lightgray;
 }
+.titleArea{
+	width:100%;
+	cursor:pointer;
+	margin-bottom:0px;
+}
+.testImg{
+	width:100%;
+	height:100%;
+}
 </style>
 </head>
 <body>
@@ -122,12 +133,17 @@
 							<tr>
 								<td class="workImg">
 									<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }"/>
+										<img class="testImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }" />
+									</div>
+								</td>
+								<td class="contentTd">
+									<div><p class="titleArea">${ wt.wTitle }</p></div>
+									<div>
+										<input type="hidden" name="wid" value="${ wt.wid }">
 									</div>
 									<div>
-										${ wt.wTitle }
+									<button class="insertWtRound">회차등록</button>
 									</div>
-									<button class="insertWtRound" onclick="location='insertRoundFrom.wt'">회차등록</button>
 								</td>
 							</tr>
 						</table>
@@ -175,6 +191,17 @@
 			</c:if>
 		</div>
 	</div>
+	
+	<script>
+		$(function(){
+			$(".insertWtRound").click(function(){
+				var wid = $(this).parents().children().children('input').val();
+				console.log(wid);	
+				location.href = "insertRoundFrom.wt?wid=" + wid;
+			});
+		});
+	
+	</script>
 
 </body>
 </html>

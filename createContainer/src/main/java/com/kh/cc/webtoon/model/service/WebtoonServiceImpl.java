@@ -11,6 +11,7 @@ import com.kh.cc.webtoon.model.dao.WebtoonDao;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 @Service
 public class WebtoonServiceImpl implements WebtoonService{
@@ -51,6 +52,30 @@ public class WebtoonServiceImpl implements WebtoonService{
 		System.out.println("작품 리스트조회 서비스 ");
 		return wd.selectWtList(sqlSession,pi,m);
 	}
+
+
+	//회차 등록
+	@Override
+	public int insertWorkRound(WebtoonRound wr, WebtoonPhoto wp, WebtoonPhoto wp1) {
+		int result = 0;
+		
+		int result1 = wd.insertWorkRound(sqlSession, wr);
+		
+		int result2 = wd.insertRoundThumbnail(sqlSession, wp);
+		
+		int result3 = wd.insertRoundMain(sqlSession, wp1);
+		
+		if(result1 > 0 && result2 > 0 && result3 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		return result;
+		
+	}
+
+	
 
 	
 

@@ -1,4 +1,5 @@
-package com.kh.cc.webtoon.model.dao;
+package com.kh.cc
+.webtoon.model.dao;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 @Repository
 public class WebtoonDaoImpl implements WebtoonDao {
@@ -48,6 +50,29 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		
 		return list;
 	}
+
+	//회차등록
+	@Override
+	public int insertWorkRound(SqlSessionTemplate sqlSession, WebtoonRound wr) {
+		System.out.println("회차 dao");
+		return sqlSession.insert("Webtoon.insertRound", wr);
+	}
+
+	//회차 썸내일 등록
+	@Override
+	public int insertRoundThumbnail(SqlSessionTemplate sqlSession, WebtoonPhoto wp) {
+		System.out.println("썸내일 dao");
+		return sqlSession.insert("Webtoon.insertRoundThumbnail", wp);
+	}
+
+	//회차 내용사진
+	@Override
+	public int insertRoundMain(SqlSessionTemplate sqlSession, WebtoonPhoto wp1) {
+		System.out.println("내용 사진 dao");
+		return sqlSession.insert("Webtoon.insertRoundMain", wp1);
+	}
+
+	
 
 	
 }

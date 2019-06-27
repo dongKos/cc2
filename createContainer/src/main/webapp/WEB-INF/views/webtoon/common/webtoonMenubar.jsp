@@ -45,6 +45,16 @@
 				<td class="middleItem" onClick="location.href='insertWork.wt'">작품 올리기</td>
 			</tr>
 		</table>
-	</div>
+	</div>  
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

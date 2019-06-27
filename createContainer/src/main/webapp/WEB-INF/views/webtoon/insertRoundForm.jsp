@@ -17,7 +17,7 @@
 <style>
 input[type=checkbox] {
 	display: none;
-}
+} 
 
 input[type=checkbox]+label {
 	display: inline-block;
@@ -191,8 +191,8 @@ input[type=checkbox]:checked+label:before {
 </head>
 <body>
 	<c:set var="contextPath"
-		value="${ pageContext.servletContext.contextPath }"
-		scope="application" />
+			value="${ pageContext.servletContext.contextPath }"
+				scope="application" />
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
@@ -212,10 +212,13 @@ input[type=checkbox]:checked+label:before {
 							<table class="insertWtrTable">
 								<tr>
 									<td class="wtrText">회차 제목</td>
-									<td class="wtrContent"><input type="hidden"
-										value=">${ wn.wid }"> <input class="insertWtrInput"
+									<td class="wtrContent"> <input class="insertWtrInput"
 										type="text" name="rTitle" placeholder="제목을 입력해주세요."
-										maxlength="40" autofocus required></td>
+										maxlength="40" autofocus required>
+									</td>
+									<td>
+										<input type="hidden" name="wid" value="${ wid }">
+									</td>
 								</tr>
 								<tr>
 									<td class="wtrText">회차 썸네일</td>
@@ -251,7 +254,7 @@ input[type=checkbox]:checked+label:before {
 										<div id="fileArea">
 											<input type="file" id="wtroundThumbnail1" name="photo"
 												onchange="loadImg(this,1)">
-											<input type="file" id="wtroundThumbnail2" name="photo"
+											<input type="file" id="wtroundThumbnail2" name="photo1"
 												onchange="loadImg(this,2)">
 										</div>
 										<div class="wtrBtn">
@@ -265,6 +268,7 @@ input[type=checkbox]:checked+label:before {
 							</table>
 						</div>
 					</div>
+					
 				</form>
 
 

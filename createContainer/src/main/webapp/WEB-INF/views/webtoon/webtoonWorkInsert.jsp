@@ -18,7 +18,7 @@
 <style>
 .col-sm-9 {
 	
-}
+}  
 
 .container {
 	display: block;

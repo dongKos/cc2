@@ -2,6 +2,7 @@ package com.kh.cc.webtoon.controller;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -197,19 +198,66 @@ public class WebtoonController {
 	//회차 등록폼에서 등록버튼 누를시 동작하는 메소드
 	@RequestMapping(value = "insertWnRound.wt")
 	public String insertWnRound(Model model,Webtoon wt, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
-			 Member m, WebtoonPhoto wp, @RequestParam(name = "photo", required = false) MultipartFile photo) {
+			 Member m, 
+			 	@RequestParam(name = "photo", required = false) MultipartFile photo,
+				@RequestParam(name = "photo1", required = false) MultipartFile photo1){
+		
 		System.out.println("회차 컨트롤러 들어옴");
 		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		System.out.println("wid : " + wid);
 		System.out.println("wt : " + wt);
 		System.out.println("wr : " + wr);
 		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		
+		String filePath1 = root + "\\uploadFiles\\webtoonSub";
+		String filePath2 = root + "\\uploadFiles\\webtoonContent";
+		System.out.println("filePath1 : " + filePath1);
 		
 		
+		// -----------------------
 		
+		String originFileName = photo.getOriginalFilename();
+		String ext = originFileName.substring(originFileName.lastIndexOf("."));
+		String changeFileName = CommonUtils.getRandomString();
 		
+		String originFileName1 = photo1.getOriginalFilename();
+		String ext1 = originFileName.substring(originFileName1.lastIndexOf("."));
+		String changeFileName1 = CommonUtils.getRandomString();
+
+		WebtoonPhoto wp = new WebtoonPhoto();
+		WebtoonPhoto wp1 = new WebtoonPhoto();
+		//썸내일
+		wp.setOriginName(originFileName);
+		wp.setChangeName(changeFileName);
+		wp.setFilePath(filePath1);
+		wp.setWid(wid);
 		
+		//웹툰 내용 사진
+		wp1.setOriginName(originFileName1);
+		wp1.setChangeName(changeFileName1);
+		wp1.setFilePath(filePath2);
+		wp1.setWid(wid);
 		
-		return "redirect:insertWork.wt";
+		try {
+			photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
+			photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
+			
+			ws.insertWorkRound(wr, wp, wp1);
+			return "redirect:insertWork.wt";
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			new File(filePath1 + "\\" + changeFileName + ext).delete();
+			new File(filePath2 + "\\" + changeFileName1 + ext1).delete();
+
+			model.addAttribute("msg", "작품 등록 실패!");
+
+			return "common/errorPage";
+		}
+		
 	}
 	
 }
