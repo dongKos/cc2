@@ -1,9 +1,13 @@
 package com.kh.cc.illustrator.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.illustrator.model.vo.Illustrator;
+import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
 
 @Repository
@@ -33,5 +37,13 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		}
 			
 	}
+
+	@Override
+	public int selectIllPortfolioList() {
+		System.out.println("List Dao로 넘어옴?");
+		return 0;
+	}
+	
+	
 
 }

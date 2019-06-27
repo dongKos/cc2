@@ -4,6 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="Illustrator">
+
 	<!-- 일러스트 작품 등록 메소드 -->
 	<insert id="insertIllustrator" parameterType="Illustrator">
 		INSERT INTO ILLUSTRATION
@@ -14,12 +15,30 @@
 	<insert id="insertIllMainPhoto" parameterType="IllustratorPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 
-			'sub', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
+			'ma', NULL, ILLC_SEQ.CURRVAL, NULL, NULL, #{userId})
 	</insert>
+	
 	<!-- 일러스트 등록 서브 메소드 -->
 	<insert id="insertIllPhoto" parameterType="IllustratorPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 
-			'ma', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
+			'sub', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
 	</insert>
+	
+	<!-- 일러스트 포트폴리오 리스트 카운트 -->
+	<select id="selectIllPortfolioListCount">
+		SELECT COUNT(*)
+		FROM illustration
+		WHERE ILL_TYPE = 'pri';
+	</select>
+	
+	<!-- 일러스트 포트폴리오 리스트 조회 -->
+	<select id="selectIllPortfolioList">
+		SELECT *
+		FROM ILLUSTRATION ILL
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE A.ATTACHMENT_CATEGORY = 'ma'
+		AND ILL.ILL_CODE = #{illCode}
+		ORDER BY ILL.RECOMMEND_COUNT DESC;
+	</select>
 </mapper>
