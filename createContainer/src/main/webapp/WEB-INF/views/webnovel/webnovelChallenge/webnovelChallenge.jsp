@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,10 +28,6 @@
 .content{
 	width:100%;
 }
-
-
-
-
 .wnCategory{
 	width:100%;
 }
@@ -46,11 +43,62 @@
 	width:150px;
 	height:30px;
 }
-
-
+.wnImg{
+	width:100%;
+	height:100%;
+}
+.wnListArea{
+	width:780px;
+	border:1px solid lightgray;
+	padding:0px 0px 0px 0px;
+}
+.wnList{
+	display:inline-block;
+	padding:0px 0px 0px 0px;
+	margin:5px 5px 5px 5px;
+	width:180px;
+	border:1px solid black;
+}
+.wnImgBoxTd{
+	padding:10px 10px 10px 10px; 
+	width:180px;
+	height:180px;
+	border-bottom:1px solid black;
+}
+.wnTitle{
+	line-height:20px;
+	padding-left:10px;
+	font-size:13px;
+	border-bottom:1px solid black;
+}
+.wnNicknameTd{
+	height:15px;
+	padding-left:10px;
+	font-size:12px;
+	color:gray;
+}
+.wnStarPoint{
+	line-height:15px;
+	padding-left:10px;
+	font-size:12px;
+	color:red;
+}
+.wnInterest{
+	line-height:15px;
+	padding-left:10px;
+	font-size:12px;
+	color:black;
+}
+.wnrCountTd{
+	height:15px;
+	padding-left:10px;
+	font-size:12px;
+	color:gray;
+}
 </style>
 </head>
 <body>
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../../main/common/serviceNavbar.jsp"/>
 	<!-- 웹소설 중단 네비바 -->
@@ -61,16 +109,7 @@
 	<div class="genreNav">
 		<table class="genreMenu">
 			<tr>
-			<!-- 
 				<td class="genreItem" id="id1" onClick="location.href=''">추천</td>
-				<td class="genreItem" id="2" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG3'">판타지</td>
-				<td class="genreItem" id="3" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG8'">무협</td>
-				<td class="genreItem" id="4" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG10'">로맨스</td>
-				<td class="genreItem" id="5" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG1'">현대</td>
-				<td class="genreItem" id="6" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG6'">공포</td>
-				<td class="genreItem" id="7" onClick="location.href=''">완결</td>
-			 -->
-				 <td class="genreItem" id="id1" onClick="location.href=''">추천</td>
 				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3')">판타지</td>
 				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8')">무협</td>
 				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10')">로맨스</td>
@@ -81,21 +120,57 @@
 		</table>
 	</div>
 	<script>
-	/* $(window).load(function() {
-	});
-	$(function(){
-	});*/
 	function genreMenu(genre){
 		$.ajax({
 			url:"challengeGenre.wn",
-			type:"post",
+			type:"get",
 			data:{genre:genre},
 			success:function(data){
+				//console.dir(data.list[0]);
+				//console.dir(data.pi);
+					console.dir('${ contextPath}/resources/uploadFiles/webnovelMain/' + data.list[0].changeName);
+					console.dir(data.list[0].wTitle);
+					console.dir(data.list[0].nickname);
+					
 				
-				console.log(data.list);
-				$.each(data, function(idx, val) {
-					console.log(idx + " " + val.wTitle);
-				});
+					
+				for(var i = 0; i < data.list.length; i++){
+					var wnListArea = $(".wnListArea");
+					var wnList =$('<table class="wnList">');
+					/* var tr = $('<tr>'); */
+					var td = $('<td>');
+					var wnImgBoxTd = $('<td class="wnImgBoxTd" colspan="2">');
+					var wnImg = $('<img class="wnImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/'+ data.list[i].changeName+'">');
+					var tdC2 = $('<td colspan="2">');
+					var wnTitle = $('<p class="wnTitle">').text(data.list[i].wTitle);
+					var wnNicknameTd = $('<p class="wnNicknameTd">').text(data.list[i].nickname);
+					var wnrCountTd = $('<p class="wnrCountTd">').text('회차수');
+					var wnStarPoint = $('<p class="wnStarPoint">').text('별점');
+					var wnInterest = $('<p class="wnInterest">').text('관심등록');
+					
+					
+					var list = new Array();
+					list[0] = wnImgBoxTd.append(wnImg);
+					list[1] = tdC2.append(wnTitle);
+					list[2] = td.append(wnNicknameTd), td.append(wnrCountTd);
+					list[3] = wnNicknameTd;
+					console.log(list.length);
+					
+					for(var j = 0; j < list.length; j++) {
+						console.log(list[j]);
+						var tr = $('<tr>');
+						tr.append(list[j]);
+						wnList.append(tr);
+					}
+					wnListArea.append(wnList);
+					
+					/* tr.append(wnImgBoxTd.append(wnImg));
+					tr.append(tdC2.append(wnTitle));
+					tr.append(wnNicknameTd); */
+				//	tr.append(wnrCountTd);
+				}
+				
+				
 			},
 			error:function(status){
 				alert(status);
@@ -124,37 +199,42 @@
 						<option>관심등록순</option>
 					</select>
 				</div>
-				<table class="wnCategory">
-					<tbody>
-						<tr>신규</tr>
+				<div class="wnListArea">
+					<table class="wnList">
 						<tr>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
+							<td class="wnImgBoxTd" colspan="2">
+								<img class="wnImg" src="${ contextPath }/resources/images/logo.png">
+							</td>
 						</tr>
-						<tr style="height:30px;"><td></td></tr>
 						<tr>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
+							<td colspan="2">
+								<p class="wnTitle">제목제목제목</p>
+							</td>
 						</tr>
-						<tr style="height:30px;"><td></td></tr>
 						<tr>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
+							<td>
+								<p class="wnNicknameTd">닉네임</p>
+							</td>
+							<td>
+								<p class="wnrCountTd">회차수</p>
+							</td>
 						</tr>
-						<tr style="height:30px;"><td></td></tr>
 						<tr>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
-							<td><div class="genreDiv"></div></td>
+							<td>
+								<p class="wnStarPoint">별점</p>
+							</td>
+							<td>
+								<p class="wnInterest">관심등록</p>
+							</td>
 						</tr>
-					</tbody>
-				</table>
+					</table>
+				</div>
+				
+				
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>
 </html>

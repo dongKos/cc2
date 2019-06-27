@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -56,7 +57,7 @@ public interface WebnovelDao {
 	//웹소설 도전 장르 목록 카운트
 	int challengeGenreCount(SqlSessionTemplate sqlSession, String genre);
 	//웹소설 도전 장르 목록 리스트
-	ArrayList<Webnovel> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
+	ArrayList<HashMap<String, Object>> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
 	
 	
 }

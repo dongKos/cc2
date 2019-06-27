@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
@@ -43,5 +44,5 @@ public interface WebnovelService {
 	//웹소설 도전 장르 목록 카운트
 	int challengeGenreCount(String genre);
 	//웹소설 도전 장르 목록 리스트
-	ArrayList<Webnovel> challengeGenreLIst(WebnovelPageInfo pi, String genre);
+	ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre);
 }

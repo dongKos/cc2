@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,7 +185,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 	}
 	//웹소설 도전 장르 목록 리스트
 	@Override
-	public ArrayList<Webnovel> challengeGenreLIst(WebnovelPageInfo pi, String genre) {
+	public ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre) {
 		return wd.challengeGenreLIst(sqlSession, pi, genre);
 	}
 	

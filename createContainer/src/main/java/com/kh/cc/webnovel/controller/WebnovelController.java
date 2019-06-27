@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -388,10 +391,8 @@ public class WebnovelController {
 	}
 	//도전웹소설 장르 리스트
 	@RequestMapping("challengeGenre.wn")
-	public void challengeGenre(HttpServletRequest request, HttpServletResponse response, Model model, Webnovel wn) {
+	public ResponseEntity<HashMap<String, Object>> challengeGenre(HttpServletRequest request, HttpServletResponse response, Model model, Webnovel wn) {
 		
-		ObjectMapper mapper = new ObjectMapper();
-		response.setContentType("text/html; charset=UTF-8");
 		String genre = request.getParameter("genre");
 		System.out.println(genre);
 		
@@ -406,23 +407,13 @@ public class WebnovelController {
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
 		
-		ArrayList<Webnovel> list = ws.challengeGenreLIst(pi, genre);
-		//ArrayList<HashMap<String, Object>> wnrList = new ArrayList<HashMap<String, Object>>();
+		ArrayList<HashMap<String, Object>> list = ws.challengeGenreLIst(pi, genre);
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
 		
-		for(int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		
-		
-		try {
-			response.getWriter().print(mapper.writeValueAsString(list));
-			response.getWriter().print(mapper.writeValueAsString(pi));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//model.addAttribute("pi", pi);
-		//model.addAttribute("list", list);
-	
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+
+		return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 	}
 	
 	//웹소설 Top5 이동
