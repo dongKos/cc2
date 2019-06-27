@@ -108,7 +108,7 @@ public class IllustratorController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		String filePath = root + "\\uploadFiles\\illustratorSub";
+		String filePath = root + "\\uploadFiles\\illustrator";
 		String originFileName = photo.getOriginalFilename();
 		String originFileName1 = photo1.getOriginalFilename();
 		String originFileName2 = photo2.getOriginalFilename();
