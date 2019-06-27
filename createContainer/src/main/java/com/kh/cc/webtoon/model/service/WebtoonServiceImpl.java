@@ -52,4 +52,8 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.selectWtList(sqlSession,pi,m);
 	}
 
+	
+
+	
+
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class WebtoonController {
 	// 웹툰 메인페이지로 이동
 	@RequestMapping(value = "webtoonMain.wt")
 	public String webtoonMain() {
+		
 		return "webtoon/webtoonMain";
 	}
 
@@ -95,15 +97,14 @@ public class WebtoonController {
 		return "webtoon/webtoonNotice";
 	}
 
-	// 웹툰 작품등록폼
-	// select
+	// 웹툰 작품등록폼 으로 가는 메소드
 	@RequestMapping(value = "webtoonUpload.wt")
 	public String insertWebtoon(HttpServletRequest request, HttpSession session, Member m, Model model) {
 		
 		return "webtoon/webtoonUpload";
 	}
 
-	// 웹툰 Work등록폼으로 가기
+	// 메뉴바에서 눌렀을떄 웹툰 Work등록폼으로 가기
 	@RequestMapping(value = "insertWork.wt")
 	public String webtoonWorkInsert(HttpServletRequest request, HttpSession session, Member m, Model model) {
 		System.out.println("웹툰 작품등록포 가기전 리스트 셀렉트");
@@ -131,14 +132,16 @@ public class WebtoonController {
 		return "webtoon/webtoonUpload";
 	}
 	
+	
+	//새작품버튼을 누르면 작품등록 폼 이동하는 메소드
 	@RequestMapping(value="inserWorkForm.wt")
 	public String webtoonInsertWorkForm() {
-		return "webtoon/webtoonWorkInsert";
 		
+		return "webtoon/webtoonWorkInsert";
 	}
 
-	// 웹툰 등록
-
+	
+	// 웹툰 등록 초기 작품등록
 	@RequestMapping(value = "insertWebtoon.wt")
 	public String InsertWork(Model model, Webtoon wt, HttpServletRequest request, HttpSession session, Member m,
 			WebtoonPhoto wp, @RequestParam(name = "photo", required = false) MultipartFile photo) {
@@ -167,7 +170,7 @@ public class WebtoonController {
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 			System.out.println("작품 사진이랑 work등록 완료");
 			
-			return "webtoon/webtoonUpload";
+			return "redirect:insertWork.wt";
 			
 		} catch (Exception e) {
 			new File(filePath + "\\" + changeFileName + ext).delete();
@@ -178,25 +181,35 @@ public class WebtoonController {
 		} 
 	}
 	
+	//작품 리스트에서 회차등록을 누를시 페이지 이동 시키는 메소드
 	@RequestMapping(value = "insertRoundFrom.wt")
-	public String insertRoundForm() {
+	public String insertRoundForm(Model model,HttpServletRequest request, HttpSession session, Webtoon wt ) {
+		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		System.out.println("wid : " + wid);
 		
+		model.addAttribute("wid", wid);
 		
 		return "webtoon/insertRoundForm";
 	}
 	
+	
+	//회차 등록폼에서 등록버튼 누를시 동작하는 메소드
 	@RequestMapping(value = "insertWnRound.wt")
-	public String insertWnRound(Model model, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
+	public String insertWnRound(Model model,Webtoon wt, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
 			 Member m, WebtoonPhoto wp, @RequestParam(name = "photo", required = false) MultipartFile photo) {
 		System.out.println("회차 컨트롤러 들어옴");
 		
-		m = (Member) session.getAttribute("loginUser");
+		System.out.println("wt : " + wt);
+		System.out.println("wr : " + wr);
 		
 		
 		
 		
 		
-		return "webtoon/insertRoundForm";
+		
+		
+		return "redirect:insertWork.wt";
 	}
 	
 }
