@@ -24,16 +24,16 @@ public class IllustratorServiceImpl implements IllustratorService{
 		
 		int result = 0;
 		
-		//int result1 = id.insertIllustrator(sqlSession, ill);
+		int result1 = id.insertIllustrator(sqlSession, ill);
 		int result2 = id.insertIllPhoto(sqlSession, ip, ip1, ip2, ip3, ip4);
 		
-//		if(result1 > 0 && result2 > 0) {
-//			result = 1;
-//		}else {
-//			result = 0;
-//		}
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
 		
-		return 1;
+		return result;
 		
 	}
 	

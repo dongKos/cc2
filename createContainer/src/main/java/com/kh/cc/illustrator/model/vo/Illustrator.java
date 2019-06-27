@@ -1,12 +1,11 @@
 package com.kh.cc.illustrator.model.vo;
 
-import java.sql.Date;
 
 public class Illustrator {
 	private String userId;			//아이디
 	private int illCode;			//일러스트코드
 	private int illPrice;			//가격
-	private	Date termDate;			//소요시간
+	private	String termDate;		//소요시간
 	private int changeCount;		//수정회차
 	private String illTitle;		//제목
 	private String illContent;		//내용
@@ -17,7 +16,7 @@ public class Illustrator {
 	
 	public Illustrator() {}
 
-	public Illustrator(String userId, int illCode, int illPrice, Date termDate, int changeCount, String illTitle,
+	public Illustrator(String userId, int illCode, int illPrice, String termDate, int changeCount, String illTitle,
 			String illContent, String illType, int recommendCount, int viewCount, String illCategory) {
 		super();
 		this.userId = userId;
@@ -57,11 +56,11 @@ public class Illustrator {
 		this.illPrice = illPrice;
 	}
 
-	public Date getTermDate() {
+	public String getTermDate() {
 		return termDate;
 	}
 
-	public void setTermDate(Date termDate) {
+	public void setTermDate(String termDate) {
 		this.termDate = termDate;
 	}
 
@@ -128,6 +127,8 @@ public class Illustrator {
 				+ ", illType=" + illType + ", recommendCount=" + recommendCount + ", viewCount=" + viewCount
 				+ ", illCategory=" + illCategory + "]";
 	}
+
+	
 
 	
 	

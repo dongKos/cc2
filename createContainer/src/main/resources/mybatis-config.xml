@@ -5,6 +5,9 @@
   
   
   <configuration>
+  	<settings>
+  		<setting name="jdbcTypeForNull" value="NULL"/>
+  	</settings>
   	<typeAliases>
   		<typeAlias type="com.kh.cc.member.model.vo.Member" alias="Member"/>
   		<typeAlias type="com.kh.cc.admin.model.vo.Refund" alias="Refund"/>
@@ -16,8 +19,8 @@
   		<typeAlias type="com.kh.cc.mypage.model.vo.WriterProfile" alias="WriterProfile"/>
   		<typeAlias type="com.kh.cc.illustrator.model.vo.Illustrator" alias="Illustrator"/>
   		<typeAlias type="com.kh.cc.illustrator.model.vo.IllustratorPhoto" alias="IllustratorPhoto"/>
-  		<typeAlias type="com.kh.cc.webnovel.model.vo.WebtoonRound" alias="WebtoonRound"/>
-  		<typeAlias type="com.kh.cc.webnovel.model.vo.WebtoonPhoto" alias="WebtoonPhoto"/>
+  		<typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonRound" alias="WebtoonRound"/>
+  		<typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonPhoto" alias="WebtoonPhoto"/>
   	</typeAliases>
   	<mappers>
   		<mapper resource="mappers/admin-mapper.xml"/>

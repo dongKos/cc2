@@ -46,29 +46,25 @@
 		<div class="col-md-12" align="center">
 		<div class="form-group" style="width:100%; margin:30%; margin-top:0%">
   			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품제목 :&nbsp;&nbsp;&nbsp;</label>
-  			<input type="text" class="form-control" placeholder="작품제목을 입력하세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<input type="text" name="illTitle" class="form-control" placeholder="작품제목을 입력하세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
   			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품금액 :&nbsp;&nbsp;&nbsp;</label>
-  			<input type="text" class="form-control" placeholder="최소금액을 입력해주세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<input type="text" name="illPrice" class="form-control" placeholder="최소금액을 입력해주세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
   			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품내용 :&nbsp;&nbsp;&nbsp;</label>
-  			<textarea class="form-control" rows="5" placeholder="내용을 입력하세요" id="comment" style="resize:none; float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"></textarea><br><br><br><br><br><br><br><br><br>
+  			<textarea class="form-control" name="illContent" rows="5" placeholder="내용을 입력하세요" id="comment" style="resize:none; float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"></textarea><br><br><br><br><br><br><br><br><br>
   			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작업기간 :&nbsp;&nbsp;&nbsp;</label>
-  			<input type="text" class="form-control" placeholder="작업기간을 입력하세요. ex)5일" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<input type="text" name="termDate" class="form-control" placeholder="작업기간을 입력하세요. ex)5일" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
   			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">수정회차 :&nbsp;&nbsp;&nbsp;</label>
-  			<input type="text" class="form-control" placeholder="수정회차를 입력하세요. ex)5회" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			<input type="text" name="changeCount" class="form-control" placeholder="수정회차를 입력하세요. ex)5회" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
   			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">카테고리 :&nbsp;&nbsp;&nbsp;</label>
-  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-67.5%"><input type="checkbox" value="">일러스트</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">캐릭터</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">명함</label><br><br>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62.3%"><input type="checkbox" value="">로고</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">PPT</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">북커버</label><br><br>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62%"><input type="checkbox" value="">인물</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">풍경</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">포토샵</label><br><br>
-			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">파일형식 :&nbsp;&nbsp;&nbsp;</label>
-  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-72.3%"><input type="checkbox" value="">PSD</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">PNG</label>
-			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" value="">JPG</label><br><br>
+  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-67.5%"><input type="checkbox" name="illCategory" value="ill">일러스트</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="character">캐릭터</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="bc">명함</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62.3%"><input type="checkbox" name="illCategory" value="logo">로고</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="ppt">PPT</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="bcover">북커버</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62%"><input type="checkbox" name="illCategory" value="person">인물</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="scenery">풍경</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="ps">포토샵</label><br><br><br>
 			
 			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">대표 이미지 :&nbsp;&nbsp;</h3>
 			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
