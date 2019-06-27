@@ -49,6 +49,7 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return list;
 	}
 
+	
 }
 
 

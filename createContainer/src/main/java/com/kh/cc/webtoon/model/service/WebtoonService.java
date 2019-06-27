@@ -16,4 +16,5 @@ public interface WebtoonService {
 	ArrayList<Webtoon> selectWtList(WebtoonPageInfo pi, Member m);
 
 
+
 }

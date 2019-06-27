@@ -17,6 +17,7 @@ public interface WebtoonDao {
 
 	int selectListCount(SqlSessionTemplate sqlSession, Member m);
 
-	ArrayList<Webtoon> selectWtList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Member m); 
+	ArrayList<Webtoon> selectWtList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Member m);
+
 
 }
