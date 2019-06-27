@@ -66,9 +66,26 @@
 	WHERE M.USER_ID = #{userId}
 	AND W.WORK_TYPE = 'WT'
 	AND A.ATTACHMENT_CATEGORY = 'ma'
-	
 	</select>
+	
+	<!-- 회차 썸내일 내용 인서트 -->
+	<insert id="insertRound">
+		INSERT INTO WORK_ROUND VALUES(WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 0, #{wid}, #{wrComment}, NULL)
+	</insert>
+	
 
+	<insert id="insertRoundThumbnail">
+		INSERT INTO ATTACHMENT
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
+					 'Y', 'sub', 0, null, null, #{wid}, NULL)
+	
+	</insert>
+	
+	<insert id="insertRoundMain">
+		INSERT INTO ATTACHMENT
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
+					 'Y', 'cont', 0, null, null, #{wid}, NULL)
+	</insert>
 
 
 

@@ -8,6 +8,7 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 public interface WebtoonDao {
 
@@ -18,6 +19,13 @@ public interface WebtoonDao {
 	int selectListCount(SqlSessionTemplate sqlSession, Member m);
 
 	ArrayList<Webtoon> selectWtList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Member m);
+
+	int insertWorkRound(SqlSessionTemplate sqlSession, WebtoonRound wr);
+
+	int insertRoundThumbnail(SqlSessionTemplate sqlSession, WebtoonPhoto wp);
+
+	int insertRoundMain(SqlSessionTemplate sqlSession, WebtoonPhoto wp1);
+
 
 
 }
