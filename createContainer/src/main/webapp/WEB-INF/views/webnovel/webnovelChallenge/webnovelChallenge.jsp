@@ -58,6 +58,51 @@
 	<!-- 웹소설 장르 네비바 -->
 	<jsp:include page="../common/genreNavbar.jsp"/>
 	
+	<div class="genreNav">
+		<table class="genreMenu">
+			<tr>
+			<!-- 
+				<td class="genreItem" id="id1" onClick="location.href=''">추천</td>
+				<td class="genreItem" id="2" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG3'">판타지</td>
+				<td class="genreItem" id="3" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG8'">무협</td>
+				<td class="genreItem" id="4" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG10'">로맨스</td>
+				<td class="genreItem" id="5" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG1'">현대</td>
+				<td class="genreItem" id="6" onClick="location.href='challengeGenre.wn?genre='+'GR_CTG6'">공포</td>
+				<td class="genreItem" id="7" onClick="location.href=''">완결</td>
+			 -->
+				 <td class="genreItem" id="id1" onClick="location.href=''">추천</td>
+				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3')">판타지</td>
+				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8')">무협</td>
+				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10')">로맨스</td>
+				<td class="genreItem" id="5" onClick="genreMenu('GR_CTG1')">현대</td>
+				<td class="genreItem" id="6" onClick="genreMenu('GR_CTG6')">공포</td>
+				<td class="genreItem" id="7" onClick="location.href=''">완결</td>
+			</tr>
+		</table>
+	</div>
+	<script>
+	/* $(window).load(function() {
+	});
+	$(function(){
+	});*/
+	function genreMenu(genre){
+		$.ajax({
+			url:"challengeGenre.wn",
+			type:"post",
+			data:{genre:genre},
+			success:function(data){
+				
+				console.log(data.list);
+				$.each(data, function(idx, val) {
+					console.log(idx + " " + val.wTitle);
+				});
+			},
+			error:function(status){
+				alert(status);
+			}
+		});
+	}
+	</script>
 	<div class="container">
 		<!-- 공지 이미지 -->
 		<div class="row">
@@ -73,14 +118,15 @@
 			<div class="col-sm-10">
 				<div class="lineUp">
 					<select>
-						<option>최신순</option>
 						<option>조회순</option>
+						<option>최신순</option>
 						<option>별점순</option>
 						<option>관심등록순</option>
 					</select>
 				</div>
 				<table class="wnCategory">
 					<tbody>
+						<tr>신규</tr>
 						<tr>
 							<td><div class="genreDiv"></div></td>
 							<td><div class="genreDiv"></div></td>

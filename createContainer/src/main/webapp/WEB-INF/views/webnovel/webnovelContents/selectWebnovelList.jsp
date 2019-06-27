@@ -135,8 +135,14 @@
 	cursor:pointer;
 	margin-bottom:0px;
 }
+.modal{
+	margin-top:30%;
+}
+.modal-title{
+	font-weight:bold;
+}
 .modal-footer{
-	
+	text-align:center;
 }
 </style>
 </head>
@@ -182,7 +188,7 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title">Modal Header</h4>
+												<h4 class="modal-title">작품 삭제</h4>
 											</div>
 											<div class="modal-body">
 												<p>정말로 삭제 하시겠습니까?<br><br>삭제하시면 복구가 불가능합니다.</p>
@@ -190,7 +196,7 @@
 											<div class="modal-footer">
 												<input type="hidden" class="wid" value="${ wn.wid }">
 												<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
-												<button type="button" class="deleteBtn" name="deleteBtn" onclick="">삭제하기</button>
+												<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
 											</div>
 										</div>
 									</div>
