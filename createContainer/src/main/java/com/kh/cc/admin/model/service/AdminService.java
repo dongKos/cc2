@@ -7,6 +7,7 @@ import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 public interface AdminService {
 	
@@ -39,5 +40,11 @@ public interface AdminService {
 	int completeReport(int reportId);
 
 	Report selectOneReport(int reportId);
+
+	int workCount(String userId);
+
+	int illustCount(String userId);
+
+	ArrayList<Webnovel> selectWorkList(String userId);
 	
 }

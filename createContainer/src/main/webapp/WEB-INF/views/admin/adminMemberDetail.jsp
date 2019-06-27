@@ -63,13 +63,15 @@
                                             	<input type="text" class="form-control" value="${reqMember.intro }">
                                                 </div>
                                         </div>
+                                        <c:forEach var="w" items="${list }">
                                        <div class="mx-auto mt-5 d-block">
                                        		<h4 class="my-3">작가의 등록작품</h4>
-                                       		<img class="card-img-top" src="images/bg-title-01.jpg" alt="Card image cap">
+                                       		<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ w.changeName }" alt="Card image cap" width="300px" height="300px">
 	                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
 	                                            content.
 	                                        </p>
                                        </div>
+                                       </c:forEach>
                                        <hr>
                                        <div class="btn-area">
 	                                       <div class="row">

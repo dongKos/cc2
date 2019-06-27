@@ -8,6 +8,7 @@ import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 public interface AdminDao {
 	
@@ -40,5 +41,11 @@ public interface AdminDao {
 	int completeReport(SqlSessionTemplate sqlSession, int reportId);
 
 	Report selectOneReport(SqlSessionTemplate sqlSession, int reportId);
+
+	int workCount(SqlSessionTemplate sqlSession, String userId);
+
+	int illustCount(SqlSessionTemplate sqlSession, String userId);
+
+	ArrayList<Webnovel> selectWorkList(SqlSessionTemplate sqlSession, String userId);
 	
 }
