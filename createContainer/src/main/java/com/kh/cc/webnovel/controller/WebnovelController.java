@@ -396,7 +396,7 @@ public class WebnovelController {
 		String genre = request.getParameter("genre");
 		System.out.println(genre);
 		
-		int limit = 16;
+		int limit = 4;
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
