@@ -18,6 +18,7 @@ import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
+import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -145,6 +146,7 @@ public class AdminController {
 		
 		Member reqMember = as.selectOneMember(num);
 		
+		model.addAttribute("userId", reqMember.getUserId());
 		//올린 작품이 있는지 조회
 		int work = as.workCount(reqMember.getUserId());
 		
@@ -158,10 +160,24 @@ public class AdminController {
 		//올린 일러스트가 있는지 조회
 		int ill = as.illustCount(reqMember.getUserId());
 		
+		if(ill > 0) {
+			//일러스트가 있으면 일러스트 조회
+			//일러스트 VO수정 의뢰 할것 - 광섭
+			//ArrayList<Illustrator> list2 = as.selectIllustList(reqMember.getUserId());
+		}
+		
 		System.out.println("work : " + work);
 		System.out.println("ill : " + ill);
 		model.addAttribute("reqMember", reqMember);
 		return "admin/adminMemberDetail";
+	}
+	
+	//회원 강퇴하기
+	@RequestMapping(value="deleteMember.ad")
+	public String deleteMember(String userId) {
+		int result = as.deleteMember(userId);
+		
+		return "redirect:showMember.ad";
 	}
 	
 	//게시판 관리 - 게시글 관리 페이지

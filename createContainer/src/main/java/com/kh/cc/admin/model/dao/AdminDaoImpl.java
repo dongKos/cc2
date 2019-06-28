@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -181,6 +182,18 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Webnovel> selectWorkList(SqlSessionTemplate sqlSession, String userId) {
 		return (ArrayList)sqlSession.selectList("admin.selectWorkList", userId);
+	}
+
+	//회원이 올린 일러스트 전체 조회
+	@Override
+	public ArrayList<Illustrator> selectIllustList(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList)sqlSession.selectList("admin.selectIllustList", userId);
+	}
+
+	//회원 강퇴 하기
+	@Override
+	public int deleteMember(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.update("admin.deleteMember", userId);
 	}
 	
 	

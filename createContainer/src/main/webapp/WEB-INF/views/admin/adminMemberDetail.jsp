@@ -14,6 +14,15 @@
 		location.href="showMember.ad?currentPage=" + currentPage;
 	} 
 	
+	//회원 강퇴하기
+	function deleteMember(){
+		var userId = "<c:out value='${userId}'/>";
+		var choice = window.confirm("정말로 강퇴 하시겠습니까?");
+		
+		if(choice){
+			location.href="deleteMember.ad?userId=" + userId;
+		}
+	}
 	
 	
  	$(function(){
@@ -24,7 +33,6 @@
 		selectedLi.css({"color":"skyblue"});
 		
 		$(".fold-btn").click(function(){
-			console.log("눌림");
 			var sib = $(this).siblings();
 			sib.toggle();
 		})
@@ -189,6 +197,10 @@
 													<br>
 													<hr>
 	                                        	</c:if>
+	                                        	<!-- 일러스트 일때 -->
+	                                        	<c:if test=''>
+	                                        	
+	                                        	</c:if>
 	                                        </c:if>
 	                                       </c:forEach>
                                        		</div>
@@ -201,7 +213,7 @@
 	                                  			<button class="btn btn-warning" onclick="goBack();">뒤로가기</button>
 	                                  		</div>
 	                                  		<div class="col-lg-6" align="center">
-	                                  			<button class="btn btn-primary">수정완료</button>
+	                                  			<button class="btn btn-primary" onclick="deleteMember()">강퇴하기</button>
 	                                  		</div>
 	                                       
 	                                       </div>

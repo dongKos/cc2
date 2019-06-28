@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -47,5 +48,9 @@ public interface AdminDao {
 	int illustCount(SqlSessionTemplate sqlSession, String userId);
 
 	ArrayList<Webnovel> selectWorkList(SqlSessionTemplate sqlSession, String userId);
+
+	ArrayList<Illustrator> selectIllustList(SqlSessionTemplate sqlSession, String userId);
+
+	int deleteMember(SqlSessionTemplate sqlSession, String userId);
 	
 }

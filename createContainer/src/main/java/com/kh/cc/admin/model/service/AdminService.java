@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -46,5 +47,9 @@ public interface AdminService {
 	int illustCount(String userId);
 
 	ArrayList<Webnovel> selectWorkList(String userId);
+
+	ArrayList<Illustrator> selectIllustList(String userId);
+
+	int deleteMember(String userId);
 	
 }

@@ -59,7 +59,6 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
 	</resultMap>
-   
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -179,6 +178,18 @@
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
+	<!-- 회원이 올린 일러스트 전체 조회 -->
+	<!-- <select id="selectIllustList" parameterType="String" resultMap="illustResultSet">
+		SELECT *
+		FROM ILLUSTRATION
+		WHERE USER_ID = #{userId}
+	</select> -->
+	<!-- 회원 강퇴 하기 -->
+	<update id="deleteMember" parameterType="String">
+		UPDATE MEMBER 
+		SET STATUS = 'N'
+		WHERE USER_ID = #{userId}
+	</update>
 	
 </mapper>
 	

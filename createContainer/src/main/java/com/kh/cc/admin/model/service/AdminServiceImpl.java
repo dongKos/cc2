@@ -12,6 +12,7 @@ import com.kh.cc.admin.model.dao.AdminDao;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -131,6 +132,18 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<Webnovel> selectWorkList(String userId) {
 		return ad.selectWorkList(sqlSession, userId);
+	}
+
+	//회원이 올린 일러스트 전체 조회
+	@Override
+	public ArrayList<Illustrator> selectIllustList(String userId) {
+		return ad.selectIllustList(sqlSession, userId);
+	}
+
+	//회원 강퇴하기
+	@Override
+	public int deleteMember(String userId) {
+		return ad.deleteMember(sqlSession, userId);
 	}
 }
 
