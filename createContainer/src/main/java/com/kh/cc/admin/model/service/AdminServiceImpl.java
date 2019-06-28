@@ -2,6 +2,7 @@
 package com.kh.cc.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,42 +110,56 @@ public class AdminServiceImpl implements AdminService{
 	public int completeReport(int reportId) {
 		return ad.completeReport(sqlSession, reportId);
 	}
-
+	
 	//신고 관리 페이지 상세보기
 	@Override
 	public Report selectOneReport(int reportId) {
 		return ad.selectOneReport(sqlSession, reportId);
 	}
-
+	
 	//올린 작품이 있는지 조회
 	@Override
 	public int workCount(String userId) {
 		return ad.workCount(sqlSession, userId);
 	}
-
+	
 	//올린 일러스트가 있는지 조회
 	@Override
 	public int illustCount(String userId) {
 		return ad.illustCount(sqlSession, userId);
 	}
-
+	
 	//회원이 올린 작품 전체 조회
 	@Override
 	public ArrayList<Webnovel> selectWorkList(String userId) {
 		return ad.selectWorkList(sqlSession, userId);
 	}
-
+	
 	//회원이 올린 일러스트 전체 조회
 	@Override
 	public ArrayList<Illustrator> selectIllustList(String userId) {
 		return ad.selectIllustList(sqlSession, userId);
 	}
-
+	
 	//회원 강퇴하기
 	@Override
 	public int deleteMember(String userId) {
 		return ad.deleteMember(sqlSession, userId);
 	}
+	
+	//회원 조건검색 결과 수 조회
+	@Override
+	public int getMemberTypeListCount(int type) {
+		return ad.getMemberTypeListCount(sqlSession, type);
+	}
+	
+	//회원 조건검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectmemberTypeList(AdminPageInfo pi, int type) {
+		return ad.selectMemberTypeList(sqlSession, pi, type);
+	}
+	
+	
 }
 
 

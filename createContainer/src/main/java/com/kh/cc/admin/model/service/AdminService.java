@@ -2,6 +2,7 @@
 package com.kh.cc.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Refund;
@@ -51,5 +52,10 @@ public interface AdminService {
 	ArrayList<Illustrator> selectIllustList(String userId);
 
 	int deleteMember(String userId);
+
+	int getMemberTypeListCount(int type);
+
+	ArrayList<HashMap<String, Object>> selectmemberTypeList(AdminPageInfo pi, int type);
+
 	
 }

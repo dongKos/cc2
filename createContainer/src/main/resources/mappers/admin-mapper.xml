@@ -191,6 +191,48 @@
 		WHERE USER_ID = #{userId}
 	</update>
 	
+	<!-- 회원 테이블 조건 검색 listCount -->
+	<!-- 일반 인지 프리미어 인지 -->
+	<select id="selectMemberTypeListCount" parameterType="_int" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND MEMBER_TYPE= #{type}
+	</select>
+	<!-- 블랙리스트 회원 조회 -->
+	<select id="selectBlackMemberCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND WCOUNT >= 5
+	</select>
+	<!-- 탈퇴 회원 조회 -->
+	<select id="selectDeleteMember" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE STATUS = 'N'
+	</select>
+	<!-- 회원 테이블 조건 검색 list -->
+	<!-- 일반 인지 프리미어 인지 -->
+	<select id="selectMemberTypeList" parameterType="_int" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND MEMBER_TYPE = #{type}
+	</select>
+	<!-- 블랙리스트 회원 조회 -->
+	<select id="selectBlackMemberList" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND WCOUNT >= 5
+	</select>
+	<!-- 탈퇴 회원 조회 -->
+	<select id="selectDeleteMemberList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE STATUS = 'N'
+	</select>
 </mapper>
 	
 
