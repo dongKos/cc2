@@ -111,7 +111,7 @@ public class IllustratorController {
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
-		String filePath = root + "\\uploadFiles\\illustrator";
+		String filePath = root + "\\uploadFiles\\illustrator\\illPortfolio";
 		String originFileName = photo.getOriginalFilename();
 		String originFileName1 = photo1.getOriginalFilename();
 		String originFileName2 = photo2.getOriginalFilename();
@@ -135,27 +135,27 @@ public class IllustratorController {
 		IllustratorPhoto ip4 = new IllustratorPhoto();
 		
 		ip.setOriginName(originFileName);
-		ip.setChangeName(changeFileName);
+		ip.setChangeName(changeFileName + ext);
 		ip.setFilePath(filePath);
 		ip.setUserId(userId);
 		
 		ip1.setOriginName(originFileName1);
-		ip1.setChangeName(changeFileName1);
+		ip1.setChangeName(changeFileName1 + ext1);
 		ip1.setFilePath(filePath);
 		ip1.setUserId(userId);
 		
 		ip2.setOriginName(originFileName2);
-		ip2.setChangeName(changeFileName2);
+		ip2.setChangeName(changeFileName2 + ext2);
 		ip2.setFilePath(filePath);
 		ip2.setUserId(userId);
 		
 		ip3.setOriginName(originFileName3);
-		ip3.setChangeName(changeFileName3);
+		ip3.setChangeName(changeFileName3 + ext3);
 		ip3.setFilePath(filePath);
 		ip3.setUserId(userId);
 		
 		ip4.setOriginName(originFileName4);
-		ip4.setChangeName(changeFileName4);
+		ip4.setChangeName(changeFileName4 + ext4);
 		ip4.setFilePath(filePath);
 		ip4.setUserId(userId);
 		
@@ -168,7 +168,7 @@ public class IllustratorController {
 			
 			is.insertIllustratorPortfolio(ill, ip, ip1, ip2, ip3, ip4);
 			
-			return "redirect:illustPortpolio.ill";
+			return "redirect:selectIllPortfolioList.ill";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
@@ -189,31 +189,149 @@ public class IllustratorController {
 	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
 		System.out.println("컨트롤러 접근?");
 		
-		//int currentPage = 1;
-		//int limit = 5;
+		int currentPage = 1;
+		int limit = 5;
 		
-		//if(request.getParameter("currentPage") != null) {
-		//	currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		//}
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		
 		int listCount = is.selectListCount();
 		
-		  //IllustratorPageInfo pi = IllustratorPagination.getPageInfo(currentPage, listCount, limit);
+		  IllustratorPageInfo pi = IllustratorPagination.getPageInfo(currentPage, listCount, limit);
 		  
-		  //ArrayList<Illustrator> list = is.selectIllPortfolioList(pi, ill, illCode);
-		  //model.addAttribute("list", list);
-		  //model.addAttribute("pi", pi);
+		  ArrayList<Illustrator> list = is.selectIllPortfolioList(pi, ill);
+		  model.addAttribute("list", list);
+		  model.addAttribute("pi", pi);
 		  
 		  System.out.println("listCount" + listCount);
-		  //System.out.println("list" + list);
+		  System.out.println("list" + list);
 		 
 		
 		
-		return "Illustrator/illust_Portpolio";
+		return "illustrator/illust_Portpolio";
 	}
 	
+	//일러스트 도전하기 글등록 페이지 이동
+		@RequestMapping("illustChallengeWrite.ill")
+		public String illustChallengeWrite() {
+			return "illustrator/illustChallengeWrite";
+		}
 	
+	//일러스트 도전하기 글등록
+		@RequestMapping(value="insertChallengeIllust.ill")
+		public String insertChallengeIllust(Model model, Illustrator ill, HttpServletRequest request, HttpSession session, Member m,
+				@RequestParam(name="photo", required=false) MultipartFile photo,
+				@RequestParam(name="photo1", required=false) MultipartFile photo1,
+				@RequestParam(name="photo2", required=false) MultipartFile photo2,
+				@RequestParam(name="photo3", required=false) MultipartFile photo3,
+				@RequestParam(name="photo4", required=false) MultipartFile photo4) {
+			m = (Member) session.getAttribute("loginUser");
+			String userId = m.getUserId();
+			ill.setUserId(userId);
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles\\illustrator\\illChallenge";
+			String originFileName = photo.getOriginalFilename();
+			String originFileName1 = photo1.getOriginalFilename();
+			String originFileName2 = photo2.getOriginalFilename();
+			String originFileName3 = photo3.getOriginalFilename();
+			String originFileName4 = photo4.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String ext1 = originFileName.substring(originFileName1.lastIndexOf("."));
+			String ext2 = originFileName.substring(originFileName2.lastIndexOf("."));
+			String ext3 = originFileName.substring(originFileName3.lastIndexOf("."));
+			String ext4 = originFileName.substring(originFileName4.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			String changeFileName1 = CommonUtils.getRandomString();
+			String changeFileName2 = CommonUtils.getRandomString();
+			String changeFileName3 = CommonUtils.getRandomString();
+			String changeFileName4 = CommonUtils.getRandomString();
+			
+			IllustratorPhoto ip = new IllustratorPhoto();
+			IllustratorPhoto ip1 = new IllustratorPhoto();
+			IllustratorPhoto ip2 = new IllustratorPhoto();
+			IllustratorPhoto ip3 = new IllustratorPhoto();
+			IllustratorPhoto ip4 = new IllustratorPhoto();
+			
+			ip.setOriginName(originFileName);
+			ip.setChangeName(changeFileName + ext);
+			ip.setFilePath(filePath);
+			ip.setUserId(userId);
+			
+			ip1.setOriginName(originFileName1);
+			ip1.setChangeName(changeFileName1 + ext1);
+			ip1.setFilePath(filePath);
+			ip1.setUserId(userId);
+			
+			ip2.setOriginName(originFileName2);
+			ip2.setChangeName(changeFileName2 + ext2);
+			ip2.setFilePath(filePath);
+			ip2.setUserId(userId);
+			
+			ip3.setOriginName(originFileName3);
+			ip3.setChangeName(changeFileName3 + ext3);
+			ip3.setFilePath(filePath);
+			ip3.setUserId(userId);
+			
+			ip4.setOriginName(originFileName4);
+			ip4.setChangeName(changeFileName4 + ext4);
+			ip4.setFilePath(filePath);
+			ip4.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				photo1.transferTo(new File(filePath + "\\" + changeFileName1 + ext1));
+				photo2.transferTo(new File(filePath + "\\" + changeFileName2 + ext2));
+				photo3.transferTo(new File(filePath + "\\" + changeFileName3 + ext3));
+				photo4.transferTo(new File(filePath + "\\" + changeFileName4 + ext4));
+				
+				is.insertIllustratorChallenge(ill, ip, ip1, ip2, ip3, ip4);
+				
+				return "redirect:selectIllChallengeList.ill";
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				new File(filePath + "\\" + changeFileName + ext).delete();
+				new File(filePath + "\\" + changeFileName1 + ext1).delete();
+				new File(filePath + "\\" + changeFileName2 + ext2).delete();
+				new File(filePath + "\\" + changeFileName3 + ext3).delete();
+				new File(filePath + "\\" + changeFileName4 + ext4).delete();
+				
+				model.addAttribute("msg", "작품 등록 실패!");
+				
+				return "common/errorPage";
+			}
+			
+		}
 	
+		//일러스트 챌린지 목록 조회
+		@RequestMapping(value="selectIllChallengeList.ill")
+		public String selectIllChallengeList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+			System.out.println("컨트롤러 접근?");
+			
+			int currentPage = 1;
+			int limit = 5;
+			
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int listCount = is.selectChallengeListCount();
+			
+			  IllustratorPageInfo pi = IllustratorPagination.getPageInfo(currentPage, listCount, limit);
+			  
+			  ArrayList<Illustrator> clist = is.selectIllChallengeList(pi, ill);
+			  model.addAttribute("clist", clist);
+			  model.addAttribute("pi", pi);
+			  
+			  System.out.println("listCount" + listCount);
+			  System.out.println("list" + clist);
+			 
+			
+			
+			return "illustrator/illust_Challenge";
+		}
 	
 	
 }

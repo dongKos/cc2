@@ -60,7 +60,7 @@
     <div class="container">
 
       <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">포트폴리오 목록</h2>
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">포트폴리오</h2>
       <div style="width:100%; height:auto;">
       <button type="button"; class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">글등록</button>
       </div>
@@ -75,7 +75,6 @@
 
       <!-- Portfolio Grid Items -->
       <div class="row">
-
         <!-- Portfolio Item 1 -->
         <c:forEach var="illPortfolio" items="${ list }">
         <div class="col-md-6 col-lg-4">
@@ -85,38 +84,11 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/${ illPortfolio.changeName }">
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illPortfolio.changeName }">
           </div>
         </div>
 		</c:forEach>
-        <!-- Portfolio Item 2 -->
-        <%-- <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal2">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal3">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div> --%>
-        
-
-      </div>
-      <!-- /.row -->
-
+    </div>
     </div>
   </section>
 

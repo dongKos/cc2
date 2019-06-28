@@ -12,61 +12,91 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Freelancer - Start Bootstrap Theme</title>
+  <title>일러스트 포트폴리오 등록 페이지</title>
 
   <!-- Custom fonts for this theme -->
   <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap" rel="stylesheet">
 
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+     $(function(){
+        $(".portfolio-item").click(function(){
+           console.log("눌림");
+           location.href="illustPortpolioDetail.ill";
+        })
+        
+     })
+  </script>
 </head>
 
 <body id="page-top">
-<jsp:include page="common/IllustTopNavbar.jsp"/>
+<jsp:include page="common/IllustTopNavbar.jsp"/><br><br>
+
+<form action="insertChallengeIllust.ill" method="post" enctype="multipart/form-data">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12" align="center">
+		<div class="form-group" style="width:100%; margin:30%; margin-top:0%">
+  			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품제목 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" name="illTitle" class="form-control" placeholder="작품제목을 입력하세요" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작품내용 :&nbsp;&nbsp;&nbsp;</label>
+  			<textarea class="form-control" name="illContent" rows="5" placeholder="내용을 입력하세요" id="comment" style="resize:none; float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"></textarea><br><br><br><br><br><br><br><br><br>
+  			
+  			<label for="usr" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">작업기간 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" name="termDate" class="form-control" placeholder="작업기간을 입력하세요. ex)5일" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">수정회차 :&nbsp;&nbsp;&nbsp;</label>
+  			<input type="text" name="changeCount" class="form-control" placeholder="수정회차를 입력하세요. ex)5회" id="usr" style="float:left; width:30%; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br><br>
+  			
+  			<label for="comment" style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">카테고리 :&nbsp;&nbsp;&nbsp;</label>
+  			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-67.5%"><input type="checkbox" name="illCategory" value="ill">일러스트</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="character">캐릭터</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="bc">명함</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62.3%"><input type="checkbox" name="illCategory" value="logo">로고</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="ppt">PPT</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="bcover">북커버</label><br><br>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif; margin-left:-62%"><input type="checkbox" name="illCategory" value="person">인물</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="scenery">풍경</label>
+			<label class="checkbox-inline" style="font-size:16px; font-family: 'Nanum Gothic', sans-serif;"><input type="checkbox" name="illCategory" value="ps">포토샵</label><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">대표 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#1 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo1" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#2 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo2" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#3 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo3" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<h3 style="float:left; font-size:16px; font-family: 'Nanum Gothic', sans-serif;">서브#4 이미지 :&nbsp;&nbsp;</h3>
+			<input type="file" name="photo4" style="float:left; font-size:13px; font-family: 'Nanum Gothic', sans-serif;"><br><br><br>
+			
+			<button type="submit" class="btn btn-warning" style="float:left; margin-left:6%; font-size:18px; border-color:lightblue; background:lightblue; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">등록하기</button>
+			<button type="button" class="btn btn-warning" onclick="portfolioWrite()" style="float:left; margin-left:2%; font-size:18px; border-color:lightgray; background:lightgray; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif;">취소하기</button>
+		</div>
+		
+		</div>
+	</div>
+</div>
+</form>
 
   
-<jsp:include page="common/illustCarousel.jsp"/>
 
 
-  <!-- Portfolio Section -->
-  <section class="page-section portfolio" id="portfolio">
-    <div class="container">
 
-      <!-- Portfolio Section Heading -->
-      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">후원목록</h2>
-
-      <!-- Icon Divider -->
-      <div class="divider-custom">
-        <div class="divider-custom-line"></div>
-        <div class="divider-custom-icon">
-          <i class="fas fa-star"></i>
-        </div>
-        <div class="divider-custom-line"></div>
-      </div>
-
-      <!-- Portfolio Grid Items -->
-      <div class="row">
-        <!-- Portfolio Item 1 -->
-        <c:forEach var="illPortfolio" items="${ list }">
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illPortfolio.changeName }">
-          </div>
-        </div>
-		</c:forEach>
-    </div>
-    </div>
-  </section>
+  
 
   <!-- Footer -->
   <footer class="footer text-center">

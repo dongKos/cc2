@@ -40,10 +40,49 @@ public class IllustratorDaoImpl implements IllustratorDao{
 	
 	//일러스트 포트폴리오 리스트 카운트
 	@Override
-	public int selectIllPortfolioList(SqlSessionTemplate sqlSession) {
+	public int selectIllPortfolioListCount(SqlSessionTemplate sqlSession) {
 		System.out.println("dao로 넘어옴!");
 		return sqlSession.selectOne("Illustrator.selectIllPortfolioListCount");
 	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllPortfolioList(SqlSessionTemplate sqlSession, IllustratorPageInfo pi, Illustrator ill) {
+		ArrayList<Illustrator> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Illustrator.selectIllPortfolioList", ill, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int insertIllustratorChallenge(SqlSessionTemplate sqlSession, Illustrator ill) {
+		return sqlSession.insert("Illustrator.insertIllustratorChallenge", ill);
+	}
+
+	@Override
+	public int selectIllChallengeListCount(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Illustrator.selectIllChallengeListCount");
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeList(SqlSessionTemplate sqlSession, IllustratorPageInfo pi,
+			Illustrator ill) {
+		ArrayList<Illustrator> clist = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		clist = (ArrayList) sqlSession.selectList("Illustrator.selectIllChallengeList", ill, rowBounds);
+		
+		return clist;
+	}
+
 
 	
 	

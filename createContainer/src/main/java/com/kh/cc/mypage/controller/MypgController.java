@@ -132,6 +132,7 @@ public class MypgController {
 				m = (Member) session.getAttribute("loginUser");
 				
 				int currentPage = 1;
+
 				int limit = 12;
 				if(request.getParameter("currentPage") != null) {
 					currentPage = Integer.parseInt(request.getParameter("currentPage"));
