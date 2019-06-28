@@ -124,6 +124,7 @@ public class MypgController {
 				m = (Member) session.getAttribute("loginUser");
 				
 				int currentPage = 1;
+				int limit = 10;
 				
 				if(request.getParameter("currentPage") != null) {
 					currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -132,7 +133,7 @@ public class MypgController {
 				int listCount = ws.selectListCount(m);
 				
 				
-				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount);
+				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
 				
 				ArrayList<Webnovel> list = ws.selectWnList(pi, m);
 				model.addAttribute("list", list);

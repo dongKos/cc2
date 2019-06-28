@@ -4,11 +4,50 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="Illustrator">
+	<!-- 일러스트 -->
+	<resultMap type="com.kh.cc.illustrator.model.vo.Illustrator" id="IllustratorResultSet">
+		<id property="illCode" column="ILL_CODE"/>
+		<result property="illPrice" column="ILL_PRICE"/>
+		<result property="termDate" column="TERM_DATE"/>
+		<result property="changeCount" column="CHANGE_COUNT"/>
+		<result property="illTitle" column="ILL_TITLE"/>
+		<result property="illContent" column="ILL_CONTENT"/>
+		<result property="illType" column="ILL_TYPE"/>
+		<result property="recommendCount" column="RECOMMEND_COUNT"/>
+		<result property="viewCount" column="VIEW_COUNT"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="illCategory" column="ILL_CATEGORY"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
+		<result property="nickName" column="NICKNAME"/>
+	</resultMap>
+	
+	<!-- 일러스트 서브 이미지 -->
+	<resultMap type="com.kh.cc.illustrator.model.vo.IllustratorPhoto" id="IllustratorPhotoResultSet">
+		<id property="fid" column="FID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="spCode" column="SP_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
 
-	<!-- 일러스트 작품 등록 메소드 -->
+	<!-- 일러스트 포트폴리오 작품 등록 메소드 -->
 	<insert id="insertIllustrator" parameterType="Illustrator">
 		INSERT INTO ILLUSTRATION
 		VALUES (ILLC_SEQ.NEXTVAL, #{illPrice}, #{termDate}, #{changeCount}, #{illTitle}, #{illContent}, 'pri', 0, 0, #{userId}, #{illCategory})
+	</insert>
+	
+	<!-- 일러스트 도전하기 작품 등록 메소드 -->
+	<insert id="insertIllustratorChallenge" parameterType="Illustrator">
+		INSERT INTO ILLUSTRATION
+		VALUES (ILLC_SEQ.NEXTVAL, #{illPrice}, #{termDate}, #{changeCount}, #{illTitle}, #{illContent}, 'chall', 0, 0, #{userId}, #{illCategory})
 	</insert>
 
 	<!-- 일러스트 등록 메인 메소드 -->
@@ -26,19 +65,36 @@
 	</insert>
 	
 	<!-- 일러스트 포트폴리오 리스트 카운트 -->
-	<select id="selectIllPortfolioListCount" parameterType="Illustrator" resultMap="illPortfolioResultSet">
+	<select id="selectIllPortfolioListCount" resultType="_int">
 		SELECT COUNT(*)
-		FROM illustration
+		FROM ILLUSTRATION
 		WHERE ILL_TYPE = 'pri'
 	</select>
 	
 	<!-- 일러스트 포트폴리오 리스트 조회 -->
-	<select id="selectIllPortfolioList">
+	<select id="selectIllPortfolioList" parameterType="Illustrator" resultMap="IllustratorResultSet">
 		SELECT *
 		FROM ILLUSTRATION ILL
 		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
 		WHERE A.ATTACHMENT_CATEGORY = 'ma'
-		AND ILL.ILL_CODE = #{illCode}
+		AND ILL.ILL_TYPE = 'pri'
+		ORDER BY ILL.RECOMMEND_COUNT DESC
+	</select>
+	
+	<!-- 일러스트 도전하기 리스트 카운트 -->
+	<select id="selectIllChallengeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ILLUSTRATION
+		WHERE ILL_TYPE = 'chall'
+	</select>
+	
+	<!-- 일러스트 도전하기 리스트 조회 -->
+	<select id="selectIllChallengeList" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM ILLUSTRATION ILL
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE A.ATTACHMENT_CATEGORY = 'ma'
+		AND ILL.ILL_TYPE = 'chall'
 		ORDER BY ILL.RECOMMEND_COUNT DESC
 	</select>
 </mapper>
