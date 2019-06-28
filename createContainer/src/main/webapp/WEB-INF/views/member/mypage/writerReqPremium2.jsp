@@ -48,7 +48,7 @@
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
 									<input type="hidden" value="${ wn.wid }">
 								</div>
 							</td>
@@ -79,7 +79,6 @@
 						});
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().children("input").val();
-							alert(wid)
 							location.href = "selectWnRoundList.wn?wid=" + wid;
 						});
 					});
@@ -103,7 +102,7 @@
 							<font color="red" size="4"><b>[${ p }]</b></font>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="wnListCheck" value="/writerReqPremium.mg">
+							<c:url var="wnListCheck" value="/writerReqPremium2.mg">
 								<c:param name="currentPage" value="${ p }"/>
 							</c:url>
 							<a href="${ wnListCheck }">${ p }</a>
@@ -114,7 +113,7 @@
 						&nbsp; [다음]
 					</c:if>
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="wnListEnd" value="/writerReqPremium.mg">
+						<c:url var="wnListEnd" value="/writerReqPremium2.mg">
 							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 						</c:url>
 						<a href="${ wnListEnd }">&nbsp;[다음]</a>
@@ -129,12 +128,6 @@
   </div>
 </div>
 <script>
-	$("#ctg").change(function(){
-		var select = $(this).children("option:selected").val();
-		if(select == "웹소설"){
-			$('.wnListDiv').attr("hidden", false);
-		}
-	})
 </script>
 </body>
 </html>

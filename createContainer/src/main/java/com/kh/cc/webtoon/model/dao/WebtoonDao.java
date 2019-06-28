@@ -26,7 +26,9 @@ public interface WebtoonDao {
 
 	int insertRoundMain(SqlSessionTemplate sqlSession, WebtoonPhoto wp1);
 
-	int selectWrList(SqlSessionTemplate sqlSession, WebtoonRound wr);
+	int selectWrList(SqlSessionTemplate sqlSession, int wid);
+
+	ArrayList<WebtoonRound> selectWtRoundList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
 
 
 

@@ -16,6 +16,12 @@ public interface MypgService {
 	Member updateMember(Member m);
 	
 	//프로필설정
-	int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto);
+	   int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto);
+	   
+	   
+	//프로필 삭제
+	   int deletePhoto(String userId);
+
+	   String deletePhotoPath(String userId);
 
 }

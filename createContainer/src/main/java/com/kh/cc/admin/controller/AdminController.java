@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -139,6 +141,34 @@ public class AdminController {
 		return "admin/adminMember";
 	}
 	
+	//회원 관리 페이지 조건 검색 ajax
+	@RequestMapping(value="memberType.ad")
+	public ResponseEntity<HashMap<String, Object>> memberType(HttpServletRequest request) {
+		int type = Integer.parseInt(request.getParameter("type"));
+		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getMemberTypeListCount(type);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		System.out.println("listCount : " + listCount);
+		System.out.println("pi : " + pi);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectmemberTypeList(pi, type);
+	    HashMap<String, Object> list2 = new HashMap<String, Object>();
+	    System.out.println("type : " + type);
+	    System.out.println("조건 따라 받아온 맴버 list : " + list.size());
+	    list2.put("list", list);
+	    list2.put("pi", pi);
+
+		
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+
+	}
 	//회원 관리 페이지 상세보기
 	@RequestMapping("showMemberDetail.ad")
 	public String showMemberDetail(HttpServletRequest request, Model model) {

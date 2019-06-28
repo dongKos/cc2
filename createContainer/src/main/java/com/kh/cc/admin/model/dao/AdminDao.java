@@ -1,6 +1,7 @@
 package com.kh.cc.admin.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -52,5 +53,9 @@ public interface AdminDao {
 	ArrayList<Illustrator> selectIllustList(SqlSessionTemplate sqlSession, String userId);
 
 	int deleteMember(SqlSessionTemplate sqlSession, String userId);
+
+	int getMemberTypeListCount(SqlSessionTemplate sqlSession, int type);
+
+	ArrayList<HashMap<String, Object>> selectMemberTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi, int type);
 	
 }

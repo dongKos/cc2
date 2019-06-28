@@ -49,22 +49,40 @@ public class MypgServiceImpl implements MypgService{
 	
 	
 	//소희
-	//작가페이지 - 프로필설정
-	@Override
-	public int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto) {
+	   //작가페이지 - 프로필설정
+	   @Override
+	   public int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto) {
+	      System.out.println("서비스포토" + mphoto);
+	      
+	      int result = 0;
+	      System.out.println("서비스 접근 성공");
+	      int result1 = md.updateWriterProfile(sqlSession, mp);
+	      int result2 = md.insertWriterPhoto(sqlSession, mphoto);
+	      
+	      //System.out.println("photo접근");
+	      //if(result1 > 0 && result2 > 0) {
+	      //   result = 1;
+	      //}else {
+	      //   result = 0;
+	      //}
+	      //System.out.println("result1 : " + result1);
+	      System.out.println("result2 : " + result2);
+	      return result2;
+	   }
+	   
+	   //작가페이지 - 프로필 삭제
+	   @Override
+	   public int deletePhoto(String userId) {
+	      int result = md.deletePhoto(sqlSession,userId);
+	      
+	      
+	      return result;
+	   }
 
-		int result = 0;
-		System.out.println("서비스 접근 성공");
-		int result1 = md.updateWriterProfile(sqlSession, mp);
-		int result2 = md.insertWriterPhoto(sqlSession, mphoto);
-		
-		System.out.println("photo접근");
-		if(result1 > 0 && result2 > 0) {
-			result = 1;
-		}else {
-			result = 0;
-		}
-		System.out.println("result1 : " + result1);
-		return result;
-	}
+	   @Override
+	   public String deletePhotoPath(String userId) {
+	      String cpath = md.deletePhotoPath(sqlSession, userId);
+	      return cpath;
+	   }
 }
+

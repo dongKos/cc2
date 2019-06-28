@@ -158,6 +158,24 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		
 		return list;
 	}
+	//웹소설 도전 완결 목록 카운트
+	@Override
+	public int challengeCloseCount(SqlSessionTemplate sqlSession, String genre) {
+		return sqlSession.selectOne("Webnovel.challengeCloseCount", genre);
+	}
+	//웹소설 도전 완결 목록 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> challengeCloseList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.challengeCloseList", genre, rowBounds);
+		
+		return list;
+	}
 	
 
 }
