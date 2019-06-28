@@ -1,11 +1,9 @@
 package com.kh.cc.illustrator.model.dao;
 
-import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.illustrator.model.vo.Illustrator;
-import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
 
 public interface IllustratorDao {
@@ -17,7 +15,7 @@ public interface IllustratorDao {
 	int insertIllPhoto(SqlSessionTemplate sqlSession, IllustratorPhoto ip, IllustratorPhoto ip1, IllustratorPhoto ip2,
 			IllustratorPhoto ip3, IllustratorPhoto ip4);
 
-	int selectIllPortfolioList();
+	int selectIllPortfolioList(SqlSessionTemplate sqlSession);
 	
 	
 	

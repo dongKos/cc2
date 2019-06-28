@@ -39,12 +39,11 @@ public class IllustratorServiceImpl implements IllustratorService{
 		
 	}
 
-
+	//일러스트 포트폴리오 리스트 카운트
 	@Override
 	public int selectListCount() {
 		System.out.println("ListCount 서비스로 넘어옴?");
-		// TODO Auto-generated method stub
-		return id.selectIllPortfolioList();
+		return id.selectIllPortfolioList(sqlSession);
 	}
 
 
