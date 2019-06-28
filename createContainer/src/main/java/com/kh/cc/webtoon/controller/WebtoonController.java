@@ -260,6 +260,27 @@ public class WebtoonController {
 		
 	}
 	
+	
+	@RequestMapping(value = "roundList.wt")
+	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonRound wr ) {
+		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		System.out.println("wid : " + wid);
+	
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		//int listCount = ws.selectListCount(wr);
+		
+		model.addAttribute("wid", wid);
+		
+		return "webtoon/webtoonRoundList";
+	}
+	
+	
 }
 
 
