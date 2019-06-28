@@ -58,6 +58,10 @@ public interface WebnovelDao {
 	int challengeGenreCount(SqlSessionTemplate sqlSession, String genre);
 	//웹소설 도전 장르 목록 리스트
 	ArrayList<HashMap<String, Object>> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
+	//웹소설 도전 완결 목록 카운트
+	int challengeCloseCount(SqlSessionTemplate sqlSession, String genre);
+	//웹소설 도전 완결 목록 카운트
+	ArrayList<HashMap<String, Object>> challengeCloseList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
 	
 	
 }
