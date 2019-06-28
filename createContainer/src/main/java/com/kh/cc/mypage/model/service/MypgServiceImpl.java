@@ -56,15 +56,15 @@ public class MypgServiceImpl implements MypgService{
 		int result = 0;
 		System.out.println("서비스 접근 성공");
 		int result1 = md.updateWriterProfile(sqlSession, mp);
+		int result2 = md.insertWriterPhoto(sqlSession, mphoto);
 		
-		
-//		int result2 = md.insertWriterPhoto(sqlSession, mphoto);
-//		if(result1 > 0 && result2 > 0) {
-//			result = 1;
-//		}else {
-//			result = 0;
-//		}
+		System.out.println("photo접근");
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
 		System.out.println("result1 : " + result1);
-		return result1;
+		return result;
 	}
 }
