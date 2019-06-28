@@ -72,6 +72,12 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return sqlSession.insert("Webtoon.insertRoundMain", wp1);
 	}
 
+	@Override
+	public int selectWrList(SqlSessionTemplate sqlSession, WebtoonRound wr) {
+		System.out.println("회차 리스트 조회 DAO");
+		return sqlSession.selectOne("Webtoon.selectWrListCount", wr.getWid());
+	}
+
 	
 
 	

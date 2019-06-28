@@ -114,7 +114,7 @@
    </servlet-mapping>
     -->
    	<!-- 웹툰 관련 서블릿 요청주소 -->
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>webtoon</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
 		</servlet-class>
@@ -127,7 +127,7 @@
 		<servlet-name>webtoon</servlet-name>
 		<url-pattern>*.wt</url-pattern>
 
-	</servlet-mapping> -->
+	</servlet-mapping>
    
 <!-- 웹소설 관련 서블릿 요청주소 -->
 	<servlet>

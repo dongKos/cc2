@@ -143,6 +143,7 @@
 									</div>
 									<div>
 									<button class="insertWtRound">회차등록</button>
+									<button class="roundList">회차목록 보기</button>
 									</div>
 								</td>
 							</tr>
@@ -199,6 +200,12 @@
 				console.log(wid);	
 				location.href = "insertRoundFrom.wt?wid=" + wid;
 			});
+			
+			$(".roundList").click(function(){
+				var wid = $(this).parents().children().children('input').val();
+				location.href = "roundList.wt?wid=" + wid;
+			});
+			
 		});
 	
 	</script>
