@@ -44,9 +44,9 @@
   					
   					<!-- input name, vo name이랑 맞추기 -->
   					<div class="form-group">
-    					<img src="${contextPath}/resources/images/icon/avatar-06.jpg">
+    					<img src="${contextPath}/resources/images/icon/avatar-06.jpg" id="thumbnail" width="150px;" height="150px">
     					<div class="col-sm-12" style="text-align:center;">
-    						<input type="file" name="photo" id="profilePhoto">
+    						<input type="file" name="photo" id="profilePhoto" onchange="loadImg(this, 1)">
     						<br>
     						<img src="${ contextPath }/resources/images/mypage/upload.png" id="img1Area" width="30px" style="margin:0 auto;">
     					</div>
@@ -76,6 +76,18 @@
 			 })
 			
 		})
+		function loadImg(value, num){
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				reader.onload = function(e){
+					switch(num){
+					case 1 :
+						$("#thumbnail").attr("src", e.target.result); break;
+					}
+				}
+				reader.readAsDataURL(value.files[0]);
+			}
+		}
 </script>
 </body>
 </html>

@@ -8,6 +8,7 @@
 	<resultMap type="com.kh.cc.mypage.model.vo.WriterProfile" id="WProfileResultSet">
 		<id property="wid" column="WID"/>
 		<result property="mno" column="MNO"/>
+		<result property="rnum" column="ROWNUM"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="userPwd" column="USER_PWD"/>
 		<result property="userName" column="USER_NAME"/>
@@ -29,9 +30,22 @@
 		WHERE USER_ID = #{userId}
 	</update>
 
-
+	<insert id="writerInformation" parameterType="WriterProfile">
+		INSERT INTO ATTACHMENT 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'prf', 0, null, null, null, #{userId}) 
 	
 	
+	
+	</insert>
+	<delete id="deletePhoto" parameterType="WriterProfile">
+	DELETE FROM ATTACHMENT
+	WHERE ROWNUM = 1 and user_id = #{userId};
+	</delete>
+	
+	<select id="deletePhotoPath" parameterType="WriterProfile">
+	SELECT CHANGE_NAME FROM ATTACHMENT
+	WHERE ROWNUM = 1 and user_id = #{userId};
+	</select>
 </mapper>
 
 
