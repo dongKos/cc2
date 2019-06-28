@@ -18,7 +18,9 @@ public interface WebtoonService {
 
 	int insertWorkRound(WebtoonRound wr, WebtoonPhoto wp, WebtoonPhoto wp1);
 
-	int selectListCount(WebtoonRound wr);
+	int selectListCount(int wid);
+
+	ArrayList<WebtoonRound> selectWtRoundList(WebtoonPageInfo pi, Webtoon wt);
 
 
 

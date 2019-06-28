@@ -73,9 +73,29 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	}
 
 	@Override
-	public int selectWrList(SqlSessionTemplate sqlSession, WebtoonRound wr) {
+	public int selectWrList(SqlSessionTemplate sqlSession, int wid) {
 		System.out.println("회차 리스트 조회 DAO");
-		return sqlSession.selectOne("Webtoon.selectWrListCount", wr.getWid());
+		System.out.println("wr : " + wid);
+		return sqlSession.selectOne("Webtoon.selectWrListCount", wid);
+	}
+
+	@Override
+	public ArrayList<WebtoonRound> selectWtRoundList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi,
+			Webtoon wt) {
+
+		ArrayList<WebtoonRound> list = null;
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		System.out.println("회차 리스트 받아오기 dao");
+		System.out.println("wt : " + wt);
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.selectWrList", wt,rowBounds);
+				
+		
+		return list;
 	}
 
 	
