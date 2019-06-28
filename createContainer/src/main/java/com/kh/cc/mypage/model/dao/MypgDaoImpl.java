@@ -30,20 +30,35 @@ public class MypgDaoImpl implements MypgDao{
 	
 	
 	//작가페이지 프로필설정
-	
-	//정보
-	@Override
-	public int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp) {
-		
-		System.out.println("dao접근성공??");
-		System.out.println(mp);
-		return sqlSession.update("WriterProfile.updateIntro", mp);
-	}
-	//사진
-	@Override
-	
-	public int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto) {
-		System.out.println("사진 dao 접근성공");
-		return sqlSession.insert("mypage.writerInformation", mphoto);
-	}
+	   
+	   //정보
+	   @Override
+	   public int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp) {
+	      
+	      //System.out.println("dao접근성공??");
+	      //System.out.println(mp);
+	      return sqlSession.update("WriterProfile.updateIntro", mp);
+	   }
+	   //사진
+	   @Override
+	   
+	   public int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto) {
+	      System.out.println("사진 dao 접근성공");
+	      return sqlSession.insert("WriterProfile.writerInformation", mphoto);
+	   }
+	   
+	   //삭제
+	   @Override
+	   public int deletePhoto(SqlSessionTemplate sqlSession, String userId) {
+	      
+	      
+	      return sqlSession.delete("WriterProfile.deletePhoto", userId);
+	   }
+
+	   @Override
+	   public String deletePhotoPath(SqlSessionTemplate sqlSession, String userId) {
+	      return sqlSession.selectOne("WriterProfile.deletePhotoPath", userId);
+	   }
+	   
+	   
 }
