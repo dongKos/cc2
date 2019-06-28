@@ -2,7 +2,7 @@ package com.kh.cc.mypage.model.vo;
 
 import java.sql.Date;
 
-public class WriterPhoto {
+public class WriterPhoto implements java.io.Serializable{
 	
 	private int fid;
 	private String originName;
