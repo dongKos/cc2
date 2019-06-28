@@ -37,12 +37,15 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		}
 			
 	}
-
+	
+	//일러스트 포트폴리오 리스트 카운트
 	@Override
-	public int selectIllPortfolioList() {
-		System.out.println("List Dao로 넘어옴?");
-		return 0;
+	public int selectIllPortfolioList(SqlSessionTemplate sqlSession) {
+		System.out.println("dao로 넘어옴!");
+		return sqlSession.selectOne("Illustrator.selectIllPortfolioListCount");
 	}
+
+	
 	
 	
 

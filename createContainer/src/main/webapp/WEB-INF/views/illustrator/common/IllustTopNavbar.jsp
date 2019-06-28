@@ -96,7 +96,7 @@
             <a class="nav-link" href="illustChallenge.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">도전하기</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
-            <a class="nav-link" href="selectIllPortfolioList.ill?" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">포트폴리오</a>
+            <a class="nav-link" href="selectIllPortfolioList.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">포트폴리오</a>
           </li>
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link" href="illustSupport.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">후원하기</a>

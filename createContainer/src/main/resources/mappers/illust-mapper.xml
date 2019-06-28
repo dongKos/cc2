@@ -26,10 +26,10 @@
 	</insert>
 	
 	<!-- 일러스트 포트폴리오 리스트 카운트 -->
-	<select id="selectIllPortfolioListCount">
+	<select id="selectIllPortfolioListCount" parameterType="Illustrator" resultMap="illPortfolioResultSet">
 		SELECT COUNT(*)
 		FROM illustration
-		WHERE ILL_TYPE = 'pri';
+		WHERE ILL_TYPE = 'pri'
 	</select>
 	
 	<!-- 일러스트 포트폴리오 리스트 조회 -->
@@ -39,6 +39,6 @@
 		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
 		WHERE A.ATTACHMENT_CATEGORY = 'ma'
 		AND ILL.ILL_CODE = #{illCode}
-		ORDER BY ILL.RECOMMEND_COUNT DESC;
+		ORDER BY ILL.RECOMMEND_COUNT DESC
 	</select>
 </mapper>
