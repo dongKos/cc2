@@ -76,9 +76,15 @@ public class WebtoonServiceImpl implements WebtoonService{
 	}
 
 	@Override
-	public int selectListCount(WebtoonRound wr) {
+	public int selectListCount(int wid) {
 		System.out.println("회차 리스트 조회 서비스");
-		return wd.selectWrList(sqlSession, wr);
+		
+		return wd.selectWrList(sqlSession, wid);
+	}
+
+	@Override
+	public ArrayList<WebtoonRound> selectWtRoundList(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.selectWtRoundList(sqlSession, pi, wt);
 	}
 
 	

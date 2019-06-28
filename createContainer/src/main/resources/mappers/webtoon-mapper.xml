@@ -36,6 +36,18 @@
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
+	
+	<resultMap type="com.kh.cc.webtoon.model.vo.WebtoonRound" id="webtoonRoundResultSet">
+		<id property="rid" column="RID"/>
+		<result property="rTitle" column="RTITLE"/>
+		<result property="vCount" column="VCOUNT"/>
+		<result property="ruploadDate" column="RUPLOAD_DATE"/>
+		<result property="approvalCode" column="APPROVAL_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="rContent" column="RCONTENT"/>
+		<result property="wrComment" column="WR_COMMENT"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+	</resultMap>
 
 	<!-- 작품등록 메소드 -->
 	<insert id="insertWebtoon" parameterType="Webtoon">
@@ -50,22 +62,24 @@
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
 					 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId})
 	</insert>
-	
-	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
-	SELECT COUNT(*)
-	FROM WORK
-	WHERE USER_ID = #{userId}
-	AND WORK_TYPE = 'WT'
+
+	<select id="selectListCount" parameterType="java.lang.String"
+		resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE USER_ID = #{userId}
+		AND WORK_TYPE = 'WT'
 	</select>
-	
-	<select id="selectWtList" parameterType="java.lang.String" resultMap="webtoonResultSet">
-	SELECT *
-	FROM WORK W
-	JOIN ATTACHMENT A ON(A.WID = W.WID)
-	JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-	WHERE M.USER_ID = #{userId}
-	AND W.WORK_TYPE = 'WT'
-	AND A.ATTACHMENT_CATEGORY = 'ma'
+
+	<select id="selectWtList" parameterType="java.lang.String"
+		resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE M.USER_ID = #{userId}
+		AND W.WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	
 	<!-- 회차 썸내일 내용 인서트 -->
@@ -87,7 +101,19 @@
 					 'Y', 'cont', 0, null, null, #{wid}, NULL)
 	</insert>
 
+	<select id="selectWrListCount" parameterType="WebtoonRound" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK_ROUND
+		WHERE WID = #{wid}
+	</select>
 
+	<select id="selectWrList" resultMap="webtoonRoundResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK_ROUND W ON(W.WID = A.WID)
+		WHERE A.ATTACHMENT_CATEGORY = 'sub'
+		AND W.WID = #{wid}
+	</select>
 
 
 

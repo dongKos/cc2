@@ -262,19 +262,31 @@ public class WebtoonController {
 	
 	
 	@RequestMapping(value = "roundList.wt")
-	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonRound wr ) {
+	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		System.out.println("wid : " + wid);
+		
+		wt.setWid(wid);;
 	
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		System.out.println("wr : " + wid);
+		int listCount = ws.selectListCount(wid);
 		
-		//int listCount = ws.selectListCount(wr);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage,listCount);
 		
+		ArrayList<WebtoonRound> list = ws.selectWtRoundList(pi, wt);
+		System.out.println("list : " + list);
+		
+		System.out.println("listCount :" +listCount);
+		
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		model.addAttribute("wid", wid);
 		
 		return "webtoon/webtoonRoundList";
@@ -282,8 +294,6 @@ public class WebtoonController {
 	
 	
 }
-
-
 
 
 
