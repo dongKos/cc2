@@ -45,4 +45,8 @@ public interface WebnovelService {
 	int challengeGenreCount(String genre);
 	//웹소설 도전 장르 목록 리스트
 	ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre);
+	//웹소설 도전 완결 목록 카운트
+	int challengeCloseCount(String genre);
+	//웹소설 도전 완결 목록 리스트
+	ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre);
 }

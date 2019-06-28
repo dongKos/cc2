@@ -188,6 +188,16 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre) {
 		return wd.challengeGenreLIst(sqlSession, pi, genre);
 	}
+	//웹소설 도전 완결 목록 카운트
+	@Override
+	public int challengeCloseCount(String genre) {
+		return wd.challengeCloseCount(sqlSession, genre);
+	}
+	//웹소설 도전 완결 목록 카운트
+	@Override
+	public ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre) {
+		return wd.challengeCloseList(sqlSession, pi, genre);
+	}
 	
 	
 }

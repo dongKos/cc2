@@ -111,27 +111,33 @@
 		<table class="genreMenu">
 			<tr>
 				<td class="genreItem" id="id1" onClick="location.href=''">추천</td>
-				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3')">판타지</td>
-				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8')">무협</td>
-				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10')">로맨스</td>
-				<td class="genreItem" id="5" onClick="genreMenu('GR_CTG1')">현대</td>
-				<td class="genreItem" id="6" onClick="genreMenu('GR_CTG6')">공포</td>
-				<td class="genreItem" id="7" onClick="location.href=''">완결</td>
+				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3',1)">판타지</td>
+				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8',1)">무협</td>
+				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10',1)">로맨스</td>
+				<td class="genreItem" id="5" onClick="genreMenu('GR_CTG1',1)">현대</td>
+				<td class="genreItem" id="6" onClick="genreMenu('GR_CTG6',1)">공포</td>
+				<td class="genreItem" id="7" onClick="genreMenu('CLOSE',1)">완결</td>
 			</tr>
 		</table>
 	</div>
 	<script>
-	function genreMenu(genre){
+//	$(function(){
+//		$('.wnListArea').find($("table[class=wnList]")).on('click',function(){
+//			var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
+//			console.log("ok")
+//			//location.href = "selectWnRoundList.wn?wid=" + wid;
+//		});
+//	});
+	function genreMenu(genre, currentPage){
 		$.ajax({
 			url:"challengeGenre.wn",
 			type:"get",
-			data:{genre:genre},
+			data:{genre:genre, currentPage:currentPage},
 			success:function(data){
 				$(".wnList").remove();
-				
 				for(var i = 0; i < data.list.length; i++){
 					var wnListArea = $(".wnListArea");
-					var wnList =$('<table class="wnList">');
+					var wnList =$('<table class="wnList" name="wnList">');
 					var td = $('<td>');
 					var wnImgBoxTd = $('<td class="wnImgBoxTd" colspan="2">');
 					var wnImg = $('<img class="wnImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/'+ data.list[i].changeName+'">');
@@ -139,11 +145,13 @@
 					var wnTitle = $('<p class="wnTitle">').text(data.list[i].wTitle);
 					var wnNicknameTd = $('<p class="wnNicknameTd">' +data.list[i].nickname+ '</p><p class="wnrCountTd">'+'회차수'+'</p>');
 					var wnStarPoint = $('<p class="wnStarPoint">' +'별점'+ '</p><p class="wnInterest">'+'관심등록'+'</p>');
+					var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
 					var list = new Array();
 					list[0] = wnImgBoxTd.append(wnImg);
 					list[1] = tdC2.append(wnTitle);
 					list[2] = td.append(wnNicknameTd);
 					list[3] = td.append(wnStarPoint);
+					list[4] = td.append(hiddenWid);
 					
 					for(var j = 0; j < list.length; j++) {
 						var tr = $('<tr>');
@@ -153,33 +161,42 @@
 					wnListArea.append(wnList);
 				}
 				
-				//$(".paging").children().remove();
-				//var pagingArea = $(".pagingArea");
-				//var paging = $(".paging");
-				//pagingArea.append('<div class="paging"></div>');
-			
+				$paging = $("#nPaging");
+				$paging.html('');
 				var currentPage = data.pi.currentPage;
 				var startPage = data.pi.startPage;
 				var endPage = data.pi.endPage;
 				var maxPage = data.pi.maxPage;
-				console.log("currentPage : "+data.pi.currentPage);
-				console.log("startPage : "+data.pi.startPage);
-				console.log("endPage : "+data.pi.endPage);
-				console.log("maxPage : "+data.pi.maxPage);
-				
+				var wnGenre = '"'+genre+'"';
+			         
+				//이전
 				if(currentPage <= 1){
-					paging.append("[이전]");
-				}else if(currentPage > 1){
-					paging.append("<button onclick='refundPaging("+ (currentPage -1)+")'>[이전]</button>");
+					$paging.append("<li class='page-item'><a class='page-link'>이전</a></li>");
+				}else{
+					$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage -1) + ")'>이전</a></li>");
 				}
-				for(var i = startPage; i < endPage; i++){
+				
+				//숫자
+				for(var i = startPage; i <= endPage; i++){
 					if(i == currentPage){
-						paging.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+						$paging.append("<li class='page-item'><a class='page-link'>" + i + "</a></li>");
 					}else{
-						paging.append('<a href="challengeGenre.wn?currentpage+'+ i +'">' + i +'</a>');
+						$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ i + ")'>" + i + "</a></li>");
 					}
 				}
-			
+				
+				//다음
+				if(currentPage >= maxPage){
+					$paging.append("<li class='page-item'><a class='page-link'>다음</a></li>");
+				}else{
+					$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage + 1) + ")'>다음</a></li>");
+				}
+				
+				$('.wnListArea').find($("table[name=wnList]")).on('click',function(){
+					var wid = $(this).children().last().children().children('input').val();
+					console.log(wid);
+					location.href = "selectWnRoundList.wn?wid=" + wid;
+				});
 				
 			},
 			error:function(status){
@@ -187,6 +204,7 @@
 			}
 		});
 	}
+	
 	</script>
 	<div class="container">
 		<!-- 공지 이미지 -->
@@ -239,10 +257,10 @@
 						</tr>
 					</table>
 				</div>
-				<div class="pagingArea">
-					<div class="paging">
-						
-					</div>
+				<div id="npagingArea" align="center">
+					<ul class="pagination" id="nPaging">
+					
+					</ul>
 				</div>
 				
 			</div>

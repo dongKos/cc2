@@ -177,6 +177,7 @@ input[type=checkbox]:checked + label:before{
 						<div class="title">
 							<div class="wnrTitle">회차 정보 수정</div>
 						</div>
+						<h1>${ wnr.rid }</h1>
 						<div class="content">
 							<table class="insertWnrTable">
 								<tr>

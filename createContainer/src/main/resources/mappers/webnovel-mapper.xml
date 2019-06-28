@@ -181,6 +181,7 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
+		AND W.WORK_STATUS = 'COMPLTE'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
@@ -191,6 +192,28 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
+		AND W.WORK_STATUS = 'COMPLTE'
+		AND WORK_TYPE = 'WN'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	<!-- 웹소설 도전 완결 목록 카운트 -->
+	<select id="challengeCloseCount" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE W.WORK_STATUS = 'CLOSE'
+		AND WORK_TYPE = 'WN'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+	<!-- 웹소설 도전 완결 목록 리스트 -->
+	<select id="challengeCloseList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE W.WORK_STATUS = 'CLOSE'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC

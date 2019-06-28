@@ -392,28 +392,47 @@ public class WebnovelController {
 	//도전웹소설 장르 리스트
 	@RequestMapping("challengeGenre.wn")
 	public ResponseEntity<HashMap<String, Object>> challengeGenre(HttpServletRequest request, HttpServletResponse response, Model model, Webnovel wn) {
-		
 		String genre = request.getParameter("genre");
-		System.out.println(genre);
-		
-		int limit = 4;
-		int currentPage = 1;
-		
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		if(genre.equals("CLOSE")) {
+			System.out.println("완결??");
+			int limit = 16;
+			int currentPage = 1;
+			
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int listCount = ws.challengeCloseCount(genre);
+			
+			WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
+			
+			ArrayList<HashMap<String, Object>> list = ws.challengeCloseList(pi, genre);
+			HashMap<String, Object> wnList = new HashMap<String, Object>();
+			
+			wnList.put("list", list);
+			wnList.put("pi", pi);
+			return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
+		}else {
+			
+			int limit = 16;
+			int currentPage = 1;
+			
+			if(request.getParameter("currentPage") != null) {
+				currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			}
+			
+			int listCount = ws.challengeGenreCount(genre);
+			
+			WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
+			
+			ArrayList<HashMap<String, Object>> list = ws.challengeGenreLIst(pi, genre);
+			HashMap<String, Object> wnList = new HashMap<String, Object>();
+			
+			wnList.put("list", list);
+			wnList.put("pi", pi);
+			return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 		}
-		
-		int listCount = ws.challengeGenreCount(genre);
-		
-		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
-		
-		ArrayList<HashMap<String, Object>> list = ws.challengeGenreLIst(pi, genre);
-		HashMap<String, Object> wnList = new HashMap<String, Object>();
-		
-		wnList.put("list", list);
-		wnList.put("pi", pi);
 
-		return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 	}
 	
 	//웹소설 Top5 이동
