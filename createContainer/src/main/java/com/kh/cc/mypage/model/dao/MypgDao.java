@@ -15,8 +15,12 @@ public interface MypgDao {
 	Member updateMember(SqlSessionTemplate sqlSession, Member m);
 
 	//작가페이지 프로필 설정
-	int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp);
+	   int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp);
 
-	int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto);
+	   int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto);
+
+	   int deletePhoto(SqlSessionTemplate sqlSession, String userId);
+
+	   String deletePhotoPath(SqlSessionTemplate sqlSession, String userId);
 
 }
