@@ -181,6 +181,7 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
+		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	<!-- 웹소설 도전 장르 목록 리스트 -->
@@ -190,7 +191,9 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
+		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
 	</select>
 </mapper>
 

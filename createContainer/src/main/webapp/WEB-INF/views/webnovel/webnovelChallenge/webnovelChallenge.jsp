@@ -10,15 +10,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
-.genreDiv{
-	border:1px solid black;
-	height:250px;
-}
-.genreDiv2{
-	border:1px solid black;
-	height:170px;
-}
-
 .item{
 	height:350px;
 }
@@ -49,52 +40,62 @@
 }
 .wnListArea{
 	width:780px;
-	border:1px solid lightgray;
 	padding:0px 0px 0px 0px;
 }
 .wnList{
 	display:inline-block;
 	padding:0px 0px 0px 0px;
-	margin:5px 5px 5px 5px;
+	margin:5px 7px 5px 7px;
 	width:180px;
-	border:1px solid black;
+	border:1px solid lightgray;
 }
 .wnImgBoxTd{
 	padding:10px 10px 10px 10px; 
 	width:180px;
 	height:180px;
-	border-bottom:1px solid black;
+	border-bottom:1px solid lightgray;
 }
 .wnTitle{
 	line-height:20px;
 	padding-left:10px;
 	font-size:13px;
-	border-bottom:1px solid black;
+	border-bottom:1px solid lightgray;
 }
 .wnNicknameTd{
+	display: inline-block;
+	width:90px;
 	height:15px;
 	padding-left:10px;
 	font-size:12px;
 	color:gray;
 }
+.wnrCountTd{
+	display: inline-block;
+	width:80px;
+	height:15px;
+	padding-left:10px;
+	font-size:12px;
+	color:gray;
+	text-align:right;
+}
 .wnStarPoint{
-	line-height:15px;
+	width:80px;
+	display: inline-block;
+	width:80px;
+	height:15px;
 	padding-left:10px;
 	font-size:12px;
 	color:red;
 }
 .wnInterest{
-	line-height:15px;
-	padding-left:10px;
-	font-size:12px;
-	color:black;
-}
-.wnrCountTd{
+	display: inline-block;
+	width:90px;
 	height:15px;
 	padding-left:10px;
 	font-size:12px;
 	color:gray;
-}
+	text-align:right;
+
 </style>
 </head>
 <body>
@@ -126,50 +127,59 @@
 			type:"get",
 			data:{genre:genre},
 			success:function(data){
-				//console.dir(data.list[0]);
-				//console.dir(data.pi);
-					console.dir('${ contextPath}/resources/uploadFiles/webnovelMain/' + data.list[0].changeName);
-					console.dir(data.list[0].wTitle);
-					console.dir(data.list[0].nickname);
-					
+				$(".wnList").remove();
 				
-					
 				for(var i = 0; i < data.list.length; i++){
 					var wnListArea = $(".wnListArea");
 					var wnList =$('<table class="wnList">');
-					/* var tr = $('<tr>'); */
 					var td = $('<td>');
 					var wnImgBoxTd = $('<td class="wnImgBoxTd" colspan="2">');
 					var wnImg = $('<img class="wnImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/'+ data.list[i].changeName+'">');
 					var tdC2 = $('<td colspan="2">');
 					var wnTitle = $('<p class="wnTitle">').text(data.list[i].wTitle);
-					var wnNicknameTd = $('<p class="wnNicknameTd">').text(data.list[i].nickname);
-					var wnrCountTd = $('<p class="wnrCountTd">').text('회차수');
-					var wnStarPoint = $('<p class="wnStarPoint">').text('별점');
-					var wnInterest = $('<p class="wnInterest">').text('관심등록');
-					
-					
+					var wnNicknameTd = $('<p class="wnNicknameTd">' +data.list[i].nickname+ '</p><p class="wnrCountTd">'+'회차수'+'</p>');
+					var wnStarPoint = $('<p class="wnStarPoint">' +'별점'+ '</p><p class="wnInterest">'+'관심등록'+'</p>');
 					var list = new Array();
 					list[0] = wnImgBoxTd.append(wnImg);
 					list[1] = tdC2.append(wnTitle);
-					list[2] = td.append(wnNicknameTd), td.append(wnrCountTd);
-					list[3] = wnNicknameTd;
-					console.log(list.length);
+					list[2] = td.append(wnNicknameTd);
+					list[3] = td.append(wnStarPoint);
 					
 					for(var j = 0; j < list.length; j++) {
-						console.log(list[j]);
 						var tr = $('<tr>');
 						tr.append(list[j]);
 						wnList.append(tr);
 					}
 					wnListArea.append(wnList);
-					
-					/* tr.append(wnImgBoxTd.append(wnImg));
-					tr.append(tdC2.append(wnTitle));
-					tr.append(wnNicknameTd); */
-				//	tr.append(wnrCountTd);
 				}
 				
+				//$(".paging").children().remove();
+				//var pagingArea = $(".pagingArea");
+				//var paging = $(".paging");
+				//pagingArea.append('<div class="paging"></div>');
+			
+				var currentPage = data.pi.currentPage;
+				var startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				var maxPage = data.pi.maxPage;
+				console.log("currentPage : "+data.pi.currentPage);
+				console.log("startPage : "+data.pi.startPage);
+				console.log("endPage : "+data.pi.endPage);
+				console.log("maxPage : "+data.pi.maxPage);
+				
+				if(currentPage <= 1){
+					paging.append("[이전]");
+				}else if(currentPage > 1){
+					paging.append("<button onclick='refundPaging("+ (currentPage -1)+")'>[이전]</button>");
+				}
+				for(var i = startPage; i < endPage; i++){
+					if(i == currentPage){
+						paging.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+					}else{
+						paging.append('<a href="challengeGenre.wn?currentpage+'+ i +'">' + i +'</a>');
+					}
+				}
+			
 				
 			},
 			error:function(status){
@@ -229,7 +239,11 @@
 						</tr>
 					</table>
 				</div>
-				
+				<div class="pagingArea">
+					<div class="paging">
+						
+					</div>
+				</div>
 				
 			</div>
 			<div class="col-sm-1"></div>
