@@ -25,6 +25,8 @@ public interface IllustratorService {
 
 	ArrayList<Illustrator> selectIllChallengeList(IllustratorPageInfo pi, Illustrator ill);
 
+	ArrayList<Illustrator> selectIllPortfolioDetail(Illustrator ill);
+
 
 	
 

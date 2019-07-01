@@ -72,14 +72,17 @@ public class IllustratorServiceImpl implements IllustratorService{
 
 	@Override
 	public int selectChallengeListCount() {
-		// TODO Auto-generated method stub
 		return id.selectIllChallengeListCount(sqlSession);
 	}
 
 	@Override
 	public ArrayList<Illustrator> selectIllChallengeList(IllustratorPageInfo pi, Illustrator ill) {
-		// TODO Auto-generated method stub
 		return id.selectIllChallengeList(sqlSession, pi, ill);
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllPortfolioDetail(Illustrator ill) {
+		return id.selectIllPortfolioDetail(sqlSession, ill);
 	}
 	
 	

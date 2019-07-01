@@ -332,6 +332,16 @@ public class IllustratorController {
 			
 			return "illustrator/illust_Challenge";
 		}
+		
+		@RequestMapping(value="selectIllPortfolioDetail.ill")
+		public String selectIllPortfolioDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
+			ArrayList<Illustrator> list = is.selectIllPortfolioDetail(ill);
+			model.addAttribute("list", list);
+			
+			System.out.println("list" + list);
+			
+			return "illustrator/illustPortpolioDetail";
+		}
 	
 	
 }

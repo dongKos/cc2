@@ -83,6 +83,18 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return clist;
 	}
 
+	@Override
+	public ArrayList<Illustrator> selectIllPortfolioDetail(SqlSessionTemplate sqlSession, Illustrator ill) {
+		
+		ArrayList<Illustrator> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("Illustrator.selectIllPortfolioDetail", ill);
+		
+		return null;
+	}
+
+	
+
 
 	
 	

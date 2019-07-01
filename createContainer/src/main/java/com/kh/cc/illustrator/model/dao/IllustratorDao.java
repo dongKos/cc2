@@ -28,6 +28,8 @@ public interface IllustratorDao {
 	ArrayList<Illustrator> selectIllChallengeList(SqlSessionTemplate sqlSession, IllustratorPageInfo pi,
 			Illustrator ill);
 
+	ArrayList<Illustrator> selectIllPortfolioDetail(SqlSessionTemplate sqlSession, Illustrator ill);
+
 	
 	
 	
