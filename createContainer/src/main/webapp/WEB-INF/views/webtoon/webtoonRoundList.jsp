@@ -256,7 +256,7 @@
 							<td class="wnrBtnArea">
 								<input type="hidden" value="${ wtr.rid }">
 								<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
-								<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
+								<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">회차 삭제</button>
 							</td>
 						</tr>
 						<tr>

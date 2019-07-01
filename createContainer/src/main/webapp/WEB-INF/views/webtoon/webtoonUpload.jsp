@@ -139,8 +139,26 @@
 	font-weight: bold;
 	cursor: pointer;
 }
-.roundList:hover{
-background-color: #84CEFA;
+
+.roundList:hover {
+	background-color: #84CEFA;
+	color: white;
+}
+
+.updateWork {
+	width: 20%;
+	height: 40px;
+	margin-top: 5px;
+	background-color: white;
+	color: skyblue;
+	border: 1px solid #84CEFA;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.updateWork:hover {
+	background-color: #84CEFA;
 	color: white;
 }
 </style>
@@ -170,20 +188,18 @@ background-color: #84CEFA;
 									<div class="titleImg">
 										<img class="testImg"
 											src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }" />
-											<input type="hidden" class="imgArea" value="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 									</div>
 								</td>
 								<td class="contentTd">
 									<div>
 										<p class="titleArea">${ wt.wTitle }</p>
-										<input type="hidden" class="wTitle" value="${ wt.wTitle }"> 
 									</div>
 
 									<div>
 										<input type="hidden" class="wid" value="${ wt.wid }"> 
-										<input type="hidden" class="intro" value="${ wt.wIntro }">
 									</div>
 									<div>
+										<button class="updateWork">작품 수정</button>
 										<button class="insertWtRound">회차등록</button>
 										<button class="roundList">회차목록 보기</button>
 									</div>
@@ -247,13 +263,17 @@ background-color: #84CEFA;
 			//회차목록록보기
 			$(".roundList").click(function(){
 				var wid = $(this).parents().children().children('.wid').val();
-				//var changeName = $(this).parents().children().children('.imgArea').val();
-				var wTitle = $(this).parents().children().children('.wTitle').val();
-				var wIntro = $(this).parents().children().children('.intro').val();
-				//location.href = "roundList.wt?wid=" + wid + '?wTitle=' + wTitle + '?wIntro=' + wIntro;
-				console.log(wid + ":" + wIntro + ":" + wTitle);
+				
+				location.href = "roundList.wt?wid=" + wid;
+				
 				
 			});
+			
+			$(".updateWork").click(function(){
+				var wid = $(this).parents().children().children('.wid').val();
+				location.href = "workUpdateForm.wt?wid=" + wid;
+			});
+			
 			
 		});
 	
