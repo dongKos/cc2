@@ -64,9 +64,9 @@
 }
 
 .titleImg {
-	position:relative;
-	padding:0px 0px 0px 0px;
-	cursor:pointer;
+	position: relative;
+	padding: 0px 0px 0px 0px;
+	cursor: pointer;
 }
 
 .titleImg img {
@@ -99,14 +99,49 @@
 	width: 10%;
 	border-right: 1px solid lightgray;
 }
-.titleArea{
-	width:100%;
-	cursor:pointer;
-	margin-bottom:0px;
+
+.titleArea {
+	width: 100%;
+	cursor: pointer;
+	margin-bottom: 0px;
 }
-.testImg{
-	width:100%;
-	height:100%;
+
+.testImg {
+	width: 100%;
+	height: 100%;
+}
+
+.insertWtRound {
+	width: 20%;
+	height: 40px;
+	margin-top: 5px;
+	background-color: white;
+	color: skyblue;
+	border: 1px solid #84CEFA;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.insertWtRound:hover {
+	background-color: #84CEFA;
+	color: white;
+}
+
+.roundList {
+	width: 20%;
+	height: 40px;
+	margin-top: 5px;
+	background-color: white;
+	color: skyblue;
+	border: 1px solid #84CEFA;
+	font-size: 15px;
+	font-weight: bold;
+	cursor: pointer;
+}
+.roundList:hover{
+background-color: #84CEFA;
+	color: white;
 }
 </style>
 </head>
@@ -133,17 +168,24 @@
 							<tr>
 								<td class="workImg">
 									<div class="titleImg">
-										<img class="testImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }" />
+										<img class="testImg"
+											src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }" />
+											<input type="hidden" class="imgArea" value="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 									</div>
 								</td>
 								<td class="contentTd">
-									<div><p class="titleArea">${ wt.wTitle }</p></div>
 									<div>
-										<input type="hidden" name="wid" value="${ wt.wid }">
+										<p class="titleArea">${ wt.wTitle }</p>
+										<input type="hidden" class="wTitle" value="${ wt.wTitle }"> 
+									</div>
+
+									<div>
+										<input type="hidden" class="wid" value="${ wt.wid }"> 
+										<input type="hidden" class="intro" value="${ wt.wIntro }">
 									</div>
 									<div>
-									<button class="insertWtRound">회차등록</button>
-									<button class="roundList">회차목록 보기</button>
+										<button class="insertWtRound">회차등록</button>
+										<button class="roundList">회차목록 보기</button>
 									</div>
 								</td>
 							</tr>
@@ -154,8 +196,8 @@
 				<br> <br>
 				<button class="insertWtBtn" onclick="location='inserWorkForm.wt'">새
 					작품 쓰기</button>
+			<br><br>
 			</div>
-
 			<div class="col-sm-1"></div>
 		</div>
 		<div id="pagingArea" align="center">
@@ -195,15 +237,22 @@
 	
 	<script>
 		$(function(){
+			//회차등록
 			$(".insertWtRound").click(function(){
-				var wid = $(this).parents().children().children('input').val();
+				var wid = $(this).parents().children().children('.wid').val();
 				console.log(wid);	
 				location.href = "insertRoundFrom.wt?wid=" + wid;
 			});
 			
+			//회차목록록보기
 			$(".roundList").click(function(){
-				var wid = $(this).parents().children().children('input').val();
-				location.href = "roundList.wt?wid=" + wid;
+				var wid = $(this).parents().children().children('.wid').val();
+				//var changeName = $(this).parents().children().children('.imgArea').val();
+				var wTitle = $(this).parents().children().children('.wTitle').val();
+				var wIntro = $(this).parents().children().children('.intro').val();
+				//location.href = "roundList.wt?wid=" + wid + '?wTitle=' + wTitle + '?wIntro=' + wIntro;
+				console.log(wid + ":" + wIntro + ":" + wTitle);
+				
 			});
 			
 		});
