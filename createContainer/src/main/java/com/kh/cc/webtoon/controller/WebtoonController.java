@@ -136,7 +136,9 @@ public class WebtoonController {
 	
 	//새작품버튼을 누르면 작품등록 폼 이동하는 메소드
 	@RequestMapping(value="inserWorkForm.wt")
-	public String webtoonInsertWorkForm() {
+	public String webtoonInsertWorkForm(HttpServletRequest request, HttpSession session, Member m) {
+		
+		m = (Member) session.getAttribute("loginUser");
 		
 		return "webtoon/webtoonWorkInsert";
 	}
@@ -198,10 +200,14 @@ public class WebtoonController {
 	
 	//회차 등록폼에서 등록버튼 누를시 동작하는 메소드
 	@RequestMapping(value = "insertWtRound.wt")
-	public String insertWnRound(Model model,Webtoon wt, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
+	public String insertWnRound(Model model, Webtoon wt, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
 			 Member m, 
 			 	@RequestParam(name = "photo", required = false) MultipartFile photo,
 				@RequestParam(name = "photo1", required = false) MultipartFile photo1){
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		String userId = m.getUserId();
 		
 		System.out.println("회차 컨트롤러 들어옴");
 		
@@ -218,6 +224,7 @@ public class WebtoonController {
 		System.out.println("wid : " + wid);
 		System.out.println("wt : " + wt);
 		System.out.println("wr : " + wr);
+		System.out.println("userId : " + userId);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
@@ -241,12 +248,14 @@ public class WebtoonController {
 		wp.setChangeName(changeFileName + ext);
 		wp.setFilePath(filePath1);
 		wp.setWid(wid);
+		wp.setUserId(userId);
 		
 		//웹툰 내용 사진
 		wp1.setOriginName(originFileName1);
 		wp1.setChangeName(changeFileName1 + ext1);
 		wp1.setFilePath(filePath2);
 		wp1.setWid(wid);
+		wp1.setUserId(userId);
 		
 		try {
 			photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
@@ -254,6 +263,9 @@ public class WebtoonController {
 			
 			ws.insertWorkRound(wr, wp, wp1);
 			System.out.println("wr : " + wr);
+			System.out.println("wp : " + wp);
+			System.out.println("wp1 : " + wp1);
+			System.out.println("회차 썸내일, 내용 등록완료");
 			return "redirect:insertWork.wt";
 
 		} catch (Exception e) {
@@ -273,16 +285,11 @@ public class WebtoonController {
 	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		//String changeName = request.getParameter("changeName");
-		String wIntro = request.getParameter("wIntro");
-		String wTitle = request.getParameter("wTitle");
+		
 		System.out.println("wid : " + wid);
 		
-		wt.setWid(wid);
-		//wt.setChangeName(changeName);
-		wt.setwIntro(wIntro);
-		wt.setwTitle(wTitle);
-	
+		wt = ws.selectMainPhoto(wid);
+		
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) {
@@ -297,13 +304,37 @@ public class WebtoonController {
 		System.out.println("list : " + list);
 		
 		System.out.println("listCount :" +listCount);
-		
+		System.out.println("wt : " + wt);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("wt", wt);
 		
 		return "webtoon/webtoonRoundList";
+	}
+	
+	@RequestMapping(value="workUpdateForm.wt")
+	public String workUpdate(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wt = ws.selectWork(wid);
+		System.out.println("wt : " + wt);
+		
+		model.addAttribute("wt", wt);
+		
+		return "webtoon/updateWorkForm";
+	}
+	
+	@RequestMapping(value="updateWork.wt")
+	public String updateWork(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonPhoto wp, Member m,
+			@RequestParam(name="photo", required=false) MultipartFile photo) {
+		m = (Member) session.getAttribute("loginUser");
+		
+		System.out.println("@wt@ : " + wt);
+		
+		
+		return "redirect:insertWork.wt";
+		
 	}
 	
 	
