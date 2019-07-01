@@ -16,12 +16,13 @@ public class Illustrator {
 	private String changeName;		//원본파일이름
 	private int fid;				//이미지키
 	private String nickName;		//닉네임
+	private String aCategory;		//사진카테고리
 	
 	public Illustrator() {}
 
 	public Illustrator(int illCode, int illPrice, String termDate, int changeCount, String illTitle, String illContent,
 			String illType, int recommendCount, int viewCount, String userId, String illCategory, String changeName,
-			int fid, String nickName) {
+			int fid, String nickName, String aCategory) {
 		super();
 		this.illCode = illCode;
 		this.illPrice = illPrice;
@@ -37,6 +38,7 @@ public class Illustrator {
 		this.changeName = changeName;
 		this.fid = fid;
 		this.nickName = nickName;
+		this.aCategory = aCategory;
 	}
 
 	public int getIllCode() {
@@ -151,20 +153,21 @@ public class Illustrator {
 		this.nickName = nickName;
 	}
 
+	public String getaCategory() {
+		return aCategory;
+	}
+
+	public void setaCategory(String aCategory) {
+		this.aCategory = aCategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Illustrator [illCode=" + illCode + ", illPrice=" + illPrice + ", termDate=" + termDate
 				+ ", changeCount=" + changeCount + ", illTitle=" + illTitle + ", illContent=" + illContent
 				+ ", illType=" + illType + ", recommendCount=" + recommendCount + ", viewCount=" + viewCount
 				+ ", userId=" + userId + ", illCategory=" + illCategory + ", changeName=" + changeName + ", fid=" + fid
-				+ ", nickName=" + nickName + "]";
+				+ ", nickName=" + nickName + ", aCategory=" + aCategory + "]\n";
 	}
 
-	
-
-	
-
-	
-	
-	
 }

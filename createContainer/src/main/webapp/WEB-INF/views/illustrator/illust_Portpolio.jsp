@@ -31,13 +31,16 @@
 			location.href="illustPortfolioWrite.ill";
 		}
 		
-		$(function(){
+	/* 	$(function(){
 	        $(".portfolio-item").click(function(){
 	           console.log("눌림");
-	           location.href="illustPortpolioDetail.ill";
+	           //var illCode = ${illPortfolio.illCode};
+	          // console.log(${illPortfolio.illCode});
+	           
+	           //location.href='selectIllPortfolioDetail.ill?illCode=' + ${illPortfolio.illCode};
 	        })
 	        
-	     })
+	     }) */
 
   </script>
 </head>
@@ -78,6 +81,8 @@
         <!-- Portfolio Item 1 -->
         <c:forEach var="illPortfolio" items="${ list }">
         <div class="col-md-6 col-lg-4">
+        <input type="hidden" value="${illPortfolio.illCode }" id="illCode">
+        <input type="hidden" value="${illPortfolio.userId }" id="illCode">
           <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
@@ -87,6 +92,17 @@
             <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illPortfolio.changeName }">
           </div>
         </div>
+        <script>
+        $(function(){
+	        $(".portfolio-item").click(function(){
+	            var illCode = $(this).siblings().eq(0).val();
+	            var userId = $(this).siblings().eq(1).val();
+	         	location.href='selectIllPortfolioDetail.ill?illCode=' + illCode + '&userId=' + userId;
+	        })
+	        
+	     })
+		
+        </script>
 		</c:forEach>
     </div>
     </div>
