@@ -67,18 +67,19 @@
 </style>
 </head>
 <body>
+<jsp:include page="common/IllustTopNavbar.jsp"/><br><br>
 
-<br><br>
-<div class="container">
+  
+<!-- <div class="container">
   <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
+  Trigger the modal with a button
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
 
-  <!-- Modal -->
+  Modal
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
     
-      <!-- Modal content-->
+      Modal content
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -95,7 +96,7 @@
     </div>
   </div>
   
-</div>
+</div> -->
 
 
 	<div class="container">
@@ -108,7 +109,7 @@
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
 				<h3>20000원~</h3><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> 작가닉네임</i><br><br>
-				<i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i><br><br><br>
+				<a href="illustratorDetail.ill"><i class="fas fa-home" onclick="illustratorDetail.ill" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="support();">후원하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
@@ -181,11 +182,7 @@
 			<hr>
 		</div>
 		
-		<!-- 파일형식, 이미지 -->
-		<div class="row">
-			<input type="text" value="JPG">
-			<input type="text" value="PSD">
-		</div>
+		
 		<br><br>
 		<div class="row">
 			<div class="img-content">
@@ -204,6 +201,7 @@
 				asd
 			</div>
 		</div>
+		<br><br>
 		<div class="row">
 			<div class="img-content">
 				asd

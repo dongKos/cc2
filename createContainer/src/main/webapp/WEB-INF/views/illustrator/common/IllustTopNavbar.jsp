@@ -41,7 +41,7 @@
     <div class="container">
       <!-- <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a> -->
       <img src="${contextPath }/resources/images/logoEdit.png" onclick="location='mainHome.me'" style="cursor:pointer; width:15.4%; height:15.4%;">
-      <a href="illustratorDetail.ill"><h2 style="color:white">Create Container</h2></a>
+      <a href="illustMain.ill"><h2 style="color:white">Create Container</h2></a>
       <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         Menu
         <i class="fas fa-bars"></i>

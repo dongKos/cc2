@@ -61,7 +61,7 @@
 	<insert id="insertIllPhoto" parameterType="IllustratorPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES(ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 
-			'sub', NULL, ILLC_SEQ.NEXTVAL, NULL, NULL, #{userId})
+			'sub', NULL, ILLC_SEQ.CURRVAL, NULL, NULL, #{userId})
 	</insert>
 	
 	<!-- 일러스트 포트폴리오 리스트 카운트 -->
