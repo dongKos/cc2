@@ -5,9 +5,11 @@ import java.util.HashMap;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
+import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
 public interface WebnovelService {
 	
@@ -49,4 +51,22 @@ public interface WebnovelService {
 	int challengeCloseCount(String genre);
 	//웹소설 도전 완결 목록 리스트
 	ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre);
+	//조회수 증가 메소드
+	int updateCount(WebnovelRound wnr);
+	//관심 등록 메소드
+	int insertAttention(WebnovelAttention wa);
+	//관심등록 정보
+	WebnovelAttention selectAttention(WebnovelAttention wa);
+	//별점주기 메소드
+	int insertStarPoint(WebnovelStarPoint wnsp);
+	//별점 정보
+	WebnovelStarPoint selectWnSpOne(WebnovelStarPoint wnsp);
+	//회차 별점 평균
+	double selectWnrStarPointAvg(int rid);
+	//회차 별점 평가인원 수
+	int selectstarPointCount(int rid);
+	//작품 별점 평균
+	double selectAllWnrStarPointAvg(int wid);
+	//작품 평가인원 수
+	int selectAllStarPointCount(int wid);
 }

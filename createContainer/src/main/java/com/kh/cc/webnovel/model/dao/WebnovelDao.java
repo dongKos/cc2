@@ -7,9 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
+import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
 public interface WebnovelDao {
 	//작품등록 메소드
@@ -62,6 +64,24 @@ public interface WebnovelDao {
 	int challengeCloseCount(SqlSessionTemplate sqlSession, String genre);
 	//웹소설 도전 완결 목록 카운트
 	ArrayList<HashMap<String, Object>> challengeCloseList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
+	//조회수 증가용 메소드
+	int updateCount(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//관심등록 메소드
+	int insertAttention(SqlSessionTemplate sqlSession, WebnovelAttention wa);
+	//관심등록 정보 메소드
+	WebnovelAttention selectAttention(SqlSessionTemplate sqlSession, WebnovelAttention wa);
+	//별점주기 메소드
+	int insertStarPoint(SqlSessionTemplate sqlSession, WebnovelStarPoint wnsp);
+	//별점 정보
+	WebnovelStarPoint selectWnSpOne(SqlSessionTemplate sqlSession, WebnovelStarPoint wnsp);
+	//회차 별점 평균
+	double selectWnrStarPointAvg(SqlSessionTemplate sqlSession, int rid);
+	//회차 별점 평가인원 수
+	int selectstarPointCount(SqlSessionTemplate sqlSession, int rid);
+	//작품 별점 평균
+	double selectAllWnrStarPointAvg(SqlSessionTemplate sqlSession, int wid);
+	//작품 전체 평가인원수
+	int selectAllStarPointCount(SqlSessionTemplate sqlSession, int wid);
 	
 	
 }

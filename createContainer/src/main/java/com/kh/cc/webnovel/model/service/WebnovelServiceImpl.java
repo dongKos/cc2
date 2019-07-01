@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.dao.WebnovelDao;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
+import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
 @Service
 public class WebnovelServiceImpl implements WebnovelService{
@@ -197,6 +199,51 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre) {
 		return wd.challengeCloseList(sqlSession, pi, genre);
+	}
+	//조회수 증가 메소드
+	@Override
+	public int updateCount(WebnovelRound wnr) {
+		return  wd.updateCount(sqlSession, wnr);
+	}
+	//관심 등록 메소드
+	@Override
+	public int insertAttention(WebnovelAttention wa) {
+		return  wd.insertAttention(sqlSession, wa);
+	}
+	//관심등록 정보 메소드
+	@Override
+	public WebnovelAttention selectAttention(WebnovelAttention wa) {
+		return  wd.selectAttention(sqlSession, wa);
+	}
+	//별점주기 메소드
+	@Override
+	public int insertStarPoint(WebnovelStarPoint wnsp) {
+		return wd.insertStarPoint(sqlSession, wnsp);
+	}
+	//별점 정보
+	@Override
+	public WebnovelStarPoint selectWnSpOne(WebnovelStarPoint wnsp) {
+		return  wd.selectWnSpOne(sqlSession, wnsp);
+	}
+	//회차 별점 평균
+	@Override
+	public double selectWnrStarPointAvg(int rid) {
+		return  wd.selectWnrStarPointAvg(sqlSession, rid);
+	}
+	//회차 별점 평가인원 수
+	@Override
+	public int selectstarPointCount(int rid) {
+		return  wd.selectstarPointCount(sqlSession, rid);
+	}
+	//작품 별점 평균
+	@Override
+	public double selectAllWnrStarPointAvg(int wid) {
+		return  wd.selectAllWnrStarPointAvg(sqlSession, wid);
+	}
+	//작품 전체 평가인원수
+	@Override
+	public int selectAllStarPointCount(int wid) {
+		return  wd.selectAllStarPointCount(sqlSession, wid);
 	}
 	
 	
