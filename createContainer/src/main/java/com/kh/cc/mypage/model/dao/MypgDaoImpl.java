@@ -32,38 +32,66 @@ public class MypgDaoImpl implements MypgDao{
 	public Webnovel selectWork(SqlSessionTemplate sqlSession, int wid) {
 		return sqlSession.selectOne("Mypage.selectWork", wid);
 	}
+	//작품회차 카운팅
+	@Override
+	public int countRound(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Mypage.countRound", wid);
+	}
+	@Override
+	public String getChangeName(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Mypage.getChangeName", wid);
+	}
 	
 	
 	//작가페이지 프로필설정
-	   
-	   //정보
-	   @Override
-	   public int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp) {
-	      
-	      //System.out.println("dao접근성공??");
-	      //System.out.println(mp);
-	      return sqlSession.update("WriterProfile.updateIntro", mp);
-	   }
-	   //사진
-	   @Override
-	   
-	   public int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto) {
-	      System.out.println("사진 dao 접근성공");
-	      return sqlSession.insert("WriterProfile.writerInformation", mphoto);
-	   }
-	   
-	   //삭제
-	   @Override
-	   public int deletePhoto(SqlSessionTemplate sqlSession, String userId) {
-	      
-	      
-	      return sqlSession.delete("WriterProfile.deletePhoto", userId);
-	   }
+    
+    //정보
+    @Override
+    public int updateWriterProfile(SqlSessionTemplate sqlSession, WriterProfile mp) {
+       
+       //System.out.println("dao접근성공??");
+       //System.out.println(mp);
+       return sqlSession.update("WriterProfile.updateIntro", mp);
+    }
+    //사진
+    @Override
+    
+    public int insertWriterPhoto(SqlSessionTemplate sqlSession, WriterPhoto mphoto) {
+       System.out.println("사진 dao 접근성공");
+       return sqlSession.insert("WriterProfile.writerInformation", mphoto);
+    }
+    
+    //삭제
+    @Override
+    public int deletePhoto(SqlSessionTemplate sqlSession, String userId) {
+       int result = sqlSession.delete("WriterProfile.deletePhoto", userId);
+       System.out.println("dao result " + result);
+       return result;
+    }
 
-	   @Override
-	   public String deletePhotoPath(SqlSessionTemplate sqlSession, String userId) {
-	      return sqlSession.selectOne("WriterProfile.deletePhotoPath", userId);
-	   }
+    @Override
+    public String deletePhotoPath(SqlSessionTemplate sqlSession, String userId) {
+       return sqlSession.selectOne("WriterProfile.deletePhotoPath", userId);
+    }
+    
+    
+    //탈퇴
+ @Override
+ public int resign(SqlSessionTemplate sqlSession, int mno) {
+
+    
+    return sqlSession.update("WriterProfile.resignMember", mno);
+ }
+ 
+ 
+ //프로필설정(왼쪽 사진 바꾸기)
+ @Override
+ public String selectPhoto(SqlSessionTemplate sqlSession, Member m) {
+
+    
+    return sqlSession.selectOne("WriterProfile.selectMember", m.getUserId());
+ }
+
 
 	   
 	   

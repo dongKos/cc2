@@ -26,4 +26,14 @@ public interface MypgDao {
 
 	Webnovel selectWork(SqlSessionTemplate sqlSession, int wid);
 
+	int countRound(SqlSessionTemplate sqlSession, int wid);
+
+	String getChangeName(SqlSessionTemplate sqlSession, int wid);
+	
+	//탈퇴
+	   int resign(SqlSessionTemplate sqlSession, int mno);
+	   
+	//프로필설정(왼쪽사진 바꾸기)
+	String selectPhoto(SqlSessionTemplate sqlSession, Member m);
+
 }
