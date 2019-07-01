@@ -26,4 +26,14 @@ public interface MypgService {
 
 	   Webnovel selectWork(int wid);
 
+	int countRound(int wid);
+
+	String getChangeName(int wid);
+	
+	//탈퇴
+	   int resign(int mno);
+	   
+	//프로필설정(왼쪽 사진 바꾸기)
+	String selectPhoto(Member m);
+
 }

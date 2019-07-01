@@ -1,6 +1,7 @@
 package com.kh.cc.mypage.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.common.WebtoonPagination;
@@ -25,11 +27,9 @@ import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
-
 import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
-import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webtoon.model.service.WebtoonService;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
@@ -139,9 +139,9 @@ public class MypgController {
 				}
 				
 				int listCount = ws.selectListCount(m);
+				int buttonCount = 10;
 				
-				
-				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit);
+				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 				
 				ArrayList<Webnovel> list = ws.selectWnList(pi, m);
 				model.addAttribute("list", list);
@@ -191,14 +191,21 @@ public class MypgController {
 			@RequestMapping("selectReqForm.mg")
 			public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel work) {
 				int wid = Integer.parseInt(request.getParameter("wid"));
-				
+				int Rcount = ms.countRound(wid);
+				String changeName = ms.getChangeName(wid);
 				work = ms.selectWork(wid);
 				
+				model.addAttribute("Thumnail", changeName);
 				model.addAttribute("work", work);
-				
+				model.addAttribute("round", Rcount);
 				return "member/mypage/writerReqPremiumForm";
 			}
-	
+	//작가페이지 - 유료등록 insert
+			@RequestMapping("insertRequest.mg")
+			public String insertRequest(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel work) {
+				return null;
+				
+			}
 		
 		
 		
@@ -213,143 +220,189 @@ public class MypgController {
 		
 		
 			// 소희
-			   // 마이페이지 관심작품 - 웹툰으로 이동
-			   @RequestMapping("mypgIterestWt.mg")
-			   public String showInterestWt() {
+            // 마이페이지 관심작품 - 웹툰으로 이동
+            @RequestMapping("mypgIterestWt.mg")
+            public String showInterestWt() {
 
-			      return "member/mypage/mypageInterestWt";
-			   }
+               return "member/mypage/mypageInterestWt";
+            }
 
-			   // 마이페이지 관심작품 - 웹소설로 이동
-			   @RequestMapping("mypgInterestWn.mg")
-			   public String showInterestWn() {
+            // 마이페이지 관심작품 - 웹소설로 이동
+            @RequestMapping("mypgInterestWn.mg")
+            public String showInterestWn() {
 
-			      return "member/mypage/mypageInterestWn";
-			   }
+               return "member/mypage/mypageInterestWn";
+            }
 
-			   // 마이페이지 관심작가 - 웹툰으로 이동
-			   @RequestMapping("mypgInterestWa.mg")
-			   public String showInterestWa() {
+            // 마이페이지 관심작가 - 웹툰으로 이동
+            @RequestMapping("mypgInterestWa.mg")
+            public String showInterestWa() {
 
-			      return "member/mypage/mypageInterestWtArtist";
-			   }
+               return "member/mypage/mypageInterestWtArtist";
+            }
 
-			   // 마이페이지 관심작가 - 웹소설로 이동
-			   @RequestMapping("mypgInterestWna.mg")
-			   public String showInterestWna() {
-			      return "member/mypage/mypageInterestWnArtist";
-			   }
+            // 마이페이지 관심작가 - 웹소설로 이동
+            @RequestMapping("mypgInterestWna.mg")
+            public String showInterestWna() {
+               return "member/mypage/mypageInterestWnArtist";
+            }
 
-			   // 마이페이지 관심작가 - 일러스트로로 이동
-			   @RequestMapping("mypgInterestIa.mg")
-			   public String showInterestIa() {
-			      return "member/mypage/mypageInterestIArtist";
-			   }
+            // 마이페이지 관심작가 - 일러스트로로 이동
+            @RequestMapping("mypgInterestIa.mg")
+            public String showInterestIa() {
+               return "member/mypage/mypageInterestIArtist";
+            }
 
-			   // 마이페이지 일러스트 - 신청내역으로 이동
-			   @RequestMapping("mypgIllustAf.mg")
-			   public String showIllustAf() {
-			      return "member/mypage/mypageIllustApplicationList";
-			   }
+            // 마이페이지 일러스트 - 신청내역으로 이동
+            @RequestMapping("mypgIllustAf.mg")
+            public String showIllustAf() {
+               return "member/mypage/mypageIllustApplicationList";
+            }
 
-			   // 마이페이지 일러스트 - 후원내역으로 이동
-			   @RequestMapping("mypgIllustSl.mg")
-			   public String showIllustSl() {
-			      return "member/mypage/mypageIllustSupportList";
-			   }
+            // 마이페이지 일러스트 - 후원내역으로 이동
+            @RequestMapping("mypgIllustSl.mg")
+            public String showIllustSl() {
+               return "member/mypage/mypageIllustSupportList";
+            }
 
-			   // 작가페이지 - My웹툰 - 무료
-			   @RequestMapping("writeWtFree.mg")
-			   public String showWriteWt() {
-			      return "member/mypage/writeWt";
-			   }
+            // 작가페이지 - My웹툰 - 무료
+            @RequestMapping("writeWtFree.mg")
+            public String showWriteWt() {
+               return "member/mypage/writeWt";
+            }
 
-			   // 작가페이지 - My웹툰 - 유료
-			   @RequestMapping("writeWtPay.mg")
-			   public String showWriteWt2() {
-			      return "member/mypage/writeWt2";
-			   }
+            // 작가페이지 - My웹툰 - 유료
+            @RequestMapping("writeWtPay.mg")
+            public String showWriteWt2() {
+               return "member/mypage/writeWt2";
+            }
 
-			   // 작가페이지 - My 웹소설 - 무료
-			   @RequestMapping("writeWnoFree.mg")
-			   public String showWriteWnoFree() {
-			      return "member/mypage/writeWno";
-			   }
+            // 작가페이지 - My 웹소설 - 무료
+            @RequestMapping("writeWnoFree.mg")
+            public String showWriteWnoFree() {
+               return "member/mypage/writeWno";
+            }
 
-			   // 작가페이지 - My 웹소설 - 유료
-			   @RequestMapping("writeWnoPay.mg")
-			   public String showWriteWnoPay() {
-			      return "member/mypage/writeWnoPay";
-			   }
+            // 작가페이지 - My 웹소설 - 유료
+            @RequestMapping("writeWnoPay.mg")
+            public String showWriteWnoPay() {
+               return "member/mypage/writeWnoPay";
+            }
 
-			   // 작가페이지 - 정산관리
-			   @RequestMapping("Administration.mg")
-			   public String showAdministration() {
-			      return "member/mypage/writeAdministration";
-			   }
+            // 작가페이지 - 정산관리
+            @RequestMapping("Administration.mg")
+            public String showAdministration() {
+               return "member/mypage/writeAdministration";
+            }
 
-			   // 작가페이지 - 후원신청
-			   @RequestMapping("Support.mg")
-			   public String showSupport() {
-			      return "member/mypage/writeSupport";
-			   }
+            // 작가페이지 - 후원신청
+            @RequestMapping("Support.mg")
+            public String showSupport() {
+               return "member/mypage/writeSupport";
+            }
 
-			   // RequestParam name =
-			   // 작가페이지 - 작가프로필설정
-			   @RequestMapping(value = "memberUpdate.mg")
-			   public String insertNovel(Model model, WriterProfile mp, HttpServletRequest request, HttpSession session,
-			         WriterPhoto mphoto, Member m, @RequestParam(name = "photo", required = false) MultipartFile photo) {
-			      System.out.println("성공했나");
-			      m = (Member) session.getAttribute("loginUser");
-			      String userId = m.getUserId();
-			      mp.setUserId(userId);
-			      System.out.println(userId);
-			      System.out.println(mp);
+            // RequestParam name =
+            // 작가페이지 - 작가프로필설정
+            @RequestMapping(value = "memberUpdate.mg")
+            public String insertNovel(Model model, WriterProfile mp, HttpServletRequest request, HttpSession session,
+                  WriterPhoto mphoto, Member m, @RequestParam(name = "photo", required = false) MultipartFile photo) {
+               System.out.println("성공했나");
+               m = (Member) session.getAttribute("loginUser");
+               String userId = m.getUserId();
+               mp.setUserId(userId);
+               System.out.println(userId);
+               System.out.println(mp);
 
-			      String root = request.getSession().getServletContext().getRealPath("resources");
+               String root = request.getSession().getServletContext().getRealPath("resources");
 
-			      String filePath = root + "\\uploadFiles\\writerProfile";
-			      String originFileName = photo.getOriginalFilename();
-			      String ext = originFileName.substring(originFileName.lastIndexOf("."));
-			      String changeFileName = CommonUtils.getRandomString();
+               String filePath = root + "\\uploadFiles\\writerProfile";
+               String originFileName = photo.getOriginalFilename();
+               String ext = originFileName.substring(originFileName.lastIndexOf("."));
+               String changeFileName = CommonUtils.getRandomString();
 
-			      System.out.println("filePath : " + filePath);
-			      System.out.println("originFileName : " + originFileName);
-			      System.out.println("changeFileName : " + changeFileName + ext);
+               System.out.println("filePath : " + filePath);
+               System.out.println("originFileName : " + originFileName);
+               System.out.println("changeFileName : " + changeFileName + ext);
 
-			      mphoto.setOriginName(originFileName);
-			      mphoto.setChangeName(changeFileName + ext);
-			      mphoto.setFilePath(filePath);
-			      mphoto.setUserId(userId);
+               mphoto.setOriginName(originFileName);
+               mphoto.setChangeName(changeFileName + ext);
+               mphoto.setFilePath(filePath);
+               mphoto.setUserId(userId);
 
-			      try {
-			         photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
-			         System.out.println("try부분 접근성공?");
-			         int result = ms.insertWriterProfile(mp, mphoto);
+               try {
+                  photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+                  System.out.println("try부분 접근성공?");
+                  int result = ms.insertWriterProfile(mp, mphoto);
 
-			         System.out.println("들어왔냐?");
-			         changeFileName = ms.deletePhotoPath(userId);
-			         new File(filePath + "\\" + changeFileName).delete();
-			         ms.deletePhoto(userId);
+                  System.out.println("들어왔냐?");
+                  changeFileName = ms.deletePhotoPath(userId);
+                  new File(filePath + "\\" + changeFileName).delete();
+                  //ms.deletePhoto(userId);
 
-			         return "member/mypage/writeWt"; // 성공했을 때 돌아가야하는곳
-			      } catch (Exception e) {
-			         System.out.println(e.getMessage());
-			         new File(filePath + "\\" + changeFileName + ext).delete();
+                  return "member/mypage/writeWt"; // 성공했을 때 돌아가야하는곳
+               } catch (Exception e) {
+                  System.out.println(e.getMessage());
+                  new File(filePath + "\\" + changeFileName + ext).delete();
 
-			         model.addAttribute("msg", "프로필 설정 실패!!");
+                  model.addAttribute("msg", "프로필 설정 실패!!");
 
-			         return "common/errorPage";
-			      }
+                  return "common/errorPage";
+               }
 
-			   }
+            }
+            
+            
+            
+            //프로필설정(왼쪽 사진 바꾸기)
+            @RequestMapping(value = "selectMember.mg")
+            public void chagePhoto(@RequestParam("userId")String id,Member m ,HttpServletRequest request,
+                        HttpServletResponse response) {
+               ObjectMapper mapper = new ObjectMapper();
+               System.out.println("성공했나");
+               String userId = request.getParameter("userId");
+               m.setUserId(userId);
+                  System.out.println("사진 가져오는거 접근성공했니");
+             String chageName =  ms.selectPhoto(m);
+             System.out.println(chageName);
+             try {
+               response.getWriter().print(mapper.writeValueAsString(chageName));
+            } catch (IOException e) {
+               
+               
+               e.printStackTrace();
+            }
+            // session.setAttribute("changeName", chageName);
+                  //return "member/mypage/writeWt"; 
 
-			   // 마이페이지 - 회원탈퇴
-			   /*
-			    * @RequestMapping("updateResign.mg") public String updateResign(Model model,
-			    * WriterProfile mp, HttpServletRequest request, HttpSession session,
-			    * WriterPhoto mphoto, Member m, m = (Member) session.getAttribute("loginUser");
-			    * return "" }
-			    */
+            }
+         //   //2. ObjectMapper를 이용한 ajax 처리(jackson lib사용)
+         //   @RequestMapping(value="duplicationCheck.me")
+         //   public void duplicationCheck(@RequestParam("userId")String id,
+//                              HttpServletResponse response) {
+//               
+//               ObjectMapper mapper = new ObjectMapper();
+//               
+//               Member m = new Member();
+//               m.setUserId(id);
+//               
+//               try {
+//                  response.getWriter().print(mapper.writeValueAsString(m));
+//               } catch (IOException e) {
+//                  e.printStackTrace();
+//               }
+         //   }
+            
+            
+            //마이페이지 - 회원탈퇴
+            @RequestMapping(value = "memberResign.mg")
+            public String resign(Model model, Member mp, HttpServletRequest request, HttpSession session) {
+               mp = (Member) session.getAttribute("loginUser");
+               
+               int result = ms.resign(mp.getMno());
+               System.out.println("result : " + result);
+               session.invalidate();
+            return "index";
+            }
+
 }
 

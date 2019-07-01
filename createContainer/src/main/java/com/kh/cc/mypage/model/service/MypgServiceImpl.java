@@ -50,47 +50,75 @@ public class MypgServiceImpl implements MypgService{
 		
 		return md.selectWork(sqlSession, wid);
 	}
+	//작품회차 카운팅
+	@Override
+	public int countRound(int wid) {
+		return md.countRound(sqlSession, wid);
+	}
+	@Override
+	public String getChangeName(int wid) {
+		return md.getChangeName(sqlSession, wid);
+	}
 	
 	
 	
 	
 	
-	//소희
-	   //작가페이지 - 프로필설정
-	   @Override
-	   public int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto) {
-	      System.out.println("서비스포토" + mphoto);
-	      
-	      int result = 0;
-	      System.out.println("서비스 접근 성공");
-	      int result1 = md.updateWriterProfile(sqlSession, mp);
-	      int result2 = md.insertWriterPhoto(sqlSession, mphoto);
-	      
-	      //System.out.println("photo접근");
-	      //if(result1 > 0 && result2 > 0) {
-	      //   result = 1;
-	      //}else {
-	      //   result = 0;
-	      //}
-	      //System.out.println("result1 : " + result1);
-	      System.out.println("result2 : " + result2);
-	      return result2;
-	   }
-	   
-	   //작가페이지 - 프로필 삭제
-	   @Override
-	   public int deletePhoto(String userId) {
-	      int result = md.deletePhoto(sqlSession,userId);
-	      
-	      
-	      return result;
-	   }
+	   //소희
+    //작가페이지 - 프로필설정
+    @Override
+    public int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto) {
+       System.out.println("서비스포토" + mphoto);
+       
+       int result = 0;
+       System.out.println("서비스 접근 성공");
+       int result1 = md.updateWriterProfile(sqlSession, mp);
+       int result2 = md.insertWriterPhoto(sqlSession, mphoto);
+       int result3 = md.deletePhoto(sqlSession,mp.getUserId());
+       System.out.println("service result3" + result3);
+       //System.out.println("photo접근");
+       //if(result1 > 0 && result2 > 0) {
+       //   result = 1;
+       //}else {
+       //   result = 0;
+       //}
+       //System.out.println("result1 : " + result1);
+       System.out.println("result2 : " + result2);
+       return result2;
+    }
+    
+    //작가페이지 - 프로필 삭제
+    @Override
+    public int deletePhoto(String userId) {
+       int result = md.deletePhoto(sqlSession,userId);
+       
+       
+       return result;
+    }
 
-	   @Override
-	   public String deletePhotoPath(String userId) {
-	      String cpath = md.deletePhotoPath(sqlSession, userId);
-	      return cpath;
-	   }
+    @Override
+    public String deletePhotoPath(String userId) {
+       String cpath = md.deletePhotoPath(sqlSession, userId);
+       return cpath;
+    }
+    
+    
+    //탈퇴
+ @Override
+ public int resign(int mno) {
+
+    return md.resign(sqlSession, mno);
+ }
+ //프로필설정(왼쪽 사진 바꾸기)
+ @Override
+ public String selectPhoto(Member m) {
+
+    
+    return md.selectPhoto(sqlSession, m);
+ }
+
+
+
 
 }
 

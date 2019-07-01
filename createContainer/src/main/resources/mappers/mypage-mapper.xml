@@ -88,6 +88,18 @@
 		WHERE A.WID = #{wid}
 		AND A.ATTACHMENT_CATEGORY = 'ma' 
 	</select>
+	<!-- 회차 카운팅 -->
+	<select id="countRound" parameterType="int" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK_ROUND
+		WHERE WID = #{wid}
+	</select>
+	<select id="getChangeName" parameterType="int" resultType="java.lang.String">
+		SELECT CHANGE_NAME
+		FROM ATTACHMENT
+		WHERE WID = #{wid}
+		AND ATTACHMENT_CATEGORY = 'ma'
+	</select>
 	
 </mapper>
 
