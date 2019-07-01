@@ -3,10 +3,10 @@ package com.kh.cc.common;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 
 public class WebnovelPagination {
-	public static WebnovelPageInfo getPageInfo(int currentPage, int listCount, int limit) {
+	public static WebnovelPageInfo getPageInfo(int currentPage, int listCount, int limit, int buttonCount) {
 		WebnovelPageInfo pi = null;
 		
-		int buttonCount = 10;
+		//int buttonCount = 10;
 		int maxPage;
 		int startPage;
 		int endPage;

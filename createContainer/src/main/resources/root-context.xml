@@ -41,7 +41,7 @@
 				<tx:method name="insert*" rollback-for="Exception"
 							propagation="REQUIRED" isolation="SERIALIZABLE"/>
 				<tx:method name="update*" rollback-for="Exception"
-							propagation="REQUIRED" isolation="SERIALIZABLE"/>
+							propagation="REQUIRED" isolation="READ_COMMITTED"/>
 				<tx:method name="delete*" rollback-for="Exception"
 							propagation="REQUIRED" isolation="SERIALIZABLE"/>
 			</tx:attributes>

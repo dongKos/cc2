@@ -22,6 +22,7 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
 		<result property="nickname" column="NICKNAME"/>
+		<result property="attentionId" column="ATTENTION_ID"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
@@ -49,6 +50,20 @@
 		<result property="rContent" column="RCONTENT"/>
 		<result property="wrComment" column="WR_COMMENT"/>
 		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="attentionId" column="ATTENTION_ID"/>
+	</resultMap>
+	<!-- 웹소설 관심 등록-->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelAttention" id="WebnovelAttentionResultSet">
+		<id property="attentionId" column="ATTENTION_ID"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	<!-- 웹소설 별점-->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelStarPoint" id="WebnovelStarPointResultSet">
+		<id property="starpId" column="STARP_ID"/>
+		<result property="starPoint" column="STAR_POINT"/>
+		<result property="rid" column="RID"/>
+		<result property="userId" column="USER_ID"/>
 	</resultMap>
 	
 	<!-- 작품 등록 메소드 -->
@@ -217,6 +232,62 @@
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	<!-- 조회수 증가 메소드 -->
+	<update id="updateCount" parameterType="WebnovelRound">
+		UPDATE WORK 
+		SET VCOUNT=(SELECT VCOUNT FROM WORK WHERE WID=#{wid}) +1 
+		WHERE WID=#{wid}
+	</update>
+	<!-- 관심 등록 메소드 -->
+	<insert id="insertAttention" parameterType="WebnovelAttention">
+		INSERT INTO ATTENTION VALUES (ATC_SEQ.NEXTVAL, #{wid}, #{userId})
+	</insert>
+	<!-- 관심 등록 정보 메소드 -->
+	<select id="selectAttention" parameterType="WebnovelAttention" resultMap="WebnovelAttentionResultSet">
+		SELECT * 
+		FROM ATTENTION
+		WHERE WID = #{wid}
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 별점주기 메소드 -->
+	<insert id="insertStarPoint" parameterType="WebnovelStarPoint">
+		INSERT INTO STARP VALUES (STP_SEQ.NEXTVAL, #{starPoint}, #{rid}, #{userId})
+	</insert>
+	<!-- 별점 정보 -->
+	<select id="selectWnSpOne" parameterType="WebnovelStarPoint" resultMap="WebnovelStarPointResultSet">
+		SELECT * 
+		FROM STARP
+		WHERE RID = #{rid}
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 회차 별점 평균 -->
+	<select id="selectWnrStarPointAvg" parameterType="int" resultType="_double">
+		SELECT TRUNC(AVG(STAR_POINT), 2)
+		FROM STARP
+		WHERE RID = #{rid}
+	</select>
+	<!-- 회차 별점 평가인원 수 -->
+	<select id="selectstarPointCount" parameterType="int" resultType="_int">
+		SELECT COUNT(*)
+		FROM STARP
+		WHERE RID = #{rid}
+	</select>
+	<!-- 작품 별점 평균 -->
+	<select id="selectAllWnrStarPointAvg" parameterType="int" resultType="_double">
+		SELECT TRUNC(AVG(STAR_POINT), 2)
+		FROM STARP P 
+		JOIN WORK_ROUND WR ON(WR.RID = P.RID)
+		JOIN WORK W ON(WR.WID = W.WID)
+		WHERE W.WID = #{wid}
+	</select>
+	<!-- 작품 전체 평가인원 수 -->
+	<select id="selectAllStarPointCount" parameterType="int" resultType="_int">
+		SELECT COUNT(*)
+		FROM STARP P 
+		JOIN WORK_ROUND WR ON(WR.RID = P.RID)
+		JOIN WORK W ON(WR.WID = W.WID)
+		WHERE W.WID = #{wid}
 	</select>
 </mapper>
 

@@ -9,9 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
+import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
 @Repository
 public class WebnovelDaoImpl implements WebnovelDao{
@@ -175,6 +177,66 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		list = (ArrayList) sqlSession.selectList("Webnovel.challengeCloseList", genre, rowBounds);
 		
 		return list;
+	}
+	//조회수 업데이트
+	@Override
+	public int updateCount(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.update("Webnovel.updateCount", wnr);
+	}
+	//관심등록 메소드
+	@Override
+	public int insertAttention(SqlSessionTemplate sqlSession, WebnovelAttention wa) {
+		return sqlSession.insert("Webnovel.insertAttention", wa);
+	}
+	//관심등록 정보 메소드
+	@Override
+	public WebnovelAttention selectAttention(SqlSessionTemplate sqlSession, WebnovelAttention wa) {
+		return sqlSession.selectOne("Webnovel.selectAttention", wa);
+	}
+	//별점주기 메소드
+	@Override
+	public int insertStarPoint(SqlSessionTemplate sqlSession, WebnovelStarPoint wnsp) {
+		return sqlSession.insert("Webnovel.insertStarPoint", wnsp);
+	}
+	//별점정보
+	@Override
+	public WebnovelStarPoint selectWnSpOne(SqlSessionTemplate sqlSession, WebnovelStarPoint wnsp) {
+		System.out.println(wnsp.getRid());
+		System.out.println(wnsp.getUserId());
+		return sqlSession.selectOne("Webnovel.selectWnSpOne", wnsp);
+	}
+	//회차 별점 평균
+	@Override
+	public double selectWnrStarPointAvg(SqlSessionTemplate sqlSession, int rid) {
+		
+		double result = 0;
+		if(sqlSession.selectOne("Webnovel.selectWnrStarPointAvg", rid) == null) {
+			result = 0;
+		}else {
+			result = sqlSession.selectOne("Webnovel.selectWnrStarPointAvg", rid);
+		}
+		return result;
+	}
+	//회차 별점 평가인원 수
+	@Override
+	public int selectstarPointCount(SqlSessionTemplate sqlSession, int rid) {
+		return sqlSession.selectOne("Webnovel.selectstarPointCount", rid);
+	}
+	//작품 별점 평군
+	@Override
+	public double selectAllWnrStarPointAvg(SqlSessionTemplate sqlSession, int wid) {
+		double result = 0;
+		if(sqlSession.selectOne("Webnovel.selectAllWnrStarPointAvg", wid) == null) {
+			result = 0;
+		}else {
+			result = sqlSession.selectOne("Webnovel.selectAllWnrStarPointAvg", wid);
+		}
+		return result;
+	}
+	//작품 전체 평가인원수
+	@Override
+	public int selectAllStarPointCount(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webnovel.selectAllStarPointCount", wid);
 	}
 	
 

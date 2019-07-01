@@ -11,6 +11,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
+td{
+	border:1px solid black;
+}
 .introArea{
 	margin-top:30px;
 	border:1px solid lightgray;
@@ -19,7 +22,6 @@
 .introTable{
 	width:100%;
 	text-align:center;
-	
 }
 .introImg{
 	padding:5px 5px 5px 5px;
@@ -29,7 +31,7 @@
 	height:160px;
 }
 .wnrBtn{
-	width:160px;
+	width:130px;
 	height:30px;
 	border-radius:8px 8px 8px 8px;
 	background-color:skyblue;
@@ -45,11 +47,12 @@
 	color:white;
 }
 .wnrTitle{
+	float:left;
 	font-weight:bold;
 	font-size:17px;
 }
 .wnrIntro{
-	padding:10px 30px 10px 30px;
+	float:left;
 	text-align:left;
 }
 .wnrListArea{
@@ -125,6 +128,9 @@
 	text-align:right;
 	padding-right:30px;
 }
+.btnArea{
+	padding-top:20px;
+}
 .wnrArea{
 	background-color:#FBFBFB;
 	padding:0px 20px 50px 20px;
@@ -163,7 +169,7 @@
 	color:red;
 }
 .wnrTitleArea{
-	width:300px;
+	width:200px;
 	line-height:40px;
 	cursor:pointer;
 }
@@ -182,6 +188,59 @@
 .modal-footer{
 	text-align:center;
 }
+.glyphicon-star-empty{
+
+}
+.attentionBtn{
+	width:100px;
+	height:30px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+	border-radius: 5px;
+}
+.starP{
+	padding-left:10px;
+	width:150px;
+	line-height:30px;
+}	
+.starAvg{
+	display:inline;
+	color:red;
+	font-size:15px;
+	font-weight:bold;
+}
+.starAll{
+	display:inline;
+	margin-left:10px;
+	color:gray;
+	font-size:15px;
+}
+.testImg{
+	width:100%;
+	font-size:10px;
+}
+.bestImg{
+	width:80px;
+	padding:5px 5px 5px 5px;
+	font-size:10px;
+}
+.bestTitle{
+	width:150px;
+	height:30px;
+	font-size:10px;
+}
+.bestGenre{
+	font-size:10px;
+	height:20px;
+}
+.bestSp{
+	font-size:10px;
+}
+
 </style>
 </head>
 <body>
@@ -216,24 +275,49 @@
 								<p class="wnrTitle">${ wn.wTitle }</p>
 							</td>
 							<td>
+								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+								</c:if>
+								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+									<c:if test="${ empty sessionScope.loginUser }">
+										<button class="attentionBtn" type="button" onclick="location.href='loginForm.me'">
+										<span class="glyphicon glyphicon-star-empty" ></span> 관심등록
+									</button>
+									</c:if>
+									<c:if test="${ !empty sessionScope.loginUser }">
+										<c:if test="${wa.attentionId != null}">
+											<button class="attentionBtn" type="button" onclick="attentionId()">
+												<span class="glyphicon glyphicon-star"></span> 관심등록
+											</button>
+										</c:if>
+										<c:if test="${wa.attentionId == null}">
+											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid}">
+												<span class="glyphicon glyphicon-star-empty"></span> 관심등록
+											</button>
+										</c:if>
+									</c:if>
+								</c:if>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td colspan="1">
 								<p class="wnrIntro">${ wn.wIntro }</p>
 							</td>
+							<td class="starP" colspan="1">
+								
+							</td>
 						</tr>
 						<tr>
-								<td colspan="2">
-									<c:if test="${sessionScope.loginUser.userId == wn.userId}">
-										<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid}">신규 회차 등록</button>
-										<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid}">작품 정보 수정</button>
-										<button class="wnrBtn" type="button">휴재 신청</button>
-									</c:if>
-									<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-										<button class="wnrBtn" type="button" onclick="location.href=''">첫회보기</button>
-									</c:if>
-								</td>
+							<td class="btnArea"colspan="2">
+								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid}">신규 회차 등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid}">작품 정보 수정</button>
+									<button class="wnrBtn" type="button">휴재 신청</button>
+								</c:if>
+								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}  +'&currentPage='+${pi.listCount}">첫회보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}  +'&currentPage='+${pi.currentPage}">최신화보기</button>
+								</c:if>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -265,10 +349,13 @@
 							</tr>
 							<tr>
 								<td class="wnrContent">
+									<h1>${status.end}</h1>
 									<p class="wnrTitleArea">${ wnr.rTitle }</p>
 								</td>
 								<td class="wnrBtnArea">
 									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${status.index + 1}">
 									<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
 									<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
 								</td>
@@ -310,46 +397,71 @@
 			
 				<!-- 자신의 작품이 아닌경우 -->
 				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-				<div class="col-sm-7">
+				<div class="col-sm-8">
 					<div class="wnrListArea">
 						<c:forEach var="wnr" items="${ list }" varStatus="status">
-							<table class="wnrTable">
-								<tr>
-									<td rowspan="3" class="wnrImg">
-										<div class="subImg">
-										<c:if test="${ workStatus eq 'CLOSE'}">
-											<div class="wnrStatus">완결</div>
-											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-										</c:if>
-										<c:if test="${ workStatus eq 'COMPLTE'}">
-											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-										</c:if>
-										</div>
-									</td>
-									<td colspan="2" class="wnrContent"></td>
-								</tr>
-								<tr>
-									<td class="wnrContent">
-										<p class="wnrTitleArea">${ wnr.rTitle }</p>
-									</td>
-									<td class="wnrBtnArea">
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" class="wnrContent">
-										조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-										${ wnr.ruploadDate }
-									</td>
-								</tr>
-							</table>
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'CLOSE'}">
+										<div class="wnrStatus">완결</div>
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'COMPLTE'}">
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<p class="wnrTitleArea">${ wnr.rTitle }</p>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${status.index + 1}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+						
+					</c:forEach>
 							
-						</c:forEach>
 					</div>
 				</div>
-				<div class="col-sm-5">
-				
-				<!-- 추천 작품 -->
-				
+				<div class="col-sm-4">
+					<!-- 베스트 도전 작품 -->
+					<h4 align="center">베스트 도전 작품</h4>
+					<table class="bestWn">
+						<tr>
+							<td class="bestImg" rowspan="4">
+								<img class="testImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
+							</td>
+						</tr>
+						<tr>
+							<td  class="bestTitle">
+								1번소설
+							</td>
+						</tr>
+						<tr>
+							<td class="bestGenre">
+								판타지
+							</td>
+						</tr>
+						<tr>
+							<td class="bestSp">
+								별점점점
+							</td>
+						</tr>
+					</table>				
 				</div>
 				</c:if>
 			</div>
@@ -408,26 +520,87 @@
 	
 	
 	<script>
+		function attentionId(){
+			alert("이미 관심등록을 하셨습니다.");
+		}
+		function fisrtWnr(){
+			$('.wnrListArea').find('td').children('p').click(function(){
+				var wid = $(this).parents().parents().children().children("input").eq(1).val();
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid +"&currentPage=" + ${pi.listCount };
+			});
+		}
 		$(function(){
 			$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
-				var rid = $(this).parents().children("input").val();
+				var rid = $(this).parents().children("input").eq(0).val();
 				console.log(rid);
 				location.href = "deleteWnRound.wn?rid=" + rid;
 			});	
 			
 			$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
-				var rid = $(this).parents().children("input").val();
+				var rid = $(this).parents().children("input").eq(0).val();
+				console.log(rid);
 				location.href = "selectWnrUpdateForm.wn?rid=" + rid;
 			});
 			
 			$('.wnrListArea').find('td').children('p').click(function(){
 				var rid = $(this).parents().parents().children().children("input").eq(0).val();
-				
-				location.href = "selectDetailedWebnovel.wn?rid=" + rid;
+				var wid = $(this).parents().parents().children().children("input").eq(1).val();
+				var currentPage = $(this).parents().parents().children().children("input").eq(2).val();
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid +"&currentPage=" + currentPage;
 			});
 		});
+		$(document).ready(function(){
+			var wid = ${ wn.wid};
+			$.ajax({
+				url:"selectAllStarAvgCnt.wn",
+				type:"get",
+				data:{wid:wid},
+				success:function(data){
+					var stpAvg = data.wnrStarPointAvg;
+					var stpCnt = data.starPointCount;
+					$(".starP").empty();
+					
+					if(stpAvg >= 4.5){
+						$(".starP").append(
+						'<p class="starAvg">&#11088; &#11088; &#11088; &#11088; &#11088; <br>' + stpAvg + '</p>' + 
+						'<p class="starAll">'+ stpCnt + '명 참여 </p>'
+						);
+					}else if(stpAvg >= 3.5){
+						$(".starP").append(
+							'<p class="starAvg">&#11088; &#11088; &#11088; &#11088; <br>' + stpAvg + '</p>' + 
+							'<p class="starAll">'+ stpCnt + '명 참여 </p>'
+						);
+					}else if(stpAvg >= 2.5){
+						$(".starP").append(
+							'<p class="starAvg">&#11088; &#11088; &#11088; <br>' + stpAvg + '</p>' + 
+							'<p class="starAll">'+ stpCnt + '명 참여 </p>'
+						);
+					}else if(stpAvg >= 1.5){
+						$(".starP").append(
+							'<p class="starAvg">&#11088; &#11088; <br>' + stpAvg + '</p>' + 
+							'<p class="starAll">'+ stpCnt + '명 참여 </p>'
+						);
+					}else if(stpAvg >= 1){
+						$(".starP").append(
+							'<p class="starAvg">&#11088; <br>' + stpAvg + '</p>' + 
+							'<p class="starAll">'+ stpCnt + '명 참여 </p>'
+						);
+					}else{
+						$(".starP").append(
+							"<p>아직 별점이 없습니다.</p>"
+						);
+					}
+					
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+			
+		});
+
+
 	</script>
-	
 	
 	
 </body>
