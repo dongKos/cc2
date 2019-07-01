@@ -120,6 +120,9 @@ public class AdminDaoImpl implements AdminDao{
 	//신고내역 조회 페이지 REPORT_TYPE 조건검색 AJAX
 	@Override
 	public ArrayList<Report> reportStatus(SqlSessionTemplate sqlSession, String statusVal, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
 		String str = "";
 		if(statusVal.equals("1")) {
 			str = "댓글";
@@ -127,13 +130,11 @@ public class AdminDaoImpl implements AdminDao{
 			str = "작품";
 		}else if(statusVal.equals("3")){
 			str = "회차";
-		}else {
+		}else if(statusVal.equals("4")){
 			str= "게시판";
+		}else {
+			return (ArrayList)sqlSession.selectList("admin.selectReportList", null, rowBounds);
 		}
-		
-		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
-		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("admin.reportStatus", str, rowBounds);
 	}
@@ -148,8 +149,10 @@ public class AdminDaoImpl implements AdminDao{
 			str = "작품";
 		}else if(statusVal.equals("3")){
 			str = "회차";
-		}else {
+		}else if(statusVal.equals("4")){
 			str= "게시판";
+		}else {
+			return sqlSession.selectOne("admin.selectReportCount");
 		}
 		
 		return sqlSession.selectOne("admin.selectReportAjaxCount", str);
@@ -220,6 +223,77 @@ public class AdminDaoImpl implements AdminDao{
 		case 4 : return (ArrayList)sqlSession.selectList("admin.selectBlackMemberList", null, rowBounds);
 		case 5 : return (ArrayList)sqlSession.selectList("admin.selectDeleteMemberList", null, rowBounds);
 		default: return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
+		}
+	}
+
+	//게시판 관리 - 게시글 관리 페이지
+	@Override
+	public int getBoardListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectBoardCount");
+	}
+
+	//전체 게시글 조회
+	@Override
+	public ArrayList<Member> selectBoardList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectBoardList", null, rowBounds);
+	}
+
+	//게시글 조건검색 개수 조회
+	@Override
+	public int getBoardTypeListCount(SqlSessionTemplate sqlSession, int select1, int select2) {
+		String str = "";
+		
+		//1:1 문의
+		if(select1 == 2) {
+			switch(select2) {
+		/*전체*/		
+			case 1 : 
+				str = "%";
+				return sqlSession.selectOne("admin.selectOTOBoardTypeListCount",str);
+		/*웹툰*/	
+			case 2 : 
+				str = "WT";
+				return sqlSession.selectOne("admin.selectOTOBoardTypeListCount",str);
+		/*웹소설*/
+			case 3 : 
+				str = "WN";
+				return sqlSession.selectOne("admin.selectOTOBoardTypeListCount",str);
+		/*일러스트*/
+			case 4 :
+				str = "ILL";
+				return sqlSession.selectOne("admin.selectOTOBoardTypeListCount",str);
+		/*기타*/
+			 default :
+				str = "ETC";
+				return sqlSession.selectOne("admin.selectOTOBoardTypeListCount",str);
+			}
+		//공지사항
+		}else {
+			switch(select2) {
+			/*전체*/		
+				case 1 : 
+					str = "%";
+					return sqlSession.selectOne("admin.selectNoticeBoardTypeListCount",str);
+			/*웹툰*/	
+				case 2 : 
+					str = "WT";
+					return sqlSession.selectOne("admin.selectNoticeBoardTypeListCount",str);
+			/*웹소설*/
+				case 3 : 
+					str = "WN";
+					return sqlSession.selectOne("admin.selectNoticeBoardTypeListCount",str);
+			/*일러스트*/
+				case 4 :
+					str = "ILL";
+					return sqlSession.selectOne("admin.selectNoticeBoardTypeListCount",str);
+			/*기타*/
+				default :
+					str = "ETC";
+					return sqlSession.selectOne("admin.selectNoticeBoardTypeListCount",str);
+				}
 		}
 	}
 	

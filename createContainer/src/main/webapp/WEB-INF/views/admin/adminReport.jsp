@@ -54,11 +54,13 @@
 		//신고대상 조건 검색 에이잭스
 		$("#select").change(function(){
 			var statusVal = $(this).val();
+			console.log("넘긴 조건 값"+statusVal);
 			$.ajax({
 				url:"reportStatus.ad",
 				data:{statusVal:statusVal},
 				type:"get",
 				success:function(data){
+					console.log(data);
 					//테이블 재 생성
 					var table = $("#refundTable");
 					var tbody = $('tbody');
@@ -161,9 +163,10 @@
 						statusTd.append($("<input type='checkbox' class='select'>"));
 					}
 					tr.append(rCodeTd);
-					tr.append(rDateTd);
 					tr.append(rUserTd);
-					tr.append(priceTd);
+					tr.append(rTypeTd);
+					tr.append(rReasonTd);
+					tr.append(rDateTd);
 					tr.append(statusTd);
 					tbody.append(tr);
 					table.append(tbody);
@@ -237,8 +240,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-25">
-                                	<select id="select">
-                               			<option selected>선택하세요</option>
+                                	<select id="select" required>
+                               			<option value="5" selected>선택하세요</option>
                                 		<option value="1">댓글</option>
                                 		<option value="2">작품</option>
                                 		<option value="3">회차</option>
