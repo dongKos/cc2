@@ -66,9 +66,9 @@
 					var userNameTd = $("<td>").text(data.list[i].userName);
 					
 					if(data.list[i].memberType == 1){
-						var memberTypeTd = $("<td>").text("프리미엄 작가");
-					}else{
 						var memberTypeTd = $("<td>").text("일반");
+					}else{
+						var memberTypeTd = $("<td>").text("프리미엄 작가");
 					}
 					var joinDateTd = $("<td class='text-right'>").text(date);
 					
@@ -133,18 +133,9 @@
 			error:function(){
 				console.log("실패!");
 			}
-		})
+		});
 		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	}
+	};
 	
 	$(function(){
 		$("#memberTable tr").click(function(){
@@ -161,71 +152,7 @@
 		var selectedLi = selectedUl.children().children().eq(0);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
-		
-		//조건 검색 Ajax
-	/* 	var mType = $("#mType");
-		var currentPage = ${pi.currentPage}; */
-
-	/* 	mType.change(function(){
-			var type = $(this).val();
-			$.ajax({
-				url:"memberType.ad",
-				data:{type:type, currentPage:currentPage},
-				type:"get",
-				success:function(data){
-					console.log(data);
-					var table = $("#memberTable");
-					var tbody = $("#memberTable tbody");
-					tbody.html(" ");
-				
-					for(var i = 0; i < data.list.length;i++){
-						
-						var date = new Date(data.list[i].joinDate).format("yyyy-MM-dd");
-						var tr = $("<tr>");
-						var userIdTd = $("<td>").text(data.list[i].userId);
-						var userNameTd = $("<td>").text(data.list[i].userName);
-						
-						if(data.list[i].memberType == 1){
-							var memberTypeTd = $("<td>").text("프리미엄 작가");
-						}else{
-							var memberTypeTd = $("<td>").text("일반");
-						}
-						var joinDateTd = $("<td class='text-right'>").text(date);
-						
-						if(data.list[i].wCount >= 5){
-							var blackTd = $("<td class='text-right'>").text("블랙회원");
-						}else{
-							var blackTd = $("<td class='text-right'>").text("클린회원");
-						}
-						tr.append(userIdTd);
-						tr.append(userNameTd);
-						tr.append(memberTypeTd);
-						tr.append(joinDateTd);
-						tr.append(blackTd);
-						tbody.append(tr);
-						table.append(tbody);
-					}
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-				},
-				error:function(){
-					console.log("실패!");
-				}
-			})
-		}) */
-		
-	})
+	});
 </script>
 </head>
 

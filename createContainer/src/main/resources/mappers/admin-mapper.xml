@@ -59,6 +59,17 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
 	</resultMap>
+	    <resultMap type="com.kh.cc.admin.model.vo.Board" id="BoardResultSet">
+		<id property="bId" column="B_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCategory" column="BOARD_CATEGORY"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="updateDate" column="UPDATE_DATE"/>
+		<result property="bContent" column="BCONTENT"/>
+		<result property="bTitle" column="BTITLE"/>
+		<result property="status" column="STATUS"/>
+		<result property="otoCategory" column="OTO_CATEGORY"/>
+	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -233,6 +244,38 @@
 		FROM MEMBER
 		WHERE STATUS = 'N'
 	</select>
+	<!-- 게시판 수 전체 조회 -->
+	<select id="selectBoardCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS='Y'
+	</select>
+	<select id="selectBoardList" resultMap="BoardResultSet">
+		SELECT * 
+		FROM BOARD 
+		WHERE STATUS = 'Y'
+		ORDER BY B_ID DESC
+	</select>
+	
+	<!-- 게시글 관리 페이지 조건 검색 - 1:1 문의 개수 조회 -->
+	<select id="selectOTOBoardTypeListCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_CATREGORY = 'OTO'
+		AND OTO_CATEGORY = #{str};
+	</select>
+	
+	<!-- 게시글 관리 페이지 조건 검색 - 공지사항 문의 개수 조회 -->
+	<select id="selectNoticeBoardTypeListCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_CATREGORY = 'NTC'
+		AND OTO_CATEGORY = #{str};
+	</select>
+	
+	
 </mapper>
 	
 

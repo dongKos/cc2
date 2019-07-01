@@ -169,6 +169,7 @@ public class AdminController {
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 
 	}
+	
 	//회원 관리 페이지 상세보기
 	@RequestMapping("showMemberDetail.ad")
 	public String showMemberDetail(HttpServletRequest request, Model model) {
@@ -212,10 +213,60 @@ public class AdminController {
 	
 	//게시판 관리 - 게시글 관리 페이지
 	@RequestMapping("showBoard.ad")
-	public String showBoard() {
+	public String showBoard(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getBoardListCount();
+		
+		System.out.println("게시물 전체 개수 : " + listCount);
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		
+		ArrayList<Member> list = as.selectBoardList(pi);
+		
+		System.out.println("boardList : " + list);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		
 		return "admin/adminBoard";
 	}
 	
+	//게시판 관리 - 게시글 관리  페이지 조건 검색 ajax
+	@RequestMapping(value="boardType.ad")
+	public ResponseEntity<HashMap<String, Object>> boardType(HttpServletRequest request) {
+		//1:1문의 인지 공지사항 인지
+		int select1 = Integer.parseInt(request.getParameter("select1"));
+		//웹툰, 웹소설, 일러스트, 기타 인지
+		int select2 = Integer.parseInt(request.getParameter("select2"));
+		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		
+		  int listCount = as.getBoardTypeListCount(select1, select2);
+		  
+		  AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		  
+		  System.out.println("listCount : " + listCount); System.out.println("pi : " +
+		  pi);
+		  
+		  ArrayList<HashMap<String, Object>> list = as.selectmemberTypeList(pi, select2);
+		  HashMap<String, Object> list2 = new HashMap<String, Object>();
+		  list2.put("pi", pi);
+		 
+
+		
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+
+	}
+		
 	//게시판 관리 - 댓글 관리 페이지
 	@RequestMapping("showBoardReply.ad")
 	public String showBoardReply() {
