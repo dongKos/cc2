@@ -24,6 +24,7 @@
 		<result property="joinDate" column="JOIN_DATE"/>
 	</resultMap>
 
+	<!-- 프로필설정 -->
 	<update id="updateIntro" parameterType="WriterProfile">
 		UPDATE MEMBER
 		SET INTRO = #{intro}
@@ -35,17 +36,38 @@
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'prf', 0, null, null, null, #{userId}) 
 	
 	
-	
+	<!-- 프로필 삭제 -->
 	</insert>
-	<delete id="deletePhoto" parameterType="WriterProfile">
+	<delete id="deletePhoto" parameterType="java.lang.String" >
 	DELETE FROM ATTACHMENT
-	WHERE ROWNUM = 1 and user_id = #{userId};
+	WHERE ROWNUM = 1 and user_id = #{userId}
 	</delete>
 	
-	<select id="deletePhotoPath" parameterType="WriterProfile">
+	<select id="deletePhotoPath" parameterType="java.lang.String" resultType="String">
 	SELECT CHANGE_NAME FROM ATTACHMENT
-	WHERE ROWNUM = 1 and user_id = #{userId};
+	WHERE ROWNUM = 1 and user_id = #{userId}
 	</select>
+	
+	
+	<!-- 탈퇴 -->
+	<update id="resignMember" parameterType="int">
+		UPDATE MEMBER
+		SET STATUS = 'N'
+		WHERE MNO = #{mno}
+	
+	</update>
+	
+	<!-- 프로필설정 왼쪽사진 -->
+	
+	<select id="selectMember" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT CHAGE_NAME 
+	FROM ATTACHMENT
+	WHERE USER_ID = #{userId}
+	AND ATTACHMENT_CATEGORY = 'prf'
+	</select>
+	
+	
+	
 </mapper>
 
 

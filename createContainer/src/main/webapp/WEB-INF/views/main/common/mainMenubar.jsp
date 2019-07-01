@@ -74,7 +74,7 @@
 			<ul class="nav navbar-nav navbar-left">
 				<li><a href="#about">ABOUT</a></li>
 				<li><a href="#services">SERVICES</a></li>
-				<li><a href="#BOARD">BOARD</a></li>
+				<li><a href="NoticeList.mg">BOARD</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->
