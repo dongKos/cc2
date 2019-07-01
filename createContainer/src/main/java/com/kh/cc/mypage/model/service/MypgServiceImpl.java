@@ -10,6 +10,7 @@ import com.kh.cc.mypage.model.dao.MypgDao;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Service
 public class MypgServiceImpl implements MypgService{
@@ -42,6 +43,12 @@ public class MypgServiceImpl implements MypgService{
 		
 		upm = md.updateMember(sqlSession, m);
 		return upm;
+	}
+	//작품 정보 가져오기
+	@Override
+	public Webnovel selectWork(int wid) {
+		
+		return md.selectWork(sqlSession, wid);
 	}
 	
 	
@@ -84,5 +91,6 @@ public class MypgServiceImpl implements MypgService{
 	      String cpath = md.deletePhotoPath(sqlSession, userId);
 	      return cpath;
 	   }
+
 }
 

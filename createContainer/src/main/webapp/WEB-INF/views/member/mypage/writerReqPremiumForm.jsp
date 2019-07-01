@@ -34,6 +34,20 @@
     					
   					</ul>
   					<br>
+  					<table width="100%;">
+  						<tr>
+  							<td width="100px;"><label>작품 제목 : </label></td>
+  							<td><label>${ work.wTitle }</label>
+  						</tr>
+  						<tr>
+  							<td width="100px;"><label>연재 주기 : </label></td>
+  							<td><label>${ work.wCycle }</label>
+  						</tr>
+  						<tr>
+  							<td width="100px;"><label>연재 회차 : </label></td>
+  							<td><label>${ work.wCycle }</label>
+  						</tr>
+  					</table>
 				</div>
     </div>
     <div class="col-sm-2">

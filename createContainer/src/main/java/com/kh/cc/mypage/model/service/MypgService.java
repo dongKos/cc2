@@ -24,4 +24,6 @@ public interface MypgService {
 
 	   String deletePhotoPath(String userId);
 
+	   Webnovel selectWork(int wid);
+
 }

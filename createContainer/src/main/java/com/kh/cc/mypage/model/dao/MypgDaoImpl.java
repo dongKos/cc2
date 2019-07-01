@@ -28,6 +28,11 @@ public class MypgDaoImpl implements MypgDao{
 		
 	}
 	
+	@Override
+	public Webnovel selectWork(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Mypage.selectWork", wid);
+	}
+	
 	
 	//작가페이지 프로필설정
 	   
@@ -59,6 +64,7 @@ public class MypgDaoImpl implements MypgDao{
 	   public String deletePhotoPath(SqlSessionTemplate sqlSession, String userId) {
 	      return sqlSession.selectOne("WriterProfile.deletePhotoPath", userId);
 	   }
+
 	   
 	   
 }

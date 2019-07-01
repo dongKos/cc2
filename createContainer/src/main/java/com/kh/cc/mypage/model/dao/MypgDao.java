@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
@@ -22,5 +23,7 @@ public interface MypgDao {
 	   int deletePhoto(SqlSessionTemplate sqlSession, String userId);
 
 	   String deletePhotoPath(SqlSessionTemplate sqlSession, String userId);
+
+	Webnovel selectWork(SqlSessionTemplate sqlSession, int wid);
 
 }

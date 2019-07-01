@@ -79,7 +79,7 @@
 						});
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().children("input").val();
-							location.href = "selectWnRoundList.wn?wid=" + wid;
+							location.href = "selectReqForm.mg?wid=" + wid;
 						});
 					});
 			
@@ -91,7 +91,7 @@
 						[이전] &nbsp;
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="wnListBack" value="/selectWnList.wn">
+						<c:url var="wnListBack" value="/writerReqPremium2.mg">
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ wnListBack }">[이전]</a> &nbsp;

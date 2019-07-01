@@ -189,12 +189,14 @@ public class MypgController {
 			}
 		//작가페이지 - 유료등록폼
 			@RequestMapping("selectReqForm.mg")
-			public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model) {
+			public String selectWnRoundList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel work) {
 				int wid = Integer.parseInt(request.getParameter("wid"));
 				
+				work = ms.selectWork(wid);
 				
+				model.addAttribute("work", work);
 				
-				return "webnovel/webnovelContents/selectWnRoundList";
+				return "member/mypage/writerReqPremiumForm";
 			}
 	
 		
