@@ -67,6 +67,12 @@ public class IllustratorController {
 		return "illustrator/illustPortpolioDetail";
 	}
 	
+	//일러스트 도전하기 상세페이지로 이동
+	@RequestMapping(value="illustChallengeDetail.ill")
+	public String illustChallengeDetail() {
+		return "illustrator/illustChallengeDetail";
+	}
+	
 	//일러스트 후원 페이지로 이동
 	@RequestMapping("illustSupportDetail.ill")
 	public String illustSupportDetail () {
@@ -333,14 +339,28 @@ public class IllustratorController {
 			return "illustrator/illust_Challenge";
 		}
 		
+		//일러스트 포트폴리오 상세페이지 조회
 		@RequestMapping(value="selectIllPortfolioDetail.ill")
 		public String selectIllPortfolioDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
+			String userId = request.getParameter("userId");
+			System.out.println("컨트롤러 : " + userId);
+			ill.setUserId(userId);
 			ArrayList<Illustrator> list = is.selectIllPortfolioDetail(ill);
 			model.addAttribute("list", list);
 			
-			System.out.println("list" + list);
 			
 			return "illustrator/illustPortpolioDetail";
+		}
+		
+		//일러스트 도전하기 상세페이지 조회
+		@RequestMapping(value="selectIllChallengeDetail.ill")
+		public String selectIllChallengeDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
+			String userId = request.getParameter("userId");
+			ill.setUserId(userId);
+			ArrayList<Illustrator> clist = is.selectIllChallengeDetail(ill);
+			model.addAttribute("clist", clist);
+			
+			return "illustrator/illustChallengeDetail";
 		}
 	
 	

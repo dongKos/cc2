@@ -159,6 +159,24 @@ public class AdminServiceImpl implements AdminService{
 		return ad.selectMemberTypeList(sqlSession, pi, type);
 	}
 	
+	//전체 게시글 수 조회
+	@Override
+	public int getBoardListCount() {
+		return ad.getBoardListCount(sqlSession);
+	}
+	
+	//전체 게시글 조회
+	@Override
+	public ArrayList<Member> selectBoardList(AdminPageInfo pi) {
+		return ad.selectBoardList(sqlSession, pi);
+	}
+	
+	//게시글 조건검색 개수 조회
+	@Override
+	public int getBoardTypeListCount(int select1, int select2) {
+		return ad.getBoardTypeListCount(sqlSession, select1, select2);
+	}
+	
 	
 }
 

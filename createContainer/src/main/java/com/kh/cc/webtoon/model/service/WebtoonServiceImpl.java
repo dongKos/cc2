@@ -87,6 +87,16 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.selectWtRoundList(sqlSession, pi, wt);
 	}
 
+	@Override
+	public Webtoon selectMainPhoto(int wid) {
+		return wd.selectMainPhoto(sqlSession, wid);
+	}
+
+	@Override
+	public Webtoon selectWork(int wid) {
+		return wd.selectWork(sqlSession, wid);
+	}
+
 	
 
 	

@@ -22,6 +22,10 @@ public interface WebtoonService {
 
 	ArrayList<WebtoonRound> selectWtRoundList(WebtoonPageInfo pi, Webtoon wt);
 
+	Webtoon selectMainPhoto(int wid);
+
+	Webtoon selectWork(int wid);
+
 
 
 

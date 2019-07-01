@@ -56,6 +56,7 @@
 		 1, 'WT','COMPLTE', null, #{ageGrade}, #{genre})
 	</insert>
 	
+	
 	<!-- 작품메인 썸내일등록 -->
 	<insert id="insertWtPhoto" parameterType="Webtoon">
 		INSERT INTO ATTACHMENT
@@ -63,6 +64,7 @@
 					 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId})
 	</insert>
 
+	<!-- listcount -->
 	<select id="selectListCount" parameterType="java.lang.String"
 		resultType="_int">
 		SELECT COUNT(*)
@@ -71,6 +73,7 @@
 		AND WORK_TYPE = 'WT'
 	</select>
 
+	<!-- 작품리스트 조회 -->
 	<select id="selectWtList" parameterType="java.lang.String"
 		resultMap="webtoonResultSet">
 		SELECT *
@@ -80,6 +83,7 @@
 		WHERE M.USER_ID = #{userId}
 		AND W.WORK_TYPE = 'WT'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	
 	<!-- 회차 WORK_ROUND 인서트 -->
@@ -88,25 +92,28 @@
 	</insert>
 	
 	<!-- 회차 썸내일 인서트 -->
-	<insert id="insertRoundThumbnail">
+	<insert id="insertRoundThumbnail" parameterType="WebtoonPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
-					 'Y', 'sub', WRID_SEQ.CURRVAL, null, null, #{wid}, NULL)
+					 'Y', 'sub', WRID_SEQ.CURRVAL, null, null, #{wid}, #{userId})
 	</insert>
 	
 	<!-- 웹툰 내용 이미지 인서트 -->
-	<insert id="insertRoundMain">
+	<insert id="insertRoundMain" parameterType="WebtoonPhoto">
 		INSERT INTO ATTACHMENT
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE,
-					 'Y', 'cont', WRID_SEQ.CURRVAL, null, null, #{wid}, NULL)
+					 'Y', 'cont', WRID_SEQ.CURRVAL, null, null, #{wid}, #{userId})
 	</insert>
 
+
+	<!-- 회차리스트 카운트 -->
 	<select id="selectWrListCount" parameterType="WebtoonRound" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK_ROUND
 		WHERE WID = #{wid}
 	</select>
 
+	<!-- 회차 리스트 조회 -->
 	<select id="selectWrList" resultMap="webtoonRoundResultSet">
 		SELECT *
 		FROM ATTACHMENT A
@@ -114,6 +121,25 @@
 		JOIN WORK_ROUND WR ON(A.RID= WR.RID)
 		WHERE A.WID = #{wid}
 		AND ATTACHMENT_CATEGORY = 'sub'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+
+	<!-- 작품 메인사진 셀렉트 -->
+	<select id="selectMainPhoto" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(W.WID = A.WID)
+		WHERE ATTACHMENT_CATEGORY = 'ma'
+		AND A.WID = #{wid}
+	</select>
+
+	
+	<select id="selectWork" resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE W.WID = #{wid}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 
 

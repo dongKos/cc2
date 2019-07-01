@@ -51,13 +51,12 @@
 	<div class="profile">
 		<table>
 			<tr>
-				<td><img src="${contextPath}/resources/images/icon/avatar-06.jpg"></td>
-				<td>김동환님</td>
+				<td><img id="profilePic" src="${contextPath}/resources/uploadFiles/writerProfile/${sessionScope.chageName}"></td>
+				<td>${ sessionScope.loginUser.nickName }</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					보유포인트 : 5000원<br>
-					보유이용권 : 0개
+					보유이용권 : ${ sessionScope.loginUser.wallet }개
 				</td>
 				
 			</tr>
@@ -105,5 +104,20 @@
 		
 
 	</script>
+	<script>
+		$(document).ready(function(){
+			var userId = ${sessionScope.loginUser.userId}
+			$ajax({
+				url:"selectMember.mg",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					console.log(data);
+				}
+			})
+		})
+	</script>
 </body>
 </html>
+
+

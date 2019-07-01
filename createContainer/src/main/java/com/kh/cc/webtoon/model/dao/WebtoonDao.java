@@ -30,6 +30,10 @@ public interface WebtoonDao {
 
 	ArrayList<WebtoonRound> selectWtRoundList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
 
+	Webtoon selectMainPhoto(SqlSessionTemplate sqlSession, int wid);
+
+	Webtoon selectWork(SqlSessionTemplate sqlSession, int wid);
+
 
 
 }

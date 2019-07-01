@@ -42,7 +42,7 @@
   					<div style="text-align:center;">
   					<input type="checkbox" checked><label>&nbsp; 모든 사항을 읽었으며 이에 동의합니다.</label>
 		  					<br>
-  					<button type="button" class="btn btn-info" >확인</button>
+  					<button type="button" class="btn btn-info" onclick="memberResign()">확인</button>
   					</div>
   					
 				</div>
@@ -52,5 +52,14 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+function memberResign(){
+	location.href="memberResign.mg";
+}
+
+</script>
 </body>
 </html>

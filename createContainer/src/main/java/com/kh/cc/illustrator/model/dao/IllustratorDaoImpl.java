@@ -45,6 +45,7 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return sqlSession.selectOne("Illustrator.selectIllPortfolioListCount");
 	}
 
+	//일러스트 포트폴리오 리스트 조회
 	@Override
 	public ArrayList<Illustrator> selectIllPortfolioList(SqlSessionTemplate sqlSession, IllustratorPageInfo pi, Illustrator ill) {
 		ArrayList<Illustrator> list = null;
@@ -58,17 +59,20 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return list;
 	}
 
+	//일러스트 도전하기 글등록 메소드
 	@Override
 	public int insertIllustratorChallenge(SqlSessionTemplate sqlSession, Illustrator ill) {
 		return sqlSession.insert("Illustrator.insertIllustratorChallenge", ill);
 	}
 
+	//일러스트 도전하기 리스트 카운트
 	@Override
 	public int selectIllChallengeListCount(SqlSessionTemplate sqlSession) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Illustrator.selectIllChallengeListCount");
 	}
 
+	//일러스트 도전하기 리스트 조회
 	@Override
 	public ArrayList<Illustrator> selectIllChallengeList(SqlSessionTemplate sqlSession, IllustratorPageInfo pi,
 			Illustrator ill) {
@@ -83,14 +87,32 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return clist;
 	}
 
+	//일러스트 포트폴리오 상세페이지 조회
 	@Override
 	public ArrayList<Illustrator> selectIllPortfolioDetail(SqlSessionTemplate sqlSession, Illustrator ill) {
+		System.out.println("상세페이지 Dao로 넘어옴?");
 		
 		ArrayList<Illustrator> list = null;
 		
 		list = (ArrayList) sqlSession.selectList("Illustrator.selectIllPortfolioDetail", ill);
 		
-		return null;
+		System.out.println("상세페이지 Dao : " + list);
+		
+		return list;
+	}
+
+	//일러스트 도전하기 상세페이지 조회
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeDetail(SqlSessionTemplate sqlSession, Illustrator ill) {
+		System.out.println("dao ill : " + ill);
+		
+		ArrayList<Illustrator> clist = null;
+		
+		clist = (ArrayList) sqlSession.selectList("Illustrator.selectIllChallengeDetail", ill);
+		
+		System.out.println("Dao clist : " + clist);
+		
+		return clist;
 	}
 
 	

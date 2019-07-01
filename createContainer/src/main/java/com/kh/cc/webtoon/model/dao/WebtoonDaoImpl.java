@@ -98,6 +98,16 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return list;
 	}
 
+	@Override
+	public Webtoon selectMainPhoto(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webtoon.selectMainPhoto", wid);
+	}
+
+	@Override
+	public Webtoon selectWork(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webtoon.selectWork",wid);
+	}
+
 	
 
 	
