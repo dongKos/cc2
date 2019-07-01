@@ -169,6 +169,7 @@ public class WebtoonController {
 			ws.insertWebtoon(wt, wp);
 			
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+			System.out.println("UploadFile");
 			System.out.println("작품 사진이랑 work등록 완료");
 			
 			return "redirect:insertWork.wt";
@@ -196,7 +197,7 @@ public class WebtoonController {
 	
 	
 	//회차 등록폼에서 등록버튼 누를시 동작하는 메소드
-	@RequestMapping(value = "insertWnRound.wt")
+	@RequestMapping(value = "insertWtRound.wt")
 	public String insertWnRound(Model model,Webtoon wt, WebtoonRound wr, HttpServletRequest request, HttpSession session, 
 			 Member m, 
 			 	@RequestParam(name = "photo", required = false) MultipartFile photo,
@@ -206,6 +207,14 @@ public class WebtoonController {
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		
+		String workStatus = request.getParameter("workStatus");
+		
+		wr.setWorkStatus(workStatus);
+		if(workStatus == null) {
+			workStatus = "COMPLTE";
+		} 
+		
+		System.out.println("workStatus : " + workStatus);
 		System.out.println("wid : " + wid);
 		System.out.println("wt : " + wt);
 		System.out.println("wr : " + wr);
@@ -216,8 +225,6 @@ public class WebtoonController {
 		String filePath2 = root + "\\uploadFiles\\webtoonContent";
 		System.out.println("filePath1 : " + filePath1);
 		
-		
-		// -----------------------
 		
 		String originFileName = photo.getOriginalFilename();
 		String ext = originFileName.substring(originFileName.lastIndexOf("."));
@@ -231,13 +238,13 @@ public class WebtoonController {
 		WebtoonPhoto wp1 = new WebtoonPhoto();
 		//썸내일
 		wp.setOriginName(originFileName);
-		wp.setChangeName(changeFileName);
+		wp.setChangeName(changeFileName + ext);
 		wp.setFilePath(filePath1);
 		wp.setWid(wid);
 		
 		//웹툰 내용 사진
 		wp1.setOriginName(originFileName1);
-		wp1.setChangeName(changeFileName1);
+		wp1.setChangeName(changeFileName1 + ext1);
 		wp1.setFilePath(filePath2);
 		wp1.setWid(wid);
 		
@@ -246,6 +253,7 @@ public class WebtoonController {
 			photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
 			
 			ws.insertWorkRound(wr, wp, wp1);
+			System.out.println("wr : " + wr);
 			return "redirect:insertWork.wt";
 
 		} catch (Exception e) {
@@ -265,9 +273,15 @@ public class WebtoonController {
 	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		//String changeName = request.getParameter("changeName");
+		String wIntro = request.getParameter("wIntro");
+		String wTitle = request.getParameter("wTitle");
 		System.out.println("wid : " + wid);
 		
-		wt.setWid(wid);;
+		wt.setWid(wid);
+		//wt.setChangeName(changeName);
+		wt.setwIntro(wIntro);
+		wt.setwTitle(wTitle);
 	
 		int currentPage = 1;
 		
@@ -287,7 +301,7 @@ public class WebtoonController {
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		model.addAttribute("wid", wid);
+		model.addAttribute("wt", wt);
 		
 		return "webtoon/webtoonRoundList";
 	}

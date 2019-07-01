@@ -9,7 +9,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
 .introArea{
 	margin-top:30px;
@@ -165,7 +164,7 @@
 .wnrTitleArea{
 	width:300px;
 	line-height:40px;
-	background-color:lightgray;
+	/* background-color:lightgray; */
 	cursor:pointer;
 }
 .titleArea{
@@ -200,28 +199,28 @@
 					<table class="introTable">
 						<tr>
 							<td rowspan="3"width="210">
-								<c:set var="workStatus" value="${ wn.workStatus }" />
-								<c:if test="${ workStatus eq 'COMPLTE'}">
+								<%-- <c:set var="workStatus" value="${ wt.workStatus }" />
+								<c:if test="${ workStatus eq 'COMPLTE'}"> --%>
 								<div class="introImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 								</div>
-								</c:if>
+							<%-- 	</c:if>
 								<c:if test="${ workStatus eq 'CLOSE'}">
 								<div class="wnStatus">완결</div>
 								<div class="introImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 								</div>
-								</c:if>
+								</c:if> --%>
 							</td>
 							<td width="220" height="50%">
-								<p class="wnrTitle">${ wn.wTitle }</p>
+								<p class="wnrTitle">${ wt.wTitle }</p>
 							</td>
 							<td>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<p class="wnrIntro">${ wn.wIntro }</p>
+								<p class="wtrIntro">${ wt.wIntro }</p>
 							</td>
 						</tr>
 						<tr>
@@ -234,36 +233,36 @@
 					</table>
 				</div>
 				<div class="wnrListArea">
-				<c:forEach var="wnr" items="${ list }" varStatus="status">
+				<c:forEach var="wtr" items="${ list }" varStatus="status">
 					<table class="wnrTable">
 						<tr>
 							<td rowspan="3" class="wnrImg">
 								<div class="subImg">
-								<c:if test="${ workStatus eq 'CLOSE'}">
-									<div class="wnrStatus">완결</div>
-									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wnr.changeName }">
-								</c:if>
-								<c:if test="${ workStatus eq 'COMPLTE'}">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wnr.changeName }">
-								</c:if>
+								<%-- <c:if test="${ workStatus eq 'CLOSE'}">
+						         			<div class="wnrStatus">완결</div>
+									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
+								</c:if> --%>
+								<%-- <c:if test="${ workStatus eq 'COMPLTE'}"> --%>
+									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
+								<%-- </c:if> --%>
 								</div>
 							</td>
 							<td colspan="2" class="wnrContent"></td>
 						</tr>
 						<tr>
 							<td class="wnrContent">
-								<p class="wnrTitleArea">${ wnr.rTitle }</p>
+								<p class="wnrTitleArea">${ wtr.rTitle }</p>
 							</td>
 							<td class="wnrBtnArea">
-								<input type="hidden" value="${ wnr.rid }">
+								<input type="hidden" value="${ wtr.rid }">
 								<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
 								<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2" class="wnrContent">
-								조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-								${ wnr.ruploadDate }
+								조회&nbsp; ${ wtr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+								${ wtr.ruploadDate }
 							</td>
 						</tr>
 					</table>
