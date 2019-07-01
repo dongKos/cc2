@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mypage">
+	<!-- 웹소설 -->
+	<resultMap type="com.kh.cc.webnovel.model.vo.Webnovel" id="mypageResultSet">
+		<id property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="wuploadDate" column="WUPLOAD_DATE"/>
+		<result property="wTitle" column="WTITLE"/>
+		<result property="wIntro" column="WINTRO"/>
+		<result property="vCount" column="VCOUNT"/>
+		<result property="wCycle" column="WCYCLE"/>
+		<result property="gradeType" column="GRADE_TYPE"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="workStatus" column="WORK_STATUS"/>
+		<result property="workDate" column="WORK_DATE"/>
+		<result property="ageGrade" column="AGE_GRADE"/>
+		<result property="genre" column="GENRE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
+		<result property="nickname" column="NICKNAME"/>
+	</resultMap>
+	<!-- 메인 썸네일 -->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="mypagePhotoResultSet">
+		<id property="fid" column="FID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="spCode" column="SP_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	<!-- 웹소설 회차-->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelRound" id="webnovelRoundResultSet">
+		<id property="rid" column="RID"/>
+		<result property="rTitle" column="RTITLE"/>
+		<result property="vCount" column="VCOUNT"/>
+		<result property="ruploadDate" column="RUPLOAD_DATE"/>
+		<result property="approvalCode" column="APPROVAL_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="rContent" column="RCONTENT"/>
+		<result property="wrComment" column="WR_COMMENT"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+	</resultMap>
+	
+	<!-- 작품 등록 메소드 -->
+	<insert id="insertWebnovel" parameterType="Webnovel">
+		INSERT INTO WORK 
+		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
+	</insert>
+	<!-- 작품 메인 사진 등록 메소드 -->
+	<insert id="insertWnPhoto" parameterType="WebnovelPhoto">
+		INSERT INTO ATTACHMENT 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId}) 
+	</insert>
+	<!-- 메인썸네일 리스트 카운트 -->
+	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE USER_ID = #{userId}
+		AND WORK_TYPE = 'WN'
+		AND GRADE_TYPE = 1
+	</select>
+	<!-- 메인썸네일 리스트 조회 -->
+	<select id="selectWnList" parameterType="java.lang.String" resultMap="mypageResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE W.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND WORK_TYPE = 'WN'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	<!-- 작품 , 사진 정보-->
+	<select id="selectWork" parameterType="_int" resultMap="mypageResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE A.WID = #{wid}
+		AND A.ATTACHMENT_CATEGORY = 'ma' 
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

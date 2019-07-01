@@ -66,7 +66,7 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#mainMenubar"> 
+			<a class="navbar-brand" href="mainHome.me"> 
 				<img class="mainLogo" src="${ contextPath }/resources/images/logo.png">
 			</a>
 		</div>

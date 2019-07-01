@@ -29,6 +29,7 @@
   		<mapper resource="mappers/webtoon-mapper.xml"/>
   		<mapper resource="mappers/writer-mapper.xml"/>
   		<mapper resource="mappers/illust-mapper.xml"/>
+  		<mapper resource="mappers/mypage-mapper.xml"/>
   	</mappers>
   
   </configuration>

@@ -75,12 +75,12 @@
 						$('.wnListDiv').find('td').children('button').click(function(){
 							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
 							
-							location.href = "selectWnUpdateOne.wn?wid=" + wid;
+							location.href = "selectWtUpdateOne.wt?wid=" + wid;
 						});
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().children("input").val();
 							alert(wid)
-							location.href = "selectWnRoundList.wn?wid=" + wid;
+							location.href = "selectReqForm.mg?wid=" + wid;
 						});
 					});
 			
@@ -92,7 +92,7 @@
 						[이전] &nbsp;
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="wnListBack" value="/selectWnList.wn">
+						<c:url var="wnListBack" value="/writerReqPremium.mg">
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ wnListBack }">[이전]</a> &nbsp;
