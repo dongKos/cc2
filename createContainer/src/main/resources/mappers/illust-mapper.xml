@@ -20,6 +20,7 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
 		<result property="nickName" column="NICKNAME"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
 	</resultMap>
 	
 	<!-- 일러스트 서브 이미지 -->
@@ -96,5 +97,27 @@
 		WHERE A.ATTACHMENT_CATEGORY = 'ma'
 		AND ILL.ILL_TYPE = 'chall'
 		ORDER BY ILL.RECOMMEND_COUNT DESC
+	</select>
+	
+	<!-- 일러스트 포트폴리오 상세페이지 조회 -->
+	<select id="selectIllPortfolioDetail" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM MEMBER M
+        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE ILL.USER_ID = #{ userId }
+        AND ILL.ILL_CODE = #{ illCode }
+		AND ILL.ILL_TYPE = 'pri'
+	</select>
+	
+	<!-- 일러스트 도전하기 상세페이지 조회 -->
+	<select id="selectIllChallengeDetail" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM MEMBER M
+        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE ILL.USER_ID = #{ userId }
+        AND ILL.ILL_CODE = #{ illCode }
+		AND ILL.ILL_TYPE = 'chall'
 	</select>
 </mapper>

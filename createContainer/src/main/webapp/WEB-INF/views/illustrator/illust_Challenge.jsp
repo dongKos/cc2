@@ -30,18 +30,19 @@
 			location.href="illustChallengeWrite.ill";
 		}
 		
-		$(function(){
+		/* $(function(){
 	        $(".portfolio-item").click(function(){
 	           console.log("눌림");
 	           location.href="illustPortpolioDetail.ill";
 	        })
 	        
-	     })
+	     }) */
 
   </script>
 </head>
 
 <body id="page-top">
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 
   
@@ -74,17 +75,30 @@
       <div class="row">
 
         <!-- Portfolio Item 1 -->
-        <c:forEach var="illPortfolio" items="${ clist }">
+        <c:forEach var="illChallenge" items="${ clist }">
         <div class="col-md-6 col-lg-4">
+        <input type="hidden" value="${illChallenge.illCode }" id="illCode">
+        <input type="hidden" value="${illChallenge.userId }" id="illCode">
           <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illPortfolio.changeName }">
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illChallenge.changeName }">
           </div>
         </div>
+        <script>
+        $(function(){
+	        $(".portfolio-item").click(function(){
+	            var illCode = $(this).siblings().eq(0).val();
+	            var userId = $(this).siblings().eq(1).val();
+	         	location.href='selectIllChallengeDetail.ill?illCode=' + illCode + '&userId=' + userId;
+	        })
+	        
+	     })
+		
+        </script>
 		</c:forEach>
     </div>
     </div>

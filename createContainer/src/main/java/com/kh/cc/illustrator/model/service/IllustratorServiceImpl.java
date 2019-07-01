@@ -70,19 +70,31 @@ public class IllustratorServiceImpl implements IllustratorService{
 		return result;
 	}
 
+	//일러스트 도전하기 리스트 카운트
 	@Override
 	public int selectChallengeListCount() {
 		return id.selectIllChallengeListCount(sqlSession);
 	}
 
+	//일러스트 도전하기 리스트 조회
 	@Override
 	public ArrayList<Illustrator> selectIllChallengeList(IllustratorPageInfo pi, Illustrator ill) {
 		return id.selectIllChallengeList(sqlSession, pi, ill);
 	}
 
+	//일러스트 포트폴리오 상세페이지 조회
 	@Override
 	public ArrayList<Illustrator> selectIllPortfolioDetail(Illustrator ill) {
+		System.out.println("상세페이지 서비스로 넘어옴?");
+		
 		return id.selectIllPortfolioDetail(sqlSession, ill);
+	}
+
+	//일러스트 도전하기 상세페이지 조회
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeDetail(Illustrator ill) {
+		System.out.println("service : " + ill);
+		return id.selectIllChallengeDetail(sqlSession, ill);
 	}
 	
 	
