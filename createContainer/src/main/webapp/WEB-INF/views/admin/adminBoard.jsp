@@ -46,6 +46,42 @@
 			type:"get",
 			success:function(data){
 				console.log(data);
+				console.log(data.pi.currentPage);
+				var table = $("#boardTable");
+				var tbody = $("#boardTable tbody");
+				
+				tbody.html(" ");
+				
+				//테이블 영역 재생성
+				for(var i = 0; i < data.list.length;i++){
+					
+					var date = new Date(data.list[i].joinDate).format("yyyy-MM-dd");
+					var tr = $("<tr>");
+					var userIdTd = $("<td>").text(data.list[i].userId);
+					var userNameTd = $("<td>").text(data.list[i].userName);
+					
+					if(data.list[i].memberType == 1){
+						var memberTypeTd = $("<td>").text("일반");
+					}else{
+						var memberTypeTd = $("<td>").text("프리미엄 작가");
+					}
+					var joinDateTd = $("<td class='text-right'>").text(date);
+					
+					if(data.list[i].wCount >= 5){
+						var blackTd = $("<td class='text-right'>").text("블랙회원");
+					}else{
+						var blackTd = $("<td class='text-right'>").text("클린회원");
+					}
+					tr.append(userIdTd);
+					tr.append(userNameTd);
+					tr.append(memberTypeTd);
+					tr.append(joinDateTd);
+					tr.append(blackTd);
+					tbody.append(tr);
+					table.append(tbody);
+				}
+				
+				
 			},
 			error:function(){
 				console.log("실퍂!");
@@ -94,7 +130,7 @@
                                 	<button class="btn btn-primary" type="submit" onclick="search();" id="searchBtn" disabled>검색하기</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
-                                    <table class="table table-borderless table-striped table-earning" id="refundTable">
+                                    <table class="table table-borderless table-striped table-earning" id="boardTable">
                                         <thead>
                                             <tr>
                                                 <th>사용자아이디</th>

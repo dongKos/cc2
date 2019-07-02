@@ -176,7 +176,13 @@ public class AdminServiceImpl implements AdminService{
 	public int getBoardTypeListCount(int select1, int select2) {
 		return ad.getBoardTypeListCount(sqlSession, select1, select2);
 	}
-	
+
+	//게시글 조건검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectBoardTypeList(AdminPageInfo pi, int select1, int select2) {
+		return ad.selectBoardTypeList(sqlSession, pi, select1, select2);
+	}
+
 	
 }
 

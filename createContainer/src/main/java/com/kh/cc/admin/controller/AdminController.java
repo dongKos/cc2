@@ -254,11 +254,10 @@ public class AdminController {
 		  
 		  AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		  
-		  System.out.println("listCount : " + listCount); System.out.println("pi : " +
-		  pi);
 		  
-		  ArrayList<HashMap<String, Object>> list = as.selectmemberTypeList(pi, select2);
+		  ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,  select2);
 		  HashMap<String, Object> list2 = new HashMap<String, Object>();
+		  list2.put("list", list);
 		  list2.put("pi", pi);
 		 
 

@@ -262,8 +262,8 @@
 		SELECT COUNT(*)
 		FROM BOARD
 		WHERE STATUS = 'Y'
-		AND BOARD_CATREGORY = 'OTO'
-		AND OTO_CATEGORY = #{str};
+		AND BOARD_CATEGORY = 'OTO'
+		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
 	</select>
 	
 	<!-- 게시글 관리 페이지 조건 검색 - 공지사항 문의 개수 조회 -->
@@ -271,8 +271,23 @@
 		SELECT COUNT(*)
 		FROM BOARD
 		WHERE STATUS = 'Y'
-		AND BOARD_CATREGORY = 'NTC'
-		AND OTO_CATEGORY = #{str};
+		AND BOARD_CATEGORY = 'NTC'
+	</select>
+	
+	<select id="selectOTOBoardTypeList" parameterType="String" resultMap="BoardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_CATEGORY = 'OTO'
+		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
+	</select>
+	
+	<select id="selectNoticeTypeList" parameterType="String" resultMap="BoardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE STATUS = 'Y'
+		AND BOARD_CATEGORY = 'NTC'
+		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
 	</select>
 	
 	
