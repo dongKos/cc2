@@ -114,6 +114,8 @@
 						<h4>
 							작품 제목&nbsp;&nbsp;<input type="text"
 								name="wTitle" style="width: 70%;" value="${ wt.wTitle }">
+								<input type="hidden" value="${wt.wid }" />
+								<input type="hidden" value="${wt.fid }"/>
 						</h4><hr> <br>
 						
 					</td>
@@ -232,7 +234,7 @@
 			&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button type="submit"  class="btn btn-primary btn-sm">등록하기</button>
+			<button type="submit"  class="btn btn-primary btn-sm">수정하기</button>
 		</form>
 	</div>
 	<br>

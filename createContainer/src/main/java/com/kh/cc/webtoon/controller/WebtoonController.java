@@ -280,10 +280,11 @@ public class WebtoonController {
 		
 	}
 	
-	
+	//리스트에서 회차 등록버튼을 눌렀을때 동작되는 메소드
 	@RequestMapping(value = "roundList.wt")
 	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		
 		System.out.println("wid : " + wid);
@@ -314,13 +315,16 @@ public class WebtoonController {
 	}
 	
 	@RequestMapping(value="workUpdateForm.wt")
-	public String workUpdate(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
+	public String workUpdate(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		m = (Member) session.getAttribute("loginUser");
+		
 		
 		wt = ws.selectWork(wid);
-		System.out.println("wt : " + wt);
+		System.out.println("수정버튼눌렀을떄wt : " + wt);
 		
 		model.addAttribute("wt", wt);
+		model.addAttribute("m", m);
 		
 		return "webtoon/updateWorkForm";
 	}
@@ -329,11 +333,71 @@ public class WebtoonController {
 	public String updateWork(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonPhoto wp, Member m,
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
+		String userId = m.getUserId();
+		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		int fid = Integer.parseInt(request.getParameter("fid"));
+
+		wt.setWid(wid);
+		wt.setFid(fid);
+		 
 		
 		System.out.println("@wt@ : " + wt);
 		
+		/*
+		 * wt.setUserId(userId); wt.setWid(wid);
+		 */
 		
-		return "redirect:insertWork.wt";
+		String changeName = request.getParameter("changeName");
+		
+		if(!photo.isEmpty()) {
+			System.out.println("사진정보 수정할떄");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles\\webtoonMain";
+			String originFileName = photo.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			
+			wp.setOriginName(originFileName);
+			wp.setChangeName(changeFileName + ext);
+			wp.setFilePath(filePath);
+			wp.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				
+				
+				ws.updateWork(wt,wp);
+				
+				new File(filePath + "\\" + changeName).delete();
+				
+				session.removeAttribute("wid");
+				session.removeAttribute("fid");
+				
+				return "redirect:insertWork.wt";
+				
+			} catch (Exception e) {
+				
+				new File(filePath + "\\" + changeName + ext).delete();
+				
+				model.addAttribute("msg","작품 등록 실패!!");
+				
+				return "common/errorPage";
+						
+			} 
+			
+		}else {
+				System.out.println("사진변경 안할떄");
+				
+				ws.updateWork(wt);
+				System.out.println("result : " + ws);
+				
+						
+				return "redirect:insertWork.wt";
+		}
+		
+		
 		
 	}
 	
