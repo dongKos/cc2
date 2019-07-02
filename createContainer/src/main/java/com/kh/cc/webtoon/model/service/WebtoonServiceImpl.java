@@ -72,7 +72,7 @@ public class WebtoonServiceImpl implements WebtoonService{
 		}
 		
 		return result;
-		
+		 
 	}
 
 	@Override
@@ -117,8 +117,19 @@ public class WebtoonServiceImpl implements WebtoonService{
 
 	@Override
 	public int updateWork(Webtoon wt) {
-		System.out.println("사진변경 안할떼 서비스");
 		return wd.updateWork(sqlSession, wt);
+	}
+
+
+	
+	@Override
+	public WebtoonRound selectOneRound(int rid) {
+		return wd.selectOneRound(sqlSession, rid);
+	}
+
+	@Override
+	public ArrayList<WebtoonPhoto> selectOneRoundPhoto(int rid) {
+		return wd.selectOneRoundPhoto(sqlSession, rid);
 	}
 
 	

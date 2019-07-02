@@ -314,6 +314,7 @@ public class WebtoonController {
 		return "webtoon/webtoonRoundList";
 	}
 	
+	//잦품정보수정 폼으로 이동하는 메소드
 	@RequestMapping(value="workUpdateForm.wt")
 	public String workUpdate(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
@@ -329,24 +330,22 @@ public class WebtoonController {
 		return "webtoon/updateWorkForm";
 	}
 	
+	//작품정보 수정 메소드
 	@RequestMapping(value="updateWork.wt")
 	public String updateWork(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonPhoto wp, Member m,
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
 		String userId = m.getUserId();
-		
+
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int fid = Integer.parseInt(request.getParameter("fid"));
 
 		wt.setWid(wid);
 		wt.setFid(fid);
-		 
-		
+		wt.setUserId(userId);
+
 		System.out.println("@wt@ : " + wt);
-		
-		/*
-		 * wt.setUserId(userId); wt.setWid(wid);
-		 */
+
 		
 		String changeName = request.getParameter("changeName");
 		
@@ -396,13 +395,231 @@ public class WebtoonController {
 						
 				return "redirect:insertWork.wt";
 		}
+	}
+	
+	//회차 리스트에서 정보 수정을 누르면 동작하는 메소드
+	@RequestMapping(value="updateRoundForm.wt")
+	public String updateRoundForm(Model model,HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr) {
+		System.out.println("회차 폼이동 컨트롤러");
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		
+		System.out.println("rid : " + rid);
+		
+		wr = ws.selectOneRound(rid);
+		ArrayList<WebtoonPhoto> list = ws.selectOneRoundPhoto(rid);
+		
+		System.out.println("wr : " + wr);
+		System.out.println("list : " + list);
+		
+		WebtoonPhoto subChangeName = list.get(0);
+		
+		WebtoonPhoto contChangeName = list.get(1);
 		
 		
+		model.addAttribute("wr", wr);
+		model.addAttribute("subChangeName", subChangeName);
+		model.addAttribute("contChangeName", contChangeName);
+		
+		
+		return "webtoon/updateRoundForm";
 		
 	}
 	
+	//회차폼에서 수정버튼을누르면 동작하는 메소드
+	@RequestMapping(value="updateRound.wt")
+	public String updateRound(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonPhoto wp, Member m,
+			@RequestParam(name = "photo", required = false) MultipartFile photo,
+			@RequestParam(name = "photo1", required = false) MultipartFile photo1) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		String userId = m.getUserId();
+		
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		int subFid = Integer.parseInt(request.getParameter("subFid"));
+		int contFid = Integer.parseInt(request.getParameter("contFid"));
+		System.out.println("rid : " + rid);
+		System.out.println("wid : " + wid);
+		System.out.println("subFid : " + subFid);
+		System.out.println("contFid : " + contFid);
+		
+		//안바꿨을때 띄울려고
+		String subChangeName = request.getParameter("subChangeName");
+		//안바꿨을때 띄울려고
+		String contChangeName = request.getParameter("contChangeName");
+		
+		System.out.println("subChangeName : " + subChangeName);
+		System.out.println("contChangeName : " + contChangeName);
+		
+		//회차썸내일 을 바꿨을때
+		if(!photo.isEmpty()) {
+			
+			System.out.println("썸내일사진정보 수정할떄");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles\\webtoonSub";
+			String originFileName = photo.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			
+			wp.setOriginName(originFileName);
+			wp.setChangeName(changeFileName + ext);
+			wp.setFilePath(filePath);
+			wp.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				
+				
+				ws.updateWork(wt,wp);
+				
+				new File(filePath + "\\" + subChangeName).delete();
+				
+				session.removeAttribute("wid");
+				session.removeAttribute("fid");
+				
+				return "redirect:insertWork.wt";
+				
+			} catch (Exception e) {
+				
+				new File(filePath + "\\" + subChangeName + ext).delete();
+				
+				model.addAttribute("msg","작품 등록 실패!!");
+				
+				return "common/errorPage";
+						
+			} 
+			
+		//회차내용을 바꿨을떄
+		}else if(!photo1.isEmpty()) {
+			
+			System.out.println("썸내일사진정보 수정할떄");
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath = root + "\\uploadFiles\\webtoonContent";
+			String originFileName = photo.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			
+			wp.setOriginName(originFileName);
+			wp.setChangeName(changeFileName + ext);
+			wp.setFilePath(filePath);
+			wp.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+				
+				
+				ws.updateWork(wt,wp);
+				
+				new File(filePath + "\\" + contChangeName).delete();
+				
+				session.removeAttribute("wid");
+				session.removeAttribute("fid");
+				
+				return "redirect:insertWork.wt";
+				
+			} catch (Exception e) {
+				
+				new File(filePath + "\\" + contChangeName + ext).delete();
+				
+				model.addAttribute("msg","작품 등록 실패!!");
+				
+				return "common/errorPage";
+						
+			} 
+			
+		//회차와 썸내일 둘다 바꿨을떄
+		}else if(!photo.isEmpty() && !photo1.isEmpty()) {
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			
+			String filePath1 = root + "\\uploadFiles\\webtoonSub";
+			String filePath2 = root + "\\uploadFiles\\webtoonContent";
+			
+			String originFileName = photo.getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String changeFileName = CommonUtils.getRandomString();
+			
+			String originFileName1 = photo1.getOriginalFilename();
+			String ext1 = originFileName.substring(originFileName1.lastIndexOf("."));
+			String changeFileName1 = CommonUtils.getRandomString();
+
+			//WebtoonPhoto wp = new WebtoonPhoto();
+			WebtoonPhoto wp1 = new WebtoonPhoto();
+			//썸내일
+			wp.setOriginName(originFileName);
+			wp.setChangeName(changeFileName + ext);
+			wp.setFilePath(filePath1);
+			wp.setWid(wid);
+			wp.setUserId(userId);
+			
+			//웹툰 내용 사진
+			wp1.setOriginName(originFileName1);
+			wp1.setChangeName(changeFileName1 + ext1);
+			wp1.setFilePath(filePath2);
+			wp1.setWid(wid);
+			wp1.setUserId(userId);
+			
+			try {
+				photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
+				photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
+				
+				//ws.insertWorkRound(wr, wp, wp1);
+				//System.out.println("wr : " + wr);
+				System.out.println("wp : " + wp);
+				System.out.println("wp1 : " + wp1);
+				System.out.println("회차 썸내일, 내용 등록완료");
+				return "redirect:insertWork.wt";
+
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				new File(filePath1 + "\\" + changeFileName + ext).delete();
+				new File(filePath2 + "\\" + changeFileName1 + ext1).delete();
+
+				model.addAttribute("msg", "작품 등록 실패!");
+
+				return "common/errorPage";
+			}
+		
+		//이도저도 아닐떄
+		}else {
+			
+		
+			
+		}
+				
+		
+		
+		return null;
+		
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

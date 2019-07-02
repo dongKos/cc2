@@ -114,8 +114,8 @@
 						<h4>
 							작품 제목&nbsp;&nbsp;<input type="text"
 								name="wTitle" style="width: 70%;" value="${ wt.wTitle }">
-								<input type="hidden" value="${wt.wid }" />
-								<input type="hidden" value="${wt.fid }"/>
+								<input type="hidden" name="wid" value="${wt.wid }" />
+								<input type="hidden" name="fid" value="${wt.fid }"/>
 						</h4><hr> <br>
 						
 					</td>
