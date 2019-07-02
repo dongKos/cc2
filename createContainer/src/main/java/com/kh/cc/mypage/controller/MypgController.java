@@ -140,7 +140,6 @@ public class MypgController {
 				}
 				
 				int listCount = ws.selectListCount(m);
-				int buttonCount = 10;
 				
 
 				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
