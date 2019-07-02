@@ -97,7 +97,8 @@
 	        })
 	        
 	     })
-		
+	     
+	   
         </script>
 		</c:forEach>
     </div>

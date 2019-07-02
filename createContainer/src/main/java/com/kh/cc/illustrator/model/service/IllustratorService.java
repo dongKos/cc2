@@ -33,6 +33,9 @@ public interface IllustratorService {
 	//일러스트 도전하기 상세페이지 조회
 	ArrayList<Illustrator> selectIllChallengeDetail(Illustrator ill);
 
+	//일러스트 작가 상세페이지 조회
+	ArrayList<Illustrator> selectIllustratorDetail(Illustrator ill);
+
 
 	
 

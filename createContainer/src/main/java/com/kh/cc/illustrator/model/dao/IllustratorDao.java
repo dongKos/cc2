@@ -39,6 +39,9 @@ public interface IllustratorDao {
 	//일러스트 도전하기 상세페이지 조회
 	ArrayList<Illustrator> selectIllChallengeDetail(SqlSessionTemplate sqlSession, Illustrator ill);
 
+	//일러스트 작가 상세페이지 조회
+	ArrayList<Illustrator> selectIllustratorDetail(SqlSessionTemplate sqlSession, Illustrator ill);
+
 	
 	
 	
