@@ -19,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kh.cc.approval.model.vo.Approval;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.common.WebtoonPagination;
@@ -203,7 +204,30 @@ public class MypgController {
 			}
 	//작가페이지 - 유료등록 insert
 			@RequestMapping("insertRequest.mg")
-			public String insertRequest(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel work) {
+			public String insertRequest(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Approval appro, WriterPhoto mphoto,
+					@RequestParam(name = "do1", required = false) MultipartFile do1,
+					@RequestParam(name = "do2", required = false) MultipartFile do2) {
+				
+				//int wid = (int) session.getAttribute("wid");
+				
+				String root = request.getSession().getServletContext().getRealPath("resources");
+				
+				String filePath = root + "\\uploadFiles\\writerProfile";
+	            String originFileName = do1.getOriginalFilename();
+	            String originFileName2 = do2.getOriginalFilename();
+	            String ext = originFileName.substring(originFileName.lastIndexOf("."));
+	            String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
+	            String changeFileName = CommonUtils.getRandomString();
+	            String changeFileName2 = CommonUtils.getRandomString();
+				
+	            WriterPhoto file1 = null;
+	            WriterPhoto file2 = null; 
+	            
+	            file1.setOriginName(originFileName);
+	            file1.setChangeName(changeFileName + ext);
+	            file1.setFilePath(filePath);
+	            //file1.setUserId(appro.);
+	            
 				return null;
 				
 			}
@@ -212,19 +236,11 @@ public class MypgController {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-			// 소희
+			 // 소희
             // 마이페이지 관심작품 - 웹툰으로 이동
             @RequestMapping("mypgIterestWt.mg")
             public String showInterestWt() {
-
+               
                return "member/mypage/mypageInterestWt";
             }
 
@@ -359,14 +375,16 @@ public class MypgController {
             public void chagePhoto(@RequestParam("userId")String id,Member m ,HttpServletRequest request,
                         HttpServletResponse response) {
                ObjectMapper mapper = new ObjectMapper();
-               System.out.println("성공했나");
+               System.out.println("mapper성공했나");
                String userId = request.getParameter("userId");
                m.setUserId(userId);
                   System.out.println("사진 가져오는거 접근성공했니");
-             String chageName =  ms.selectPhoto(m);
-             System.out.println(chageName);
+                  
+             String changeName =  ms.selectPhoto(m);
+             String changeFileName = "${contextPath}/resources/uploadFiles/writerProfile/"+ changeName;
+             System.out.println("${contextPath}/resources/uploadFiles/writerProfile/"+changeName);
              try {
-               response.getWriter().print(mapper.writeValueAsString(chageName));
+               response.getWriter().print(mapper.writeValueAsString(changeFileName));
             } catch (IOException e) {
                
                
@@ -404,6 +422,12 @@ public class MypgController {
                session.invalidate();
             return "index";
             }
+            
+            
+            
+            
+            //관심작품 목록
+
 
 }
 
