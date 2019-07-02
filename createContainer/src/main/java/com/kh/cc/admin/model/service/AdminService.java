@@ -63,5 +63,8 @@ public interface AdminService {
 
 	int getBoardTypeListCount(int select1, int select2);
 
+	ArrayList<HashMap<String, Object>> selectBoardTypeList(AdminPageInfo pi, int select1, int select2);
+
+
 	
 }

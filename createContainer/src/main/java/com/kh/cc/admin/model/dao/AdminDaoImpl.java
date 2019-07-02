@@ -296,6 +296,66 @@ public class AdminDaoImpl implements AdminDao{
 				}
 		}
 	}
+
+	//게시글 조건검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectBoardTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,  int select1,
+			int select2) {
+		String str = "";
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		//1:1 문의
+		if(select1 == 2) {
+			switch(select2) {
+		/*전체*/		
+			case 1 : 
+				str = "%";
+				return (ArrayList)sqlSession.selectList("admin.selectOTOBoardTypeList",str, rowBounds);
+		/*웹툰*/	
+			case 2 : 
+				str = "WT";
+				return (ArrayList)sqlSession.selectList("admin.selectOTOBoardTypeList",str, rowBounds);
+		/*웹소설*/
+			case 3 : 
+				str = "WN";
+				return (ArrayList)sqlSession.selectList("admin.selectOTOBoardTypeList",str, rowBounds);
+		/*일러스트*/
+			case 4 :
+				str = "ILL";
+				return (ArrayList)sqlSession.selectList("admin.selectOTOBoardTypeList",str, rowBounds);
+		/*기타*/
+			 default :
+				str = "ETC";
+				return (ArrayList)sqlSession.selectList("admin.selectOTOBoardTypeList",str, rowBounds);
+			}
+		//공지사항
+		}else {
+			switch(select2) {
+			/*전체*/		
+				case 1 : 
+					str = "%";
+					return (ArrayList)sqlSession.selectList("admin.selectNoticeBoardTypeList",str, rowBounds);
+			/*웹툰*/	
+				case 2 : 
+					str = "WT";
+					return (ArrayList)sqlSession.selectList("admin.selectNoticeBoardTypeList",str, rowBounds);
+			/*웹소설*/
+				case 3 : 
+					str = "WN";
+					return (ArrayList)sqlSession.selectList("admin.selectNoticeBoardTypeList",str, rowBounds);
+			/*일러스트*/
+				case 4 :
+					str = "ILL";
+					return (ArrayList)sqlSession.selectList("admin.selectNoticeBoardTypeList",str, rowBounds);
+			/*기타*/
+				default :
+					str = "ETC";
+					return (ArrayList)sqlSession.selectList("admin.selectNoticeBoardTypeList",str, rowBounds);
+				}
+		}
+	}
 	
 	
 }
