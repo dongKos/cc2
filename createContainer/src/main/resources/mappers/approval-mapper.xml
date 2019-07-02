@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="WriterProfile">
+	
+	<resultMap type="com.kh.cc.approval.model.vo.Approval" id="ApprovalResultSet">
+		<id property="apNo" column="APPROVAL_CODE"/>
+		<result property="uploadDate" column="WUPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="wType" column="WORK_TYPE"/>
+		<result property="wid" column="WID"/>
+		<result property="rid" column="RID"/>
+		<result property="wishDate" column="WISH_DATE"/>
+		<result property="illcode" column="ILL_CODE"/>
+	</resultMap>
+
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

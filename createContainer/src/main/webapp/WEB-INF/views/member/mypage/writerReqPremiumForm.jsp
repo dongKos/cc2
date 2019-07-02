@@ -17,6 +17,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 </head>
 <body style="margin-top: 3.5%;">
 
@@ -36,7 +37,7 @@
     					
   					</ul>
   					<br>
-  					<form action="insertRequest.mg" method="post">
+  					<form action="insertRequest.mg" method="post" id="reqForm" enctype="multipart/form-data">
   					<table width="100%;" style="margin-left:30px;">
   						<c:if test="${ work.workType == 'WN' }">
   						<tr>
@@ -60,7 +61,7 @@
   						</tr>
   						<tr>
   							<td width="100px;">연재 주기 : </td>
-  							<td><input type="text" readonly value="${ work.wCycle }" style="width:80%; border-radius:12px; border:1px solid #ececec; text-align:center;">
+  							<td><input type="text" readonly id="wCycle" value="${ work.wCycle }" style="width:80%; border-radius:12px; border:1px solid #ececec; text-align:center;">
   						</tr>
   						<tr>
   							<td>&nbsp;</td>
@@ -74,29 +75,43 @@
   						</tr>
   						<tr>
   							<td width="100px;">희망 전환 날짜 : </td>
-  							<td><input type="text" readonly value="${ round }회" style="width:80%; border-radius:12px; border:1px solid #ececec; text-align:center;">
+  							
+  							
+  							<td>
+  							<input type="date"  id="wishDate" name="wishDate" style="width:80%; border-radius:12px; border:1px solid #ececec; text-align:center;">
+  							</td>
   						</tr>
   						<tr>
   							<td>&nbsp;</td>
   						</tr>
   						<tr>
   							<td width="100px;">사업자 등록증 : </td>
-  							<td><input type="file" readonly value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
+  							<td><input type="file" readonly name="do1" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
   						</tr>
   						
   						<tr>
   							<td width="100px;">통신 판매증 : </td>
-  							<td><input type="file" readonly value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
+  							<td><input type="file" readonly name="do2" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
   						</tr>
   						<tr>
   							<td>&nbsp;</td>
   						</tr>
   						<tr>
-  							<td>
+  							<td style="display:none;">
+  							<input style="display:hidden;" type="text" value="${ work.wid }" name="wid">
+  							<input style="display:hidden;" type="text" value="${ work.workType }" name="wType">
   							</td>
   						</tr>
   						
   					</table>
+  					<c:if test="${ work.workType == 'WT' }">
+  					<script>
+  					$(document).ready(function(){
+  							var splitBS = "${ work.wCycle }".split(",");
+  							$("#wCycle").attr("value","주 " + splitBS.length + "회")
+  						})
+  					</script>
+  					</c:if>
   <h4>이용, 운영원칙</h4>
   <pre style="font-size:10px; height:400px;">
 
@@ -185,9 +200,9 @@ CreateContainer웹툰 이용약관에서 정한 바에 따라 다음과 같은 �
 영구적으로  서비스 이용이 제한될 수 있습니다.
   </pre>
   <div style="width:100%; text-align:right;">
-	<label>동의합니다. &nbsp;</label><input type="radio" name="agree" value="agree"><label>&nbsp;&nbsp;&nbsp;동의하지 않습니다. &nbsp;</label><input type="radio" name="agree" value="disagree">
+	<label>동의합니다. &nbsp;</label><input type="radio" name="agree" id="agree" value="agree" checked><label>&nbsp;&nbsp;&nbsp;동의하지 않습니다. &nbsp;</label><input type="radio" name="agree" value="disagree">
   <br>
-  <button type="button" class="btn btn-info" id="modify">신청하기</button>
+  <button type="button" class="btn btn-info" onclick="confirm();">신청하기</button>
   <br>
   <br>
   <br>
@@ -204,5 +219,14 @@ CreateContainer웹툰 이용약관에서 정한 바에 따라 다음과 같은 �
     </div>
   </div>
 </div>
+<script>
+	function confirm(){
+		if(!$("#agree").prop("checked")) {
+			alert("약관에 동의 해 주세요");
+		}else {
+			$("#reqForm").submit();
+		}
+	}
+</script>
 </body>
 </html>
