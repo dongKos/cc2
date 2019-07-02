@@ -65,5 +65,9 @@ public interface AdminDao {
 	int getBoardTypeListCount(SqlSessionTemplate sqlSession, int select1, int select2);
 
 	ArrayList<HashMap<String, Object>> selectBoardTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi, int select1, int select2);
+
+	int getBoardReplyListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Member> getBoardReplyList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
 	
 }

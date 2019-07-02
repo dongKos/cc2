@@ -65,6 +65,10 @@ public interface AdminService {
 
 	ArrayList<HashMap<String, Object>> selectBoardTypeList(AdminPageInfo pi, int select1, int select2);
 
+	int getBoardReplyListCount();
+
+	ArrayList<Member> selectBoardReplyList(AdminPageInfo pi);
+
 
 	
 }

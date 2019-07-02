@@ -8,11 +8,44 @@
 <title>게시판관리 - 게시글</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	//날짜 관련 함수
+	Date.prototype.format = function(f) {    
+	    if (!this.valueOf()) return " ";     
+	    
+	    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];    
+	    var d = this;         
+	    
+	    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {        
+	        switch ($1) {            
+	           case "yyyy": return d.getFullYear();            
+	           case "yy": return (d.getFullYear() % 1000).zf(2);            
+	           case "MM": return (d.getMonth() + 1).zf(2);            
+	           case "dd": return d.getDate().zf(2);            
+	           case "E": return weekName[d.getDay()];            
+	           case "HH": return d.getHours().zf(2);            
+	           case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);            
+	           case "mm": return d.getMinutes().zf(2);            
+	           case "ss": return d.getSeconds().zf(2);            
+	           case "a/p": return d.getHours() < 12 ? "오전" : "오후";            
+	           default: return $1;        
+	         }    
+	    });
+	}; 
+	
+	//한자리일경우 앞에 0을 붙여준다.
+	String.prototype.string = function(len){
+	    var s = '', i = 0; 
+	    while (i++ < len) { s += this; } 
+	    return s;
+	}; 
+	String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+	Number.prototype.zf = function(len){return this.toString().zf(len);};
+
+	//상세보기 페이지 이동
+	function trClick(num){
+		console.log("상세보기 페이지 이동 용"+num);
+	}
 	$(function(){
-		$("#refundTable tr").click(function(){
-			var num = $(this).children().eq(0).text();
-		});
-		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#board").parent().children();
 		var selectedLi = selectedUl.children().children().eq(0);
@@ -34,6 +67,7 @@
 		
 	});
 	
+	//검색버튼 - 에이잭스 구동
 	function search(){
 		var select1 = $("#select1").val();
 		var select2 = $("#select2").val();
@@ -53,35 +87,81 @@
 				tbody.html(" ");
 				
 				//테이블 영역 재생성
-				for(var i = 0; i < data.list.length;i++){
+					for(var i = 0; i < data.list.length;i++){
 					
-					var date = new Date(data.list[i].joinDate).format("yyyy-MM-dd");
-					var tr = $("<tr>");
+					var date = new Date(data.list[i].uploadDate).format("yyyy-MM-dd");
+					var tr = $("<tr onclick='trClick(" + data.list[i].bId + ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
-					var userNameTd = $("<td>").text(data.list[i].userName);
+					var bTitleTd = $("<td>").text(data.list[i].bTitle);
 					
-					if(data.list[i].memberType == 1){
-						var memberTypeTd = $("<td>").text("일반");
+					//구분
+					if(data.list[i].boardCategory == 'OTO'){
+						var categoryTd = $("<td>").text("1:1문의");
 					}else{
-						var memberTypeTd = $("<td>").text("프리미엄 작가");
+						var categoryTd = $("<td>").text("공지사항");
 					}
-					var joinDateTd = $("<td class='text-right'>").text(date);
 					
-					if(data.list[i].wCount >= 5){
-						var blackTd = $("<td class='text-right'>").text("블랙회원");
-					}else{
-						var blackTd = $("<td class='text-right'>").text("클린회원");
+					//상세
+					switch(data.list[i].subCategory){
+						case "ETC" : 
+							var otoTd = $("<td class='text-right'>").text("기타");
+							break;
+						case "WT" :
+							var otoTd = $("<td class='text-right'>").text("웹툰");
+							break;
+						case "WN" : 
+							var otoTd = $("<td class='text-right'>").text("웹소설");
+							break;
+						case "ILL" :
+							var otoTd = $("<td class='text-right'>").text("일러스트");
+							break;
 					}
+					
+					var countTd = $("<td class='text-right'>").text(data.list[i].bCount);
+					var dateTd = $("<td class='text-right'>").text(date);
+					
 					tr.append(userIdTd);
-					tr.append(userNameTd);
-					tr.append(memberTypeTd);
-					tr.append(joinDateTd);
-					tr.append(blackTd);
+					tr.append(bTitleTd);
+					tr.append(categoryTd);
+					tr.append(otoTd);
+					tr.append(countTd);
+					tr.append(dateTd);
 					tbody.append(tr);
 					table.append(tbody);
 				}
 				
+				//페이징 처리 - 밑에 있는 애이잭스 페이징 함수를 통해서 페이징 한다
+				var pagingArea = $("#pagingArea");
+				pagingArea.html(" ");
 				
+				var currentPage = data.pi.currentPage;
+				var	startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				var maxPage = data.pi.maxPage;
+				
+				//이전 버튼 
+				if(currentPage <= 1){
+					pagingArea.text("[이전]");
+				}else{
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+"," + select2 + ")'>[이전]</button>");
+				}
+				
+				//숫자 페이지 버튼
+				for(var i = startPage; i < endPage; i++){
+					if(i == currentPage){
+						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+						
+					}else{
+						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+"," + select2 + ")'>" + i +"</button>");
+					}
+				}
+				
+				//다음 버튼
+				if(currentPage >= maxPage){
+					pagingArea.text("[다음]");
+				}else{
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+"," + select2 + ")'>[다음]</button>");
+				}
 			},
 			error:function(){
 				console.log("실퍂!");
@@ -89,6 +169,108 @@
 		})
 		
 	}
+	
+	//페이징 에이젝스 처리(funcking fucking fuck)
+	function boardPaging(currentPage, select1, select2){
+		var select1 = select1;
+		var select2 = select2;
+		$.ajax({
+			url:"boardType.ad",
+			data:{currentPage:currentPage, select1:select1, select2:select2},
+			type:"get",
+			success:function(data){
+				console.log("페이징버튼을 눌렀을때"+data);
+				//테이블 재 생성
+				var table = $("#boardTable");
+				var tbody = $('tbody');
+				tbody.html(" ");
+				
+				//테이블 영역 재생성
+				for(var i = 0; i < data.list.length;i++){
+					
+					var date = new Date(data.list[i].uploadDate).format("yyyy-MM-dd");
+					var tr = $("<tr onclick='trClick(" + data.list[i].bId + ")'>");
+					var userIdTd = $("<td>").text(data.list[i].userId);
+					var bTitleTd = $("<td>").text(data.list[i].bTitle);
+					
+					//구분
+					if(data.list[i].boardCategory == 'OTO'){
+						var categoryTd = $("<td>").text("1:1문의");
+					}else{
+						var categoryTd = $("<td>").text("공지사항");
+					}
+					
+					//상세
+					switch(data.list[i].subCategory){
+						case "ETC" : 
+							var otoTd = $("<td class='text-right'>").text("기타");
+							break;
+						case "WT" :
+							var otoTd = $("<td class='text-right'>").text("웹툰");
+							break;
+						case "WN" : 
+							var otoTd = $("<td class='text-right'>").text("웹소설");
+							break;
+						case "ILL" :
+							var otoTd = $("<td class='text-right'>").text("일러스트");
+							break;
+					}
+					
+					var countTd = $("<td class='text-right'>").text(data.list[i].bCount);
+					var dateTd = $("<td class='text-right'>").text(date);
+					
+					
+					tr.append(userIdTd);
+					tr.append(bTitleTd);
+					tr.append(categoryTd);
+					tr.append(otoTd);
+					tr.append(countTd);
+					tr.append(dateTd);
+					tbody.append(tr);
+					table.append(tbody);
+				}
+				
+				//페이징 처리
+				var pagingArea = $("#pagingArea");
+				pagingArea.html("");
+				
+				//페이지 인포 정보도 data에 담겨서 오기 때문에 거기서 꺼내야함
+				var currentPage = data.pi.currentPage;
+				var	startPage = data.pi.startPage;
+				var endPage = data.pi.endPage;
+				var maxPage = data.pi.maxPage;
+				
+				//이전 버튼 
+				if(currentPage <= 1){
+					pagingArea.text("[이전]");
+				}else{
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+"," + select2 + ")'>[이전]</button>");
+				}
+				
+				//숫자 페이지 버튼
+				for(var i = startPage; i < endPage; i++){
+					if(i == currentPage){
+						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
+						
+					}else{
+						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+"," + select2 + ")'>" + i +"</button>");
+					}
+				}
+				
+				//다음 버튼
+				if(currentPage >= maxPage){
+					pagingArea.text("[다음]");
+				}else{
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+"," + select2 + ")'>[다음]</button>");
+				}
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		})
+	}
+	
+	
 </script>
 </head>
 
@@ -143,7 +325,7 @@
                                         </thead>
                                         <tbody>
                                         <c:forEach var="b" items="${list }">
-                                            <tr>
+                                            <tr onclick="trClick(${b.bId});">
                                                 <td>${b.userId }</td>
                                                 <td>${b.bTitle }</td>
                                               
@@ -151,13 +333,13 @@
                                                 		<td>1:1 문의</td>
                                                 		
                                                 		<c:choose>
-                                                			<c:when test="${b.otoCategory eq 'WT' }">
+                                                			<c:when test="${b.subCategory eq 'WT' }">
                                                 				<td class="text-right">웹툰</td>
                                                 			</c:when>
-                                                			<c:when test="${b.otoCategory eq 'WN' }">
+                                                			<c:when test="${b.subCategory eq 'WN' }">
                                                 				<td class="text-right">웹소설</td>
                                                 			</c:when>
-                                                			<c:when test="${b.otoCategory eq 'ILL' }">
+                                                			<c:when test="${b.subCategory eq 'ILL' }">
                                                 				<td class="text-right">기타</td>
                                                 			</c:when>
                                                 			<c:otherwise>
@@ -167,7 +349,20 @@
                                                 	</c:if>
                                                 	<c:if test="${b.boardCategory eq 'NTC' }">
                                                 		<td>공지사항</td>
-                                                		<td class="text-right">해당없음</td>
+                                                		<c:choose>
+                                                			<c:when test="${b.subCategory eq 'WT' }">
+                                                				<td class="text-right">웹툰</td>
+                                                			</c:when>
+                                                			<c:when test="${b.subCategory eq 'WN' }">
+                                                				<td class="text-right">웹소설</td>
+                                                			</c:when>
+                                                			<c:when test="${b.subCategory eq 'ILL' }">
+                                                				<td class="text-right">기타</td>
+                                                			</c:when>
+                                                			<c:otherwise>
+                                                				<td class="text-right">일러스트</td>
+                                                			</c:otherwise>
+                                                		</c:choose>          
                                                 	</c:if>
                                                 <td class="text-right">${b.bCount }</td>
                                                 <td class="text-right">${b.uploadDate }</td>

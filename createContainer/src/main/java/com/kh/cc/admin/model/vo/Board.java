@@ -13,12 +13,12 @@ public class Board implements java.io.Serializable{
 	private String bContent;
 	private String bTitle;
 	private String status;
-	private String otoCategory;
+	private String subCategory;
 	
 	public Board() {}
 
 	public Board(int bId, String userId, String boardCategory, int bCount, Date uploadDate, Date updateDate, String bContent,
-			String bTitle, String status, String otoCategory) {
+			String bTitle, String status, String subCategory) {
 		super();
 		this.bId = bId;
 		this.userId = userId;
@@ -29,7 +29,7 @@ public class Board implements java.io.Serializable{
 		this.bContent = bContent;
 		this.bTitle = bTitle;
 		this.status = status;
-		this.otoCategory = otoCategory;
+		this.subCategory = subCategory;
 	}
 
 	public int getbId() {
@@ -104,19 +104,19 @@ public class Board implements java.io.Serializable{
 		this.status = status;
 	}
 
-	public String getOtoCategory() {
-		return otoCategory;
+	public String getsubCategory() {
+		return subCategory;
 	}
 
-	public void setOtoCategory(String otoCategory) {
-		this.otoCategory = otoCategory;
+	public void setsubCategory(String subCategory) {
+		this.subCategory = subCategory;
 	}
 
 	@Override
 	public String toString() {
 		return "Board [bId=" + bId + ", userId=" + userId + ", boardCategory=" + boardCategory + ", bCount=" + bCount + ", uploadDate="
 				+ uploadDate + ", updateDate=" + updateDate + ", bContent=" + bContent + ", bTitle=" + bTitle
-				+ ", status=" + status + ", otoCategory=" + otoCategory + "]";
+				+ ", status=" + status + ", subCategory=" + subCategory + "]";
 	}
 	
 	

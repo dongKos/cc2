@@ -245,10 +245,10 @@ public class AdminController {
 		int select2 = Integer.parseInt(request.getParameter("select2"));
 		
 		int currentPage = 1;
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
 		
 		  int listCount = as.getBoardTypeListCount(select1, select2);
 		  
@@ -259,19 +259,66 @@ public class AdminController {
 		  HashMap<String, Object> list2 = new HashMap<String, Object>();
 		  list2.put("list", list);
 		  list2.put("pi", pi);
-		 
-
 		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 
 	}
-		
+	
 	//게시판 관리 - 댓글 관리 페이지
 	@RequestMapping("showBoardReply.ad")
-	public String showBoardReply() {
+	public String showBoardReply(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getBoardReplyListCount();
+		
+		System.out.println("댓글 전체 개수 : " + listCount);
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		
+		ArrayList<Member> list = as.selectBoardReplyList(pi);
+		
+		System.out.println("boardReplyList : " + list);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		
 		return "admin/adminBoardReply";
 	}
+
 	
+	  //게시판 관리 - 게시글 관리 페이지 조건 검색 ajax
+	  
+	  @RequestMapping(value="boardReplyType.ad") 
+	  public ResponseEntity<HashMap<String,Object>> boardReplyType(HttpServletRequest request) { 
+		  //1:1문의 인지 공지사항 인지 
+		  int select1 = Integer.parseInt(request.getParameter("select1")); 
+		  //웹툰, 웹소설, 일러스트,기타 인지 
+		  int select2 = Integer.parseInt(request.getParameter("select2"));
+		  
+		  int currentPage = 1;
+		  
+		  if(request.getParameter("currentPage") != null) { 
+			  currentPage =Integer.parseInt(request.getParameter("currentPage")); 
+		  }
+		  
+		  int listCount = as.getBoardTypeListCount(select1, select2);
+		  
+		  AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		  
+		  ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,
+		  select2); HashMap<String, Object> list2 = new HashMap<String, Object>();
+		  list2.put("list", list); list2.put("pi", pi);
+		  
+		  return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+		  
+	  }
+	  
+	  
+	 
 	//통계관리 - 작가통계 페이지
 	@RequestMapping("showStatistic.ad")
 	public String showStatistic() {

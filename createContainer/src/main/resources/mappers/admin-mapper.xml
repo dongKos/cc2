@@ -63,12 +63,22 @@
 		<id property="bId" column="B_ID"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="boardCategory" column="BOARD_CATEGORY"/>
+		<result property="bCount" column="B_COUNT"/>
 		<result property="uploadDate" column="UPLOAD_DATE"/>
 		<result property="updateDate" column="UPDATE_DATE"/>
 		<result property="bContent" column="BCONTENT"/>
 		<result property="bTitle" column="BTITLE"/>
 		<result property="status" column="STATUS"/>
-		<result property="otoCategory" column="OTO_CATEGORY"/>
+		<result property="subCategory" column="SUB_CATEGORY"/>
+	</resultMap>
+	<resultMap type="com.kh.cc.admin.model.vo.Reply" id="replyResultSet">
+		<id property="replyId" column="REPLY_ID"/>
+		<result property="replyDate" column="REPLY_DATE"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="rId" column="RID"/>
+		<result property="bId" column="B_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="workType" column="WORK_TYPE"/>
 	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
@@ -263,7 +273,7 @@
 		FROM BOARD
 		WHERE STATUS = 'Y'
 		AND BOARD_CATEGORY = 'OTO'
-		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
+		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
 	</select>
 	
 	<!-- 게시글 관리 페이지 조건 검색 - 공지사항 문의 개수 조회 -->
@@ -272,25 +282,45 @@
 		FROM BOARD
 		WHERE STATUS = 'Y'
 		AND BOARD_CATEGORY = 'NTC'
+		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
 	</select>
-	
+	<!-- 게시글 관리 페이지 조건 검색 - 1:1 문의 -->
 	<select id="selectOTOBoardTypeList" parameterType="String" resultMap="BoardResultSet">
 		SELECT *
 		FROM BOARD
 		WHERE STATUS = 'Y'
 		AND BOARD_CATEGORY = 'OTO'
-		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
+		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
+		ORDER BY B_ID DESC
 	</select>
-	
-	<select id="selectNoticeTypeList" parameterType="String" resultMap="BoardResultSet">
+	<!-- 게시글 관리 페이지 조건 검색 - 공지사항 -->
+	<select id="selectNoticeBoardTypeList" parameterType="String" resultMap="BoardResultSet">
 		SELECT *
 		FROM BOARD
 		WHERE STATUS = 'Y'
 		AND BOARD_CATEGORY = 'NTC'
-		AND OTO_CATEGORY LIKE '%'|| #{str} ||'%'
+		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
+		ORDER BY B_ID DESC
 	</select>
 	
+	<!-- 게시글 관리 - 댓글 페이지 댓글 전체 개수 조회 -->
+	<select id="selectBoardReplyListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPLY
+	</select>
 	
+	<!-- 게시글 관리 - 댓글 페이지 전체 댓글 조회 -->
+	<select id="selectBoardReplyList" resultMap="replyResultSet">
+		SELECT R.REPLY_ID, R.REPLY_DATE, R.REPLY_CONTENT, R.RID, R.B_ID, R.USER_ID, W.WORK_TYPE
+		FROM REPLY R 
+		JOIN WORK_ROUND WR ON(R.RID = WR.RID)
+		JOIN WORK W ON (WR.WID = W.WID)
+		UNION
+		SELECT R.REPLY_ID, R.REPLY_DATE, R.REPLY_CONTENT, R.RID, R.B_ID, R.USER_ID, B.SUB_CATEGORY
+		FROM REPLY R
+		JOIN BOARD B ON(R.B_ID = B.B_ID)
+		ORDER BY REPLY_ID DESC
+	</select>
 </mapper>
 	
 
