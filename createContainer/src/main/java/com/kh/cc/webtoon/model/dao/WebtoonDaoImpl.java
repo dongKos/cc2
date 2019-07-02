@@ -124,6 +124,24 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return sqlSession.update("Webtoon.updateWorkWt", wt);
 	}
 
+	@Override
+	public WebtoonRound selectOneRound(SqlSessionTemplate sqlSession, int rid) {
+		System.out.println("회차 수정폼 이동 dao");
+		return sqlSession.selectOne("Webtoon.selectOneRound",rid);
+	}
+
+	@Override
+	public ArrayList<WebtoonPhoto> selectOneRoundPhoto(SqlSessionTemplate sqlSession, int rid) {
+		
+		ArrayList<WebtoonPhoto> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.selectOneRoundPhoto", rid);
+		
+		return list;
+	}
+
+
+
 	
 
 	

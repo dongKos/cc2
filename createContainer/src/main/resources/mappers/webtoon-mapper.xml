@@ -53,7 +53,7 @@
 	<insert id="insertWebtoon" parameterType="Webtoon">
 		INSERT INTO WORK
 		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle},
-		 1, 'WT','COMP', null, #{ageGrade}, #{genre})
+		 1, 'WT',DEFAULT, null, #{ageGrade}, #{genre})
 	</insert>
 	
 	
@@ -156,6 +156,20 @@
 		    CHANGE_NAME = #{changeName}
 		WHERE FID = #{fid}
 	</update>
+
+	<select id="selectOneRound" resultMap="webtoonRoundResultSet">
+		SELECT *
+		FROM WORK_ROUND
+		WHERE RID = #{rid}
+	</select>
+
+	<select id="selectOneRoundPhoto" resultMap="webtoonPhotoResultSet">
+		SELECT *
+		FROM ATTACHMENT
+		WHERE RID = #{rid}
+		AND ATTACHMENT_CATEGORY != 'ma'
+		ORDER BY ATTACHMENT_CATEGORY DESC
+	</select>
 
 </mapper>
 

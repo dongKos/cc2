@@ -30,8 +30,9 @@ public interface WebtoonService {
 
 	int updateWork(Webtoon wt);
 
-	
+	WebtoonRound selectOneRound(int rid);
 
+	ArrayList<WebtoonPhoto> selectOneRoundPhoto(int rid);
 
 
 

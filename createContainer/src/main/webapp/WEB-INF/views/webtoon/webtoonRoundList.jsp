@@ -225,8 +225,8 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid}">신규 회차 등록</button>
-								<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid}">작품 정보 수정</button>
+								<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
+								<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
 								<button class="wnrBtn" type="button">휴재 신청</button>
 							</td>
 						</tr>
@@ -296,7 +296,8 @@
 						
 						$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
 							var rid = $(this).parents().children("input").val();
-							location.href = "selectWnrUpdateForm.wn?rid=" + rid;
+							console.log("회차수정버튼눌림" + rid);
+							location.href = "updateRoundForm.wt?rid=" + rid;
 						});
 						
 						$('.wnrListArea').find('td').children('p').click(function(){
