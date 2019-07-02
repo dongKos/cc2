@@ -97,6 +97,32 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.selectWork(sqlSession, wid);
 	}
 
+	//Work수정 사진 수정 포함
+	@Override
+	public int updateWork(Webtoon wt, WebtoonPhoto wp) {
+		int result = 0;
+		
+		int result1 = wd.updateWorkWt(sqlSession, wt);
+		
+		int result2 = wd.updateWorkWp(sqlSession, wp);
+		
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updateWork(Webtoon wt) {
+		System.out.println("사진변경 안할떼 서비스");
+		return wd.updateWork(sqlSession, wt);
+	}
+
+	
+
 	
 
 	

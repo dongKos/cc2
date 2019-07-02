@@ -26,6 +26,12 @@ public interface WebtoonService {
 
 	Webtoon selectWork(int wid);
 
+	int updateWork(Webtoon wt, WebtoonPhoto wp);
+
+	int updateWork(Webtoon wt);
+
+	
+
 
 
 

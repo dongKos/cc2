@@ -34,6 +34,14 @@ public interface WebtoonDao {
 
 	Webtoon selectWork(SqlSessionTemplate sqlSession, int wid);
 
+	int updateWorkWt(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	int updateWorkWp(SqlSessionTemplate sqlSession, WebtoonPhoto wp);
+
+	int updateWork(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	
+
 
 
 }

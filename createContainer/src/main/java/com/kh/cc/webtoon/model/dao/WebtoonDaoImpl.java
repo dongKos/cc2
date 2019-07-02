@@ -108,6 +108,26 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return sqlSession.selectOne("Webtoon.selectWork",wid);
 	}
 
+	@Override
+	public int updateWorkWt(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.update("Webtoon.updateWorkWt", wt);
+	}
+
+	@Override
+	public int updateWorkWp(SqlSessionTemplate sqlSession, WebtoonPhoto wp) {
+		return sqlSession.update("Webtoon.updateWorkWp", wp);
+	}
+
+	@Override
+	public int updateWork(SqlSessionTemplate sqlSession, Webtoon wt) {
+		System.out.println("사진수정없을 dao");
+		return sqlSession.update("Webtoon.updateWorkWt", wt);
+	}
+
+	
+
+	
+
 	
 
 	
