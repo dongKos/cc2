@@ -39,17 +39,19 @@
 	}
 	
 	.content {
-		margin: 0 auto;
+		margin-left: 8%;
 		background: lightgray;
 	}
 	
 	.img-content {
+		margin-left: 7.9%;
 		width: 100%;
 		color: white;
 		height: 500px;
 	}
 	
 	#priceTable {
+		margin-left: 8%;
 		width: 100%;
 	}
 	
@@ -174,6 +176,7 @@
 		<!-- 상세 설명 -->
 		<div class="row">
 		<div class="col-lg-12">
+		<hr style="border-color:black;">
 		<h2>서비스 설명</h2><br><br><br>
 		</div>
 			<div class="col-lg-10 content" style="font-size:13px">
@@ -214,12 +217,13 @@
 		</div>
 		
 		
-		<br><br>
-		<h1>${ ill}</h1>
+		<br>
+		<hr style="border-color:black;">
+		<br>
 		<c:forEach var="ill" items="${ list }">
 		<c:if test="${ill.aCategory eq 'sub' }">
 		<div class="row">
-			<div class="img-content">
+			<div class="col-lg-10 img-content">
 				<img src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ill.changeName}" style="width:100%; height:100%;">
 			</div>
 		</div>
@@ -227,9 +231,12 @@
 		</c:if>
 		</c:forEach>
 		<br><br>
+		<hr style="border-color:black;">
 		<div class="row">
-				<table class="table table-bordered" id="priceTable">
+				<table class="col-lg-10 table table-bordered" id="priceTable">
+				<div class="col-lg-10">
 				<h2>가격정보</h2><br><br><br><br>
+				</div>
 					<thead align="center">
 					<tr style="background:lightgray; font-size:13px;">
 						<th></th>
@@ -316,17 +323,17 @@
 				
 		</div>
 				<div>
-					<button class="btn btn-warning" style="margin-left:29.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-					<button class="btn btn-warning" style="margin-left:10.5%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-					<button class="btn btn-warning" style="margin-left:10.8%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
+					<button class="btn btn-warning" style="margin-left:31%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
+					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
+					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
 				</div><br><br>
 				
 				<!-- 텍스트 설명 -->
-				
+				<hr style="border-color:black;">
 				<div class="row">
-					<h2>수정 및 재진행 안내</h2>
+					<h2 style="margin-left:9.5%">수정 및 재진행 안내</h2>
 					<br><br><br>
-					<div class="text" style="font-size:13px">
+					<div class="col-lg-10" style="font-size:13px; margin-left:8%">
 				01. 전문가와 의뢰인 간의 상호 협의 후 청약철회가 가능합니다.<br><br>
 
 				02. 전문가의 귀책사유로 디자인작업을 시작하지 않았거나 혹은 이에 준하는 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.<br><br>
@@ -350,9 +357,13 @@
 					</div>
 				</div>
 				<br><br>
+				<hr style="border-color:black;">
 				<div class="row">
+				<div class="col-lg-10" style="margin-left:6.3%">
 					<h2>후기</h2>
-					<table class="table table-bordered">
+					</div>
+					<br><br><br>
+					<table class="col-lg-10 table table-bordered" style="margin-left:8%">
 					<thead>
 						<tr>
 							<th>No</th>

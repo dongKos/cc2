@@ -96,6 +96,13 @@ public class IllustratorServiceImpl implements IllustratorService{
 		System.out.println("service : " + ill);
 		return id.selectIllChallengeDetail(sqlSession, ill);
 	}
+
+	//일러스트 작가 상세페이지 조회
+	@Override
+	public ArrayList<Illustrator> selectIllustratorDetail(Illustrator ill) {
+		
+		return id.selectIllustratorDetail(sqlSession, ill);
+	}
 	
 	
 

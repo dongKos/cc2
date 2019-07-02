@@ -39,7 +39,7 @@
 	}
 	
 	.content {
-		margin: 0 auto;
+		margin-left: 8%;
 		background: lightgray;
 	}
 	
@@ -112,10 +112,18 @@
 				<h2 style="display:inline-block;">${clist[0].illTitle}</h2>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${clist[0].nickName}</i><br><br>
-				<a href="illustratorDetail.ill"><i class="fas fa-home" onclick="illustratorDetail.ill" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
+				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>
+				<script>
+				function illustratorDetail(){
+					var userId = "<c:out value='${clist[0].userId}'/>";
+					console.log(userId);
+					
+					location.href="illustratorDetail.ill?userId=" + userId;
+				}
+				</script>
 			</div>
 		</div>
 		<br><br><br>
@@ -171,7 +179,7 @@
 		<div class="col-lg-12">
 		<h2>서비스 설명</h2><br><br><br>
 		</div>
-			<div class="col-lg-10 content" style="font-size:13px">
+			<div class="col-lg-10 content" style="font-size:13px;">
 				안녕하세요. 일러스트레이터 에머디입니다.<br><br>
 				
 				어릴 적부터 책을 보고 그 책의 내용을 그림으로 만날 수 있는 삽화에 반해 그림을 시작한게 어느덧 일로서 이어가고 있습니다.<br>

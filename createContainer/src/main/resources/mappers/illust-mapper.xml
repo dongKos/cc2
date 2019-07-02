@@ -120,4 +120,13 @@
         AND ILL.ILL_CODE = #{ illCode }
 		AND ILL.ILL_TYPE = 'chall'
 	</select>
+	
+	<!-- 일러스트 작가 상세페이지 조회 -->
+	<select id="selectIllustratorDetail" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM MEMBER M
+        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE ILL.USER_ID = #{ userId }
+	</select>
 </mapper>

@@ -57,8 +57,12 @@ public class IllustratorController {
 	
 	//일러스트 작가 상세페이지로 이동
 	@RequestMapping(value="illustratorDetail.ill")
-	public String illustratorDatail() {
-		return "illustrator/illustratorDetail";
+	public String illustratorDatail(String userId) {
+		
+		System.out.println("userId : " + userId);
+		
+		
+		return "redirect:selectIllustratorDetail.ill";
 	}
 	
 	//일러스트 포트폴리오 상세페이지로 이동
@@ -361,6 +365,18 @@ public class IllustratorController {
 			model.addAttribute("clist", clist);
 			
 			return "illustrator/illustChallengeDetail";
+		}
+		
+		//일러스트 작가 상세페이지 조회
+		@RequestMapping(value="selectIllustratorDetail.ill")
+		public String selectIllustratorDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
+			System.out.println("Controller 작가상세페이지로 넘어옴 ");
+			String userId = request.getParameter("userId");
+			ill.setUserId(userId);
+			ArrayList<Illustrator> ilist = is.selectIllustratorDetail(ill);
+			model.addAttribute("ilist", ilist);
+			
+			return "illustrator/illustratorDetail";
 		}
 	
 	
