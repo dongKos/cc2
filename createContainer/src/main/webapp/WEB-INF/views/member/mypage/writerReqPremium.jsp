@@ -79,7 +79,6 @@
 						});
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().children("input").val();
-							alert(wid)
 							location.href = "selectReqForm.mg?wid=" + wid;
 						});
 					});
