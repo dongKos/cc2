@@ -23,7 +23,20 @@
 		<result property="status" column="STATUS"/>
 		<result property="joinDate" column="JOIN_DATE"/>
 	</resultMap>
-
+		<resultMap type="com.kh.cc.mypage.model.vo.WriterPhoto" id="WPhotoResultSet">
+		<id property="fid" column="FID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="spCode" column="SP_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
 	<!-- 프로필설정 -->
 	<update id="updateIntro" parameterType="WriterProfile">
 		UPDATE MEMBER
@@ -59,11 +72,13 @@
 	
 	<!-- 프로필설정 왼쪽사진 -->
 	
-	<select id="selectMember" parameterType="java.lang.String" resultType="java.lang.String">
-	SELECT CHAGE_NAME 
+	<select id="selectMember" parameterType="java.lang.String" resultType="String">
+	SELECT CHANGE_NAME 
 	FROM ATTACHMENT
 	WHERE USER_ID = #{userId}
 	AND ATTACHMENT_CATEGORY = 'prf'
+	AND ROWNUM = 1
+	
 	</select>
 	
 	
