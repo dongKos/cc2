@@ -1,5 +1,7 @@
 package com.kh.cc.mypage.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +13,7 @@ import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 
 @Service
 public class MypgServiceImpl implements MypgService{
@@ -116,6 +119,12 @@ public class MypgServiceImpl implements MypgService{
     
     return md.selectPhoto(sqlSession, m);
  }
+//관심작품 목록
+@Override
+public ArrayList attentionListWt(WebnovelPageInfo pi, Member m) {
+	
+	return md.attentionListWt(sqlSession,pi, m);
+}
 
 
 

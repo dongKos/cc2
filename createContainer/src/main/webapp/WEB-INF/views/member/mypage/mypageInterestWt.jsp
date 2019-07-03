@@ -37,9 +37,51 @@
   					</ul>
   					<br>
   					<!-- 여기부터 -->
-  					<div style="width:25%;">
-  					<img src="${ contextPath }/resources/images/mypage/denmathum.jpg" width="100%"/>
-  					</div>
+  					<div class="wnListDiv">
+				
+				<c:forEach var="wn" items="${ list }">
+				<div style="width:20%; float:left; margin:0 12px;">
+					<table class="wnListTable">
+						<tr>
+							<td class="workImg">
+								<div class="titleImg">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<input type="hidden" value="${ wn.wid }">
+								</div>
+							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="contentTd" align="center">
+								${ wn.wTitle }
+							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
+					</table>
+				</div>
+				</c:forEach>
+				
+				
+				
+				<script>
+					$(function(){
+						$('.wnListDiv').find('td').children('button').click(function(){
+							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
+							
+							location.href = "selectWnUpdateOne.wn?wid=" + wid;
+						});
+						$('.wnListDiv').find('td').children('div').children('img').click(function(){
+							var wid = $(this).parents().children("input").val();
+							location.href = "selectReqForm.mg?wid=" + wid;
+						});
+					});
+			
+				</script>
+				</div>
   					
   					
   					
