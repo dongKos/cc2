@@ -238,6 +238,24 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	public int selectAllStarPointCount(SqlSessionTemplate sqlSession, int wid) {
 		return sqlSession.selectOne("Webnovel.selectAllStarPointCount", wid);
 	}
+	//베스트 도전 작품 카운트
+	@Override
+	public int selectBestWnListCount(SqlSessionTemplate sqlSession, int gradeType) {
+		return sqlSession.selectOne("Webnovel.selectBestWnListCount", gradeType);
+	}
+	//베스트 도전 작품 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectBestWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, int gradeType) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectBestWnList", gradeType, rowBounds);
+		
+		return list;		
+	}
 	
 
 }

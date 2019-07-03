@@ -170,10 +170,10 @@
 							<td class="workImg">
 								<c:set var="workStatus" value="${ wn.workStatus }" />
 								<div class="titleImg">
-								<c:if test="${ workStatus eq 'COMPLTE'}">
+								<c:if test="${ workStatus eq 'RUN'}">
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
 								</c:if>
-								<c:if test="${ workStatus eq 'CLOSE'}">
+								<c:if test="${ workStatus eq 'COMP'}">
 								<div class="wnStatus">완결</div>
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
 								</c:if>

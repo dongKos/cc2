@@ -23,6 +23,8 @@
 		<result property="fid" column="FID"/>
 		<result property="nickname" column="NICKNAME"/>
 		<result property="attentionId" column="ATTENTION_ID"/>
+		<result property="spAvg" column="SPAVG"/>
+		<result property="genreExplain" column="GENRE_EXPLAIN"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" id="webnovelPhotoResultSet">
@@ -69,7 +71,7 @@
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
-		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle}, 1, 'WN', 'COMPLTE', null, #{ageGrade}, #{genre})
+		VALUES (WID_SEQ.NEXTVAL, #{userId}, SYSDATE, #{wTitle}, #{wIntro}, 0, #{wCycle}, 1, 'WN', DEFAULT, null, #{ageGrade}, #{genre})
 	</insert>
 	<!-- 작품 메인 사진 등록 메소드 -->
 	<insert id="insertWnPhoto" parameterType="WebnovelPhoto">
@@ -196,7 +198,7 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
-		AND W.WORK_STATUS = 'COMPLTE'
+		AND W.WORK_STATUS = 'RUN'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
@@ -207,7 +209,7 @@
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		WHERE W.GENRE = #{genre}
-		AND W.WORK_STATUS = 'COMPLTE'
+		AND W.WORK_STATUS = 'RUN'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
@@ -218,7 +220,7 @@
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.WORK_STATUS = 'CLOSE'
+		WHERE W.WORK_STATUS = 'COMP'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
@@ -228,7 +230,7 @@
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.WORK_STATUS = 'CLOSE'
+		WHERE W.WORK_STATUS = 'COMP'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
@@ -288,6 +290,29 @@
 		JOIN WORK_ROUND WR ON(WR.RID = P.RID)
 		JOIN WORK W ON(WR.WID = W.WID)
 		WHERE W.WID = #{wid}
+	</select>
+	<!-- 웹소설 도전 완결 목록 카운트 -->
+	<select id="selectBestWnListCount" parameterType="int" resultType="_int">
+		SELECT COUNT(DISTINCT WID)
+		FROM WORK W
+		LEFT JOIN WORK_ROUND WR ON(W.WID = WR.WID)
+		LEFT JOIN STARP SP ON (WR.RID = SP.RID)
+		LEFT JOIN ATTENTION AT ON(AT.WID = W.WID)
+		WHERE W.GRADE_TYPE = #{gradeType}
+	</select>
+	<!-- 웹소설 도전 완결 목록 리스트 -->
+	<select id="selectBestWnList" parameterType="int" resultMap="webnovelResultSet">
+		SELECT W.WID, W.USER_ID, W.WUPLOAD_DATE, W.WTITLE, W.WINTRO, W.WCYCLE, W.GRADE_TYPE, W.WORK_TYPE, W.WORK_STATUS, W.WORK_DATE, W.AGE_GRADE, W.GENRE,  W.VCOUNT, ATC.CHANGE_NAME, G.GENRE_EXPLAIN, TRUNC(AVG(STAR_POINT), 2) AS SPAVG, COUNT(DISTINCT ATTENTION_ID) AS ACOUNT
+		FROM WORK W
+		LEFT JOIN ATTACHMENT ATC ON(W.WID = ATC.WID)
+		LEFT JOIN GENRE G ON(G.GENRE_CODE = W.GENRE)
+		LEFT JOIN WORK_ROUND WR ON(W.WID = WR.WID)
+		LEFT JOIN STARP SP ON (WR.RID = SP.RID)
+		LEFT JOIN ATTENTION AT ON(AT.WID = W.WID)
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND ATC.ATTACHMENT_CATEGORY = 'ma'
+		GROUP BY W.WID, W.USER_ID, W.WUPLOAD_DATE, W.WTITLE, W.WINTRO, W.WCYCLE, W.GRADE_TYPE, W.WORK_TYPE, W.WORK_STATUS, W.WORK_DATE, W.AGE_GRADE, W.GENRE, W.VCOUNT, ATC.CHANGE_NAME, G.GENRE_EXPLAIN
+		ORDER BY W.VCOUNT DESC, SPAVG DESC, ACOUNT DESC
 	</select>
 </mapper>
 

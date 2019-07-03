@@ -82,6 +82,10 @@ public interface WebnovelDao {
 	double selectAllWnrStarPointAvg(SqlSessionTemplate sqlSession, int wid);
 	//작품 전체 평가인원수
 	int selectAllStarPointCount(SqlSessionTemplate sqlSession, int wid);
+	//베스트 도전 작품 카운트
+	int selectBestWnListCount(SqlSessionTemplate sqlSession, int gradeType);
+	//베스트 도전 작품 리스트
+	ArrayList<HashMap<String, Object>> selectBestWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, int gradeType);
 	
 	
 }
