@@ -272,7 +272,7 @@ public class WebnovelController {
 		String userId = m.getUserId();
 		String workStatus = request.getParameter("workStatus");
 		if(workStatus == null) {
-			workStatus = "COMPLTE";
+			workStatus = "RUN";
 		}
 		
 		wn.setWid(wid);
@@ -336,7 +336,7 @@ public class WebnovelController {
 			try {
 				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 				if(wn.getWorkStatus() == null) {
-					wn.setWorkStatus("COMPLTE");
+					wn.setWorkStatus("RUN");
 				}
 				ws.updateWnRound(wnr, wp, wn);
 				
@@ -353,7 +353,7 @@ public class WebnovelController {
 			}
 		}else {
 			if(wn.getWorkStatus() == null) {
-				wn.setWorkStatus("COMPLTE");
+				wn.setWorkStatus("RUN");
 			}
 			ws.updateWnRound(wnr, wn);
 			return "redirect:selectWnRoundList.wn?wid=" + wid;
@@ -535,6 +535,7 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(starOk,HttpStatus.OK);
 	}
+	//전체 별점 평군, 별점 카운트
 	@RequestMapping(value="selectAllStarAvgCnt.wn")
 	public ResponseEntity<HashMap<String, Object>> selectAllStarAvgCnt(Model model, WebnovelStarPoint wnsp, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
@@ -547,6 +548,27 @@ public class WebnovelController {
 		wnrAvgcnt.put("starPointCount", starPointCount);
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnrAvgcnt,HttpStatus.OK);
+	}
+	//베스트 도전 작품
+	@RequestMapping(value="selectBestWnList.wn")
+	public ResponseEntity<HashMap<String, Object>> selectBestWnList(Model model, WebnovelStarPoint wnsp, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
+		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
+		int buttonCount = 10;
+		int limit = 5;
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = ws.selectBestWnListCount(gradeType);
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectBestWnList(pi, gradeType);
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 	}
 	
 	//웹소설 Top5 이동

@@ -212,7 +212,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td colspan="2" class="">
-										<input id="workStatus" type="checkbox" name="workStatus" value="COMPLTE"><label for="workStatus">이 회차가 완결입니다.</label>
+										<input id="workStatus" type="checkbox" name="workStatus" value="COMP"><label for="workStatus">이 회차가 완결입니다.</label>
 									</td>
 								</tr>
 								<tr>
@@ -250,8 +250,8 @@ input[type=checkbox]:checked + label:before{
 		$(function(){
 			$("#workStatus").click(function(){
 				var chk = $(this).is(":checked");
-				if(chk) $("#workStatus").val('CLOSE');
-				else $("#workStatus").val('COMPLTE');
+				if(chk) $("#workStatus").val('COMP');
+				else $("#workStatus").val('RUN');
 			});
 		});
 		

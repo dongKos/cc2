@@ -245,6 +245,16 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int selectAllStarPointCount(int wid) {
 		return  wd.selectAllStarPointCount(sqlSession, wid);
 	}
+	//베스트 도전 작품 카운트
+	@Override
+	public int selectBestWnListCount(int gradeType) {
+		return wd.selectBestWnListCount(sqlSession, gradeType);
+	}
+	//베스트 도전 작품 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectBestWnList(WebnovelPageInfo pi, int gradeType) {
+		return wd.selectBestWnList(sqlSession, pi, gradeType);
+	}
 	
 	
 }

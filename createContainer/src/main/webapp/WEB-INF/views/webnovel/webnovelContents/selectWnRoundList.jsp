@@ -11,9 +11,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
-td{
-	border:1px solid black;
-}
 .introArea{
 	margin-top:30px;
 	border:1px solid lightgray;
@@ -219,9 +216,19 @@ td{
 	color:gray;
 	font-size:15px;
 }
-.testImg{
+.wnBestArea{
+	border-left:1px solid lightgray;
+	padding-left:20px;
+}
+.bestWn{
+	margin-bottom:10px;
+	border-bottom:1px solid lightgray;
+	cursor:pointer;
+}
+.bwnImg{
 	width:100%;
 	font-size:10px;
+	padding-bottom:5px;
 }
 .bestImg{
 	width:80px;
@@ -231,14 +238,14 @@ td{
 .bestTitle{
 	width:150px;
 	height:30px;
-	font-size:10px;
+	font-size:12px;
 }
 .bestGenre{
-	font-size:10px;
+	font-size:9px;
 	height:20px;
 }
 .bestSp{
-	font-size:10px;
+	font-size:8px;
 }
 
 </style>
@@ -259,12 +266,12 @@ td{
 						<tr>
 							<td rowspan="3"width="210">
 								<c:set var="workStatus" value="${ wn.workStatus }" />
-								<c:if test="${ workStatus eq 'COMPLTE'}">
+								<c:if test="${ workStatus eq 'RUN'}">
 								<div class="introImg">
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
 								</div>
 								</c:if>
-								<c:if test="${ workStatus eq 'CLOSE'}">
+								<c:if test="${ workStatus eq 'COMP'}">
 								<div class="wnStatus">완결</div>
 								<div class="introImg">
 									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
@@ -336,11 +343,11 @@ td{
 							<tr>
 								<td rowspan="3" class="wnrImg">
 									<div class="subImg">
-									<c:if test="${ workStatus eq 'CLOSE'}">
+									<c:if test="${ workStatus eq 'COMP'}">
 										<div class="wnrStatus">완결</div>
 										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
-									<c:if test="${ workStatus eq 'COMPLTE'}">
+									<c:if test="${ workStatus eq 'RUN'}">
 										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
 									</div>
@@ -404,11 +411,11 @@ td{
 							<tr>
 								<td rowspan="3" class="wnrImg">
 									<div class="subImg">
-									<c:if test="${ workStatus eq 'CLOSE'}">
+									<c:if test="${ workStatus eq 'COMP'}">
 										<div class="wnrStatus">완결</div>
 										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
-									<c:if test="${ workStatus eq 'COMPLTE'}">
+									<c:if test="${ workStatus eq 'RUN'}">
 										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
 									</div>
@@ -440,29 +447,79 @@ td{
 				<div class="col-sm-4">
 					<!-- 베스트 도전 작품 -->
 					<h4 align="center">베스트 도전 작품</h4>
-					<table class="bestWn">
-						<tr>
-							<td class="bestImg" rowspan="4">
-								<img class="testImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }">
-							</td>
-						</tr>
-						<tr>
-							<td  class="bestTitle">
-								1번소설
-							</td>
-						</tr>
-						<tr>
-							<td class="bestGenre">
-								판타지
-							</td>
-						</tr>
-						<tr>
-							<td class="bestSp">
-								별점점점
-							</td>
-						</tr>
-					</table>				
+					<div class="wnBestArea">
+									
+					</div>
 				</div>
+				<script>
+					$(document).ready(function(){
+						
+						var gradeType = 1;
+						$.ajax({
+							url:"selectBestWnList.wn",
+							type:"get",
+							data:{gradeType:gradeType},
+							success:function(data){
+								$(".bestWn").remove();
+								
+								for(var i = 0; i < data.list.length; i++){
+									var wnBestArea = $(".wnBestArea");
+									var bestWn = $('<table class="bestWn" name="bestWn">');
+									var bwnImg = $('<td class="bestImg" rowspan="4"><img class="bwnImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/'+ data.list[i].changeName+'">');
+									var bestTitle = $('<td  class="bestTitle">').text(data.list[i].wTitle);
+									var bestGenre = $('<td class="bestGenre">').text('장르 - ' + data.list[i].genreExplain);
+									var stpAvg = data.list[i].spAvg;
+									var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+									var bestSpTd = $('<td class="bestSp">');
+									
+									var bestSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
+									var bestSp1 = $('<p class="starAvg">').append('&#11088; <br>'+ data.list[i].spAvg + ' 점');
+									var bestSp2 = $('<p class="starAvg">').append('&#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+									var bestSp3 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+									var bestSp4 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+									var bestSp5 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+									var list = new Array();
+									list[0] = bwnImg;
+									list[1] = bestTitle;
+									list[2] = bestGenre;
+									if(stpAvg >= 4.5){
+										list[3] = bestSpTd.append(bestSp5,hiddenWid);
+									}else if(stpAvg >= 3.5){
+										list[3] =  bestSpTd.append(bestSp4,hiddenWid);
+									}else if(stpAvg >= 2.5){
+										list[3] =  bestSpTd.append(bestSp3,hiddenWid);
+									}else if(stpAvg >= 1.5){
+										list[3] =  bestSpTd.append(bestSp2,hiddenWid);
+									}else if(stpAvg >= 1){
+										list[3] =  bestSpTd.append(bestSp1,hiddenWid);
+									}else{
+										list[3] = bestSpTd.append(bestSp0,hiddenWid);
+									}
+									
+									
+									for(var j = 0; j < list.length; j++) {
+										var tr = $('<tr>');
+										tr.append(list[j]);
+										bestWn.append(tr);
+									}
+									wnBestArea.append(bestWn);
+									bestWn.append(tr);
+								}
+								
+								$('.wnBestArea').find($(".bestWn")).on('click',function(){
+									var wid = $(this).children().last().children().children('input').val();
+									location.href = "selectWnRoundList.wn?wid=" + wid;
+								});
+								
+							},
+							error:function(status){
+								alert(status);
+							}
+						});	
+						
+					});
+				
+				</script>
 				</c:if>
 			</div>
 			<div class="col-sm-1"></div>
@@ -532,13 +589,11 @@ td{
 		$(function(){
 			$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
 				var rid = $(this).parents().children("input").eq(0).val();
-				console.log(rid);
 				location.href = "deleteWnRound.wn?rid=" + rid;
 			});	
 			
 			$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
 				var rid = $(this).parents().children("input").eq(0).val();
-				console.log(rid);
 				location.href = "selectWnrUpdateForm.wn?rid=" + rid;
 			});
 			

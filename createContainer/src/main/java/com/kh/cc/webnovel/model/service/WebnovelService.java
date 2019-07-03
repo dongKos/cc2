@@ -69,4 +69,8 @@ public interface WebnovelService {
 	double selectAllWnrStarPointAvg(int wid);
 	//작품 평가인원 수
 	int selectAllStarPointCount(int wid);
+	//베스트 도전 작품 카운트
+	int selectBestWnListCount(int gradeType);
+	//베스트 도전 작품 리스트
+	ArrayList<HashMap<String, Object>> selectBestWnList(WebnovelPageInfo pi, int gradeType);
 }
