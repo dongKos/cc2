@@ -97,6 +97,64 @@
 	color:gray;
 	text-align:right;
 }
+.wnBestArea{
+	border:1px solid lightgray;
+}
+.bestWn{
+	margin:0 auto;
+	cursor:pointer;
+}
+.bwnImg{
+	width:94%;
+	font-size:10px;
+}
+.bestImg{
+	broder:1px solid lightgray;
+	width:80px;
+	padding:5px 5px 5px 5px;
+	font-size:10px;
+}
+.bestTitle{
+	width:150px;
+	height:30px;
+	font-size:12px;	
+	padding-left:10px;
+}
+.bestGenre{
+	font-size:9px;
+	height:20px;
+		padding-left:10px;
+}
+.bestSp{
+	color:red;
+	font-size:8px;
+	padding-left:10px;
+}
+.bestMainTitle{
+	display:inline-block;
+	margin-bottom:0px;
+	width:120px;
+}
+.leftBtn{
+	display:inline-block;
+}
+.rightBtn{
+	display:inline-block;
+}
+.piBtn{
+	width:25px;
+	line-height:20px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.bestPi{
+	text-align:center;
+}
 </style>
 </head>
 <body>
@@ -107,20 +165,6 @@
 	<jsp:include page="../common/middleNavbar.jsp"/>
 	<!-- 웹소설 장르 네비바 -->
 	<jsp:include page="../common/genreNavbar.jsp"/>
-	
-	<div class="genreNav">
-		<table class="genreMenu">
-			<tr>
-				<td class="genreItem" id="id1" onClick="location.href=''">추천</td>
-				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3',1)">판타지</td>
-				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8',1)">무협</td>
-				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10',1)">로맨스</td>
-				<td class="genreItem" id="5" onClick="genreMenu('GR_CTG1',1)">현대</td>
-				<td class="genreItem" id="6" onClick="genreMenu('GR_CTG6',1)">공포</td>
-				<td class="genreItem" id="7" onClick="genreMenu('CLOSE',1)">완결</td>
-			</tr>
-		</table>
-	</div>
 	<script>
 		function genreMenu(genre, currentPage){
 			$.ajax({
@@ -227,24 +271,143 @@
 				
 			</div>
 			<div class="col-sm-3">
-				<p>베스트 도전작품</p><br>
-				<img style="width:100%; hegiht:300px !important;"src="${ contextPath }/resources/images/logo.png"/>
+				<div class="wnBestArea">
+					<div class="bestPi">
+						<div class="leftBtn">
+							<button class="piBtn" onclick="location.href='selectMainBestWnList.wn?currentPage'+"><</button>
+						</div>
+						<p class="bestMainTitle">베스트 도전작품</p>
+						<div class="rightBtn">
+							<button class="piBtn">></button>
+						</div>
+					</div>
+				</div>
 			</div>
+			<script>
+				$(document).ready(function(){
+					
+					var gradeType = 1;
+					$.ajax({
+						url:"selectMainBestWnList.wn",
+						type:"get",
+						data:{gradeType:gradeType},
+						success:function(data){
+							console.log(data);
+							
+							for(var i = 0; i < data.list.length; i++){
+								var wnBestArea = $(".wnBestArea");
+								var bestWn = $('<table class="bestWn" name="bestWn">');
+								var bwnImg = $('<td class="bestImg"><img class="bwnImg" src="${ contextPath }/resources/uploadFiles/webnovelMain/'+ data.list[i].changeName+'">');
+								var bestTitle = $('<td  class="bestTitle">').text(data.list[i].wTitle);
+								var bestGenre = $('<td class="bestGenre">').text('장르 - ' + data.list[i].genreExplain);
+								var stpAvg = data.list[i].spAvg;
+								var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+								var bestSpTd = $('<td class="bestSp">');
+								
+								var bestSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
+								var bestSp1 = $('<p class="starAvg">').append('&#11088; <br>'+ data.list[i].spAvg + ' 점');
+								var bestSp2 = $('<p class="starAvg">').append('&#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+								var bestSp3 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+								var bestSp4 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+								var bestSp5 = $('<p class="starAvg">').append('&#11088; &#11088; &#11088; &#11088; &#11088; <br>'+ data.list[i].spAvg + ' 점');
+								var list = new Array();
+								list[0] = bwnImg;
+								list[1] = bestTitle;
+								list[2] = bestGenre;
+								if(stpAvg >= 4.5){
+									list[3] = bestSpTd.append(bestSp5,hiddenWid);
+								}else if(stpAvg >= 3.5){
+									list[3] =  bestSpTd.append(bestSp4,hiddenWid);
+								}else if(stpAvg >= 2.5){
+									list[3] =  bestSpTd.append(bestSp3,hiddenWid);
+								}else if(stpAvg >= 1.5){
+									list[3] =  bestSpTd.append(bestSp2,hiddenWid);
+								}else if(stpAvg >= 1){
+									list[3] =  bestSpTd.append(bestSp1,hiddenWid);
+								}else{
+									list[3] = bestSpTd.append(bestSp0,hiddenWid);
+								}
+								
+								
+								for(var j = 0; j < list.length; j++) {
+									var tr = $('<tr>');
+									tr.append(list[j]);
+									bestWn.append(tr);
+								}
+								wnBestArea.append(bestWn);
+								bestWn.append(tr);
+							}
+							
+							
+							
+							$leftBtn = $(".leftBtn");
+							$rightBtn = $(".rightBtn");
+							$leftBtn.html('');
+							$rightBtn.html('');
+							var currentPage = data.pi.currentPage;
+							var startPage = data.pi.startPage;
+							var endPage = data.pi.endPage;
+							var maxPage = data.pi.maxPage;
+						    var left = "'selectMainBestWnList.wn?currentPage="+ (currentPage - 1) +"&gradeType=1'";
+						    var right = "'selectMainBestWnList.wn?currentPage="+ (currentPage + 1) +"&gradeType=1'";
+						    console.log(left);
+						    console.log(right);
+							//이전
+							if(currentPage <= 1){
+								$leftBtn.append('<button class="piBtn"><</button>');
+							}else{
+								$leftBtn.append('<button class="piBtn" onclick="location.href=' + left + '"><</button>');
+							}
+							
+							//다음
+							if(currentPage >= maxPage){
+								$rightBtn.append('<button class="piBtn">></button>');
+							}else{
+								$rightBtn.append('<button class="piBtn" onclick="location.href=' + right + '">></button>');
+							}
+							
+							
+							$('.wnListArea').find($("table[name=wnList]")).on('click',function(){
+								var wid = $(this).children().last().children().children('input').val();
+								console.log(wid);
+								location.href = "selectWnRoundList.wn?wid=" + wid;
+							});
+							
+							
+							
+							
+							
+							
+							$('.wnBestArea').find($(".bestWn")).on('click',function(){
+								var wid = $(this).children().last().children().children('input').val();
+								location.href = "selectWnRoundList.wn?wid=" + wid;
+							});
+							
+						},
+						error:function(status){
+							alert(status);
+						}
+					});	
+					
+					
+				});
+				
+			</script>
 			<div class="col-sm-1"></div>
 		</div><br><br>
 		
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10">
-				<div class="lineUp">
-					<select>
-						<option>조회순</option>
-						<option>최신순</option>
-						<option>별점순</option>
-						<option>관심등록순</option>
-					</select>
-				</div>
 				<div class="wnListArea">
+					<div class="lineUp">
+						<select>
+							<option>조회순</option>
+							<option>최신순</option>
+							<option>별점순</option>
+							<option>관심등록순</option>
+						</select>
+					</div>
 					<table class="wnList">
 						<tr>
 							<td class="wnImgBoxTd" colspan="2">
