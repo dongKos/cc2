@@ -118,7 +118,7 @@ public class IllustratorDaoImpl implements IllustratorDao{
 	//일러스트 작가페이지 상세 조회
 	@Override
 	public ArrayList<Illustrator> selectIllustratorDetail(SqlSessionTemplate sqlSession, Illustrator ill) {
-		
+		System.out.println("Dao 작가상세페이지로 넘어옴 ");
 		ArrayList<Illustrator> ilist = null;
 		
 		ilist = (ArrayList) sqlSession.selectList("Illustrator.selectIllustratorDetail", ill);

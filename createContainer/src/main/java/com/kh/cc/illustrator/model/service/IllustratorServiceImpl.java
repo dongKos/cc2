@@ -100,7 +100,7 @@ public class IllustratorServiceImpl implements IllustratorService{
 	//일러스트 작가 상세페이지 조회
 	@Override
 	public ArrayList<Illustrator> selectIllustratorDetail(Illustrator ill) {
-		
+		System.out.println("Service 작가상세페이지로 넘어옴 ");
 		return id.selectIllustratorDetail(sqlSession, ill);
 	}
 	
