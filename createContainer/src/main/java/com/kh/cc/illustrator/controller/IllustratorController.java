@@ -376,6 +376,8 @@ public class IllustratorController {
 			ArrayList<Illustrator> ilist = is.selectIllustratorDetail(ill);
 			model.addAttribute("ilist", ilist);
 			
+			System.out.println("작가의 작품 조회 : " + ilist );
+			
 			return "illustrator/illustratorDetail";
 		}
 	

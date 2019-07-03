@@ -21,29 +21,91 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  	.list .list-div{
+  		display: inline-block;
+  		width: 32%;
+  		height: 200px;
+  		margin-bottom: 50px;
+  		padding: 15px;
+  	}
+  	.list .list-div img {
+  		width: 100%;
+  		height: 100%;
+  	}
+  </style>
 </head>
 <body id="page-top">
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 <br><br><br>
-<div class="col-lg-12">
+<div class="container-fluid" style="margin-top:-5%;">
 	<br>
-	<table class="col-lg-12" style="border-color:2px solid black">
-		<tr style="float:left; width:25%;">
-			<td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"><br><br>
-			<h2>작가닉네임</h2><br>
+	<!-- 작가 프로필  -->
+	<div class="row">
+		<div class="col-lg-3" align="center">
+			<c:forEach var="ill" items="${ilist }">
+				<c:if test="${ill.aCategory eq 'prf'}">
+					<img src="${contextPath }/resources/uploadFiles/writerProfile/${ill.changeName}" style="width:70%">
+				</c:if>
+			</c:forEach>
+			<br><br>
+			
+			<h2>${ilist[0].nickName}</h2><br>
 			<i class="fab fa-instagram" style="font-size:40px;"><br><p style="font-size:12px">Instargram</p></i>
 			<i class="fab fa-facebook-square" style="font-size:40px; margin-left:5%;"><br><p style="font-size:12px">Facebook</p></i>
 			<i class="fab fa-twitter-square" style="font-size:40px; margin-left:10%;"><br><p style="font-size:12px">Twitter</p></i><br><br>
 			<button type="button" class="btn btn-info" style="width:70%; font-size:13px;">Follow</button><br><br>
 			<hr style="border:2px solid darkgray; width:100%"><br><br>
-			<h3 style="text-align:justify">작가소개씨부렁씨부렁씨부렁씨부렁씨부렁씨부렁씨부렁씨부렁</h3>
-			</td>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
-			<tr style="align:center; float:left; width:25%; margin-top:5%"><td align="center"><img src="${contextPath }/resources/images/logoEdit.png" style="width:70%"></td></tr>
+			<h3 style="text-align:justify">${ilist[0].intro}</h3>
+		</div>
+		<!-- 작가 작품 목록 -->
+		<div class="col-lg-9 list">
+		<h2>도전 </h2>
+			<c:forEach var="ill" items="${ilist }">
+				<c:if test="${ill.aCategory eq 'ma' && ill.illType eq 'chall'}">
+					<div class="list-div">
+						<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ill.changeName}">
+					</div>
+				</c:if>
+			</c:forEach>
+			
+			<br>
+		<h2>포트폴리오 </h2>
+			<c:forEach var="ill" items="${ilist }">
+				<c:if test="${ill.aCategory eq 'ma' && ill.illType eq 'pri'}">
+					<div class="list-div">
+						<img src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ill.changeName}">
+					</div>
+				</c:if>
+			</c:forEach>
+			
+		</div>
+	</div>
+	
+	
+	<table class="col-lg-12" style="border-color:2px solid black">
+		<tr style="float:left; width:25%; height:auto">
+			<%-- <td align="center">
+			<c:forEach var="ill" items="${ilist }">
+			<c:if test="${ill.aCategory eq 'prf'}">
+			<img src="${contextPath }/resources/uploadFiles/writerProfile/${ill.changeName}" style="width:70%">
+			</c:if>
+			</c:forEach>
+			<br><br>
+			<h2>${ilist[0].nickName}</h2><br>
+			<i class="fab fa-instagram" style="font-size:40px;"><br><p style="font-size:12px">Instargram</p></i>
+			<i class="fab fa-facebook-square" style="font-size:40px; margin-left:5%;"><br><p style="font-size:12px">Facebook</p></i>
+			<i class="fab fa-twitter-square" style="font-size:40px; margin-left:10%;"><br><p style="font-size:12px">Twitter</p></i><br><br>
+			<button type="button" class="btn btn-info" style="width:70%; font-size:13px;">Follow</button><br><br>
+			<hr style="border:2px solid darkgray; width:100%"><br><br>
+			<h3 style="text-align:justify">${ilist[0].intro}</h3>
+			</td> --%>
+			</tr>
+			<%-- <c:forEach var="ill" items="${ilist }">
+			<c:if test="${ill.aCategory eq 'ma' }">
+			<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ill.changeName}" style="width:70%; height:20%">
+			</c:if>
+			</c:forEach> --%>
 			<tr>
 				<td>
 					<ul class="pagination" style="margin-left:54%; margin-top:4%; font-size:15px">
@@ -55,7 +117,6 @@
 					</ul>
 				</td>
 			</tr>
-		</tr>
 	</table>
 </div>
 </body>
