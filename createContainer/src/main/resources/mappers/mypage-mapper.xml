@@ -100,6 +100,16 @@
 		WHERE WID = #{wid}
 		AND ATTACHMENT_CATEGORY = 'ma'
 	</select>
+	<select id="attentionListWt" parameterType="String" resultMap="mypageResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+        JOIN ATTENTION AT ON(W.WID = AT.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE AT.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
 	
 </mapper>
 

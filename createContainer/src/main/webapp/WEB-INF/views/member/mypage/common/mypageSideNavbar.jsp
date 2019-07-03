@@ -83,7 +83,7 @@
 			location.href="mypgInfoPass.mg"
 		}
 		function gointerestWt(){
-	        location.href="mypgIterestWt.mg";
+	        location.href="attentionListWt.mg";
 	    }
 	    function gointerestWa(){
 	       	location.href="mypgInterestWa.mg";

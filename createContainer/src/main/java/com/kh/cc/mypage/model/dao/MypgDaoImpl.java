@@ -1,5 +1,8 @@
 package com.kh.cc.mypage.model.dao;
 
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +12,7 @@ import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 
 @Repository
 public class MypgDaoImpl implements MypgDao{
@@ -91,6 +95,14 @@ public class MypgDaoImpl implements MypgDao{
     
     return sqlSession.selectOne("WriterProfile.selectMember", m.getUserId());
  }
+//관심작품 목록
+@Override
+public ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	
+	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	return (ArrayList) sqlSession.selectList("Mypage.attentionListWt", m.getUserId(), rowBounds);
+}
 
 
 	   

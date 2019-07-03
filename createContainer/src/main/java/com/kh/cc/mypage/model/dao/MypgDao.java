@@ -1,10 +1,13 @@
 package com.kh.cc.mypage.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
@@ -35,5 +38,7 @@ public interface MypgDao {
 	   
 	//프로필설정(왼쪽사진 바꾸기)
 	String selectPhoto(SqlSessionTemplate sqlSession, Member m);
+
+	ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 
 }

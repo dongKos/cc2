@@ -49,6 +49,7 @@ public class MypgController {
 	private WebtoonService wts;
 	
 	
+	
 	//마이페이지 이동
 			@RequestMapping("mypgMain.mg")
 			public String showLoginForm() {
@@ -427,7 +428,42 @@ public class MypgController {
             
             
             //관심작품 목록
+            @RequestMapping("attentionListWt.mg")
+            public String attentionListWt(Model model, Member m, HttpServletRequest request, HttpSession session) {
+    				m = (Member) session.getAttribute("loginUser");
+    				
+    				int currentPage = 1;
+    				int buttonCount = 10;
+    				
+    				int limit = 12;
+    				if(request.getParameter("currentPage") != null) {
+    					currentPage = Integer.parseInt(request.getParameter("currentPage"));
+    				}
+    				
+    				int listCount = ws.selectListCount(m);
+    				
 
+    				WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+    				
+    				ArrayList list = ms.attentionListWt(pi, m);
+    				model.addAttribute("list", list);
+    				model.addAttribute("pi", pi);
+    				
+    				return "member/mypage/mypageInterestWt";
+            }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
