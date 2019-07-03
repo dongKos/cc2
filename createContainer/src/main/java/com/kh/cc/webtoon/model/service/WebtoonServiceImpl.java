@@ -132,6 +132,29 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.selectOneRoundPhoto(sqlSession, rid);
 	}
 
+	//round
+	@Override
+	public int updateWorkRound(WebtoonRound wr, WebtoonPhoto wp) {
+		int result = 0;
+		
+		int result1 = wd.updateRoundWr(sqlSession, wr);
+		
+		int result2 = wd.updateRoundWp(sqlSession, wp);
+		
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int updateWorkRound(WebtoonRound wr) {
+		return wd.updateWorkRound(sqlSession,wr);
+	}
+
 	
 
 	

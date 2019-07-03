@@ -170,6 +170,22 @@
 		AND ATTACHMENT_CATEGORY != 'ma'
 		ORDER BY ATTACHMENT_CATEGORY DESC
 	</select>
+	
+	<update id="updateRoundWr">
+		UPDATE WORK_ROUND
+		SET RTITLE = #{rTitle},
+			WR_COMMENT = #{wrComment}
+		WHERE RID = #{rid}
+	</update>
+	
+	<update id="updateRoundWp">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = #{originName},
+		    CHANGE_NAME = #{changeName}
+		WHERE FID = #{fid}
+	</update>
+	
+	
 
 </mapper>
 

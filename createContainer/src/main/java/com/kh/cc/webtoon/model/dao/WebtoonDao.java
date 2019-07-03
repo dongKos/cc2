@@ -44,6 +44,12 @@ public interface WebtoonDao {
 
 	ArrayList<WebtoonPhoto> selectOneRoundPhoto(SqlSessionTemplate sqlSession, int rid);
 
+	int updateRoundWr(SqlSessionTemplate sqlSession, WebtoonRound wr);
+
+	int updateRoundWp(SqlSessionTemplate sqlSession, WebtoonPhoto wp);
+
+	int updateWorkRound(SqlSessionTemplate sqlSession, WebtoonRound wr);
+
 
 	
 

@@ -226,6 +226,8 @@ input[type=checkbox]:checked+label:before {
 									<td class="wtContent">
 										<div class="imgBox">
 											<img id="roundThumbnail" name="subChangeName" src="${ contextPath }/resources/uploadFiles/webtoonSub/${ subChangeName.changeName }">
+											<h4>${ contextPath }/resources/uploadFiles/webtoonSub/${ subChangeName.changeName }</h4>
+											<input type="text" name="subChangeName" value="${ subChangeName.changeName }"/>
 											<input type="hidden" name="subFid" value="${ subChangeName.fid }"/>
 										</div>
 								</tr>
@@ -235,6 +237,8 @@ input[type=checkbox]:checked+label:before {
 									<td class="wtContent">
 										<div class="imgBox">
 											<img id="roundContent" name="contChangeName" src="${ contextPath }/resources/uploadFiles/webtoonContent/${ contChangeName.changeName }">
+											<h4>${ contextPath }/resources/uploadFiles/webtoonContent/${ contChangeName.changeName }</h4>
+											<input type="text" name="contChangeName" value="${ contChangeName.changeName }"/>
 											<input type="hidden" name="contFid" value="${ contChangeName.fid }"/>
 										</div>
 									</td>
