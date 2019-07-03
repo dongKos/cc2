@@ -140,6 +140,21 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return list;
 	}
 
+	@Override
+	public int updateRoundWr(SqlSessionTemplate sqlSession, WebtoonRound wr) {
+		return sqlSession.update("Webtoon.updateRoundWr", wr);
+	}
+
+	@Override
+	public int updateRoundWp(SqlSessionTemplate sqlSession, WebtoonPhoto wp) {
+		return sqlSession.update("Webtoon.updateRoundWp", wp);
+	}
+
+	@Override
+	public int updateWorkRound(SqlSessionTemplate sqlSession, WebtoonRound wr) {
+		return sqlSession.update("Webtoon.updateRoundWr", wr);
+	}
+
 
 
 	
