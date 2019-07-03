@@ -121,7 +121,7 @@
 					var userId = "<c:out value='${clist[0].userId}'/>";
 					console.log(userId);
 					
-					location.href="illustratorDetail.ill?userId=" + userId;
+					location.href="selectIllustratorDetail.ill?userId=" + userId;
 				}
 				</script>
 			</div>

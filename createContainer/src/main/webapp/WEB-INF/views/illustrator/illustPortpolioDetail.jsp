@@ -115,11 +115,19 @@
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
 				<h3>시작가 : ${list[0].illPrice}</h3><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${list[0].nickName}</i><br><br>
-				<a href="illustratorDetail.ill"><i class="fas fa-home" onclick="illustratorDetail.ill" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
+				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="support();">후원하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>
+				<script>
+				function illustratorDetail(){
+					var userId = "<c:out value='${list[0].userId}'/>";
+					console.log(userId);
+					
+					location.href="selectIllustratorDetail.ill?userId=" + userId;
+				}
+				</script>
 			</div>
 		</div>
 		<br><br><br>

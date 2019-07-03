@@ -21,6 +21,7 @@
 		<result property="fid" column="FID"/>
 		<result property="nickName" column="NICKNAME"/>
 		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="intro" column="INTRO"/>
 	</resultMap>
 	
 	<!-- 일러스트 서브 이미지 -->
@@ -123,10 +124,17 @@
 	
 	<!-- 일러스트 작가 상세페이지 조회 -->
 	<select id="selectIllustratorDetail" parameterType="Illustrator" resultMap="IllustratorResultSet">
-		SELECT *
+		SELECT A.CHANGE_NAME, A.FILE_PATH, A.ATTACHMENT_CATEGORY, A.ILL_CODE, A.USER_ID, ILL.ILL_TYPE, M.NICKNAME, M.INTRO
+		FROM ATTACHMENT A
+		JOIN ILLUSTRATION ILL ON (ILL.ILL_CODE = A.ILL_CODE)
+		JOIN MEMBER M ON (ILL.USER_ID = M.USER_ID)
+		WHERE M.USER_ID = #{ userId }
+		
+		UNION
+		
+		SELECT A.CHANGE_NAME, A.FILE_PATH, A.ATTACHMENT_CATEGORY, NULL, A.USER_ID, NULL, M.NICKNAME, M.INTRO
 		FROM MEMBER M
-        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
-		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
-		WHERE ILL.USER_ID = #{ userId }
+		JOIN ATTACHMENT A ON (A.USER_ID = M.USER_ID)
+		WHERE A.ATTACHMENT_CATEGORY = 'prf'
 	</select>
 </mapper>
