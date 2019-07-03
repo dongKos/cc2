@@ -570,7 +570,27 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 	}
-	
+	//베스트 도전 작품 메인
+	@RequestMapping(value="selectMainBestWnList.wn")
+	public ResponseEntity<HashMap<String, Object>> selectMainBestWnList(Model model, WebnovelStarPoint wnsp, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
+		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
+		int buttonCount = 10;
+		int limit = 5;
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = ws.selectBestWnListCount(gradeType);
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectBestWnList(pi, gradeType);
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
 	//웹소설 Top5 이동
 	@RequestMapping("webnovelTop5.wn")
 	public String webnovelTop5() {

@@ -29,18 +29,18 @@
 </style>
 </head>
 <body>
-	<!-- <div class="genreNav">
+	<div class="genreNav">
 		<table class="genreMenu">
 			<tr>
-				<td class="genreItem" onClick="location.href=''">신규</td>
-				<td class="genreItem" onClick="location.href=''">판타지</td>
-				<td class="genreItem" onClick="location.href=''">무협</td>
-				<td class="genreItem" onClick="location.href=''">로맨스</td>
-				<td class="genreItem" onClick="location.href=''">현대</td>
-				<td class="genreItem" onClick="location.href=''">스릴러</td>
-				<td class="genreItem" onClick="location.href=''">완결</td>
+				<td class="genreItem" id="1" onClick="">추천</td>
+				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG3',1)">판타지</td>
+				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG8',1)">무협</td>
+				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG10',1)">로맨스</td>
+				<td class="genreItem" id="5" onClick="genreMenu('GR_CTG1',1)">현대</td>
+				<td class="genreItem" id="6" onClick="genreMenu('GR_CTG6',1)">공포</td>
+				<td class="genreItem" id="7" onClick="genreMenu('CLOSE',1)">완결</td>
 			</tr>
 		</table>
-	</div> -->
+	</div>
 </body>
 </html>
