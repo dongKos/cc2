@@ -15,7 +15,7 @@
   <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-
+  <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -50,13 +50,13 @@
 			</c:forEach>
 			<br><br>
 			
-			<h2>${ilist[0].nickName}</h2><br>
-			<i class="fab fa-instagram" style="font-size:40px;"><br><p style="font-size:12px">Instargram</p></i>
-			<i class="fab fa-facebook-square" style="font-size:40px; margin-left:5%;"><br><p style="font-size:12px">Facebook</p></i>
-			<i class="fab fa-twitter-square" style="font-size:40px; margin-left:10%;"><br><p style="font-size:12px">Twitter</p></i><br><br>
+			<h2 style="font-family: 'Yeon Sung', cursive; font-size:30px;">${ilist[0].nickName}</h2><br>
+			<a href="https://www.instagram.com/"><i class="fab fa-instagram" style="font-size:40px; color:pink;"><br><p style="font-size:12px">Instargram</p></i></a>
+			<a href="https://www.facebook.com/"><i class="fab fa-facebook-square" style="font-size:40px; color:lightblue; margin-left:5%;"><br><p style="font-size:12px">Facebook</p></i></a>
+			<a href="https://www.twitter.com/"><i class="fab fa-twitter-square" style="font-size:40px; color:skyblue; margin-left:10%;"><br><p style="font-size:12px">Twitter</p></i></a><br><br>
 			<button type="button" class="btn btn-info" style="width:70%; font-size:13px;">Follow</button><br><br>
 			<hr style="border:2px solid darkgray; width:100%"><br><br>
-			<h3 style="text-align:justify">${ilist[0].intro}</h3>
+			<h3 style="text-align:justify; font-family: 'Yeon Sung', cursive; font-size:20px;">${ilist[0].intro}</h3>
 		</div>
 		<!-- 작가 작품 목록 -->
 		<div class="col-lg-9 list">
@@ -78,7 +78,6 @@
 					</div>
 				</c:if>
 			</c:forEach>
-			
 		</div>
 	</div>
 	
