@@ -18,6 +18,7 @@
   <link href="${contextPath }/resources/vendor/illust/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Yeon+Sung&display=swap" rel="stylesheet">
 
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
@@ -52,7 +53,7 @@
       <!-- Portfolio Grid Items -->
       <div class="row">
         <!-- Portfolio Item 1 -->
-        <c:forEach var="illPortfolio" items="${ list }">
+        <c:forEach var="illPortfolio" items="${ slist }">
         <div class="col-md-6 col-lg-4">
           <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
@@ -60,7 +61,8 @@
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illPortfolio.changeName }">
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/writerProfile/${ illPortfolio.changeName }"><br><br>
+            <h2 align="center" style="font-family: 'Yeon Sung', cursive; font-size:30px;">${illPortfolio.nickName}</h2>
           </div>
         </div>
 		</c:forEach>

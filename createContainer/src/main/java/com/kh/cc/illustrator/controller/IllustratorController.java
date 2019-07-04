@@ -51,7 +51,11 @@ public class IllustratorController {
 	
 	//일러스트 후원하기 페이지로 이동
 	@RequestMapping(value="illustSupport.ill")
-	public String illustSupport() {
+	public String illustSupport(HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
+		
+		ArrayList<Illustrator> slist = is.selectIllSupportList(ill);
+		model.addAttribute("slist", slist);
+		
 		return "illustrator/illust_Support";
 	}
 	
@@ -363,6 +367,7 @@ public class IllustratorController {
 			ill.setUserId(userId);
 			ArrayList<Illustrator> clist = is.selectIllChallengeDetail(ill);
 			model.addAttribute("clist", clist);
+			System.out.println("도전하기 상세 : " + clist);
 			
 			return "illustrator/illustChallengeDetail";
 		}
@@ -381,5 +386,13 @@ public class IllustratorController {
 			return "illustrator/illustratorDetail";
 		}
 	
-	
+		//일러스트 후원 목록 조회
+		@RequestMapping(value="selectIllSupportList")
+		public String selectIllSupportList(HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
+			
+			ArrayList<Illustrator> slist = is.selectIllSupportList(ill);
+			model.addAttribute("slist", slist);
+			
+			return "illustrator/illust_Support";
+		}
 }
