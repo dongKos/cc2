@@ -171,6 +171,7 @@
 		ORDER BY ATTACHMENT_CATEGORY DESC
 	</select>
 	
+	<!-- 회차수정 -->
 	<update id="updateRoundWr">
 		UPDATE WORK_ROUND
 		SET RTITLE = #{rTitle},
@@ -178,12 +179,22 @@
 		WHERE RID = #{rid}
 	</update>
 	
+	<!-- 이미지 수정 메소드 -->
 	<update id="updateRoundWp">
 		UPDATE ATTACHMENT
 		SET ORIGIN_NAME = #{originName},
 		    CHANGE_NAME = #{changeName}
 		WHERE FID = #{fid}
 	</update>
+	
+	<!-- content이미지 -->
+	<select id="content" resultMap="webtoonRoundResultSet">
+	SELECT *
+	FROM ATTACHMENT A
+	JOIN WORK_ROUND W ON(A.RID = W.RID)
+	WHERE A.RID = #{rid}
+	AND ATTACHMENT_CATEGORY = 'cont'
+	</select>
 	
 	
 

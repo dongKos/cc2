@@ -426,9 +426,12 @@ public class WebtoonController {
 	
 	// 회차폼에서 수정버튼을누르면 동작하는 메소드
 	@RequestMapping(value = "updateRound.wt")
-	public String updateRound(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, WebtoonPhoto wp, WebtoonPhoto wp1,
+	public String updateRound(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, 
 			Member m, WebtoonRound wr, @RequestParam(name = "photo", required = false) MultipartFile photo,
 			@RequestParam(name = "photo1", required = false) MultipartFile photo1) {
+		
+		WebtoonPhoto wp = new WebtoonPhoto();
+		WebtoonPhoto wp1 = new WebtoonPhoto();
 
 		m = (Member) session.getAttribute("loginUser");
 		String userId = m.getUserId();
@@ -444,10 +447,13 @@ public class WebtoonController {
 
 		wr.setRid(rid);
 		wr.setWid(wid);
-		wr.setFid(subFid);
+		
 		
 		wp.setWid(wid);
+		//wp.setFid(subFid);
+		
 		wp1.setWid(wid);
+		//wp1.setFid(contFid);
 
 
 		// 안바꿨을때 띄울려고
@@ -461,8 +467,8 @@ public class WebtoonController {
 		// 회차썸내일 을 바꿨을때
 		if ((!photo1.isEmpty()) && (!photo.isEmpty())) {
 			
-			wp.setFid(subFid);
-			wp1.setFid(contFid);
+			
+			
 			
 			System.out.println("썸내일과 내용 이미지를 둘다 수정");
 			String root = request.getSession().getServletContext().getRealPath("resources");
@@ -478,6 +484,11 @@ public class WebtoonController {
 			String originFileName1 = photo1.getOriginalFilename();
 			String ext1 = originFileName.substring(originFileName1.lastIndexOf("."));
 			String changeFileName1 = CommonUtils.getRandomString();
+			
+			wp.setFid(subFid);
+			System.out.println("wp(fid) : " + wp);
+			wp1.setFid(contFid);
+			System.out.println("wp1(fid) : " + wp1);
 
 			// 썸내일
 			wp.setOriginName(originFileName);
@@ -485,6 +496,7 @@ public class WebtoonController {
 			wp.setFilePath(filePath1);
 			wp.setWid(wid);
 			wp.setUserId(userId);
+			System.out.println("파일정보 잘들어갔나 wp : " + wp);
 
 			// 웹툰 내용 사진
 			wp1.setOriginName(originFileName1);
@@ -492,11 +504,17 @@ public class WebtoonController {
 			wp1.setFilePath(filePath2);
 			wp1.setWid(wid);
 			wp1.setUserId(userId);
+			System.out.println("파일정보 잘들어갔나 wp1 : " + wp1);
+			
 
 			try {
+				
+				
 				photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
 				photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
-
+				
+				System.out.println("커트롤에서 서비스로 보내는 wp : " + wp.getFid());
+				System.out.println("커트롤에서 서비스로 보내는 wp1 : " + wp1.getFid());
 				ws.updateRoundWps(wr, wp, wp1);
 				System.out.println("wr : " + wr);
 				System.out.println("wp : " + wp);
@@ -504,6 +522,10 @@ public class WebtoonController {
 
 				new File(filePath1 + "\\" + subChangeName).delete();
 				new File(filePath2 + "\\" + contChangeName).delete();
+				
+				model.addAttribute("wid", wid);
+				model.addAttribute("fid", contFid);
+				model.addAttribute("fid", contFid);
 
 				return "redirect:roundList.wt";
 
@@ -522,9 +544,9 @@ public class WebtoonController {
 			
 
 			}else if(!photo1.isEmpty()) {
+				wp1.setFid(contFid);
 				
-				wp.setFid(contFid);
-				System.out.println("켄텐츠사진정보 수정할떄 fid :" + wp.getFid());
+				System.out.println("켄텐츠사진정보 수정할떄 fid :" + wp1.getFid());
 				String root = request.getSession().getServletContext().getRealPath("resources");
 
 				String filePath = root + "\\uploadFiles\\webtoonContent";
@@ -532,16 +554,16 @@ public class WebtoonController {
 				String ext = originFileName.substring(originFileName.lastIndexOf("."));
 				String changeFileName = CommonUtils.getRandomString();
 
-				wp.setOriginName(originFileName);
-				wp.setChangeName(changeFileName + ext);
-				wp.setFilePath(filePath);
-				wp.setUserId(userId);
+				wp1.setOriginName(originFileName);
+				wp1.setChangeName(changeFileName + ext);
+				wp1.setFilePath(filePath);
+				wp1.setUserId(userId);
 
 				try {
 					photo1.transferTo(new File(filePath + "\\" + changeFileName + ext));
 
-					ws.updateWorkRound(wr, wp);
-					System.out.println("wp : " + wp);
+					ws.updateWorkRound(wr, wp1);
+					System.out.println("wp : " + wp1);
 
 					new File(filePath + "\\" + contChangeName).delete();
 
@@ -568,7 +590,7 @@ public class WebtoonController {
 				
 		} else if (!photo.isEmpty()) {
 			wp.setFid(subFid);
-			System.out.println("썸내일사진정보 수정할떄 fid :" +wp.getFid());
+			
 			String root = request.getSession().getServletContext().getRealPath("resources");
 
 			String filePath = root + "\\uploadFiles\\webtoonSub";
@@ -580,6 +602,8 @@ public class WebtoonController {
 			wp.setChangeName(changeFileName + ext);
 			wp.setFilePath(filePath);
 			wp.setUserId(userId);
+			System.out.println("썸내일사진정보 수정할떄 fid :" + wp.getFid());
+			System.out.println("썸내일 수정 wp : " + wp);
 
 			try {
 				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
@@ -612,6 +636,28 @@ public class WebtoonController {
 			return "redirect:insertWork.wt";
 		}
 
+	}
+	
+	@RequestMapping(value="contentView.wt")
+	public String contentView(Model model, HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr) {
+		System.out.println("웹툰 보기페이지 옴");
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		System.out.println("rid : " + rid);
+		
+		wr.setRid(rid);
+		
+		ws.content(wr);
+		System.out.println("wr : " + wr);
+		
+		model.addAttribute("wr", wr);
+		
+		
+		
+		return "webtoon/ContentForm";
+		
 	}
 
 }

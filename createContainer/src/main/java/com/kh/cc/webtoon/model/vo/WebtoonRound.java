@@ -15,6 +15,7 @@ public class WebtoonRound implements java.io.Serializable{
 	private int fid;
 	private String workStatus;
 	
+	
 	public WebtoonRound() {}
 
 	public int getRid() {

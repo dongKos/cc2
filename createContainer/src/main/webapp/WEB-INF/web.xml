@@ -57,7 +57,7 @@
       <url-pattern>*.mg</url-pattern>
    </servlet-mapping>
    <!-- 관리자 관련 서블릿 요청주소 -->
-   <servlet>
+<!--    <servlet>
       <servlet-name>admin</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
@@ -71,7 +71,7 @@
    </servlet-mapping>
    
 
-   <!-- 일러스트 관련 서블릿 요청주소 -->
+   일러스트 관련 서블릿 요청주소
    <servlet>
       <servlet-name>illust</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -83,7 +83,7 @@
    <servlet-mapping>
       <servlet-name>illust</servlet-name>
       <url-pattern>*.ill</url-pattern>
-   </servlet-mapping>
+   </servlet-mapping> -->
    
    <!-- 쪽지 관련 서블릿 요청주소 -->
    <!-- <servlet>
@@ -126,7 +126,6 @@
 	<servlet-mapping>
 		<servlet-name>webtoon</servlet-name>
 		<url-pattern>*.wt</url-pattern>
-
 	</servlet-mapping>
    
 <!-- 웹소설 관련 서블릿 요청주소 -->
