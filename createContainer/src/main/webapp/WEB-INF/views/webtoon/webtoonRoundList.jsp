@@ -233,60 +233,67 @@
 					</table>
 				</div>
 				<div class="wnrListArea">
-				<c:forEach var="wtr" items="${ list }" varStatus="status">
-					<table class="wnrTable">
-						<tr>
-							<td rowspan="3" class="wnrImg">
-								<div class="subImg">
-								<%-- <c:if test="${ workStatus eq 'CLOSE'}">
+					<c:forEach var="wtr" items="${ list }" varStatus="status">
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+										<%-- <c:if test="${ workStatus eq 'CLOSE'}">
 						         			<div class="wnrStatus">완결</div>
 									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
 								</c:if> --%>
-								<%-- <c:if test="${ workStatus eq 'COMPLTE'}"> --%>
-									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
-								<%-- </c:if> --%>
-								</div>
-							</td>
-							<td colspan="2" class="wnrContent"></td>
-						</tr>
-						<tr>
-							<td class="wnrContent">
-								<p class="wnrTitleArea">${ wtr.rTitle }</p>
-							</td>
-							<td class="wnrBtnArea">
-								<input type="hidden" value="${ wtr.rid }">
-								<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
-								<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">회차 삭제</button>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" class="wnrContent">
-								조회&nbsp; ${ wtr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-								${ wtr.ruploadDate }
-							</td>
-						</tr>
-					</table>
-					<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal">&times;</button>
-									<h4 class="modal-title">작품 삭제</h4>
-								</div>
-								<div class="modal-body">
-									<p>정말로 삭제 하시겠습니까?<br><br>삭제하시면 복구가 불가능합니다.</p>
-								</div>
-								<div class="modal-footer">
-									<input type="hidden" class="wid" value="${ wnr.rid }">
-									<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
-									<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
+										<%-- <c:if test="${ workStatus eq 'COMPLTE'}"> --%>
+										<img class="roundThumbnail"
+											src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
+										<%-- </c:if> --%>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<p class="wnrTitleArea">${ wtr.rTitle }</p>
+								</td>
+								<td class="wnrBtnArea"><input type="hidden" name="rid"
+									value="${ wtr.rid }">
+									<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보
+										수정</button>
+									<br>
+								<br>
+									<button class="wnDeleteBtn" name="wnDeleteBtn" type="button"
+										class="btn btn-info btn-lg" data-toggle="modal"
+										data-target="#myModal<c:out value="${status.index}" />">회차
+										삭제</button></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">조회&nbsp; ${ wtr.vCount }
+									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${ wtr.ruploadDate }</td>
+							</tr>
+						</table>
+						<div class="modal fade"
+							id="myModal<c:out value="${status.index}" />" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">작품 삭제</h4>
+									</div>
+									<div class="modal-body">
+										<p>
+											정말로 삭제 하시겠습니까?<br>
+											<br>삭제하시면 복구가 불가능합니다.
+										</p>
+									</div>
+									<div class="modal-footer">
+										<input type="hidden" class="wid" value="${ wnr.rid }">
+										<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+										<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					
-				</c:forEach>
-				<script>
+					</c:forEach>
+					<script>
 					$(function(){
 						$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
 							var rid = $(this).parents().children("input").val();
@@ -305,6 +312,15 @@
 							
 							location.href = "selectDetailedWebnovel.wn?rid=" + rid;
 						});
+						
+						$('.roundThumbnail').click(function(){
+							var rid = $(this).parents().parents().parents().parents()
+							.children("tr").children("td").children("input").val();
+							console.log(rid);
+							
+							location.href = "contentView.wt?rid=" + rid;
+						});
+						
 					});
 				</script>
 				</div>

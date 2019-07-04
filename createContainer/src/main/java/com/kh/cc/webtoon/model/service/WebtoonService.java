@@ -40,6 +40,8 @@ public interface WebtoonService {
 
 	int updateRoundWps(WebtoonRound wr, WebtoonPhoto wp, WebtoonPhoto wp1);
 
+	WebtoonRound content(WebtoonRound wr);
+
 
 
 }

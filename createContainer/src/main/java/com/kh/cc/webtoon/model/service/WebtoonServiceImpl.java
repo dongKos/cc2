@@ -161,14 +161,15 @@ public class WebtoonServiceImpl implements WebtoonService{
 	@Override
 	public int updateRoundWps(WebtoonRound wr, WebtoonPhoto wp, WebtoonPhoto wp1) {
 		System.out.println("사진 둘다 수정 서비스");
+		System.out.println("서비스 wp : " + wp);
+		System.out.println("서비스 wp1 : " + wp1);
 		int result = 0;
 		
 		int result1 = wd.updateRoundWr(sqlSession, wr);
 		
 		int result2 = wd.updateRoundWp(sqlSession, wp);
 		
-		int result3 = wd.updateRoundWp(sqlSession, wp1);
-		
+		int result3 = wd.updateRoundWp1(sqlSession, wp1);
 		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			result = 1;
 		}else {
@@ -177,6 +178,13 @@ public class WebtoonServiceImpl implements WebtoonService{
 				
 		
 		return result;
+	}
+
+	@Override
+	public WebtoonRound content(WebtoonRound wr) {
+		
+		return wd.content(sqlSession, wr);
+		
 	}
 
 	
