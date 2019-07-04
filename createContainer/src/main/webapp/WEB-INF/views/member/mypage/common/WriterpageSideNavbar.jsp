@@ -51,7 +51,7 @@
 	<div class="profile">
 		<table>
 			<tr>
-				<td class="testImg"><img id="profilePic" src="${contextPath}/resources/uploadFiles/writerProfile/${sessionScope.chageName}"></td>
+				<td class="testImg"><img id="profilePic" width="150px" height="150px;" src="${contextPath}/resources/uploadFiles/writerProfile/${sessionScope.chageName}"></td>
 				<td>${ sessionScope.loginUser.nickName }</td>
 			</tr>
 			<tr>
@@ -105,7 +105,7 @@
 		
 
 	</script>
-	<!-- <script>
+	<script>
 		$(document).ready(function(){
 			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
 			//var userId = ${ sessionScope.loginUser.userId };
@@ -117,10 +117,9 @@
 				data:{userId:userId},
 				success:function(data){
 					console.log("data : " , data);	
-					$(".testImg").append(
-							'<img id="profilePic" src='+ data +'>'
-					);
-					$("#profilePic").attr("src", data);
+					var changeName = data.replace("\"","");
+					console.log(changeName.replace("\"",""));
+					$("#profilePic").attr("src", "${contextPath}/resources/uploadFiles/writerProfile/"+changeName.replace("\"",""));
 				},
 				error:function(status){
 					console.log("status : " , status);
@@ -142,7 +141,7 @@
 				}
 			}) */
 		})
-	</script>-->
+	</script>
 </body>
 </html>
 

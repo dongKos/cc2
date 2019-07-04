@@ -53,12 +53,12 @@
 	</insert>
 	<delete id="deletePhoto" parameterType="java.lang.String" >
 	DELETE FROM ATTACHMENT
-	WHERE ROWNUM = 1 and user_id = #{userId}
+	WHERE FID = (SELECT FID FROM (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} ORDER BY FID) A WHERE ROWNUM = 1)
 	</delete>
 	
 	<select id="deletePhotoPath" parameterType="java.lang.String" resultType="String">
 	SELECT CHANGE_NAME FROM ATTACHMENT
-	WHERE ROWNUM = 1 and user_id = #{userId}
+	WHERE FID = (SELECT FID FROM (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} ORDER BY FID) A WHERE ROWNUM = 1)
 	</select>
 	
 	

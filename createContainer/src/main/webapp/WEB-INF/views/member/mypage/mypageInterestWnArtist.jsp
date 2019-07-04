@@ -31,17 +31,59 @@
 
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li style="width:33%;"><a href="mypgInterestWa.mg">웹툰</a></li>
-    					<li class="active" style="width:33%;"><a href="mypgInterestWna.mg">웹소설</a></li>
-    					 <li style="width:33%;"><a href="mypgInterestIa.mg">일러스트</a></li>
+    					<li style="width:33%;"><a href="attentionArtist.mg">웹툰</a></li>
+    					<li class="active" style="width:33%;"><a href="attentionWnArtist.mg">웹소설</a></li>
+    					 <li style="width:33%;"><a href="attentionWlArtist.mg">일러스트</a></li>
     					
     					
   					</ul>
   					<br>
   					<!-- 여기부터 -->
-  					<div style="width:25%;">
-  					<img src="${ contextPath }/resources/images/mypage/denmathum.jpg" width="100%"/>
-  					</div>
+  					<div class="wnListDiv">
+				
+				<c:forEach var="m" items="${ list }">
+				<div style="width:20%; float:left; margin:0 12px;">
+					<table class="wnListTable">
+						<tr>
+							<td class="workImg">
+								<div class="titleImg">
+									<img src="${ contextPath }/resources/uploadFiles/writerProfile/${ m.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<input type="hidden" value="${ m.mno }">
+								</div>
+							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td class="contentTd" align="center">
+								${ m.nickName }
+							</td>
+						</tr>
+						<tr>
+						<td>&nbsp;</td>
+						</tr>
+					</table>
+				</div>
+				</c:forEach>
+				
+				
+				
+				<script>
+					$(function(){
+						$('.wnListDiv').find('td').children('button').click(function(){
+							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
+							
+							location.href = "selectWnUpdateOne.wn?wid=" + wid;
+						});
+						$('.wnListDiv').find('td').children('div').children('img').click(function(){
+							var wid = $(this).parents().children("input").val();
+							location.href = "selectReqForm.mg?wid=" + wid;
+						});
+					});
+			
+				</script>
+				</div>
   					
   					
   					

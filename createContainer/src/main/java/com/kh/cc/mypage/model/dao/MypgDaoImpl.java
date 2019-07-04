@@ -105,6 +105,37 @@ public ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo
 }
 
 
+//관심작가 목록(웹툰)
+@Override
+public ArrayList attentionArtistWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	
+	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	
+	return (ArrayList) sqlSession.selectList("Mypage.attentionArtistWt", m.getUserId(), rowBounds);
+}
+
+//관심작가 목록(웹소설)
+@Override
+public ArrayList attentionWnArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+	int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	
+	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	
+	return (ArrayList) sqlSession.selectList("Mypage.attentionWnArtist", m.getUserId(), rowBounds);
+}
+
+//관심작가 목록(일러스트)
+@Override
+public ArrayList attentionWlArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+	
+	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+	
+	return (ArrayList) sqlSession.selectList("Mypage.attentionWlArtist", m.getUserId(), rowBounds);
+}
+
+
 	   
 	   
 }

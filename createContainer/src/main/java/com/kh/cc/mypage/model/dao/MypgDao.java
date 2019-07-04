@@ -34,11 +34,21 @@ public interface MypgDao {
 	String getChangeName(SqlSessionTemplate sqlSession, int wid);
 	
 	//탈퇴
-	   int resign(SqlSessionTemplate sqlSession, int mno);
+    int resign(SqlSessionTemplate sqlSession, int mno);
 	   
 	//프로필설정(왼쪽사진 바꾸기)
 	String selectPhoto(SqlSessionTemplate sqlSession, Member m);
-
+	
+	
+	//마이 - 관심작품 목록
 	ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
+	
+	
+	//마이 - 관심작가 목록(웹툰)
+	ArrayList attentionArtistWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
+	//마이 - 관심작가 목록(웹소설)
+	ArrayList attentionWnArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
+	//마이 - 관심작가 목록(일러스트)
+	ArrayList attentionWlArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 
 }

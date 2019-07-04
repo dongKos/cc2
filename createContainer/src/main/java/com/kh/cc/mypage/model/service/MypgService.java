@@ -19,27 +19,44 @@ public interface MypgService {
 	Member updateMember(Member m);
 	
 	//프로필설정
-	   int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto);
+   int insertWriterProfile(WriterProfile mp, WriterPhoto mphoto);
 	   
 	   
 	//프로필 삭제
-	   int deletePhoto(String userId);
+   int deletePhoto(String userId);
 
-	   String deletePhotoPath(String userId);
+   String deletePhotoPath(String userId);
 
-	   Webnovel selectWork(int wid);
+   Webnovel selectWork(int wid);
 
 	int countRound(int wid);
 
 	String getChangeName(int wid);
 	
 	//탈퇴
-	   int resign(int mno);
+	int resign(int mno);
 	   
 	//프로필설정(왼쪽 사진 바꾸기)
 	String selectPhoto(Member m);
 	
 	//관심작품 목록
 	ArrayList attentionListWt(WebnovelPageInfo pi, Member m);
-
+	
+	//관심작가 목록(웹툰)
+	ArrayList attentionArtistWt(WebnovelPageInfo pi, Member m);
+	//관심작가 목록(웹소설)
+	ArrayList attentionWnArtist(WebnovelPageInfo pi, Member m);
+	//관심작가 목록(일러스트)
+		ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m);
 }
+
+
+
+
+
+
+
+
+
+
+

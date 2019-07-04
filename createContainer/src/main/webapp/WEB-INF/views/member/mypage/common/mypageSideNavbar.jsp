@@ -86,7 +86,7 @@
 	        location.href="attentionListWt.mg";
 	    }
 	    function gointerestWa(){
-	       	location.href="mypgInterestWa.mg";
+	       	location.href="attentionArtist.mg";
 	    }
 	    function goIllustAf(){
 	        location.href="mypgIllustAf.mg";
