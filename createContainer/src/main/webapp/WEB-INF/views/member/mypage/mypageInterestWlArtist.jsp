@@ -31,9 +31,9 @@
 
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li class="active" style="width:33%;"><a href="attentionArtist.mg">웹툰</a></li>
+    					<li  style="width:33%;"><a href="mypgInterestWa.mg">웹툰</a></li>
     					<li style="width:33%;"><a href="attentionWnArtist.mg">웹소설</a></li>
-    					 <li style="width:33%;"><a href="attentionWlArtist.mg">일러스트</a></li>
+    					 <li class="active" style="width:33%;"><a href="attentionWlArtist.mg">일러스트</a></li>
     					
     					
   					</ul>

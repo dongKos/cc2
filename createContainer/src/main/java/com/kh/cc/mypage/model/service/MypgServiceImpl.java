@@ -77,8 +77,8 @@ public class MypgServiceImpl implements MypgService{
        System.out.println("서비스 접근 성공");
        int result1 = md.updateWriterProfile(sqlSession, mp);
        int result2 = md.insertWriterPhoto(sqlSession, mphoto);
-       int result3 = md.deletePhoto(sqlSession,mp.getUserId());
-       System.out.println("service result3" + result3);
+       //int result3 = md.deletePhoto(sqlSession,mp.getUserId());
+       //System.out.println("service result3" + result3);
        //System.out.println("photo접근");
        //if(result1 > 0 && result2 > 0) {
        //   result = 1;
@@ -127,7 +127,22 @@ public ArrayList attentionListWt(WebnovelPageInfo pi, Member m) {
 }
 
 
+//관심작가 목록(웹툰)
+@Override
+public ArrayList attentionArtistWt(WebnovelPageInfo pi, Member m) {
 
+	return md.attentionArtistWt(sqlSession,pi, m);
+}
+//관심작가 목록(웹소설)
+public ArrayList attentionWnArtist(WebnovelPageInfo pi, Member m) {
+
+	return md.attentionWnArtist(sqlSession,pi, m);
+}
+//관심작가 목록(일러스트)
+public ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m) {
+
+	return md.attentionWlArtist(sqlSession,pi, m);
+}
 
 }
 

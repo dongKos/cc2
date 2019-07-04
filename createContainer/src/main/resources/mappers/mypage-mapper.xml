@@ -51,6 +51,40 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.cc.mypage.model.vo.Author" id="authorResultSet">
+		<id property="mno" column="MNO"/>
+		<result property="userId" column="OTHER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="memberType" column="MEMBER_TYPE"/>
+		<result property="intro" column="INTRO"/>
+		<result property="wallet" column="WALLET"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="wCount" column="WCOUNT"/>
+		<result property="status" column="STATUS"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		
+	</resultMap>
+	
+	<resultMap type="com.kh.cc.mypage.model.vo.WriterPhoto" id="WPhotoResultSet">
+		<id property="fid" column="FID"/>
+		<result property="originName" column="ORIGIN_NAME"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="filePath" column="FILE_PATH"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="spCode" column="SP_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
@@ -94,12 +128,18 @@
 		FROM WORK_ROUND
 		WHERE WID = #{wid}
 	</select>
+	
+	
+	<!-- 프로필 왼쪽 사진 바꾸기 -->
 	<select id="getChangeName" parameterType="int" resultType="java.lang.String">
 		SELECT CHANGE_NAME
 		FROM ATTACHMENT
 		WHERE WID = #{wid}
 		AND ATTACHMENT_CATEGORY = 'ma'
 	</select>
+	
+	
+	<!-- 관심작품 목록 -->
 	<select id="attentionListWt" parameterType="String" resultMap="mypageResultSet">
 		SELECT *
 		FROM WORK W
@@ -110,6 +150,43 @@
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
+	
+	
+	<!-- 관심작가 목록(웹툰) -->
+	<select id="attentionArtistWt" parameterType="String" resultMap="authorResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		WHERE AT.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'prf'
+		AND AT.AA_TYPE = 'WT'
+		ORDER BY AA_ID DESC
+	
+	</select>
+	<!-- 관심작가 목록(웹소설) -->
+		<select id="attentionWnArtist" parameterType="String" resultMap="authorResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		WHERE AT.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'prf'
+		AND AT.AA_TYPE = 'WN'
+		ORDER BY AA_ID DESC
+		</select>
+	
+	<!-- 관심작가 목록(일러스트) -->
+		<select id="attentionWlArtist" parameterType="String" resultMap="authorResultSet">
+		SELECT *
+		FROM MEMBER M
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		WHERE AT.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'prf'
+		AND AT.AA_TYPE = 'WL'
+		ORDER BY AA_ID DESC
+		</select>
 	
 </mapper>
 
