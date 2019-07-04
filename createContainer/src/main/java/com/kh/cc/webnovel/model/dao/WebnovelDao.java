@@ -86,6 +86,10 @@ public interface WebnovelDao {
 	int selectBestWnListCount(SqlSessionTemplate sqlSession, int gradeType);
 	//베스트 도전 작품 리스트
 	ArrayList<HashMap<String, Object>> selectBestWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, int gradeType);
+	//도전 추천 베스트 추천 리스트
+	ArrayList<HashMap<String, Object>> selectRecommendGenreList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
+	//도전 추천 최신 리스트
+	ArrayList<HashMap<String, Object>> selectNewRecommendList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
 	
 	
 }

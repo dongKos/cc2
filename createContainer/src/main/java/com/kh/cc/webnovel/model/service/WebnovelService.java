@@ -73,4 +73,8 @@ public interface WebnovelService {
 	int selectBestWnListCount(int gradeType);
 	//베스트 도전 작품 리스트
 	ArrayList<HashMap<String, Object>> selectBestWnList(WebnovelPageInfo pi, int gradeType);
+	//도전 추천 베스트 추천 리스트
+	ArrayList<HashMap<String, Object>> selectRecommendGenreList(WebnovelPageInfo pi, Webnovel wn);
+	//도전 추천 최신 리스트
+	ArrayList<HashMap<String, Object>> selectNewRecommendList(WebnovelPageInfo pi, Webnovel wn);
 }
