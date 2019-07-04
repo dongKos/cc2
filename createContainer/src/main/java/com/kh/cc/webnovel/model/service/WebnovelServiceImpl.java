@@ -255,6 +255,16 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public ArrayList<HashMap<String, Object>> selectBestWnList(WebnovelPageInfo pi, int gradeType) {
 		return wd.selectBestWnList(sqlSession, pi, gradeType);
 	}
+	//도전 추천 베스트 추천 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectRecommendGenreList(WebnovelPageInfo pi, Webnovel wn) {
+		return wd.selectRecommendGenreList(sqlSession, pi, wn);
+	}
+	//도전 추천 최신 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectNewRecommendList(WebnovelPageInfo pi, Webnovel wn) {
+		return wd.selectNewRecommendList(sqlSession, pi, wn);
+	}
 	
 	
 }

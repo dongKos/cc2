@@ -58,7 +58,7 @@
 	<!-- 웹소설 중단 네비바 -->
 	<jsp:include page="../common/middleNavbar.jsp"/>
 	<!-- 웹소설 장르 네비바 -->
-	<jsp:include page="../common/genreNavbar.jsp"/>
+	<%-- <jsp:include page="../common/genreNavbar.jsp"/> --%>
 	
 	<div class="container">
 		<!-- 공지 이미지 -->

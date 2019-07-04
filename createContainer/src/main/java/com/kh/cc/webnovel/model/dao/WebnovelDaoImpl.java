@@ -256,6 +256,32 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		
 		return list;		
 	}
+	//도전 추천 베스트 추천 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectRecommendGenreList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectRecommendGenreList", wn, rowBounds);
+		
+		return list;	
+	}
+	//도전 추천 최신 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectNewRecommendList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectNewRecommendList", wn, rowBounds);
+		
+		return list;	
+	}
 	
 
 }

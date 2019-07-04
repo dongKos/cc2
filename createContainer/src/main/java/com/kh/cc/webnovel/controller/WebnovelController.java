@@ -419,7 +419,7 @@ public class WebnovelController {
 		String genre = request.getParameter("genre");
 		if(genre.equals("CLOSE")) {
 			int buttonCount = 10;
-			int limit = 16;
+			int limit = 12;
 			int currentPage = 1;
 			
 			if(request.getParameter("currentPage") != null) {
@@ -446,7 +446,7 @@ public class WebnovelController {
 		}else {
 			
 			int buttonCount = 10;
-			int limit = 16;
+			int limit = 12;
 			int currentPage = 1;
 			
 			if(request.getParameter("currentPage") != null) {
@@ -570,17 +570,17 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList,HttpStatus.OK);
 	}
-	//베스트 도전 작품 메인
+	//도전 메인 베스트 추천작품
 	@RequestMapping(value="selectMainBestWnList.wn")
-	public ResponseEntity<HashMap<String, Object>> selectMainBestWnList(Model model, WebnovelStarPoint wnsp, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
+	public ResponseEntity<HashMap<String, Object>> selectMainBestWnList(Model model, WebnovelStarPoint wnsp, HttpServletRequest request, Webnovel wn, HttpSession session, Member m) {
 		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
 		int buttonCount = 10;
-		int limit = 5;
+		int limit = 1;
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int listCount = ws.selectBestWnListCount(gradeType);
+		int listCount = 5;
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
 		ArrayList<HashMap<String, Object>> list = ws.selectBestWnList(pi, gradeType);
@@ -591,6 +591,75 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
+	
+	//도전 추천 베스트 추천 리스트
+	@RequestMapping(value="selectRecommendGenreList.wn")
+	public ResponseEntity<HashMap<String, Object>> selectRecommendGenreList(Model model, HttpServletRequest request, Webnovel wn, HttpSession session, Member m) {
+		
+		String genre = request.getParameter("genre");
+		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
+		
+		System.out.println("장르 : " + genre);
+		System.out.println("무료작품임 ? : " + gradeType);
+		
+		wn.setGenre(genre);
+		wn.setGradeType(gradeType);
+		
+		int buttonCount = 10;
+		int limit = 3;
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = 12;
+		
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectRecommendGenreList(pi, wn);
+		
+		System.out.println(list);
+		
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
+	
+	//도전 추천 최신 리스트
+	@RequestMapping(value="selectNewRecommendList.wn")
+	public ResponseEntity<HashMap<String, Object>> selectNewRecommendList(Model model, HttpServletRequest request, Webnovel wn, HttpSession session, Member m) {
+		
+		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
+		
+		System.out.println("무료작품임 ? : " + gradeType);
+		
+		wn.setGradeType(gradeType);
+		
+		int buttonCount = 5;
+		int limit = 6;
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = 18;
+		
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectNewRecommendList(pi, wn);
+		
+		System.out.println(list);
+		
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
+	
+	
 	//웹소설 Top5 이동
 	@RequestMapping("webnovelTop5.wn")
 	public String webnovelTop5() {
