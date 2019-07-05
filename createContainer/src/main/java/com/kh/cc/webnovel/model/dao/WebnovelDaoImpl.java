@@ -29,19 +29,19 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	}
 	//웹소설 메인 목록 카운트
 	@Override
-	public int selectListCount(SqlSessionTemplate sqlSession, Member m) {
-		return sqlSession.selectOne("Webnovel.selectListCount", m.getUserId());
+	public int selectListCount(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.selectOne("Webnovel.selectListCount", wn);
 	}
 	//웹소설 메인 목록 리스트
 	@Override
-	public ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+	public ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn) {
 		ArrayList<Webnovel> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnList", m.getUserId(), rowBounds);
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnList", wn, rowBounds);
 		
 		return list;
 	}
@@ -142,39 +142,39 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	public int deleteWnrPhoto(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
 		return sqlSession.update("Webnovel.deleteWnrPhoto", wnr);
 	}
-	//웹소설 도전 장르 목록 카운트
+	//웹소설 도전/프리미엄 장르 목록 카운트
 	@Override
-	public int challengeGenreCount(SqlSessionTemplate sqlSession, String genre) {
-		return sqlSession.selectOne("Webnovel.challengeGenreCount", genre);
+	public int webNovelGenreCount(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.selectOne("Webnovel.webNovelGenreCount", wn);
 	}
-	//웹소설 도전 장르 목록 리스트
+	//웹소설 도전/프리미엄 장르 목록 리스트
 	@Override
-	public ArrayList<HashMap<String, Object>> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
+	public ArrayList<HashMap<String, Object>> webNovelGenreList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn) {
 		ArrayList<HashMap<String, Object>> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("Webnovel.challengeGenreList", genre, rowBounds);
+		list = (ArrayList) sqlSession.selectList("Webnovel.webNovelGenreList", wn, rowBounds);
 		
 		return list;
 	}
-	//웹소설 도전 완결 목록 카운트
+	//웹소설 도전/프리미엄 완결 목록 카운트
 	@Override
-	public int challengeCloseCount(SqlSessionTemplate sqlSession, String genre) {
-		return sqlSession.selectOne("Webnovel.challengeCloseCount", genre);
+	public int webnovelCompCount(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.selectOne("Webnovel.webnovelCompCount", wn);
 	}
-	//웹소설 도전 완결 목록 리스트
+	//웹소설 도전/프리미엄 완결 목록 리스트
 	@Override
-	public ArrayList<HashMap<String, Object>> challengeCloseList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre) {
+	public ArrayList<HashMap<String, Object>> webnovelCompList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn) {
 		ArrayList<HashMap<String, Object>> list = null;
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("Webnovel.challengeCloseList", genre, rowBounds);
+		list = (ArrayList) sqlSession.selectList("Webnovel.webnovelCompList", wn, rowBounds);
 		
 		return list;
 	}

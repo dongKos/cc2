@@ -59,15 +59,15 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int updateWebnovel(Webnovel wn) {
 		return wd.updateWebnovel(sqlSession, wn);
 	}
-	//웹소설 메인 목록 카운트
+	//웹소설 도전/프리미엄 메인 목록 카운트
 	@Override
-	public int selectListCount(Member m) {
-		return wd.selectListCount(sqlSession, m);
+	public int selectListCount(Webnovel wn) {
+		return wd.selectListCount(sqlSession, wn);
 	}
-	//웹소설 메인 목록 리스트
+	//웹소설 도전/프리미엄 메인 목록 리스트
 	@Override
-	public ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Member m) {
-		return wd.selectWnList(sqlSession, pi, m);
+	public ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Webnovel wn) {
+		return wd.selectWnList(sqlSession, pi, wn);
 	}
 	//웹소설, 사진 정보
 	@Override
@@ -182,23 +182,23 @@ public class WebnovelServiceImpl implements WebnovelService{
 	}
 	//웹소설 도전 장르 목록 카운트
 	@Override
-	public int challengeGenreCount(String genre) {
-		return wd.challengeGenreCount(sqlSession, genre);
+	public int webNovelGenreCount(Webnovel wn) {
+		return wd.webNovelGenreCount(sqlSession, wn);
 	}
 	//웹소설 도전 장르 목록 리스트
 	@Override
-	public ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre) {
-		return wd.challengeGenreLIst(sqlSession, pi, genre);
+	public ArrayList<HashMap<String, Object>> webNovelGenreList(WebnovelPageInfo pi, Webnovel wn) {
+		return wd.webNovelGenreList(sqlSession, pi, wn);
 	}
-	//웹소설 도전 완결 목록 카운트
+	//웹소설 도전/프리미엄 완결 목록 카운트
 	@Override
-	public int challengeCloseCount(String genre) {
-		return wd.challengeCloseCount(sqlSession, genre);
+	public int webnovelCompCount(Webnovel wn) {
+		return wd.webnovelCompCount(sqlSession, wn);
 	}
-	//웹소설 도전 완결 목록 카운트
+	//웹소설 도전/프리미엄 완결 목록 카운트
 	@Override
-	public ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre) {
-		return wd.challengeCloseList(sqlSession, pi, genre);
+	public ArrayList<HashMap<String, Object>> webnovelCompList(WebnovelPageInfo pi, Webnovel wn) {
+		return wd.webnovelCompList(sqlSession, pi, wn);
 	}
 	//조회수 증가 메소드
 	@Override

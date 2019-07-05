@@ -79,22 +79,23 @@
 		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'ma', 0, null, null, WID_SEQ.CURRVAL, #{userId}) 
 	</insert>
 	<!-- 메인썸네일 리스트 카운트 -->
-	<select id="selectListCount" parameterType="java.lang.String" resultType="_int">
+	<select id="selectListCount" parameterType="Webnovel" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK
 		WHERE USER_ID = #{userId}
 		AND WORK_TYPE = 'WN'
-		AND GRADE_TYPE = 1
+		AND GRADE_TYPE = #{gradeType}
 	</select>
 	<!-- 메인썸네일 리스트 조회 -->
-	<select id="selectWnList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+	<select id="selectWnList" parameterType="Webnovel" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
 		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE W.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'ma'
-		AND WORK_TYPE = 'WN'
+		AND W.WORK_TYPE = 'WN'
+		AND W.GRADE_TYPE = #{gradeType}
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 작품 , 사진 정보-->
@@ -191,46 +192,50 @@
         DELETE FROM ATTACHMENT 
         WHERE RID = #{rid}
 	</delete>
-	<!-- 웹소설 도전 장르 목록 카운트 -->
-	<select id="challengeGenreCount" parameterType="java.lang.String" resultType="_int">
+	<!-- 웹소설 도전/프리미엄 장르 목록 카운트 -->
+	<select id="webNovelGenreCount" parameterType="Webnovel" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.GENRE = #{genre}
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.GENRE = #{genre}
 		AND W.WORK_STATUS = 'RUN'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
-	<!-- 웹소설 도전 장르 목록 리스트 -->
-	<select id="challengeGenreList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+	<!-- 웹소설 도전/프리미엄 장르 목록 리스트 -->
+	<select id="webNovelGenreList" parameterType="Webnovel" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.GENRE = #{genre}
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.GENRE = #{genre}
 		AND W.WORK_STATUS = 'RUN'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 웹소설 도전 완결 목록 카운트 -->
-	<select id="challengeCloseCount" parameterType="java.lang.String" resultType="_int">
+	<select id="webnovelCompCount" parameterType="Webnovel" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.WORK_STATUS = 'COMP'
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.WORK_STATUS = 'COMP'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	<!-- 웹소설 도전 완결 목록 리스트 -->
-	<select id="challengeCloseList" parameterType="java.lang.String" resultMap="webnovelResultSet">
+	<select id="webnovelCompList" parameterType="Webnovel" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
 		JOIN ATTACHMENT A ON(A.WID = W.WID)
 		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
-		WHERE W.WORK_STATUS = 'COMP'
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.WORK_STATUS = 'COMP'
 		AND WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
