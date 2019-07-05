@@ -91,9 +91,12 @@ public class MypgDaoImpl implements MypgDao{
  //프로필설정(왼쪽 사진 바꾸기)
  @Override
  public String selectPhoto(SqlSessionTemplate sqlSession, Member m) {
-
-    
-    return sqlSession.selectOne("WriterProfile.selectMember", m.getUserId());
+	 String changeName = sqlSession.selectOne("WriterProfile.selectMember", m.getUserId());
+	 if(changeName == null) {
+		 return "defaultProfile.jpg";
+	 }else {
+    return changeName;
+	 }
  }
 //관심작품 목록
 @Override
@@ -103,7 +106,14 @@ public ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo
 	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 	return (ArrayList) sqlSession.selectList("Mypage.attentionListWt", m.getUserId(), rowBounds);
 }
-
+//관심작품 목록(웹소설)
+@Override
+public ArrayList attentionListWn(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m) {
+ int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+ 
+ RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+ return (ArrayList) sqlSession.selectList("Mypage.attentionListWn", m.getUserId(), rowBounds);
+}
 
 //관심작가 목록(웹툰)
 @Override
@@ -133,6 +143,11 @@ int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 	RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 	
 	return (ArrayList) sqlSession.selectList("Mypage.attentionWlArtist", m.getUserId(), rowBounds);
+}
+
+@Override
+public int countProfilePic(SqlSessionTemplate sqlSession, WriterProfile mp) {
+	return sqlSession.selectOne("Mypage.countProfilePic", mp.getUserId());
 }
 
 

@@ -53,7 +53,7 @@
 	
 	<resultMap type="com.kh.cc.mypage.model.vo.Author" id="authorResultSet">
 		<id property="mno" column="MNO"/>
-		<result property="userId" column="OTHER_ID"/>
+		<result property="userId" column="AUTHOR_ID"/>
 		<result property="userPwd" column="USER_PWD"/>
 		<result property="userName" column="USER_NAME"/>
 		<result property="nickName" column="NICKNAME"/>
@@ -139,7 +139,7 @@
 	</select>
 	
 	
-	<!-- 관심작품 목록 -->
+	<!-- 관심작품 목록 (웹툰)-->
 	<select id="attentionListWt" parameterType="String" resultMap="mypageResultSet">
 		SELECT *
 		FROM WORK W
@@ -147,6 +147,7 @@
         JOIN ATTENTION AT ON(W.WID = AT.WID)
 		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE AT.USER_ID = #{userId}
+		AND W.WORK_TYPE = 'WT'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
@@ -157,7 +158,7 @@
 		SELECT *
 		FROM MEMBER M
 		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
-		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
 		AND AT.AA_TYPE = 'WT'
@@ -169,7 +170,7 @@
 		SELECT *
 		FROM MEMBER M
 		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
-		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
 		AND AT.AA_TYPE = 'WN'
@@ -181,13 +182,20 @@
 		SELECT *
 		FROM MEMBER M
 		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
-		JOIN ATTACHMENT A ON(AT.OTHER_ID = A.USER_ID)
+		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
 		AND AT.AA_TYPE = 'WL'
 		ORDER BY AA_ID DESC
 		</select>
 	
+	<!-- 작가프로필사진 카운팅 -->
+		<select id="countProfilePic" parameterType="String" resultType="_int">
+		SELECT COUNT(CHANGE_NAME)
+		FROM ATTACHMENT
+		WHERE USER_ID = #{userId}
+		AND ATTACHMENT_CATEGORY = 'prf'
+		</select>
 </mapper>
 
 

@@ -93,6 +93,35 @@ public class MypgController {
 			return "common/errorPage";
 		}
 	}
+	
+	//ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+	   
+	   
+	   //개인정보관리 페이지이동(작가프로필 비번)
+	   @RequestMapping("writerPgInfo.mg")
+	   public String showWriterPgInfo(Member m, Model model, HttpSession session) {
+	      int result = 0;
+	      try {
+	         result = ms.checkPwd(m);
+	         
+	         if(result > 0) {
+	            
+	            return "member/mypage/writerInformation";
+	         }else {
+	            
+	            return "redirect:index.jsp";
+	         }
+	         
+	      } catch (MypgException e) {
+	         model.addAttribute("msg", e.getMessage());
+	         
+	         return "common/errorPage";
+	      }
+	   }
+	   
+	   
+	   
+	   //ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
 	//개인정보 수정하는 기능
 	@RequestMapping("memberUpdate2.mg")
 	public String memberUpdate(Member m, Model model, HttpSession session, SessionStatus status) {
@@ -131,9 +160,9 @@ public class MypgController {
 	}
 	//작가페이지 - 유료작품 신청
 	@RequestMapping("writerReqPremium2.mg")
-	public String selectWnList(HttpServletRequest request, HttpSession session, Member m, Model model) {
-		m = (Member) session.getAttribute("loginUser");
-		
+	public String selectWnList(HttpServletRequest request, HttpSession session, Webnovel m, Member mm, Model model) {
+		mm = (Member) session.getAttribute("loginUser");
+		m.setUserId(mm.getUserId());
 		int currentPage = 1;
 		int buttonCount = 10;
 		
@@ -165,8 +194,7 @@ public class MypgController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = ws.selectListCount(m);
-		
+		int listCount = wts.selectListCount(m);
 		
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
 		
@@ -353,13 +381,15 @@ public class MypgController {
 			System.out.println("try부분 접근성공?");
 			ms.insertWriterProfile(mp, mphoto);
 			
-			System.out.println("들어왔냐?");
+			int count = ms.countProfilePic(mp);
+			
+			if(count > 1) {
 			changeFileName = ms.deletePhotoPath(userId);
 			System.out.println("파일 이름 : " + changeFileName);
 			new File(filePath + "\\" + changeFileName).delete();
 			System.out.println(filePath + "\\" + changeFileName);
 			ms.deletePhoto(userId);
-			
+			}
 			return "member/mypage/writeWt"; // 성공했을 때 돌아가야하는곳
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -442,7 +472,7 @@ public class MypgController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = ws.selectListCount(m);
+		int listCount = wts.selectListCount(m);
 		
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
@@ -469,7 +499,7 @@ public class MypgController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = ws.selectListCount(m);
+		int listCount = wts.selectListCount(m);
 		
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
@@ -485,10 +515,10 @@ public class MypgController {
 	////관심작가 목록(웹소설)
 	
 	@RequestMapping("attentionWnArtist.mg")
-	public String attentionWnArtist(Model model, Member m, HttpServletRequest request, HttpSession session) {
+	public String attentionWnArtist(Model model, Webnovel m, Member mm, HttpServletRequest request, HttpSession session) {
 		
-		m = (Member) session.getAttribute("loginUser");
-		
+		mm = (Member) session.getAttribute("loginUser");
+		m.setUserId(mm.getUserId());
 		int currentPage = 1;
 		int buttonCount = 10;
 		
@@ -502,7 +532,7 @@ public class MypgController {
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
-		ArrayList list = ms.attentionWnArtist(pi, m);
+		ArrayList list = ms.attentionWnArtist(pi, mm);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -512,10 +542,10 @@ public class MypgController {
 	
 	//관심작가 목록(일러스트)
 	@RequestMapping("attentionWlArtist.mg")
-	public String attentionWlArtist(Model model, Member m, HttpServletRequest request, HttpSession session) {
+	public String attentionWlArtist(Model model, Webnovel m, Member mm, HttpServletRequest request, HttpSession session) {
 		
-		m = (Member) session.getAttribute("loginUser");
-		
+		mm = (Member) session.getAttribute("loginUser");
+		m.setUserId(mm.getUserId());
 		int currentPage = 1;
 		int buttonCount = 10;
 		
@@ -529,7 +559,7 @@ public class MypgController {
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
-		ArrayList list = ms.attentionWnArtist(pi, m);
+		ArrayList list = ms.attentionWnArtist(pi, mm);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

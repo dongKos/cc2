@@ -125,6 +125,12 @@ public ArrayList attentionListWt(WebnovelPageInfo pi, Member m) {
 	
 	return md.attentionListWt(sqlSession,pi, m);
 }
+//관심작품 목록(웹소설)
+@Override
+public ArrayList attentionListWn(WebnovelPageInfo pi, Member m) {
+
+ return md.attentionListWn(sqlSession,pi, m);
+}
 
 
 //관심작가 목록(웹툰)
@@ -142,6 +148,11 @@ public ArrayList attentionWnArtist(WebnovelPageInfo pi, Member m) {
 public ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m) {
 
 	return md.attentionWlArtist(sqlSession,pi, m);
+}
+//작가프로필 사진 카운트
+@Override
+public int countProfilePic(WriterProfile mp) {
+	return md.countProfilePic(sqlSession, mp);
 }
 
 }

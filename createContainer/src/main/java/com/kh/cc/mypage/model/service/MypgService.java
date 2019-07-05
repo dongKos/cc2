@@ -41,13 +41,16 @@ public interface MypgService {
 	
 	//관심작품 목록
 	ArrayList attentionListWt(WebnovelPageInfo pi, Member m);
-	
+	//관심작품 목록(웹소설)
+	ArrayList attentionListWn(WebnovelPageInfo pi, Member m);
 	//관심작가 목록(웹툰)
 	ArrayList attentionArtistWt(WebnovelPageInfo pi, Member m);
 	//관심작가 목록(웹소설)
 	ArrayList attentionWnArtist(WebnovelPageInfo pi, Member m);
 	//관심작가 목록(일러스트)
 		ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m);
+		//작가프로필사진 카운트
+		int countProfilePic(WriterProfile mp);
 }
 
 

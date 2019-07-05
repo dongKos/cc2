@@ -42,7 +42,8 @@ public interface MypgDao {
 	
 	//마이 - 관심작품 목록
 	ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
-	
+	//마이 - 관심작품 목록(웹툰)
+	ArrayList attentionListWn(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 	
 	//마이 - 관심작가 목록(웹툰)
 	ArrayList attentionArtistWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
@@ -50,5 +51,7 @@ public interface MypgDao {
 	ArrayList attentionWnArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 	//마이 - 관심작가 목록(일러스트)
 	ArrayList attentionWlArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
+	//작가 프로필 사진 카운팅
+	int countProfilePic(SqlSessionTemplate sqlSession, WriterProfile mp);
 
 }

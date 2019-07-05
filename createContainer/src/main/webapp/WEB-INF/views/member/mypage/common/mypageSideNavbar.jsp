@@ -51,13 +51,12 @@
 	<div class="profile">
 		<table>
 			<tr>
-				<td><img src="${contextPath}/resources/images/icon/avatar-06.jpg"></td>
-				<td>김동환님</td>
+				<td class="testImg"><img id="profilePic" width="150px" height="150px;" src="${contextPath}/resources/uploadFiles/writerProfile/${sessionScope.chageName}"></td>
+				<td>${ sessionScope.loginUser.nickName }</td>
 			</tr>
 			<tr>
 				<td colspan="2">
-					보유포인트 : 5000원<br>
-					보유이용권 : 0개
+					보유이용권 : ${ sessionScope.loginUser.wallet }개
 				</td>
 				
 			</tr>
@@ -98,6 +97,43 @@
 	        location.href="mypgResign.mg";
 	    }
 
+	</script>
+	<script>
+		$(document).ready(function(){
+			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
+			//var userId = ${ sessionScope.loginUser.userId };
+			var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
+			console.log("userId : ", userId);
+		 	$.ajax({
+				url:"selectMember.mg",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log("data : " , data);	
+					var changeName = data.replace("\"","");
+					console.log(changeName.replace("\"",""));
+					$("#profilePic").attr("src", "${contextPath}/resources/uploadFiles/writerProfile/"+changeName.replace("\"",""));
+				},
+				error:function(status){
+					console.log("status : " , status);
+					
+				}
+			});  
+			
+			/* console.log("우에")
+			var userId = ${sessionScope.loginUser.userId}
+			$.ajax({
+				url:"selectMember.mg",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					console.log(data);
+				},
+				error:function(status){
+					console.log("우ㅇㄹㄴㄹㅇ에")
+				}
+			}) */
+		})
 	</script>
 </body>
 </html>
