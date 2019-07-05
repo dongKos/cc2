@@ -53,7 +53,7 @@ public interface WebtoonDao {
 
 	int updateWorkRound(SqlSessionTemplate sqlSession, WebtoonRound wr);
 
-	WebtoonRound content(SqlSessionTemplate sqlSession, WebtoonRound wr);
+	WebtoonRound content(SqlSessionTemplate sqlSession, int rid);
 
 
 	

@@ -15,7 +15,6 @@ import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 @Repository
 public class WebtoonDaoImpl implements WebtoonDao {
-
 	//웹툰 작품 등록
 	@Override
 	public int insertWebtoon(SqlSessionTemplate sqlSession, Webtoon wt) {
@@ -160,12 +159,12 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return sqlSession.update("Webtoon.updateRoundWp", wp1);
 	}
 
+
+
 	@Override
-	public WebtoonRound content(SqlSessionTemplate sqlSession, WebtoonRound wr) {
-		return sqlSession.selectOne("Webtoon.content", wr);
+	public WebtoonRound content(SqlSessionTemplate sqlSession, int rid) {
+		return sqlSession.selectOne("Webtoon.content", rid); 
 	}
-
-
 
 	
 

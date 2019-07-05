@@ -647,9 +647,10 @@ public class WebtoonController {
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		System.out.println("rid : " + rid);
 		
-		wr.setRid(rid);
 		
-		ws.content(wr);
+		
+		wr = ws.content(rid);
+		
 		System.out.println("wr : " + wr);
 		
 		model.addAttribute("wr", wr);

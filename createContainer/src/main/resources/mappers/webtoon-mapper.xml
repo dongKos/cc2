@@ -188,11 +188,11 @@
 	</update>
 	
 	<!-- content이미지 -->
-	<select id="content" resultMap="webtoonRoundResultSet">
+	<select id="content" parameterType="WebtoonRound" resultMap="webtoonRoundResultSet">
 	SELECT *
 	FROM ATTACHMENT A
 	JOIN WORK_ROUND W ON(A.RID = W.RID)
-	WHERE A.RID = #{rid}
+	WHERE W.RID = #{rid}
 	AND ATTACHMENT_CATEGORY = 'cont'
 	</select>
 	
