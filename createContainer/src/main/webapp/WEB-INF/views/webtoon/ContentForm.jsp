@@ -107,6 +107,9 @@
 .starPoitn{
 	text-align: left;
 }
+.introImg{
+	width:45%;
+}
 </style>
 </head>
 <body>
@@ -139,12 +142,12 @@
 							
 							</td>
 							<td width="220" height="50%">
-								<%-- <p class="wnrTitle">${ wr.wTitle }</p> --%>
+								<p class="wnrTitle">${ wt.wTitle }</p>
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2">
-								<%-- <p class="wtrIntro">${ wr.wIntro }</p> --%>
+								<p class="wtrIntro">${ wt.wIntro }</p>
 							</td>
 						</tr>
 						<tr>

@@ -166,6 +166,11 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return sqlSession.selectOne("Webtoon.content", rid); 
 	}
 
+	@Override
+	public Webtoon content1(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webtoon.content1", wid);
+	}
+
 	
 
 	

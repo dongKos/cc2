@@ -55,6 +55,8 @@ public interface WebtoonDao {
 
 	WebtoonRound content(SqlSessionTemplate sqlSession, int rid);
 
+	Webtoon content1(SqlSessionTemplate sqlSession, int wid);
+
 
 	
 

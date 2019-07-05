@@ -88,7 +88,7 @@
 	
 	<!-- 회차 WORK_ROUND 인서트 -->
 	<insert id="insertRound">
-		INSERT INTO WORK_ROUND VALUES(WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 0, #{wid}, #{wrComment}, NULL)
+		INSERT INTO WORK_ROUND VALUES(WRID_SEQ.NEXTVAL, #{rTitle}, 0, SYSDATE, 1, #{wid}, #{wrComment}, NULL)
 	</insert>
 	
 	<!-- 회차 썸내일 인서트 -->
@@ -194,6 +194,15 @@
 	JOIN WORK_ROUND W ON(A.RID = W.RID)
 	WHERE W.RID = #{rid}
 	AND ATTACHMENT_CATEGORY = 'cont'
+	</select>
+
+	<select id="content1" parameterType="WebtoonRound"
+		resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WID = 1
+		AND ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	
 	

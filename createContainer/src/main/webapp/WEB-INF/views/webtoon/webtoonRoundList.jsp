@@ -196,6 +196,7 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10 wnrArea">
 				<div class="introArea">
+				
 					<table class="introTable">
 						<tr>
 							<td rowspan="3"width="210">
@@ -232,6 +233,7 @@
 						</tr>
 					</table>
 				</div>
+				 <input type="text" name="wid" value="${wt.wid }">
 				<div class="wnrListArea">
 					<c:forEach var="wtr" items="${ list }" varStatus="status">
 						<table class="wnrTable">
@@ -254,7 +256,7 @@
 								<td class="wnrContent">
 									<p class="wnrTitleArea">${ wtr.rTitle }</p>
 								</td>
-								<td class="wnrBtnArea"><input type="hidden" name="rid"
+								<td class="wnrBtnArea"><input type="hidden" name="rid" 
 									value="${ wtr.rid }">
 									<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보
 										수정</button>
@@ -318,7 +320,11 @@
 							.children("tr").children("td").children("input").val();
 							console.log(rid);
 							
-							location.href = "contentView.wt?rid=" + rid;
+							var wid = $(this).parents().parents().parents().
+							parents().parents().parents().children("input").val();
+							console.log("wid : " + wid);
+							
+							location.href = "contentView.wt?rid=" + rid + "&wid=" + wid;
 						});
 						
 					});

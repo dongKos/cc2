@@ -186,6 +186,11 @@ public class WebtoonServiceImpl implements WebtoonService{
 		
 	}
 
+	@Override
+	public Webtoon content1(int wid) {
+		return wd.content1(sqlSession, wid);
+	}
+
 	
 
 	
