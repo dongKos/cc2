@@ -181,11 +181,12 @@ public class WebtoonServiceImpl implements WebtoonService{
 	}
 
 	@Override
-	public WebtoonRound content(WebtoonRound wr) {
-		
-		return wd.content(sqlSession, wr);
+	public WebtoonRound content(int rid) {
+		 return wd.content(sqlSession, rid); 
 		
 	}
+
+	
 
 	
 
