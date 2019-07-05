@@ -30,7 +30,12 @@
     <div class="col-sm-3">
   	 	<jsp:include page="common/WriterpageSideNavbar.jsp"/>
     </div>
+    
+    
+    <!-- 여기부터할거얌 -->
     <div class="col-sm-7">
+    
+    <form action="">
       <div class="point" style="text-align:center;">
 					<h4 align="center" style="margin-top:150px;">현재 계정의 비밀번호를 입력하세요.</h4>
 					
@@ -43,7 +48,13 @@
   					</form>
   					</div>
 				</div>
+				</form>
     </div>
+    
+    
+    
+    
+    
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
     </div>
