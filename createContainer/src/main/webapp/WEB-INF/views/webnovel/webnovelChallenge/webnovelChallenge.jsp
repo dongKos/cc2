@@ -169,7 +169,7 @@
 }
 .recommendWn{
 	border:1px solid lightgray;
-	min-width:32%;
+	min-width:31%;
 	display:inline-block;
 	cursor:pointer;
 	margin-left:5px;
@@ -184,6 +184,7 @@
 .recommendImg{
 	height:170px;
 	font-size:10px;
+    width: 114px;
 }
 .recommendTitle{
 	line-height:20px;

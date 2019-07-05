@@ -159,7 +159,10 @@
 			<div class="col-sm-10 wnList">
 				<div class="wnMenu">
 					<table class="wnWork">
-						<tr><td>도전 작품</td><td>프리미엄 작품</td></tr>
+						<tr>
+							<td onClick="location.href='selectWnList.wn?gradeType=1'">도전 작품</td>
+							<td onClick="location.href='selectWnList.wn?gradeType=2'">프리미엄 작품</td>
+						</tr>
 					</table>
 				</div>
 				<div class="wnListDiv">
@@ -182,7 +185,6 @@
 							<td class="contentTd">
 								<p class="titleArea">${ wn.wTitle }</p>
 								<input type="hidden" class="wid" value="${ wn.wid }">
-								
 								<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -281,8 +283,9 @@
 				<br>
 				<br>
 				
-				
-				<button class="insertWnBtn" onclick="location='insertWebnovel.wn'">새 작품 쓰기</button>
+				<c:if test="${list[0].gradeType == 1 }">
+					<button class="insertWnBtn" onclick="location='insertWebnovel.wn'">새 작품 쓰기</button>
+				</c:if>
 			</div>
 			<div class="col-sm-1"></div>
 		</div>

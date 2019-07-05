@@ -19,9 +19,9 @@ public interface WebnovelDao {
 	//작품 메인 사진 등록 메소드
 	int insertWnPhoto(SqlSessionTemplate sqlSession, WebnovelPhoto wp);
 	//웹소설 메인 목록 카운트
-	int selectListCount(SqlSessionTemplate sqlSession, Member m);
+	int selectListCount(SqlSessionTemplate sqlSession, Webnovel wn);
 	//웹소설 메인 목록 리스트
-	ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
+	ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
 	//웹소설, 사진 정보
 	Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid);
 	//웹소설 메인 수정
@@ -56,14 +56,14 @@ public interface WebnovelDao {
 	int deleteWnRoundOne(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	//웹소설 회차 사진 삭제
 	int deleteWnrPhoto(SqlSessionTemplate sqlSession, WebnovelRound wnr);
-	//웹소설 도전 장르 목록 카운트
-	int challengeGenreCount(SqlSessionTemplate sqlSession, String genre);
-	//웹소설 도전 장르 목록 리스트
-	ArrayList<HashMap<String, Object>> challengeGenreLIst(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
-	//웹소설 도전 완결 목록 카운트
-	int challengeCloseCount(SqlSessionTemplate sqlSession, String genre);
-	//웹소설 도전 완결 목록 카운트
-	ArrayList<HashMap<String, Object>> challengeCloseList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, String genre);
+	//웹소설 도전/프리미엄 장르 목록 카운트
+	int webNovelGenreCount(SqlSessionTemplate sqlSession, Webnovel wn);
+	//웹소설 도전/프리미엄 장르 목록 리스트
+	ArrayList<HashMap<String, Object>> webNovelGenreList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
+	//웹소설 도전/프리미엄 완결 목록 카운트
+	int webnovelCompCount(SqlSessionTemplate sqlSession, Webnovel wn);
+	//웹소설 도전/프리미엄 완결 목록 카운트
+	ArrayList<HashMap<String, Object>> webnovelCompList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
 	//조회수 증가용 메소드
 	int updateCount(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	//관심등록 메소드

@@ -180,7 +180,7 @@
 	<select id="workCount" parameterType="String" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK
-		WHERE WORK_STATUS = 'COMPLTE'
+		WHERE WORK_STATUS = 'RUN'
 		AND USER_ID = #{userId}
 	</select>
 	<!-- 회원 상세보기 - 올린 일러스트가 있나 조회 -->

@@ -15,10 +15,10 @@ public interface WebnovelService {
 	
 	//작품 등록 메소드
 	int insertWebnovel(Webnovel wn, WebnovelPhoto wp);
-	//전체 목록 카운트
-	int selectListCount(Member m);
-	//웹소설 메인 목록 리스트
-	ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Member m);
+	//전체 도전 프리미엄 목록 카운트
+	int selectListCount(Webnovel wn);
+	//웹소설 도전/프리미엄 메인 목록 리스트
+	ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Webnovel wn);
 	//웹소설, 사진 정보
 	Webnovel selectWnOne(int wid);
 	//웹소설 메인 수정(사진 수정 O)
@@ -44,13 +44,13 @@ public interface WebnovelService {
 	//웹소설 회차 삭제
 	int deleteWnRound(WebnovelRound wnr);
 	//웹소설 도전 장르 목록 카운트
-	int challengeGenreCount(String genre);
+	int webNovelGenreCount(Webnovel wn);
 	//웹소설 도전 장르 목록 리스트
-	ArrayList<HashMap<String, Object>> challengeGenreLIst(WebnovelPageInfo pi, String genre);
-	//웹소설 도전 완결 목록 카운트
-	int challengeCloseCount(String genre);
-	//웹소설 도전 완결 목록 리스트
-	ArrayList<HashMap<String, Object>> challengeCloseList(WebnovelPageInfo pi, String genre);
+	ArrayList<HashMap<String, Object>> webNovelGenreList(WebnovelPageInfo pi, Webnovel wn);
+	//웹소설 도전/프리미엄 완결 목록 카운트
+	int webnovelCompCount(Webnovel wn);
+	//웹소설 도전/프리미엄 완결 목록 리스트
+	ArrayList<HashMap<String, Object>> webnovelCompList(WebnovelPageInfo pi, Webnovel wn);
 	//조회수 증가 메소드
 	int updateCount(WebnovelRound wnr);
 	//관심 등록 메소드

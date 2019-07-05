@@ -150,29 +150,30 @@ public class WebnovelController {
 		return "redirect:selectWnList.wn";
 	}
 	//웹소설 회차 삭제
-		@RequestMapping(value="deleteWnRound.wn")
-		public String deleteWnRound(Model model, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
-			int rid = Integer.parseInt(request.getParameter("rid"));
-			
-			wnr = ws.selectWnrOne(rid);
-			int wid = wnr.getWid();
-			
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String subFilePath = root + "\\uploadFiles\\webnovelSub";
-			String subChangeName = wnr.getChangeName();
-			int result = ws.deleteWnRound(wnr);
-			if(result > 0) {
-				new File(subFilePath + "\\" + subChangeName).delete();
-			}
-			return "redirect:selectWnRoundList.wn?wid=" + wid;
-		}
-	
-	
-	//웹소설 목록
-	@RequestMapping(value="selectWnList.wn")
-	public String selectWnList(HttpServletRequest request, HttpSession session, Member m, Model model) {
-		m = (Member) session.getAttribute("loginUser");
+	@RequestMapping(value="deleteWnRound.wn")
+	public String deleteWnRound(Model model, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
+		int rid = Integer.parseInt(request.getParameter("rid"));
 		
+		wnr = ws.selectWnrOne(rid);
+		int wid = wnr.getWid();
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String subFilePath = root + "\\uploadFiles\\webnovelSub";
+		String subChangeName = wnr.getChangeName();
+		int result = ws.deleteWnRound(wnr);
+		if(result > 0) {
+			new File(subFilePath + "\\" + subChangeName).delete();
+		}
+		return "redirect:selectWnRoundList.wn?wid=" + wid;
+	}
+	
+	
+	//웹소설 도전/프리미엄 목록
+	@RequestMapping(value="selectWnList.wn")
+	public String selectWnList(HttpServletRequest request, Webnovel wn, HttpSession session, Member m, Model model) {
+		m = (Member) session.getAttribute("loginUser");
+		wn.setUserId(m.getUserId());
+		wn.setGradeType(Integer.parseInt(request.getParameter("gradeType")));
 		int buttonCount = 10;
 		int currentPage = 1;
 		int limit = 5;
@@ -180,12 +181,12 @@ public class WebnovelController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = ws.selectListCount(m);
+		int listCount = ws.selectListCount(wn);
 		
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
-		ArrayList<Webnovel> list = ws.selectWnList(pi, m);
+		ArrayList<Webnovel> list = ws.selectWnList(pi, wn);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -413,10 +414,13 @@ public class WebnovelController {
 		return "webnovel/webnovelContents/selectDetailedWebnovel";
 		
 	}
-	//도전웹소설 장르 리스트
+	//웹소설 도전/프리미엄 장르 리스트
 	@RequestMapping("challengeGenre.wn")
-	public ResponseEntity<HashMap<String, Object>> challengeGenre(WebnovelRound wnr, HttpServletRequest request, HttpServletResponse response, Model model, Webnovel wn) {
+	public ResponseEntity<HashMap<String, Object>> challengeGenre(Webnovel wn, HttpServletRequest request, HttpServletResponse response, Model model) {
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		String genre = request.getParameter("genre");
+		wn.setGradeType(gradeType);
+		wn.setGenre(genre);
 		if(genre.equals("CLOSE")) {
 			int buttonCount = 10;
 			int limit = 12;
@@ -426,19 +430,12 @@ public class WebnovelController {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
 			
-			int listCount = ws.challengeCloseCount(genre);
+			int listCount = ws.webnovelCompCount(wn);
 			WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 			
 			
-			ArrayList<HashMap<String, Object>> list = ws.challengeCloseList(pi, genre);
+			ArrayList<HashMap<String, Object>> list = ws.webnovelCompList(pi, wn);
 			HashMap<String, Object> wnList = new HashMap<String, Object>();
-			
-//			System.out.println("list : " + list);
-			/*for(int i = 0; i < list.size(); i++) {
-				wnr.setWid(list);
-				int wnrListCount = ws.selectWnrListCount(wnr);
-				System.out.println("wnrListCount : " + wnrListCount);
-			}*/
 			
 			wnList.put("list", list);
 			wnList.put("pi", pi);
@@ -453,18 +450,12 @@ public class WebnovelController {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			}
 			
-			int listCount = ws.challengeGenreCount(genre);
+			int listCount = ws.webNovelGenreCount(wn);
 			
 			WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 			
-			ArrayList<HashMap<String, Object>> list = ws.challengeGenreLIst(pi, genre);
+			ArrayList<HashMap<String, Object>> list = ws.webNovelGenreList(pi, wn);
 			HashMap<String, Object> wnList = new HashMap<String, Object>();
-//			for(int i = 0; i < list.size(); i++) {
-//				System.out.println("list : " + list.get(i));
-//				//wnr.setWid();
-//				//int wnrListCount = ws.selectWnrListCount(wnr);
-//				//System.out.println("wnrListCount : " + wnrListCount);
-//			}
 			
 			wnList.put("list", list);
 			wnList.put("pi", pi);
@@ -599,9 +590,6 @@ public class WebnovelController {
 		String genre = request.getParameter("genre");
 		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
 		
-		System.out.println("장르 : " + genre);
-		System.out.println("무료작품임 ? : " + gradeType);
-		
 		wn.setGenre(genre);
 		wn.setGradeType(gradeType);
 		
@@ -617,7 +605,6 @@ public class WebnovelController {
 		
 		ArrayList<HashMap<String, Object>> list = ws.selectRecommendGenreList(pi, wn);
 		
-		System.out.println(list);
 		
 		HashMap<String, Object> wnList = new HashMap<String, Object>();
 		
@@ -633,8 +620,6 @@ public class WebnovelController {
 		
 		int gradeType =  Integer.parseInt(request.getParameter("gradeType"));
 		
-		System.out.println("무료작품임 ? : " + gradeType);
-		
 		wn.setGradeType(gradeType);
 		
 		int buttonCount = 5;
@@ -649,8 +634,6 @@ public class WebnovelController {
 		
 		ArrayList<HashMap<String, Object>> list = ws.selectNewRecommendList(pi, wn);
 		
-		System.out.println(list);
-		
 		HashMap<String, Object> wnList = new HashMap<String, Object>();
 		
 		wnList.put("list", list);
@@ -659,19 +642,12 @@ public class WebnovelController {
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
 	
-	
-	//웹소설 Top5 이동
-	@RequestMapping("webnovelTop5.wn")
-	public String webnovelTop5() {
-		return "webnovel/webnovelTop5/webnovelTop5";
-	}
-	
 	//웹소설 메인홈 이동
 	@RequestMapping("webnovelMain.wn")
 	public String webnovelMain() {
 		return "webnovel/webnovelMain/webnovelMain";
 	}
-	//웹소설 메인홈 이동
+	//웹소설 카테고리 이동
 	@RequestMapping("webnovelCategory.wn")
 	public String webnovelCategory() {
 		return "webnovel/webnovelCategory/webnovelCategory";
@@ -680,11 +656,6 @@ public class WebnovelController {
 	@RequestMapping("webnovelChallenge.wn")
 	public String webnovelChallenge() {
 		return "webnovel/webnovelChallenge/webnovelChallenge";
-	}
-	//웹소설 리스트 이동
-	@RequestMapping("webnovelList.wn")
-	public String webnovelList() {
-		return "webnovel/webnovelContents/selectWebnovelList";
 	}
 	//웹소설 등록 이동
 	@RequestMapping("insertWebnovel.wn")
