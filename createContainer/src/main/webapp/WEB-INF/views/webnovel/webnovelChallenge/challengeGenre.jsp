@@ -44,10 +44,11 @@
 	</div>
 	<script>
 		function genreMenu(genre, currentPage){
+			var gradeType = 1;
 			$.ajax({
 				url:"challengeGenre.wn",
 				type:"get",
-				data:{genre:genre, currentPage:currentPage},
+				data:{genre:genre, currentPage:currentPage, gradeType:gradeType},
 				success:function(data){
 					
 					$(".newchallengeList").remove();
@@ -117,7 +118,7 @@
 					$('.wnListArea').find($("table[name=wnList]")).on('click',function(){
 						var wid = $(this).children().last().children().children('input').val();
 						console.log(wid);
-						location.href = "selectWnRoundList.wn?wid=" + wid;
+						location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
 					});
 					
 					

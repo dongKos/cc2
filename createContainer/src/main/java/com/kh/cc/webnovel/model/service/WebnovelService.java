@@ -3,11 +3,11 @@ package com.kh.cc.webnovel.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelReply;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -20,7 +20,7 @@ public interface WebnovelService {
 	//웹소설 도전/프리미엄 메인 목록 리스트
 	ArrayList<Webnovel> selectWnList(WebnovelPageInfo pi, Webnovel wn);
 	//웹소설, 사진 정보
-	Webnovel selectWnOne(int wid);
+	Webnovel selectWnOne(Webnovel wn);
 	//웹소설 메인 수정(사진 수정 O)
 	int updateWebnovel(Webnovel wn, WebnovelPhoto wp);
 	//웹소설 메인 수정(사진 수정 X)
@@ -77,4 +77,10 @@ public interface WebnovelService {
 	ArrayList<HashMap<String, Object>> selectRecommendGenreList(WebnovelPageInfo pi, Webnovel wn);
 	//도전 추천 최신 리스트
 	ArrayList<HashMap<String, Object>> selectNewRecommendList(WebnovelPageInfo pi, Webnovel wn);
+	//댓글 등록
+	int insertWebnovelReply(WebnovelReply wReply);
+	//댓글 리스트 카운트
+	int selectWebnovelReplyCount(WebnovelReply wReply);
+	//댓글 리스트 
+	ArrayList<HashMap<String, Object>> selectWebnovelReplyList(WebnovelPageInfo pi, WebnovelReply wReply);
 }

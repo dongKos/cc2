@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
 .col-sm-10{
-	background-color:#F4F4F4;
+	background-color:#FAFAFA;
 	height:100%;
 }
 .wnDetailedArea{
@@ -188,6 +188,87 @@
 }
 .insertStarBtn{
 	display:inline-block;
+}
+
+.replyArea{
+	margin:0 auto;
+	width:80%;
+}
+.replyInsertArea{
+	background-color:white;
+	padding:10px 10px 10px 10px;
+	width:100%;
+    height:140px;
+    border:1px solid skyblue;
+    border-radius: 10px;
+}
+.replyBtnArea{
+	width:100%;
+}
+.replyText{
+	width:100%;
+	height:100px;
+	border:none;
+	resize:none;
+}
+.cntArea{
+	float:right;
+}
+.replyBtn{
+	float:right;
+	width:100px;
+	line-height:30px;
+	border-radius:8px 8px 8px 8px;
+	background-color:skyblue;
+	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+	margin-left:10px;
+}
+.replyListArea{
+	background-color:white;
+	padding:20px 20px 20px 20px;
+	width:100%;
+	border:1px solid skyblue;
+	border-radius:10px;
+}
+.cntArea{
+	font-size:15px;
+}
+.replyList{
+	background-color:white;
+	width:100%;
+	margin-bottom:20px;
+	padding-left:10px;
+}
+.replycontents{
+	width:80%;
+	padding-left:10px;
+	padding-top:20px;
+	padding-bottom:20px;
+	border-bottom:1px solid gray;
+}
+.replyListTr{
+	
+}
+.replyNickname{
+	height:30px;
+	padding-left:10px;
+}
+.replyReportBtn{
+	float:right;
+	width:80px;
+	line-height:30px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:13px;
+	font-weight:bold;
+	cursor:pointer;
+	margin-left:10px;
 }
 </style>
 </head>
@@ -484,10 +565,98 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-1"></div>
-			<div class="col-sm-10"></div>
+			<div class="col-sm-10" >
+				<div class="replyArea">
+					<br>
+					<p>댓글</p>
+					<div class="replyInsertArea">
+						<textarea class="replyText" name="replyText" cols="70" rows="5" placeholder="댓글을 입력하세요." ></textarea>
+						<p class="cntArea"><span class="cntText">0 </span>/ 500</p>
+					</div>
+					<div class="replyBtnArea">
+						<br>
+						<button type="button" class="replyBtn" onclick="insertReply()">등록</button>
+					</div>
+					<br><br><br><br>
+					<div class="replyListArea">
+					
+					</div>
+				</div>
+			</div>
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
+	<script>
+		var rid = ${list[0].rid};
+		
+		$(document).ready(function(){
+			$.ajax({
+				url:"selectWebnovelReply.wn",
+				type:"post",
+				data:{rid:rid},
+				success:function(data){
+					console.log(data);
+					for(var i = 0; i < data.list.length; i++){
+						var replyListArea = $(".replyListArea");
+						var replyList =$('<table class="replyList">');
+						var replyNickname = $('<td class="replyNickname">' + data.list[i].nickname +'<button class="replyReportBtn">신고하기</button>');
+						var replycontents = $('<td class="replycontents">').text(data.list[i].replyContent);
+						var replyReport = $('<td class="replyReport"><button class="replyReportBtn">신고하기</button>');
+						var hiddenRePlayId = $('<input type="hidden" id="wnWid" value="'+data.list[i].rePlayId+'">')
+						
+						var list = new Array();
+						
+						list[0] = replyNickname;
+						list[1] = replycontents;
+						list[2] = hiddenRePlayId;
+						
+						for(var j = 0; j < list.length; j++) {
+							
+							var tr = $('<tr>');
+							tr.append(list[j]);
+							replyList.append(tr);
+						}
+						replyListArea.append(replyList);
+						replyList.append(tr);
+					}
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+			
+			
+			
+			
+			$('.replyText').keyup(function(){
+				var inputLength=$(this).val().length;
+				var remain=0+inputLength;
+				
+				$('.cntText').html(remain);
+				if(remain > 500){
+					console.log("500자 이상!");
+				 $('.cntText').css('color','red');
+				}
+			});
+		});
+		
+		function insertReply(){
+			var replyContent = $(".replyText").val();
+			$.ajax({
+				url:"insertWebnovelReply.wn",
+				type:"post",
+				data:{rid:rid, replyContent:replyContent},
+				success:function(data){
+					$(".replyText").val('');
+					location.reload();
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+		}
+		
+	</script>
 	
 	
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

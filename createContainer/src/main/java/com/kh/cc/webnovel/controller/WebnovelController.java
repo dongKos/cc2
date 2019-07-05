@@ -1,6 +1,7 @@
 package com.kh.cc.webnovel.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.vo.Member;
@@ -25,6 +27,7 @@ import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelReply;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -129,7 +132,10 @@ public class WebnovelController {
 	@RequestMapping(value="deleteWebnovel.wn")
 	public String deleteWebnovel(Model model, Webnovel wn, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		wn = ws.selectWnOne(wid);
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		wn.setWid(wid);
+		wn.setGradeType(gradeType);
+		wn = ws.selectWnOne(wn);
 		wnr.setRid(wn.getRid());
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(wnr);
 		
@@ -173,7 +179,8 @@ public class WebnovelController {
 	public String selectWnList(HttpServletRequest request, Webnovel wn, HttpSession session, Member m, Model model) {
 		m = (Member) session.getAttribute("loginUser");
 		wn.setUserId(m.getUserId());
-		wn.setGradeType(Integer.parseInt(request.getParameter("gradeType")));
+		int gradeType = (Integer.parseInt(request.getParameter("gradeType")));
+		wn.setGradeType(gradeType);
 		int buttonCount = 10;
 		int currentPage = 1;
 		int limit = 5;
@@ -198,8 +205,12 @@ public class WebnovelController {
 	@RequestMapping("selectWnUpdateOne.wn")
 	public String updateWebnovel(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		
-		wn = ws.selectWnOne(wid);
+		wn.setWid(wid);
+		wn.setGradeType(gradeType);
+		
+		wn = ws.selectWnOne(wn);
 		
 		session.setAttribute("wid", wn.getWid());
 		session.setAttribute("fid", wn.getFid());
@@ -214,7 +225,9 @@ public class WebnovelController {
 	public String selectWnRoundList(Member m, WebnovelAttention wa, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		wn.setWid(wid);
+		wn.setGradeType(gradeType);
 		wnr.setWid(wid);
 		int buttonCount = 10;
 		int limit = 10;
@@ -228,7 +241,7 @@ public class WebnovelController {
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
-		wn = ws.selectWnOne(wid);
+		wn = ws.selectWnOne(wn);
 		
 		if(session.getAttribute("loginUser") != null) {
 			if(!m.getUserId().equals(wn.getUserId())) {
@@ -254,8 +267,11 @@ public class WebnovelController {
 	@RequestMapping("insertWnRoundForm.wn")
 	public String insertWnRoundForm(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		
-		wn = ws.selectWnOne(wid);
+		wn.setWid(wid);
+		wn.setGradeType(gradeType);
+		wn = ws.selectWnOne(wn);
 		
 		session.setAttribute("wid", wn.getWid());
 		
@@ -366,10 +382,13 @@ public class WebnovelController {
 	@RequestMapping("selectWnrUpdateForm.wn")
 	public String updateWnRound(HttpServletRequest request, Webnovel wn, HttpSession session, HttpServletResponse response, Model model, WebnovelRound wnr) {
 		int rid = Integer.parseInt(request.getParameter("rid"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
+		wn.setRid(wid);
+		wn.setGradeType(gradeType);
 		
-		wn = ws.selectWnOne(wid);
+		wn = ws.selectWnOne(wn);
 		String workStatus = wn.getWorkStatus();
 		
 		wnr.setWorkStatus(workStatus);
@@ -385,8 +404,10 @@ public class WebnovelController {
 	public String selectDetailedWebnovel(HttpServletRequest request,Member m, WebnovelStarPoint wnsp, Webnovel wn, HttpSession session, HttpServletResponse response, Model model, WebnovelRound wnr) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		
-		wn = ws.selectWnOne(wid);
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		wn.setWid(wid);
+		wn.setGradeType(gradeType);
+		wn = ws.selectWnOne(wn);
 		wnr.setWid(wid);
 		int buttonCount = 0;
 		int limit = 1;
@@ -641,6 +662,60 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
+	
+	//댓글 등록
+	@RequestMapping(value="insertWebnovelReply.wn")
+	public void insertWebnovelReply(Model model, HttpServletRequest request, HttpServletResponse response, WebnovelReply wReply, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		String replyContent =request.getParameter("replyContent");
+		ObjectMapper mapper = new ObjectMapper();
+		
+		wReply.setReplyContent(replyContent);
+		wReply.setUserId(m.getUserId());
+		wReply.setRid(rid);
+		
+		int result = ws.insertWebnovelReply(wReply);
+		
+		System.out.println("결과에여 : " + result);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(wReply));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	//댓글 리스트
+	@RequestMapping(value="selectWebnovelReply.wn")
+	public ResponseEntity<HashMap<String, Object>> selectWebnovelReply(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
+		
+		int rid =  Integer.parseInt(request.getParameter("rid"));
+		
+		wReply.setRid(rid);
+		
+		int buttonCount = 5;
+		int limit = 10;
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = ws.selectWebnovelReplyCount(wReply);
+		
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectWebnovelReplyList(pi, wReply);
+		
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		wnList.put("pi", pi);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
+	
 	
 	//웹소설 메인홈 이동
 	@RequestMapping("webnovelMain.wn")

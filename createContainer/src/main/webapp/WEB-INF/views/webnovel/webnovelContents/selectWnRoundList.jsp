@@ -316,13 +316,13 @@
 						<tr>
 							<td class="btnArea"colspan="2">
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
-									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid}">신규 회차 등록</button>
-									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid}">작품 정보 수정</button>
+									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid} + '&gradeType=1'">신규 회차 등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid} ">작품 정보 수정</button>
 									<button class="wnrBtn" type="button">휴재 신청</button>
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}  +'&currentPage='+${pi.listCount}">첫회보기</button>
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}  +'&currentPage='+${pi.currentPage}">최신화보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=1'  +'&currentPage='+${pi.listCount}">첫회보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=1'  +'&currentPage='+${pi.currentPage}">최신화보기</button>
 								</c:if>
 							</td>
 						</tr>
@@ -583,7 +583,7 @@
 		function fisrtWnr(){
 			$('.wnrListArea').find('td').children('p').click(function(){
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
-				location.href = "selectDetailedWebnovel.wn?wid=" + wid +"&currentPage=" + ${pi.listCount };
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid+"&gradeType=1" +"&currentPage=" + ${pi.listCount };
 			});
 		}
 		$(function(){
@@ -594,14 +594,14 @@
 			
 			$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
 				var rid = $(this).parents().children("input").eq(0).val();
-				location.href = "selectWnrUpdateForm.wn?rid=" + rid;
+				location.href = "selectWnrUpdateForm.wn?rid=" + rid + "&gradeType=1";
 			});
 			
 			$('.wnrListArea').find('td').children('p').click(function(){
 				var rid = $(this).parents().parents().children().children("input").eq(0).val();
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
 				var currentPage = $(this).parents().parents().children().children("input").eq(2).val();
-				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid +"&currentPage=" + currentPage;
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid+"&gradeType=1" +"&currentPage=" + currentPage;
 			});
 		});
 		$(document).ready(function(){

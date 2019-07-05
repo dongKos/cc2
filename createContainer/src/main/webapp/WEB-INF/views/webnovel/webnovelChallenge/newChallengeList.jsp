@@ -123,7 +123,7 @@
 					
 					$('.newchallengeList').find($(".nwnTable")).on('click',function(){
 						var wid = $(this).children().last().children().children('input').val();
-						location.href = "selectWnRoundList.wn?wid=" + wid;
+						location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
 					});
 					
 					
@@ -221,7 +221,7 @@
 						
 						$('.newchallengeList').find($(".nwnTable")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
-							location.href = "selectWnRoundList.wn?wid=" + wid;
+							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
 						});
 					}
 					

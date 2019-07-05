@@ -219,23 +219,24 @@
 				
 				<script>
 					$(function(){
+						var gradeType = 1;
 						$('.wnListDiv').find($("button[name=deleteBtn]")).click(function(){
 							var wid = $(this).parents().children("input").val();
 							console.log(wid);
 							
-							location.href = "deleteWebnovel.wn?wid=" + wid;
+							location.href = "deleteWebnovel.wn?wid=" + wid + '&gradeType=1';
 						});
 						
 						$('.wnListDiv').find($("button[name=wnUpdateBtn]")).click(function(){
 							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
 							
-							location.href = "selectWnUpdateOne.wn?wid=" + wid;
+							location.href = "selectWnUpdateOne.wn?wid=" + wid +'&gradeType=1';
 						});
 						
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
 							
-							location.href = "selectWnRoundList.wn?wid=" + wid;
+							location.href = "selectWnRoundList.wn?wid=" + wid + '&gradeType=1';
 						});
 						$('.wnListDiv').find('tr').children().children('p').click(function(){
 							var wid = $(this).parents().children("input").val();

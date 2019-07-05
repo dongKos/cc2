@@ -67,6 +67,16 @@
 		<result property="rid" column="RID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
+	<!-- 웹소설 별점-->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelReply" id="WebnovelReplyResultSet">
+		<id property="replyId" column="REPLY_ID"/>
+		<result property="replyDate" column="REPLY_DATE"/>
+		<result property="replyContent" column="REPLY_CONTENT"/>
+		<result property="rid" column="RID"/>
+		<result property="bid" column="B_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="nickname" column="NICKNAME"/>
+	</resultMap>
 	
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
@@ -99,11 +109,12 @@
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 작품 , 사진 정보-->
-	<select id="selectWnOne" parameterType="_int" resultMap="webnovelResultSet">
+	<select id="selectWnOne" parameterType="Webnovel" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
 		WHERE A.WID = #{wid}
+		AND W.GRADE_TYPE = #{gradeType}
 		AND A.ATTACHMENT_CATEGORY = 'ma' 
 	</select>
 	<!-- 작품 메인 수정 -->
@@ -171,6 +182,7 @@
 	<delete id="deleteWebnovel" parameterType="Webnovel">
 		DELETE FROM WORK 
 		WHERE WID = #{wid}
+		AND GRADE_TYPE = #{gradeType}
 	</delete>
 	<!-- 웹소설 회차 삭제 -->
 	<delete id="deleteWnRound" parameterType="Webnovel">
@@ -349,6 +361,27 @@
 		AND ATC.ATTACHMENT_CATEGORY = 'ma'
 		GROUP BY W.WID,  M.NICKNAME, W.USER_ID, W.WUPLOAD_DATE, W.WTITLE, W.WINTRO, W.WCYCLE, W.GRADE_TYPE, W.WORK_TYPE, W.WORK_STATUS, W.WORK_DATE, W.AGE_GRADE, W.GENRE, W.VCOUNT, ATC.CHANGE_NAME, G.GENRE_EXPLAIN
 		ORDER BY w.WUPLOAD_DATE DESC
+	</select>
+	<!-- 댓글 등록 -->
+	<insert id="insertWebnovelReply" parameterType="WebnovelReply">
+		INSERT INTO REPLY 
+		VALUES (REID_SEQ.NEXTVAL, SYSDATE, #{replyContent}, #{rid}, null, #{userId})
+	</insert>
+	<!-- 댓글 리스트 카운트 -->
+	<select id="selectWebnovelReplyCount" parameterType="int" resultType="_int">
+		SELECT COUNT(*)
+		FROM REPLY R
+		JOIN MEMBER M ON(R.USER_ID = M.USER_ID)
+		WHERE R.RID = #{rid}
+		ORDER BY R.REPLY_DATE DESC 
+	</select>
+	<!-- 댓글 리스트 -->
+	<select id="selectWebnovelReplyList" parameterType="WebnovelReply" resultMap="WebnovelReplyResultSet">
+		SELECT *
+		FROM REPLY R
+		JOIN MEMBER M ON(R.USER_ID = M.USER_ID)
+		WHERE R.RID = #{rid}
+		ORDER BY R.REPLY_DATE DESC 
 	</select>
 </mapper>
 
