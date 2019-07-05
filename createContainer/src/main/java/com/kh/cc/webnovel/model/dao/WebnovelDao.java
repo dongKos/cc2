@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelReply;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -23,7 +23,7 @@ public interface WebnovelDao {
 	//웹소설 메인 목록 리스트
 	ArrayList<Webnovel> selectWnList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
 	//웹소설, 사진 정보
-	Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid);
+	Webnovel selectWnOne(SqlSessionTemplate sqlSession, Webnovel wn);
 	//웹소설 메인 수정
 	int updateWebnovel(SqlSessionTemplate sqlSession, Webnovel wn);
 	//웹소설 메인 사진 수정
@@ -90,6 +90,12 @@ public interface WebnovelDao {
 	ArrayList<HashMap<String, Object>> selectRecommendGenreList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
 	//도전 추천 최신 리스트
 	ArrayList<HashMap<String, Object>> selectNewRecommendList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Webnovel wn);
+	//댓글등록
+	int insertWebnovelReply(SqlSessionTemplate sqlSession, WebnovelReply wReply);
+	//댓글 리스트 카운트
+	int selectWebnovelReplyCount(SqlSessionTemplate sqlSession, WebnovelReply wReply);
+	//댓글 리스트
+	ArrayList<HashMap<String, Object>> selectWebnovelReplyList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelReply wReply);
 	
 	
 }

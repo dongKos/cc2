@@ -7,11 +7,11 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.webnovel.model.vo.WebnovelReply;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -47,8 +47,8 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	}
 	//웹소설, 사진 정보
 	@Override
-	public Webnovel selectWnOne(SqlSessionTemplate sqlSession, int wid) {
-		return sqlSession.selectOne("Webnovel.selectWnOne", wid);
+	public Webnovel selectWnOne(SqlSessionTemplate sqlSession, Webnovel wn) {
+		return sqlSession.selectOne("Webnovel.selectWnOne", wn);
 	}
 	//웹소설 메인 수정
 	@Override
@@ -279,6 +279,29 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		list = (ArrayList) sqlSession.selectList("Webnovel.selectNewRecommendList", wn, rowBounds);
+		
+		return list;	
+	}
+	//댓글등록
+	@Override
+	public int insertWebnovelReply(SqlSessionTemplate sqlSession, WebnovelReply wReply) {
+		return sqlSession.insert("Webnovel.insertWebnovelReply", wReply);
+	}
+	//댓글 리스트 카운트
+	@Override
+	public int selectWebnovelReplyCount(SqlSessionTemplate sqlSession, WebnovelReply wReply) {
+		return sqlSession.selectOne("Webnovel.selectWebnovelReplyCount", wReply);
+	}
+	//댓글 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> selectWebnovelReplyList(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelReply wReply) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectWebnovelReplyList", wReply, rowBounds);
 		
 		return list;	
 	}
