@@ -69,6 +69,22 @@ public interface AdminService {
 
 	ArrayList<Member> selectBoardReplyList(AdminPageInfo pi);
 
+	int getWorkListCount();
+
+	ArrayList<Webnovel> selectAllWorkList(AdminPageInfo pi);
+
+	int getWorkTypeListCount(int select1, int select2);
+
+	ArrayList<HashMap<String, Object>> selectWorkTypeList(AdminPageInfo pi, int select1, int select2);
+
+	int getIllustListCount();
+
+	ArrayList<Illustrator> selectIllustList(AdminPageInfo pi);
+
+	int getIllustTypeListCount(int select1);
+
+	ArrayList<HashMap<String, Object>> selectIllustTypeList(AdminPageInfo pi, int select1);
+
 
 	
 }

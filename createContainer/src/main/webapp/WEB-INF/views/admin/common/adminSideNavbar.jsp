@@ -111,6 +111,9 @@
                                <a href="showWork.ad">작품 조회</a>
                            </li>
                            <li>
+                               <a href="showIllust.ad">일러스트 조회</a>
+                           </li>
+                           <li>
                                <a href="showWorkApprove.ad">승인 대기 내역 조회</a>
                            </li>
                            <li>

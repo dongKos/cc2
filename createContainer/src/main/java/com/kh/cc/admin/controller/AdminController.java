@@ -159,15 +159,15 @@ public class AdminController {
 		System.out.println("pi : " + pi);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectmemberTypeList(pi, type);
-	    HashMap<String, Object> list2 = new HashMap<String, Object>();
-	    System.out.println("type : " + type);
-	    System.out.println("조건 따라 받아온 맴버 list : " + list.size());
-	    list2.put("list", list);
-	    list2.put("pi", pi);
-
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		System.out.println("type : " + type);
+		System.out.println("조건 따라 받아온 맴버 list : " + list.size());
+		list2.put("list", list);
+		list2.put("pi", pi);
+		
 		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-
+		
 	}
 	
 	//회원 관리 페이지 상세보기
@@ -250,18 +250,18 @@ public class AdminController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		  int listCount = as.getBoardTypeListCount(select1, select2);
-		  
-		  AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		  
-		  
-		  ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,  select2);
-		  HashMap<String, Object> list2 = new HashMap<String, Object>();
-		  list2.put("list", list);
-		  list2.put("pi", pi);
+		int listCount = as.getBoardTypeListCount(select1, select2);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		
+		ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,  select2);
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		list2.put("list", list);
+		list2.put("pi", pi);
 		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-
+		
 	}
 	
 	//게시판 관리 - 댓글 관리 페이지
@@ -288,37 +288,37 @@ public class AdminController {
 		
 		return "admin/adminBoardReply";
 	}
-
 	
-	  //게시판 관리 - 게시글 관리 페이지 조건 검색 ajax
-	  
-	  @RequestMapping(value="boardReplyType.ad") 
-	  public ResponseEntity<HashMap<String,Object>> boardReplyType(HttpServletRequest request) { 
-		  //1:1문의 인지 공지사항 인지 
-		  int select1 = Integer.parseInt(request.getParameter("select1")); 
-		  //웹툰, 웹소설, 일러스트,기타 인지 
-		  int select2 = Integer.parseInt(request.getParameter("select2"));
-		  
-		  int currentPage = 1;
-		  
-		  if(request.getParameter("currentPage") != null) { 
-			  currentPage =Integer.parseInt(request.getParameter("currentPage")); 
-		  }
-		  
-		  int listCount = as.getBoardTypeListCount(select1, select2);
-		  
-		  AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		  
-		  ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,
-		  select2); HashMap<String, Object> list2 = new HashMap<String, Object>();
-		  list2.put("list", list); list2.put("pi", pi);
-		  
-		  return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-		  
-	  }
-	  
-	  
-	 
+	
+	//게시판 관리 - 게시글 관리 페이지 조건 검색 ajax
+	
+	@RequestMapping(value="boardReplyType.ad") 
+	public ResponseEntity<HashMap<String,Object>> boardReplyType(HttpServletRequest request) { 
+		//1:1문의 인지 공지사항 인지 
+		int select1 = Integer.parseInt(request.getParameter("select1")); 
+		//웹툰, 웹소설, 일러스트,기타 인지 
+		int select2 = Integer.parseInt(request.getParameter("select2"));
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) { 
+			currentPage =Integer.parseInt(request.getParameter("currentPage")); 
+		}
+		
+		int listCount = as.getBoardTypeListCount(select1, select2);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,
+				select2); HashMap<String, Object> list2 = new HashMap<String, Object>();
+				list2.put("list", list); list2.put("pi", pi);
+				
+				return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+				
+	}
+	
+	
+	
 	//통계관리 - 작가통계 페이지
 	@RequestMapping("showStatistic.ad")
 	public String showStatistic() {
@@ -361,52 +361,52 @@ public class AdminController {
 		model.addAttribute("pi", pi);
 		
 		return "admin/adminReport";
-		}
+	}
 	
-		//신고 관리 페이지 처리대기 / 완료 조건검색 ajax
-		@RequestMapping(value="reportStatus.ad")
-		public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
-			ArrayList<Report> list = null;
-			response.setContentType("text/html; charset=UTF-8");
-			String statusVal = request.getParameter("statusVal");
-			int currentPage = 1;
-			if(request.getParameter("currentPage") != null) {
-				currentPage = Integer.parseInt(request.getParameter("currentPage"));
-			}
-			int listCount = 0;
-			
-			listCount = as.getReportAjaxCount(statusVal);
-			AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-			list = as.reportStatus(statusVal, pi);
-			
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-			ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
-			for(int i = 0; i < list.size(); i++) {
-				HashMap<String, Object> hmap = new HashMap<String, Object>();
-				
-				String rDate = fmt.format(list.get(i).getReportDate());
-				
-				hmap.put("reportId", list.get(i).getReportId());
-				hmap.put("reportType", list.get(i).getReportType());
-				hmap.put("reportDate", rDate);
-				hmap.put("reportReason", list.get(i).getReportReason());
-				hmap.put("reportCategory", list.get(i).getReportCategory());
-				hmap.put("status", list.get(i).getStatus());
-				hmap.put("userId", list.get(i).getUserId());
-				hmap.put("wid", list.get(i).getWid());
-				hmap.put("rid", list.get(i).getRid());
-				hmap.put("commentId", list.get(i).getCommentId());
-				hmap.put("bid", list.get(i).getBid());
-				
-				list2.add(hmap);
-			}
-			
-			mv.addObject("list", list2);
-			mv.addObject("pi", pi);
-			mv.setViewName("jsonView");
-			
-			return mv;
+	//신고 관리 페이지 처리대기 / 완료 조건검색 ajax
+	@RequestMapping(value="reportStatus.ad")
+	public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
+		ArrayList<Report> list = null;
+		response.setContentType("text/html; charset=UTF-8");
+		String statusVal = request.getParameter("statusVal");
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
+		int listCount = 0;
+		
+		listCount = as.getReportAjaxCount(statusVal);
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		list = as.reportStatus(statusVal, pi);
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
+		for(int i = 0; i < list.size(); i++) {
+			HashMap<String, Object> hmap = new HashMap<String, Object>();
+			
+			String rDate = fmt.format(list.get(i).getReportDate());
+			
+			hmap.put("reportId", list.get(i).getReportId());
+			hmap.put("reportType", list.get(i).getReportType());
+			hmap.put("reportDate", rDate);
+			hmap.put("reportReason", list.get(i).getReportReason());
+			hmap.put("reportCategory", list.get(i).getReportCategory());
+			hmap.put("status", list.get(i).getStatus());
+			hmap.put("userId", list.get(i).getUserId());
+			hmap.put("wid", list.get(i).getWid());
+			hmap.put("rid", list.get(i).getRid());
+			hmap.put("commentId", list.get(i).getCommentId());
+			hmap.put("bid", list.get(i).getBid());
+			
+			list2.add(hmap);
+		}
+		
+		mv.addObject("list", list2);
+		mv.addObject("pi", pi);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
 	
 	//신고 내역 전체 처리
 	@RequestMapping(value="complteAllReport.ad")
@@ -418,22 +418,22 @@ public class AdminController {
 			int iArr[] = new int [reportIdArr.length];
 			
 			for(int i = 0; i < reportIdArr.length; i++) {
-			
+				
 				iArr[i] = Integer.parseInt(reportIdArr[i]);
 				as.completeReport(iArr[i]);
 			}
-		//개별 처리인 경우
+			//개별 처리인 경우
 		}else {
 			
 		}
 		
 		return "redirect:showReport.ad";
 	}
-		
+	
 	//신고 관리 페이지 상세보기
 	@RequestMapping("showReportDetail.ad")
 	public String showReportDetail(HttpServletRequest request, Model model) {
-	int num = Integer.parseInt(request.getParameter("num"));
+		int num = Integer.parseInt(request.getParameter("num"));
 		
 		Report reqReport = as.selectOneReport(num);
 		
@@ -445,10 +445,109 @@ public class AdminController {
 	
 	//작품 관리 페이지 - 작품 조회
 	@RequestMapping("showWork.ad")
-	public String showWork() {
+	public String showWork(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getWorkListCount();
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Webnovel> list = as.selectAllWorkList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		System.out.println("전체 작품  list : " + list);
+		
 		return "admin/adminWork";
 	}
 	
+	//작품 관리 페이지 - 작품 조회  조건검색 ajax
+	@RequestMapping(value="workType.ad") 
+	public ResponseEntity<HashMap<String,Object>> workType(HttpServletRequest request) { 
+		//웹툰인지 일러스트인지
+		int select1 = Integer.parseInt(request.getParameter("select1")); 
+		//일반인지 프리미엄 인지
+		int select2 = Integer.parseInt(request.getParameter("select2"));
+		
+		System.out.println("작품 관리 에이잭스 조건 값 : " + select1 + "" + select2);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) { 
+			currentPage =Integer.parseInt(request.getParameter("currentPage")); 
+		}
+		
+		int listCount = as.getWorkTypeListCount(select1, select2);
+		
+		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectWorkTypeList(pi, select1, select2); 
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		System.out.println("작품 리스트 : " + list);
+		list2.put("list", list); 
+		list2.put("pi", pi);
+				
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+				
+	}
+	
+	//작품 관리 페이지 - 일러스트 조회
+	@RequestMapping(value="showIllust.ad")
+	public String showIllust(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getIllustListCount();
+		System.out.println("일러스트 작품 전체 개수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Illustrator> list = as.selectIllustList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		System.out.println("전체 일러스트 list : " + list);
+		
+		return "admin/adminWorkIllust";
+	}
+	
+	//작품 관리 페이지 - 일러스트 조회 조건검색 ajax
+	@RequestMapping(value="illType.ad")
+	public ResponseEntity<HashMap<String,Object>> illType(HttpServletRequest request) {
+		//일반인지 프리미엄 인지
+		int select1 = Integer.parseInt(request.getParameter("select1")); 
+		
+		System.out.println("작품 관리 에이잭스 조건 값 : " + select1);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) { 
+			currentPage =Integer.parseInt(request.getParameter("currentPage")); 
+		}
+		
+		int listCount = as.getIllustTypeListCount(select1);
+		
+		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectIllustTypeList(pi, select1); 
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		System.out.println("일러스트 리스트 : " + list);
+		list2.put("list", list); 
+		list2.put("pi", pi);
+				
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+	}
 	//작품 관리 페이지 - 승인 대기 내역 조회
 	@RequestMapping("showWorkApprove.ad")
 	public String showWorkApprove() {

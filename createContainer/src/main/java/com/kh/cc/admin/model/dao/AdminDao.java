@@ -69,5 +69,23 @@ public interface AdminDao {
 	int getBoardReplyListCount(SqlSessionTemplate sqlSession);
 
 	ArrayList<Member> getBoardReplyList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	int getWorkListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webnovel> selectAllWorkList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	int getWorkTypeListCount(SqlSessionTemplate sqlSession, int select1, int select2);
+
+	ArrayList<HashMap<String, Object>> selectWorkTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi, int select1,
+			int select2);
+
+	int getIllustListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Illustrator> selectIllustWorkList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	int getIllustTypeListCount(SqlSessionTemplate sqlSession, int select1);
+
+	ArrayList<HashMap<String, Object>> selectIllustTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int select1);
 	
 }

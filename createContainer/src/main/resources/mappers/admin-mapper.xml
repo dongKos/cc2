@@ -80,6 +80,24 @@
 		<result property="userId" column="USER_ID"/>
 		<result property="workType" column="WORK_TYPE"/>
 	</resultMap>
+	<resultMap type="com.kh.cc.illustrator.model.vo.Illustrator" id="illustResultSet">
+		<id property="illCode" column="ILL_CODE"/>
+		<result property="illPrice" column="ILL_PRICE"/>
+		<result property="termDate" column="TERM_DATE"/>
+		<result property="changeCount" column="CHANGE_COUNT"/>
+		<result property="illTitle" column="ILL_TITLE"/>
+		<result property="illContent" column="ILL_CONTENT"/>
+		<result property="illType" column="ILL_TYPE"/>
+		<result property="recommendCount" column="RECOMMEND_COUNT"/>
+		<result property="viewCount" column="VIEW_COUNT"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="illCategory" column="ILL_CATEGORY"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fid" column="FID"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
+		<result property="intro" column="INTRO"/>
+	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -320,6 +338,75 @@
 		FROM REPLY R
 		JOIN BOARD B ON(R.B_ID = B.B_ID)
 		ORDER BY REPLY_ID DESC
+	</select>
+	<!-- 작품 관리 - 작품 조회 -->
+	<select id="selectWorkListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK
+	</select>
+	
+	<!-- 작품 관리 - 작품 전체 조회 -->
+	<select id="selectAllWorkList" resultMap="workResultSet">
+		SELECT *
+		FROM WORK
+		ORDER BY WID DESC, USER_ID
+	</select>
+	
+	<!-- 작품 관리 조건 검색 개수 - 웹툰 -->
+	<select id="selectWebToonListCount" resultType="_int" parameterType="String">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE WORK_TYPE = 'WT'
+		AND GRADE_TYPE LIKE '%'|| #{str} ||'%'
+	</select>
+	<!-- 작품 관리 조건 검색 개수 - 웹 소설 -->
+	<select id="selectWebNovelListCount" resultType="_int" parameterType="String">
+		SELECT COUNT(*)
+		FROM WORK
+		WHERE WORK_TYPE = 'WN'
+		AND GRADE_TYPE LIKE '%'|| #{str} ||'%'
+	</select>
+	<!-- 작품 관리 조건 검색 - 웹툰  -->
+	<select id="selectWebToonList" resultMap="workResultSet" parameterType="String">
+		SELECT * 
+		FROM WORK
+		WHERE WORK_TYPE='WT'
+		AND GRADE_TYPE LIKE '%'|| #{str} ||'%'
+	</select>
+	<!-- 작품 관리 조건 검색 - 웹소설 -->
+	<select id="selectWebNovelList" resultMap="workResultSet" parameterType="String">
+		SELECT * 
+		FROM WORK
+		WHERE WORK_TYPE='WN'
+		AND GRADE_TYPE LIKE '%'|| #{str} ||'%'
+	</select>
+	<!-- 작품 관리 - 일러스트 조회 전체 개수 -->
+	<select id="selectIllustListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ILLUSTRATION
+	</select>
+	
+	<!-- 작품 관리 - 일러스트  -->
+	<select id="selectIllustWorkList" resultMap="illustResultSet">
+		SELECT *
+		FROM ILLUSTRATION ILL
+		WHERE ILL.ILL_TYPE = 'pri'
+		ORDER BY USER_ID, ILL_CODE DESC
+	</select>
+	
+	<!-- 작품 관리 - 일러스트 조회 - 조건검색 개수  -->
+	<select id="selectIllustTypeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM ILLUSTRATION
+		WHERE ILL_TYPE LIKE '%' || #{str} ||'%'
+	</select>
+	
+	<!-- 작품 관리 - 일러스트 조회 - 조건 검색 전체 조회 -->
+	<select id="selectIllustTypeList" resultMap="illustResultSet" parameterType="String">
+		SELECT *
+		FROM ILLUSTRATION
+		WHERE ILL_TYPE LIKE '%' || #{str} || '%'
+		ORDER BY USER_ID, ILL_CODE DESC
 	</select>
 </mapper>
 	

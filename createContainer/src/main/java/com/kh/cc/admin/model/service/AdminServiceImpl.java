@@ -176,25 +176,73 @@ public class AdminServiceImpl implements AdminService{
 	public int getBoardTypeListCount(int select1, int select2) {
 		return ad.getBoardTypeListCount(sqlSession, select1, select2);
 	}
-
+	
 	//게시글 조건검색 전체 조회
 	@Override
 	public ArrayList<HashMap<String, Object>> selectBoardTypeList(AdminPageInfo pi, int select1, int select2) {
 		return ad.selectBoardTypeList(sqlSession, pi, select1, select2);
 	}
-
+	
 	//댓글 전체 개수 조회
 	@Override
 	public int getBoardReplyListCount() {
 		return ad.getBoardReplyListCount(sqlSession);
 	}
-
+	
 	//댓글 전체 조회
 	@Override
 	public ArrayList<Member> selectBoardReplyList(AdminPageInfo pi) {
 		return ad.getBoardReplyList(sqlSession, pi);
 	}
+	
+	//작품 전체 개수 조회
+	@Override
+	public int getWorkListCount() {
+		return ad.getWorkListCount(sqlSession);
+	}
+	
+	//작품 전체 조회
+	@Override
+	public ArrayList<Webnovel> selectAllWorkList(AdminPageInfo pi) {
+		return ad.selectAllWorkList(sqlSession, pi);
+	}
+	
+	//작품 조건검색 개수 조회
+	@Override
+	public int getWorkTypeListCount(int select1, int select2) {
+		return ad.getWorkTypeListCount(sqlSession, select1, select2);
+	}
+	
+	//작품 조건 검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectWorkTypeList(AdminPageInfo pi, int select1, int select2) {
+		return ad.selectWorkTypeList(sqlSession, pi, select1, select2);
+	}
+	
+	//일러스트 개수 조회
+	@Override
+	public int getIllustListCount() {
+		return ad.getIllustListCount(sqlSession);
+	}
 
+	//일러스트 전체 조회
+	@Override
+	public ArrayList<Illustrator> selectIllustList(AdminPageInfo pi) {
+		return ad.selectIllustWorkList(sqlSession, pi);
+	}
+
+	//일러스트 조건 검색 개수 조회
+	@Override
+	public int getIllustTypeListCount(int select1) {
+		return ad.getIllustTypeListCount(sqlSession, select1);
+	}
+
+	//일러스트 조건 검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectIllustTypeList(AdminPageInfo pi, int select1) {
+		return ad.selectIllustTypeList(sqlSession, pi, select1);
+	}
+	
 	
 }
 

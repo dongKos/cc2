@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>작품관리 - 작품 조회</title>
+<title>작품관리 - 일러스트 조회</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	//날짜 관련 함수
@@ -45,40 +45,26 @@
 	$(function(){
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#work").parent().children();
-		var selectedLi = selectedUl.children().children().eq(0);
+		var selectedLi = selectedUl.children().children().eq(1);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
-		
-		//첫번째 셀렉트 박스 값이 있을 경우 두 번째 셀렉트 박스가 노출 되도록 합니다.
-		var select1 = $("#select1");
-		var select2 = $("#select2");
-		select1.change(function(){
-			if(select1.val() != 1){
-				select2.css({"display":"inline-block"});
-				$("#searchBtn").removeAttr("disabled");
-			}else{
-				select2.css({"display":"none"});
-				$("#searchBtn").prop("disabled", true);
-			}
-		});
 		
 	});
 	//검색버튼 - 에이잭스 구동
 	function search(){
 		var select1 = $("#select1").val();
-		var select2 = $("#select2").val();
 		
-		console.log(select1 + " " + select2);
+		console.log(select1);
 		
 		$.ajax({
-			url:"workType.ad",
-			data:{select1:select1, select2:select2},
+			url:"illType.ad",
+			data:{select1:select1},
 			type:"get",
 			success:function(data){
 				console.log(data);
 				console.log(data.pi.currentPage);
-				var table = $("#workTable");
-				var tbody = $("#workTable tbody");
+				var table = $("#illTable");
+				var tbody = $("#illTable tbody");
 				
 				tbody.html(" ");
 				
@@ -87,25 +73,21 @@
 				
 					var tr = $("<tr onclick='trClick(" + data.list[i].wid + ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
-					var nameTd = $("<td>").text(data.list[i].wTitle);
+					var nameTd = $("<td>").text(data.list[i].illTitle);
 					
-					//작품구분
-					if(data.list[i].workType == "WT"){
-						var categoryTd = $("<td>").text("웹툰");
-					}else{
-						var categoryTd = $("<td>").text("웹소설");
-					}
 					//프리미엄구분
-					if(data.list[i].gradeType == 1){
-						var priTd = $("<td>").text("일반");
+					if(data.list[i].illType == "chall"){
+						var categoryTd = $("<td>").text("도전하기");
 					}else{
-						var priTd = $("<td>").text("프리미엄");
+						var categoryTd = $("<td>").text("포트폴리오");
 					}
+					
+					var recTd = $("<td>").text(data.list[i].recommndCount);
 					
 					tr.append(userIdTd);
 					tr.append(nameTd);
 					tr.append(categoryTd);
-					tr.append(priTd);
+					tr.append(recTd);
 					tbody.append(tr);
 					table.append(tbody);
 				}
@@ -123,7 +105,7 @@
 				if(currentPage <= 1){
 					pagingArea.text("[이전]");
 				}else{
-					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+"," + select2 + ")'>[이전]</button>");
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+ ")'>[이전]</button>");
 				}
 				
 				//숫자 페이지 버튼
@@ -132,7 +114,7 @@
 						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
 						
 					}else{
-						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+"," + select2 + ")'>" + i +"</button>");
+						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+")'>" + i +"</button>");
 					}
 				}
 				
@@ -140,7 +122,7 @@
 				if(currentPage >= maxPage){
 					pagingArea.text("[다음]");
 				}else{
-					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+"," + select2 + ")'>[다음]</button>");
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+")'>[다음]</button>");
 				}
 			},
 			error:function(){
@@ -151,44 +133,41 @@
 	}
 	
 	//애이작스 페이징 처리
-	function boardPaging(currentPage, select1, select2){
+	function boardPaging(currentPage, select1){
 		var select1 = select1;
 		var select2 = select2;
 		$.ajax({
-			url:"workType.ad",
-			data:{currentPage:currentPage, select1:select1, select2:select2},
+			url:"illType.ad",
+			data:{currentPage:currentPage, select1:select1},
 			type:"get",
 			success:function(data){
 				console.log("페이징버튼을 눌렀을때"+data);
 				//테이블 재 생성
-				var table = $("#workTable");
+				var table = $("#illTable");
 				var tbody = $('tbody');
 				tbody.html(" ");
 				
 				//테이블 영역 재생성
+				//테이블 영역 재생성
 				for(var i = 0; i < data.list.length;i++){
-					
+				
 					var tr = $("<tr onclick='trClick(" + data.list[i].wid + ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
-					var nameTd = $("<td>").text(data.list[i].wTitle);
+					var nameTd = $("<td>").text(data.list[i].illTitle);
 					
-					//작품구분
-					if(data.list[i].workType == "WT"){
-						var categoryTd = $("<td>").text("웹툰");
-					}else{
-						var categoryTd = $("<td>").text("웹소설");
-					}
 					//프리미엄구분
-					if(data.list[i].gradeType == 1){
-						var priTd = $("<td>").text("일반");
+					if(data.list[i].illType == "chall"){
+						var categoryTd = $("<td>").text("도전하기");
 					}else{
-						var priTd = $("<td>").text("프리미엄");
+						var categoryTd = $("<td>").text("포트폴리오");
 					}
+					
+					var recTd = $("<td>").text(data.list[i].recommndCount);
 					
 					tr.append(userIdTd);
 					tr.append(nameTd);
 					tr.append(categoryTd);
-					tr.append(priTd);
+					tr.append(recTd);
 					tbody.append(tr);
 					table.append(tbody);
 				}
@@ -207,7 +186,7 @@
 				if(currentPage <= 1){
 					pagingArea.text("[이전]");
 				}else{
-					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+"," + select2 + ")'>[이전]</button>");
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage -1)+ ","+ select1+")'>[이전]</button>");
 				}
 				
 				//숫자 페이지 버튼
@@ -216,7 +195,7 @@
 						pagingArea.append(" <font color='red' size='4'><b>" + i + "</b></font>");
 						
 					}else{
-						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+"," + select2 + ")'>" + i +"</button>");
+						pagingArea.append("<button onclick='boardPaging("+ i + ","+ select1+")'>" + i +"</button>");
 					}
 				}
 				
@@ -224,7 +203,7 @@
 				if(currentPage >= maxPage){
 					pagingArea.text("[다음]");
 				}else{
-					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+"," + select2 + ")'>[다음]</button>");
+					pagingArea.append("<button onclick='boardPaging("+ (currentPage + 1) + ","+ select1+")'>[다음]</button>");
 				}
 			},
 			error:function(){
@@ -264,45 +243,35 @@
                                 <div class="m-b-25">
                                 	<select id="select1">
                                 		<option value="1">전체</option>
-                                		<option value="2">웹툰</option>
-                                		<option value="3">웹소설</option>
-                                	</select>
-                                	<select id="select2" style="display:none;">
-                                		<option value="1" selected>전체</option>
-                                		<option value="2">일반</option>
+                                		<option value="2">도전하기</option>
                                 		<option value="3">프리미엄</option>
                                 	</select>
-                                	<button class="btn btn-primary" type="submit" onclick="search();" id="searchBtn" disabled>검색하기</button>
+                                
+                                	<button class="btn btn-primary" type="submit" onclick="search();" id="searchBtn">검색하기</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
-                                    <table class="table table-borderless table-striped table-earning" id="workTable">
+                                    <table class="table table-borderless table-striped table-earning" id="illTable">
                                         <thead>
                                             <tr>
                                                 <th>작가 아이디</th>
                                                 <th>작품이름</th>
                                                 <th>작품 구분</th>
-                                                <th class="text-right">프리미엄구분</th>
+                                                <th class="text-right">추천 수</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        	<c:forEach var="w" items="${list }">
-                                        		<tr onclick="trClick(${w.wid})">
-	                                                <td>${w.userId }</td>
-	                                                <td>${w.wTitle }</td>
-	                                                <c:if test="${w.workType eq 'WT' }">
-		                                                <td class="text-center">웹툰</td>
+                                        	<c:forEach var="ill" items="${list }">
+                                        		<tr onclick="trClick(${ill.illCode})">
+	                                                <td>${ill.userId }</td>
+	                                                <td>${ill.illTitle}</td>
+	                                                <c:if test="${ill.illType eq 'pri'}">
+		                                                <td class="text-center">포트폴리오</td>
 	                                                </c:if>
-	                                                <c:if test="${w.workType eq 'WN' }">
-		                                                <td class="text-center">웹소설</td>
+	                                                 <c:if test="${ill.illType eq 'chall'}">
+		                                                <td class="text-center">도전</td>
 	                                                </c:if>
-	                                                <c:if test="${w.gradeType eq 1 }">
-		                                                <td class="text-right">일반</td>
-	                                                </c:if>
-	                                                <c:if test="${w.gradeType eq 2 }">
-		                                                <td class="text-right">프리미엄</td>
-	                                                </c:if>
-	                                                
-                                            	</tr>	
+	                                                <td class="text-right">${ill.recommendCount }</td>
+                                            	</tr>
                                         	</c:forEach>
                                     </table>
                                     <!-- 페이징 영역 -->

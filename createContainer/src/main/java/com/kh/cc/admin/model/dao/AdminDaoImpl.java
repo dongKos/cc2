@@ -362,7 +362,7 @@ public class AdminDaoImpl implements AdminDao{
 	public int getBoardReplyListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("admin.selectBoardReplyListCount");
 	}
-
+	
 	//댓글 전체 조회
 	@Override
 	public ArrayList<Member> getBoardReplyList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
@@ -372,7 +372,153 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return (ArrayList)sqlSession.selectList("admin.selectBoardReplyList", null, rowBounds);
 	}
+	
+	//작품 전체 개수 조회
+	@Override
+	public int getWorkListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectWorkListCount");
+	}
+	
+	//작품 전체 조회
+	@Override
+	public ArrayList<Webnovel> selectAllWorkList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit()); 
+		
+		return (ArrayList)sqlSession.selectList("admin.selectAllWorkList", null, rowBounds);
+	}
+	
+	//작품 조건검색 개수 조회
+	@Override
+	public int getWorkTypeListCount(SqlSessionTemplate sqlSession, int select1, int select2) {
+		String str = "";
+		
+		//웹툰
+		if(select1 == 2) {
+			switch(select2) {
+			/*전체*/		
+			case 1 : 
+				str = "%";
+				return sqlSession.selectOne("admin.selectWebToonListCount",str);
+				/*일반*/	
+			case 2 : 
+				str = "1";
+				return sqlSession.selectOne("admin.selectWebToonListCount",str);
+				/*프리미엄*/
+			default :
+				str = "2";
+				return sqlSession.selectOne("admin.selectWebToonListCount",str);
+			}
+			//일러스트
+		}else {
+			switch(select2) {
+			/*전체*/		
+			case 1 : 
+				str = "%";
+				return sqlSession.selectOne("admin.selectWebNovelListCount",str);
+				/*일반*/	
+			case 2 : 
+				str = "1";
+				return sqlSession.selectOne("admin.selectWebNovelListCount",str);
+				/*프리미엄*/
+			default :
+				str = "2";
+				return sqlSession.selectOne("admin.selectWebNovelListCount",str);
+			}
+		}
+		
+	}
+	
+	//작품 조건 검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectWorkTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int select1, int select2) {
+		String str = "";
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		//웹툰
+		if(select1 == 2) {
+			switch(select2) {
+			/*전체*/		
+			case 1 : 
+				str = "%";
+				return (ArrayList)sqlSession.selectList("admin.selectWebToonList",str, rowBounds);
+				/*일반*/	
+			case 2 : 
+				str = "1";
+				return (ArrayList)sqlSession.selectList("admin.selectWebToonList",str, rowBounds);
+				/*프리미엄*/
+			default :
+				str = "2";
+				return (ArrayList)sqlSession.selectList("admin.selectWebToonList",str, rowBounds);
+			}
+			//공지사항
+		}else {
+			switch(select2) {
+			/*전체*/		
+			case 1 : 
+				str = "%";
+				return (ArrayList)sqlSession.selectList("admin.selectWebNovelList",str, rowBounds);
+				/*일반*/	
+			case 2 : 
+				str = "1";
+				return (ArrayList)sqlSession.selectList("admin.selectWebNovelList",str, rowBounds);
+				/*프리미엄*/
+			default :
+				str = "2";
+				return (ArrayList)sqlSession.selectList("admin.selectWebNovelList",str, rowBounds);
+			}
+		}
+	}
+	
+	//일러스트 전체 개수 조회
+	@Override
+	public int getIllustListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectIllustListCount");
+	}
+	
+	//일러스트 전체 조회
+	@Override
+	public ArrayList<Illustrator> selectIllustWorkList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectIllustWorkList", null, rowBounds);
+	}
 
+	//일러스트 조건 검색 개수 조회
+	@Override
+	public int getIllustTypeListCount(SqlSessionTemplate sqlSession, int select1) {
+		String str = "";
+		if(select1 == 1) {
+			str = "%";
+		}else if (select1 == 2) {
+			str = "chall";
+		}else {
+			str = "pri";
+		}
+		return sqlSession.selectOne("admin.selectIllustTypeListCount", str);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectIllustTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int select1) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		String str = "";
+		switch(select1) {
+			case 1 : str = "%"; break;
+			case 2 : str = "chall"; break;
+			case 3 : str = "pri"; break;
+		}
+		
+		return (ArrayList)sqlSession.selectList("admin.selectIllustTypeList", str, rowBounds);
+	}
+	
 	
 	
 }
