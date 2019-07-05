@@ -86,7 +86,7 @@
 				<!-- 로그인 활성화 상태 -->
 				<c:if test="${ !empty sessionScope.loginUser }">
 					<li>
-						<a href="mypgMain.mg">
+						<a href="attentionListWt.mg">
 							<c:out value="${ sessionScope.loginUser.userName }님 "/>
 						</a>
 					</li>
