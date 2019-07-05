@@ -42,6 +42,8 @@ public interface WebtoonService {
 
 	WebtoonRound content(int rid);
 
+	Webtoon content1(int wid);
+
 
 
 }

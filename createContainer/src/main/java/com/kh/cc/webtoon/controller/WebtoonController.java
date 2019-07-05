@@ -639,21 +639,24 @@ public class WebtoonController {
 	}
 	
 	@RequestMapping(value="contentView.wt")
-	public String contentView(Model model, HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr) {
+	public String contentView(Model model, HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr, Webtoon wt) {
 		System.out.println("웹툰 보기페이지 옴");
-		
+
 		m = (Member) session.getAttribute("loginUser");
-		
+
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		System.out.println("rid : " + rid);
-		
-		
-		
+
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		System.out.println("wid : " + wid);
+
 		wr = ws.content(rid);
+		wt = ws.content1(wid);
 		
 		System.out.println("wr : " + wr);
 		
 		model.addAttribute("wr", wr);
+		model.addAttribute("wt", wt);
 		
 		
 		
