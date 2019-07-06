@@ -21,7 +21,6 @@
 
 /* Set gray background color and 100% height */
 .sidenav {
-	background-color: #f1f1f1;
 	height: 100%;
 }
 
@@ -81,7 +80,7 @@ footer {
 }
 
 #area {
-	background-color: red;
+	
 	width: 160px;
 	height: 150px;
 	margin-right: 10px;
@@ -99,6 +98,7 @@ footer {
 </style>
 </head>
 <body>
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
 	<jsp:include page="common/djcNavbar.jsp" />
@@ -116,7 +116,7 @@ footer {
 					<br>
 					<li><a href="#"></a>별점순</li>
 					<br>
-				</ul>
+				</ul> 	 
 			</div>
 			<div id="todayWebtoon" style="display: inline-block;">
 				<h1 align="center">test</h1>
@@ -125,19 +125,23 @@ footer {
 			<h4>장르별 추천</h4>
 			<hr>
 			<jsp:include page="common/genreNavbar.jsp" />
+			<c:forEach var="wtr" items="${ list }">
 			<table id="genreRecommed">
 				<tr>
-					<td><div id="area">
+					<td>
+						<div id="area">
+							<img class="mainThumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+							<h4>${ wrt.wTitle }</h4>
+						</div>
+					</td>
+					<!-- <td><div id="area">
 							<h4 align="center">test</h4>
 						</div></td>
 					<td><div id="area">
 							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
+						</div></td> -->
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td><div id="area">
 							<h4 align="center">test</h4>
 						</div></td>
@@ -147,8 +151,9 @@ footer {
 					<td><div id="area">
 							<h4 align="center">test</h4>
 						</div></td>
-				</tr>
+				</tr> -->
 			</table>
+			</c:forEach>
 			<hr>
 			<h4>도전 추천웹툰</h4>
 			<jsp:include page="common/genreNavbar.jsp" />

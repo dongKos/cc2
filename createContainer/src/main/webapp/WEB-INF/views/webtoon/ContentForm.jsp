@@ -167,6 +167,7 @@
 				<div class="contentArea">
 					<img src="${ contextPath }/resources/uploadFiles/webtoonContent/${ wr.changeName }">
 				</div>
+				<hr>
 				<br> <br>
 			<br><br>
 			</div>

@@ -26,7 +26,6 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	@Override
 	public int insertWtPhoto(SqlSessionTemplate sqlSession, WebtoonPhoto wp) {
 		return sqlSession.insert("Webtoon.insertWtPhoto", wp);
-
 	}
 
 	//웹툰 작품리스트
@@ -169,6 +168,55 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	@Override
 	public Webtoon content1(SqlSessionTemplate sqlSession, int wid) {
 		return sqlSession.selectOne("Webtoon.content1", wid);
+	}
+
+	@Override
+	public ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, String genre) {
+		
+		ArrayList<Webtoon> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.genreList",genre, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public int genreListCount(SqlSessionTemplate sqlSession, String genre) {
+		return sqlSession.selectOne("Webtoon.genreListCount", genre);
+	}
+
+	@Override
+	public int updateComp(SqlSessionTemplate sqlSession, Webtoon wt3) {
+		return sqlSession.update("Webtoon.updateComp", wt3);
+	}
+
+	@Override
+	public int updateRest(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.update("Webtoon.updateRest", wt);
+	}
+
+	@Override
+	public int completeListCount(SqlSessionTemplate sqlSession, Webtoon wt) {
+		System.out.println("완결 리스트카운트 dao옴");
+		return sqlSession.selectOne("Webtoon.completeListCount", wt);
+	}
+
+	@Override
+	public ArrayList<Webtoon> completeListCount(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt) {
+		System.out.println("완결리스트 받으러 dao옴");
+		ArrayList<Webtoon> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.completeList",wt, rowBounds);
+		
+		return list;
 	}
 
 	

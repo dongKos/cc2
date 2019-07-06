@@ -57,6 +57,18 @@ public interface WebtoonDao {
 
 	Webtoon content1(SqlSessionTemplate sqlSession, int wid);
 
+	ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, String genre);
+
+	int genreListCount(SqlSessionTemplate sqlSession, String genre);
+
+	int updateComp(SqlSessionTemplate sqlSession, Webtoon wt3);
+
+	int updateRest(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	int completeListCount(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	ArrayList<Webtoon> completeListCount(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+
 
 	
 

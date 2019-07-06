@@ -44,6 +44,18 @@ public interface WebtoonService {
 
 	Webtoon content1(int wid);
 
+	ArrayList<Webtoon> genreList (WebtoonPageInfo pi, String genre);
+
+	int selectListCount(String genre);
+
+	int updateComp(Webtoon wt3);
+
+	int updateRest(Webtoon wt);
+
+	int completeListCount(Webtoon wt);
+
+	ArrayList<Webtoon> completeWtList(WebtoonPageInfo pi, Webtoon wt);
+
 
 
 }

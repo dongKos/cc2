@@ -167,7 +167,7 @@
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
-
+	<c:if test="${!empty sessionScope.loginUser }">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-1"></div>
@@ -238,7 +238,7 @@
 					<a href="${ blistCheck}">${ p }</a>
 				</c:if>
 			</c:forEach>
-
+			
 			<c:if test="${ pi.currentPage >= pi.maxPage}">
 				&nbsp; [다음]
 			</c:if>
@@ -250,7 +250,10 @@
 			</c:if>
 		</div>
 	</div>
-	
+	</c:if>
+	<c:if test="${empty sessionScope.loginUser }">
+		<h4 align="center">로그인이 필요한 서비스입니다</h4>
+	</c:if>
 	<script>
 		$(function(){
 			//회차등록
