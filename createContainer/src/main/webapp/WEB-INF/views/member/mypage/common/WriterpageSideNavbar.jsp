@@ -75,7 +75,7 @@
 			<li><button class="btn btn-primary" onclick="goRest()">휴재 내역</button></li>
 		</ul>
 	</div>
-	<h1>${ sessionScope.loginUser.userId }</h1>
+	
 	<script>
 		function gowriterProfile(){
 			location.href="writerInfoPass.mg"
