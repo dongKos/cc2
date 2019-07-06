@@ -182,13 +182,14 @@ input[type=checkbox]:checked + label:before{
 								<tr>
 									<td class="wnrText">회차 제목</td>
 									<td class="wnrContent">
-										<input type="hidden" value=">${ wn.wid }">
+										<input type="hidden" value="${ wn.wid }">
 										<input class="insertWnrInput" type="text" name="rTitle" placeholder="제목을 입력해주세요." maxlength="40" autofocus required>
 									</td>
 								</tr>
 								<tr>
 									<td class="wnrText">회차 썸네일</td>
 									<td class="wnContent">
+										<input type="hidden" name="gradeType" value="${wn.gradeType}">
 										<div class="imgBox">
 											<img id="roundThumbnail">
 										</div>

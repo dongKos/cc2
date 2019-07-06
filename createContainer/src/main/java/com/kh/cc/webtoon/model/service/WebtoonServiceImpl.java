@@ -191,6 +191,36 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.content1(sqlSession, wid);
 	}
 
+	@Override
+	public ArrayList<Webtoon> genreList(WebtoonPageInfo pi, String genre) {
+		return wd.genreList(sqlSession, pi,  genre);
+	}
+
+	@Override
+	public int selectListCount(String genre) {
+		return wd.genreListCount(sqlSession, genre);
+	}
+
+	@Override
+	public int updateComp(Webtoon wt3) {
+		return wd.updateComp(sqlSession, wt3);
+	}
+
+	@Override
+	public int updateRest(Webtoon wt) {
+		return wd.updateRest(sqlSession, wt);
+	}
+
+	@Override
+	public int completeListCount(Webtoon wt) {
+		return wd.completeListCount(sqlSession, wt);
+	}
+
+	@Override
+	public ArrayList<Webtoon> completeWtList(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.completeListCount(sqlSession,pi, wt);
+	}
+
 	
 
 	

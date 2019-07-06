@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Approve;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
@@ -178,6 +179,7 @@ public class AdminController {
 		Member reqMember = as.selectOneMember(num);
 		
 		model.addAttribute("userId", reqMember.getUserId());
+		System.out.println(reqMember.getUserId());
 		//올린 작품이 있는지 조회
 		int work = as.workCount(reqMember.getUserId());
 		
@@ -548,10 +550,75 @@ public class AdminController {
 				
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 	}
+	
 	//작품 관리 페이지 - 승인 대기 내역 조회
 	@RequestMapping("showWorkApprove.ad")
-	public String showWorkApprove() {
+	public String showWorkApprove(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getApproveListCount();
+		System.out.println("승인 대기 내역전체 개수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Approve> list = as.selectApproveList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		System.out.println("전체 승인대기 내역 list : " + list);
+		
 		return "admin/adminWorkApprove";
+	}
+	
+	//작품 관리 페이지 - 승인 대기 내역 조건 검색 ajax
+	@RequestMapping(value="approveType.ad")
+	public ResponseEntity<HashMap<String,Object>> approveType(HttpServletRequest request) {
+		//일반인지 프리미엄 인지
+		int select1 = Integer.parseInt(request.getParameter("select1")); 
+		
+		System.out.println("승인 대기 에이잭스 조건 값 : " + select1);
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) { 
+			currentPage =Integer.parseInt(request.getParameter("currentPage")); 
+		}
+		
+		int listCount = as.getApproveTypeListCount(select1);
+		
+		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectApproveTypeList(pi, select1); 
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		System.out.println("승인대기 리스트 : " + list);
+		list2.put("list", list); 
+		list2.put("pi", pi);
+				
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+	}
+	
+	//작품 관리 페이지 - 승인 대기 상세 판별 
+//	@RequestMapping(value="approveDetailSearch.ad")
+//	public ResponseEntity<Integer> approveDetailSearch(HttpServletRequest request) {
+//		int id = Integer.parseInt(request.getParameter("aCode"));
+//		
+//		System.out.println(id);
+//		return new ResponseEntity<Integer>(id, HttpStatus.OK);
+//	}
+	
+	@RequestMapping(value="approveDetailSearch.ad")
+	public String approveDetailSearch(HttpServletRequest request, Model model) {
+		int id = Integer.parseInt(request.getParameter("aCode"));
+		
+		ArrayList<Approve> list = as.selectApproveDetailList(id);		
+		
+		return "admin/adminWorkApproveDetail";
 	}
 	
 	//작품 관리 페이지 - 승인 대기 내역 상세 보기

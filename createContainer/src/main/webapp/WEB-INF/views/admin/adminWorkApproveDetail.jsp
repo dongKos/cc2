@@ -15,7 +15,7 @@
 		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#work").parent().children();
-		var selectedLi = selectedUl.children().children().eq(1);
+		var selectedLi = selectedUl.children().children().eq(2);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
 		
@@ -46,24 +46,54 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-25">
-                                	<select>
-                                		<option>댓글</option>
-                                		<option>작품</option>
-                                		<option>게시글</option>
-                                	</select>
-                                	<input type="checkbox" id="selectAll" ondblclick="this.checked=false">
-                                	
-                                	<input type="text">
-                                	
-                                	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
-                               
+                                <div class="card">
+                                    <div class="card-header">
+                                        <i class="fa fa-user"></i>
+                                        <strong class="card-title pl-2">승인 대기 상세보기</strong>	
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mx-auto d-block">
+                                            <img class="rounded-circle mx-auto d-block" src="images/icon/avatar-01.jpg" alt="Card image cap">
+                                            <h4 class="my-3">자기소개</h4>
+                                            <div class="location text-sm-center">
+                                            	<input type="text" class="form-control" value="">
+                                                </div><br>
+                                        </div>
+                                        <hr>
+                                        <!-- 무료작품 -->
+                                       <div class="mx-auto mt-5 d-block work-div">
+                                       		<button class="btn form-control mb-3 fold-btn">
+	                                       		<h2 class="my-3">
+	                                       			작가의 등록작품
+	                                       			<span style="float:right;">
+	                                       				<font color="pink">[무료]</font>
+	                                       			</span>
+	                                       		</h2>
+                                       		</button>
+	                                      <div class="work-content">
+	                                      
+	                                      
+	                                      
+                                       	  </div>
+	                                        
+	                                        
+                                       </div>
+                                       <div class="btn-area">
+	                                       <div class="row">
+	                                  		<div class="col-lg-6" align="center">
+	                                  			<button class="btn btn-warning" onclick="goBack();">뒤로가기</button>
+	                                  		</div>
+	                                  		<div class="col-lg-6" align="center">
+	                                  			<button class="btn btn-primary" onclick="deleteMember()">강퇴하기</button>
+	                                  		</div>
+	                                       
+	                                       </div>
+                                       </div>
+                                    </div>
+                                </div>
                             </div>
                             
-                        </div>
-                        
-                        <div align="right">
-                        	<button class="btn btn-primary">전체 처리</button>
                         </div>
                         
                         <div class="row">
@@ -85,6 +115,7 @@
     <script src="${contextPath }/resources/js/admin/main.js"></script>
 
 </body>
+
 
 </html>
 <!-- end document-->

@@ -39,6 +39,9 @@ public interface IllustratorService {
 	//일러스트 후원페이지 목록 조회
 	ArrayList<Illustrator> selectIllSupportList(Illustrator ill);
 
+	//일러스트 후원 상세페이지 조회
+	ArrayList<Illustrator> selectIllSupportDetail(Illustrator ill);
+
 
 	
 
