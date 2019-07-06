@@ -110,6 +110,14 @@ public class IllustratorServiceImpl implements IllustratorService{
 		
 		return id.selectIllSupportList(sqlSession, ill);
 	}
+
+	
+	//일러스트 후원상세페이지 조회
+	@Override
+	public ArrayList<Illustrator> selectIllSupportDetail(Illustrator ill) {
+		
+		return id.selectIllSupportDetail(sqlSession, ill);
+	}
 	
 	
 
