@@ -44,6 +44,9 @@ public interface IllustratorDao {
 
 	//일러스트 후원 리스트 조회
 	ArrayList<Illustrator> selectIllSupportList(SqlSessionTemplate sqlSession, Illustrator ill);
+	
+	//일러스트 후원 상세페이지 조회
+	ArrayList<Illustrator> selectIllSupportDetail(SqlSessionTemplate sqlSession, Illustrator ill);
 
 	
 	

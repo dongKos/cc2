@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
+  
 </head>
 
 <body id="page-top">
@@ -55,7 +57,15 @@
         <!-- Portfolio Item 1 -->
         <c:forEach var="illPortfolio" items="${ slist }">
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal1" onclick="supportDetail();">
+          	<script>
+			  	function supportDetail(){
+			  		var userId = "<c:out value='${slist[0].userId}'/>";
+			  		console.log(userId);
+			  		
+			  		location.href="illustSupportDetail.ill?userId=" + userId;
+			  	}
+  			</script>
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
