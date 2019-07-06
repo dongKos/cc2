@@ -331,10 +331,8 @@
 								</c:url>
 								<button class="lastBtn" type="button" onclick="location.href='${ wnrStartPage }'">최신화보기</button>
 								</c:if>
-								
 							</td>
 							<td class="starP">
-								
 								<script>
 									$(document).ready(function(){
 										var rid = ${wnr.rid};
