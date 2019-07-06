@@ -7,7 +7,28 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	.point{
+	margin-top:10%;
+	}
 	
+	
+	
+	.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -30,6 +51,7 @@
     <div class="col-sm-7">
 
       <div class="point">
+      <form action="writerSupport.mg" method="post" enctype="multipart/form-data">
 					<a href="Support.mg"></a>
   				<table style="width:100%; text-align:center" border="1">
   				<tr style="height:50px;">
@@ -39,44 +61,47 @@
   				</tr>
   				<tr style="height:50px;">
   				<td><label>후원 제목</label></td>
-  				<td>이것은 후원제목이다</td>
+  				<td><input type="text" name="stitle" placeholder="제목을 입력하세요" style="border:none; text-align:center;"></td>
   				
   				</tr>
   				<tr style="height:50px;">
   				<td><label>후원 최소금액</label></td>
-  				<td>이것은 돈이다</td>
+  				<td><input type="text" name="sprice" placeholder="적정 가격을 입력하세요" style="border:none; text-align:center;"><label>원</label></td>
   				
   				</tr>
   				<tr style="height:50px;">
   				<td><label>후원보상</label></td>
-  				<td><input type="file" style="margin:0 auto;"></td>
+  				<td class="fileUpload btn btn-primary">
+  				<span>Upload</span>
+  				<input type="file" name="rewardFile" class="upload" style="margin:0 auto;"><br>
+  				
+  				
+  				
+	  				<!-- <div class="fileUpload btn btn-primary">
+					    <span>Upload</span>
+					    <input type="file" class="upload" />
+					</div> -->
+  				
+  				</td>
   				
   				</tr>
   				<tr style="height:50px;">
   				<td><label>후원 내용</label></td>
-  				<td style="margin:0 auto;">이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>
-  				이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>
-  				이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>이것은 내용이다<br>
-  				
-  				
+  				<td style="margin:0 auto;">
+  				<textarea name="scontent" placeholder="내용을 입력하세요" style="border:none; height:300px; width:80%;"></textarea>
   				</td>
   				
   				</tr>
   				
   				</table>	
   					
-  					
-  					
-  					
-  					
-  					
-  					
-  					
-				</div>
-				<hr>
-  					<div align="center" style="margin-top:30px;">
-  			<button type="button" class="btn btn-info" onclick="infoPassConfirm();">신청하기</button>
+  					<hr>
+  			<div align="center" style="margin-top:30px;">
+  			<button type="submit" class="btn btn-info" >신청하기</button>
   			</div>
+  					</form>
+				</div>
+				
   			
   			
   			
@@ -86,5 +111,32 @@
     </div>
   </div>
 </div>
+
+
+<script>
+	$("#modify").click(function(){
+		var userId = $("#userId").val();
+		var nickName = $("#nickName").val();
+		var phone = $("#phone").val();
+		var email = $("#email").val();
+		var birthday = $("#birthday").val();
+		$.ajax({
+			url:'memberUpdate2.mg',
+			type:'POST',
+			data:{userId:userId,nickName:nickName,phone:phone,email:email,birthday:birthday},
+			success:function(data) {
+					alert("수정이 완료 되었습니다. 다시 로그인 해 주세요.")
+					location.href = "${ contextPath }/mypgInfoPass.mg";
+			}, error:function(data) {
+				alert("수정실패");
+			}
+		})
+	})
+</script>
 </body>
 </html>
+
+
+
+
+

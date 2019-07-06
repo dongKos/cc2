@@ -41,50 +41,57 @@ margin-top:10%;
     
     
       <div class="point">
-					
-   <table class="table">
-    <thead>
-      <tr class="info">
-        <th>게시글 번호</th>
-        <th>제목</th>
-        <th>작성일자</th>
-         <th>종류</th>
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr onclick="">
-        <td>게시글 번호</td>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>종류</td>
-        
-      </tr>      
-     
-      <tr>
-        <td>게시글 번호</td>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>종류</td>
-        
-      </tr>
-      <tr>
-        <td>게시글 번호</td>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>종류</td>
-        
-      </tr>
-      <tr>
-        <td>게시글 번호</td>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>종류</td>
-        
-      </tr>
-    </tbody>
-  </table>
- 
+		<div>
+		<hr>
+		<table style="width:100%;">
+		<tr>
+		<td><label>제목</label></td>
+		<td><label>날짜</label></td>
+		</tr>
+		</table>
+		<hr>
+		
+		<div>
+		안녕하세요. Create Container 마일리지 서비스입니다.<br><br>
+
+		2019년 11월 20일, Create Container 코인 적립 혜택이 종료됩니다.<br><br>
+		
+		
+		
+		그간 많은 사랑으로 Create Container 마일리지를 아껴주신 회원 분들께 진심으로 감사드리며,<br><br>
+		
+		더 큰 혜택으로 다시 찾아 뵙도록 하겠습니다.<br>
+		
+		
+		
+		11월 01일까지 마일리지 적립 경로를 통해 적립하신 마일리지는 2019년 11월 20일까지 사용이 가능하며, 사용 기간 동안 사용하지 못하신 마일리지는 캐쉬로 전환 적립될 예정입니다.<br>
+		
+		
+		
+		Create Container 코인 적립 종료 :<br><br>
+		
+		-2019년 11월 20일(수) 23시 59분까지 진행한 적립 대상 거래에 한해 제공<br><br>
+		
+		
+		
+		Create Container 코인 사용 종료 :<br><br>
+		
+		-2016년 2월 4일(목) 23시 59분까지 사용 가능<br><br>
+		
+		
+		
+		앞으로 더 다양하고 특별한 혜택의 쇼핑 서비스를 제공해 드릴 것을 약속 드리며,<br>
+		
+		혜택 종료와 관련 궁금하신 사항은 고객센터를 이용하시면 빠르게 응대하도록 하겠습니다.<br><br>
+
+
+
+		
+		
+		
+		</div>
+		</div>
+   
 
 
 

@@ -35,17 +35,18 @@
     <!-- 여기부터할거얌 -->
     <div class="col-sm-7">
     
-    <form action="">
+    <form action="writerPgInfo.mg" method="post">
       <div class="point" style="text-align:center;">
 					<h4 align="center" style="margin-top:150px;">현재 계정의 비밀번호를 입력하세요.</h4>
 					
   					<br>
   					<div style="width:50%; margin:0 auto; text-align:center;">
-  					<form>
-  					<input type="password" class="form-control" id="pwd" placeholder="비밀번호 입력">
+  			        <input type="text" id="userId" name="userId" style="display:none;" value="${ sessionScope.loginUser.userId }">
+  					
+  					<input type="password" class="form-control" id="userPwd" name="userPwd" placeholder="비밀번호 입력">
   					<br>
-  					<button type="button" class="btn btn-info" onclick="infoPassConfirm();">확인</button>
-  					</form>
+  					<button type="submit" class="btn btn-info" onclick="infoPassConfirm();">확인</button>
+  					
   					</div>
 				</div>
 				</form>
@@ -62,7 +63,7 @@
 </div>
 <script>
 	function infoPassConfirm() {
-		location.href="writerInfo.mg";
+		location.href="writerPgInfo.mg";
 	}
 </script>
 </body>

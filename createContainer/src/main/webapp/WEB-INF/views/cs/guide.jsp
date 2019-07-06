@@ -13,7 +13,7 @@ margin-top:20%;
 
 } 
 .container{
-margin-top:15%;
+margin-top:10%;
 }
 .point{
 border:1px solid #ececec;

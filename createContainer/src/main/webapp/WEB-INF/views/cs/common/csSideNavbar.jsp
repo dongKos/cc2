@@ -40,6 +40,16 @@
 	#menus ul li button {
 		width: 100%;
 	}
+	
+	#logo{
+	width:200px;
+	
+	}
+	.mainLogo2 {
+	width:200px;
+	height:170px;
+	
+	}
 </style>
 <script>
 	//pageController 서블릿 요청 하는 함수
@@ -50,7 +60,9 @@
 </script>
 </head>
 <body>
-	
+	<div id="logo">
+	<img class="mainLogo2" src="${ contextPath }/resources/images/logo.png">
+	</div>
 	<div id="menus">
 		<ul>
 			
