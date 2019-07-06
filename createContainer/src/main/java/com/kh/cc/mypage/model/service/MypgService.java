@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.cc.approval.model.vo.Approval;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
+import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
@@ -32,7 +35,10 @@ public interface MypgService {
 	int countRound(int wid);
 
 	String getChangeName(int wid);
-	
+	//유료작품 신청 인서트
+	int insertDocument(Member m, WriterPhoto file1, WriterPhoto file2, Approval appro);
+	//결제완료
+	int payComplete(PaymentCC pc);
 	//탈퇴
 	int resign(int mno);
 	   
@@ -48,9 +54,12 @@ public interface MypgService {
 	//관심작가 목록(웹소설)
 	ArrayList attentionWnArtist(WebnovelPageInfo pi, Member m);
 	//관심작가 목록(일러스트)
-		ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m);
-		//작가프로필사진 카운트
-		int countProfilePic(WriterProfile mp);
+	ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m);
+	//작가프로필사진 카운트
+	int countProfilePic(WriterProfile mp);
+	//후원insert
+	int insertSupport(Member m, WriterPhoto mphoto, Support sp);
+		
 }
 
 

@@ -85,6 +85,7 @@
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
 	
+	
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
@@ -152,6 +153,17 @@
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	
+	<!-- 결제테이블 인서트 -->
+		<insert id="payComplete" parameterType="PaymentCC">
+			INSERT INTO PAYMENT_CC
+			VALUES(PID_SEQ.NEXTVAL, #{pAmount},SYSDATE,#{userId})
+		</insert>
+	<!-- 결제완료후 코인 업데이트 -->
+		<update id="updateCoin" parameterType="PaymentCC">
+			UPDATE MEMBER
+			SET WALLET = WALLET + #{ pAmount}
+			WHERE USER_ID = #{userId}
+		</update>
 	
 	<!-- 관심작가 목록(웹툰) -->
 	<select id="attentionArtistWt" parameterType="String" resultMap="authorResultSet">
@@ -196,6 +208,34 @@
 		WHERE USER_ID = #{userId}
 		AND ATTACHMENT_CATEGORY = 'prf'
 		</select>
+		
+		<!-- 서류파일 insert -->
+		<insert id="insertDocu">
+		INSERT INTO ATTACHMENT 
+		VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'docu', 0, null, null, #{wid}, #{userId}) 
+		</insert>
+		<!-- 유료작품신청 승인대기 insert -->
+		<insert id="insertApproval">
+		INSERT INTO APPROVAL
+		VALUES (APID_SEQ.NEXTVAL, SYSDATE, 'N', (SELECT WORK_TYPE FROM WORK WHERE WID = #{wid}), #{wid}, null, #{wishDate}, null)
+		</insert>
+		<!-- 작품 스테이터스 변경(승인대기) -->
+		<update id="updateWork">
+		UPDATE WORK
+		SET WORK_STATUS = 'WAIT'
+		WHERE WID = #{wid}
+		</update>
+		<!-- 후원 사진 insert -->   
+      	<insert id="insertSupport" parameterType="WebnovelPhoto">
+      	INSERT INTO ATTACHMENT 
+      	VALUES (ATC_SEQ.NEXTVAL, #{originName}, #{changeName}, #{filePath}, SYSDATE, 'Y', 'rew', 0, null, SPID_SEQ.NEXTVAL, null, #{userId}) 
+      	</insert>
+	      
+  	 	<!-- 후원 content-->
+      	<insert id="insertSupportContent" parameterType="Support">
+         INSERT INTO SPONSOR_CODE
+         VALUES ((SELECT SP_CODE FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), 100, (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'prf'), SYSDATE, 'N' ,#{stitle},#{scontent},(SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}))
+      	</insert>
 </mapper>
 
 
