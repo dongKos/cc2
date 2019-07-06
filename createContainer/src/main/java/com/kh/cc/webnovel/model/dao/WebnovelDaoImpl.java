@@ -12,6 +12,7 @@ import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
+import com.kh.cc.webnovel.model.vo.WebnovelReport;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -201,8 +202,6 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	//별점정보
 	@Override
 	public WebnovelStarPoint selectWnSpOne(SqlSessionTemplate sqlSession, WebnovelStarPoint wnsp) {
-		System.out.println(wnsp.getRid());
-		System.out.println(wnsp.getUserId());
 		return sqlSession.selectOne("Webnovel.selectWnSpOne", wnsp);
 	}
 	//회차 별점 평균
@@ -304,6 +303,21 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		list = (ArrayList) sqlSession.selectList("Webnovel.selectWebnovelReplyList", wReply, rowBounds);
 		
 		return list;	
+	}
+	//신고등록
+	@Override
+	public int insertReport(SqlSessionTemplate sqlSession, WebnovelReport wReport) {
+		return sqlSession.insert("Webnovel.insertReport", wReport);
+	}
+	//신고 로그인/비로그인, 등록인/미등록인 구분
+	@Override
+	public WebnovelReport selectwReportOne(SqlSessionTemplate sqlSession, WebnovelReport wReport) {
+		return sqlSession.selectOne("Webnovel.selectwReportOne", wReport);
+	}
+	//작품 신고 로그인/비로그인, 등록인/미등록인 구분
+	@Override
+	public WebnovelReport selectWorkReportOne(SqlSessionTemplate sqlSession, WebnovelReport wReport) {
+		return sqlSession.selectOne("Webnovel.selectWorkReportOne", wReport);
 	}
 	
 

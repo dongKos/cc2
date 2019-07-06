@@ -31,6 +31,7 @@
 								<tr>
 									<td class="wnText">작품 제목</td>
 									<td class="wnContent">
+										<input type="hidden" name="gradeType"value="${wn.gradeType}">
 										<input class="insertWnInput" type="text" name="wTitle" placeholder="제목을 입력해주세요." maxlength="40" value="${ wn.wTitle }" autofocus required>
 									</td>
 								</tr>

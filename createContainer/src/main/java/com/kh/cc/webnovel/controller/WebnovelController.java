@@ -28,6 +28,7 @@ import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
+import com.kh.cc.webnovel.model.vo.WebnovelReport;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -62,7 +63,7 @@ public class WebnovelController {
 			
 			ws.insertWebnovel(wn, wp);
 			
-			return "redirect:selectWnList.wn";
+			return "redirect:selectWnList.wn?gradeType=1";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
@@ -79,6 +80,7 @@ public class WebnovelController {
 	public String updateNovel(Model model, Webnovel wn, HttpServletRequest request, HttpSession session, WebnovelPhoto wp, Member m,
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		int wid = (int) session.getAttribute("wid");
 		int fid = (int) session.getAttribute("fid");
 		String userId = m.getUserId();
@@ -112,7 +114,7 @@ public class WebnovelController {
 				session.removeAttribute("wid");
 				session.removeAttribute("fid");
 				
-				return "redirect:selectWnList.wn";
+				return "redirect:selectWnList.wn?gradeType="+gradeType;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
@@ -125,7 +127,7 @@ public class WebnovelController {
 			
 			ws.updateWebnovel(wn);
 			
-			return "redirect:selectWnList.wn";
+			return "redirect:selectWnList.wn?gradeType="+gradeType;
 		}
 	}
 	//웹소설 삭제
@@ -136,7 +138,8 @@ public class WebnovelController {
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
 		wn = ws.selectWnOne(wn);
-		wnr.setRid(wn.getRid());
+		
+		wnr.setRid(wn.getWid());
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(wnr);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
@@ -153,13 +156,13 @@ public class WebnovelController {
 				new File(subFilePath + "\\" + subChangeName).delete();
 			}
 		}
-		return "redirect:selectWnList.wn";
+		return "redirect:selectWnList.wn?gradeType=1";
 	}
 	//웹소설 회차 삭제
 	@RequestMapping(value="deleteWnRound.wn")
 	public String deleteWnRound(Model model, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
 		int rid = Integer.parseInt(request.getParameter("rid"));
-		
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
 		
@@ -170,7 +173,7 @@ public class WebnovelController {
 		if(result > 0) {
 			new File(subFilePath + "\\" + subChangeName).delete();
 		}
-		return "redirect:selectWnRoundList.wn?wid=" + wid;
+		return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 	}
 	
 	
@@ -219,7 +222,7 @@ public class WebnovelController {
 		
 		return "webnovel/updateWebnovel/updateWebnovel";
 	}
-
+	
 	//웹소설 회차 리스트 이동WORK_ROUND
 	@RequestMapping("selectWnRoundList.wn")
 	public String selectWnRoundList(Member m, WebnovelAttention wa, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
@@ -228,7 +231,9 @@ public class WebnovelController {
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
+		
 		wnr.setWid(wid);
+		wnr.setGradeType(gradeType);
 		int buttonCount = 10;
 		int limit = 10;
 		int currentPage = 1;
@@ -240,9 +245,7 @@ public class WebnovelController {
 		int listCount = ws.selectWnrListCount(wnr);
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
-		
 		wn = ws.selectWnOne(wn);
-		
 		if(session.getAttribute("loginUser") != null) {
 			if(!m.getUserId().equals(wn.getUserId())) {
 				ws.updateCount(wnr);
@@ -286,6 +289,7 @@ public class WebnovelController {
 			@RequestParam(name="photo", required=false) MultipartFile photo) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = (int) session.getAttribute("wid");
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		String userId = m.getUserId();
 		String workStatus = request.getParameter("workStatus");
 		if(workStatus == null) {
@@ -314,7 +318,7 @@ public class WebnovelController {
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
 			ws.insertWnRound(wnr, wp, wn);
 			
-			return "redirect:selectWnRoundList.wn?wid=" + wid;
+			return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
@@ -334,7 +338,7 @@ public class WebnovelController {
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		int fid = Integer.parseInt(request.getParameter("fid"));
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wnr.setRid(rid);
 		wnr.setChangeName(changeName);
 		wp.setFid(fid);
@@ -359,7 +363,7 @@ public class WebnovelController {
 				
 				new File(filePath + "\\" + changeName).delete();
 				
-				return "redirect:selectWnRoundList.wn?wid=" + wid;
+				return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
@@ -373,7 +377,7 @@ public class WebnovelController {
 				wn.setWorkStatus("RUN");
 			}
 			ws.updateWnRound(wnr, wn);
-			return "redirect:selectWnRoundList.wn?wid=" + wid;
+			return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 		}
 		
 	}
@@ -385,12 +389,11 @@ public class WebnovelController {
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
-		wn.setRid(wid);
+		wn.setWid(wid);
 		wn.setGradeType(gradeType);
-		
 		wn = ws.selectWnOne(wn);
 		String workStatus = wn.getWorkStatus();
-		
+		wnr.setGradeType(gradeType);
 		wnr.setWorkStatus(workStatus);
 		
 		model.addAttribute("wnr", wnr);
@@ -415,7 +418,6 @@ public class WebnovelController {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
 		if(session.getAttribute("loginUser") != null) {
 			if(!m.getUserId().equals(wn.getUserId())) {
 				ws.updateCount(wnr);
@@ -489,12 +491,13 @@ public class WebnovelController {
 	public String insertAttention(HttpServletRequest request, HttpSession session, Member m, WebnovelAttention wa) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wa.setUserId(m.getUserId());
 		wa.setWid(wid);
 		
 		ws.insertAttention(wa);
 		
-		return "redirect:selectWnRoundList.wn?wid=" + wid;
+		return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 	}
 	//별점주기 메소드
 	@RequestMapping(value="insertStarPoint.wn")
@@ -502,6 +505,7 @@ public class WebnovelController {
 		m = (Member) session.getAttribute("loginUser");
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		int starPoint = Integer.parseInt(request.getParameter("starPoint"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
 		
@@ -511,7 +515,7 @@ public class WebnovelController {
 		
 		ws.insertStarPoint(wnsp);
 		
-		return "redirect:selectDetailedWebnovel.wn?wid=" + wid + "&rid=" + rid;
+		return "redirect:selectDetailedWebnovel.wn?wid=" + wid + "&rid=" + rid +"&gradeType=" + gradeType;
 	}
 	//별점 평균, 별점준 인원
 	@RequestMapping(value="selectStarAvgCnt.wn")
@@ -675,9 +679,7 @@ public class WebnovelController {
 		wReply.setUserId(m.getUserId());
 		wReply.setRid(rid);
 		
-		int result = ws.insertWebnovelReply(wReply);
-		
-		System.out.println("결과에여 : " + result);
+		ws.insertWebnovelReply(wReply);
 		
 		try {
 			response.getWriter().print(mapper.writeValueAsString(wReply));
@@ -687,7 +689,7 @@ public class WebnovelController {
 	}
 	
 	
-	//댓글 리스트
+	//댓글 리스트 
 	@RequestMapping(value="selectWebnovelReply.wn")
 	public ResponseEntity<HashMap<String, Object>> selectWebnovelReply(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
 		
@@ -716,8 +718,139 @@ public class WebnovelController {
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
 	
+	//회차 신고 등록
+	@RequestMapping(value="insertReport.wn")
+	public void insertReport(Model model, HttpServletRequest request, HttpServletResponse response, WebnovelReport wReport, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		String reportType = request.getParameter("reportType");
+		String reportReason = request.getParameter("reportReason");
+		String reportCategory = request.getParameter("reportCategory");
+		String status = request.getParameter("status");
+		String userId = m.getUserId();
+		
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		
+		wReport.setReportType(reportType);
+		wReport.setReportReason(reportReason);
+		wReport.setReportCategory(reportCategory);
+		wReport.setStatus(status);
+		wReport.setUserId(userId);
+		wReport.setRid(rid);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ws.insertReport(wReport);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(wReport));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
-	//웹소설 메인홈 이동
+	//회차 신고 등록
+	@RequestMapping(value="insertWorkReport.wn")
+	public void insertWorkReport(Model model, HttpServletRequest request, HttpServletResponse response, WebnovelReport wReport, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		String reportType = request.getParameter("reportType");
+		String reportReason = request.getParameter("reportReason");
+		String reportCategory = request.getParameter("reportCategory");
+		String status = request.getParameter("status");
+		String userId = m.getUserId();
+		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wReport.setReportType(reportType);
+		wReport.setReportReason(reportReason);
+		wReport.setReportCategory(reportCategory);
+		wReport.setStatus(status);
+		wReport.setUserId(userId);
+		wReport.setWid(wid);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ws.insertReport(wReport);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(wReport));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//댓글 신고 등록
+	@RequestMapping(value="insertReplyReport.wn")
+	public void insertReplyReport(Model model, HttpServletRequest request, HttpServletResponse response, WebnovelReport wReport, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		String reportType = request.getParameter("reportType");
+		String reportReason = request.getParameter("reportReason");
+		String reportCategory = request.getParameter("reportCategory");
+		String status = request.getParameter("status");
+		String userId = m.getUserId();
+		
+		int replyId = Integer.parseInt(request.getParameter("replyId"));
+		
+		wReport.setReportType(reportType);
+		wReport.setReportReason(reportReason);
+		wReport.setReportCategory(reportCategory);
+		wReport.setStatus(status);
+		wReport.setUserId(userId);
+		wReport.setCommentId(replyId);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		ws.insertReport(wReport);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(wReport));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	//신고 로그인/비로그인, 등록인/미등록인 구분
+	@RequestMapping(value="selectwReportOne.wn")
+	public ResponseEntity<HashMap<String, Object>> selectwReportOne(Model model, Webnovel wn, WebnovelReport wReport, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		
+		if(session.getAttribute("loginUser") != null) {
+			if(!m.getUserId().equals(wn.getUserId())) {
+				
+				wReport.setRid(rid);
+				wReport.setUserId(m.getUserId());
+				
+				wReport = ws.selectwReportOne(wReport);
+			}
+		}
+		HashMap<String, Object> starOk = new HashMap<String, Object>();
+		starOk.put("wReport", wReport);
+		
+		return new ResponseEntity<HashMap<String, Object>>(starOk,HttpStatus.OK);
+	}
+	//신고 로그인/비로그인, 등록인/미등록인 구분
+	@RequestMapping(value="selectWorkReportOne.wn")
+	public ResponseEntity<HashMap<String, Object>> selectWorkReportOne(Model model, Webnovel wn, WebnovelReport wReport, HttpServletRequest request, WebnovelRound wnr, HttpSession session, Member m) {
+		m = (Member) session.getAttribute("loginUser");
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		if(session.getAttribute("loginUser") != null) {
+			if(!m.getUserId().equals(wn.getUserId())) {
+				
+				wReport.setWid(wid);
+				wReport.setUserId(m.getUserId());
+				
+				wReport = ws.selectWorkReportOne(wReport);
+			}
+		}
+		HashMap<String, Object> starOk = new HashMap<String, Object>();
+		starOk.put("wReport", wReport);
+		
+		return new ResponseEntity<HashMap<String, Object>>(starOk,HttpStatus.OK);
+	}
+	
+	
+	//웹소설 메인홈 이동 
 	@RequestMapping("webnovelMain.wn")
 	public String webnovelMain() {
 		return "webnovel/webnovelMain/webnovelMain";

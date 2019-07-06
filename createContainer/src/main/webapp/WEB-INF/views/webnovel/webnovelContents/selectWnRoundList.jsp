@@ -27,6 +27,7 @@
 	width:200px;
 	height:160px;
 }
+
 .wnrBtn{
 	width:130px;
 	height:30px;
@@ -35,6 +36,19 @@
 	color:white;
 	border:1px solid skyblue;
 	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+	margin-left:10px;
+}
+.reportBtn{
+	width:120px;
+	height:30px;
+	border-radius:8px 8px 8px 8px;
+	margin-left:50px !important;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:12px;
 	font-weight:bold;
 	cursor:pointer;
 	margin-left:10px;
@@ -177,7 +191,7 @@
 	margin-bottom:0px;
 }
 .modal{
-	margin-top:30%;
+	margin-top:10%;
 }
 .modal-title{
 	font-weight:bold;
@@ -247,7 +261,63 @@
 .bestSp{
 	font-size:8px;
 }
-
+.modal{
+	margin-top:40%;
+	text-align:center;
+}
+.modal-footer{
+	text-align:center;
+}
+.reportTable{
+	margin:0 auto;
+	width:90%;
+}
+.reportRe{
+	width:150px;
+	
+}
+.reportContents{
+	padding-top:20px;
+}
+.reportCa{
+	text-align:right;
+	height:50px;
+	border-bottom:1px solid lightgray;
+}
+.reportSelect{
+	width:120px;
+}
+.reportTextArea{
+	background-color:white;
+	padding:10px 10px 10px 10px;
+	width:100%;
+    height:140px;
+    border:1px solid skyblue;
+    border-radius: 10px;
+}
+.reportText{
+	width:100%;
+	height:100px;
+	border:none;
+	resize:none;
+}
+.cntrArea{
+	float:right;
+}
+.insertStarP{
+	width:100px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.replyReportBtnArea{
+	display:inline-block;
+}
 </style>
 </head>
 <body>
@@ -286,7 +356,7 @@
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 									<c:if test="${ empty sessionScope.loginUser }">
-										<button class="attentionBtn" type="button" onclick="location.href='loginForm.me'">
+										<button class="attentionBtn" type="button" onclick="login()">
 										<span class="glyphicon glyphicon-star-empty" ></span> 관심등록
 									</button>
 									</c:if>
@@ -297,7 +367,7 @@
 											</button>
 										</c:if>
 										<c:if test="${wa.attentionId == null}">
-											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid}">
+											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid} + '&gradeType='+ ${ wn.gradeType }">
 												<span class="glyphicon glyphicon-star-empty"></span> 관심등록
 											</button>
 										</c:if>
@@ -316,18 +386,129 @@
 						<tr>
 							<td class="btnArea"colspan="2">
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
-									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid} + '&gradeType=1'">신규 회차 등록</button>
-									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid} ">작품 정보 수정</button>
+									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid} + '&gradeType=' + ${wn.gradeType }">신규 회차 등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid} + '&gradeType=' + ${wn.gradeType }">작품 정보 수정</button>
 									<button class="wnrBtn" type="button">휴재 신청</button>
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=1'  +'&currentPage='+${pi.listCount}">첫회보기</button>
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=1'  +'&currentPage='+${pi.currentPage}">최신화보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType='+ ${wn.gradeType}  +'&currentPage='+${pi.listCount}">첫회보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=' + ${wn.gradeType}  +'&currentPage='+${pi.startPage}">최신화보기</button>
+									<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+									</c:if>
+									<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+										<c:if test="${ empty sessionScope.loginUser }">
+											<button type="button" class="replyReportBtn" onclick="login()">신고하기</button>
+										</c:if>
+										<c:if test="${ !empty sessionScope.loginUser }">
+											<div class="replyReportBtnArea">
+											</div>
+										</c:if>
+									</c:if>
+									
 								</c:if>
 							</td>
 						</tr>
 					</table>
 				</div>
+				<div class="modal fade" id="myModal1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">신고하기</h4>
+							</div>
+							<div class="modal-body">
+								<table class="reportTable">
+									<tr>
+										<td class="reportCa" colspan="2">
+											신고유형 &nbsp;
+											<select class="reportSelect" name="reportCategory">
+												<option value="RE_CTG1">욕설</option>
+												<option value="RE_CTG2">비방</option>
+												<option value="RE_CTG3">인격모독</option>
+												<option value="RE_CTG4">저작권침해</option>
+												<option value="RE_CTG5">명예회손</option>
+												<option value="RE_CTG6">청소년유해</option>
+												<option value="RE_CTG7">불법음란</option>
+												<option value="RE_CTG8">기타</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td class="reportRe">
+											신고사유
+										</td>
+										<td class="reportContents">
+											<div class="reportTextArea">
+												<textarea class="reportText" name="reportText" cols="25" rows="20" placeholder="내용을 입력하세요."></textarea>
+												<p class="cntrArea"><span class="cntrText">0 </span>/ 500</p>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+								<button type="button" class="insertStarP" onclick="insertWorkReport()">신고하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script>
+					function insertWorkReport(){
+						var reportType = 'WORK';
+						var reportCategory = $(".reportSelect option:selected").val()
+						var status = 'wait';
+						var reportReason = $(".reportText").val();
+						var wid = ${ wn.wid };
+						console.log(reportType);
+						console.log(reportCategory);
+						console.log(status);
+						console.log(reportReason);
+						console.log(wid);
+						$.ajax({
+							url:"insertWorkReport.wn",
+							type:"post",
+							data:{reportType:reportType, reportCategory:reportCategory,
+								  status:status, reportReason:reportReason, wid:wid},
+							success:function(data){
+								location.reload();
+							},
+							error:function(status){
+								alert(status);
+							}
+						});
+					}
+					$(document).ready(function(){
+						var wid = ${wn.wid};
+						console.log(wid);
+						$.ajax({
+							url:"selectWorkReportOne.wn",
+							type:"get",
+							data:{wid:wid},
+							success:function(data){
+								console.log(data);
+								if(data.wReport == null){
+									$(".replyReportBtnArea").empty();
+									$(".replyReportBtnArea").append(
+										'<button class="reportBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1" >신고하기</button>'	
+									);
+								}else if(data.wReport != null){
+									$(".replyReportBtnArea").empty();
+									$(".replyReportBtnArea").append(
+										'<button class="reportBtn"  type="button" onclick="reportidId()">신고신청완료</button>'	
+									);
+								}
+							},
+							error:function(status){
+								alert(status);
+							}
+						});
+					});
+					function reportidId(){
+						alert("이미 신고 하셨습니다.");
+					}
+				</script>
 				
 			</div>
 			<div class="col-sm-1"></div>
@@ -454,7 +635,18 @@
 				<script>
 					$(document).ready(function(){
 						
-						var gradeType = 1;
+						$('.reportText').keyup(function(){
+							var inputLength=$(this).val().length;
+							var remain=0+inputLength;
+							
+							$('.cntrText').html(remain);
+							if(remain > 500){
+								console.log("500자 이상!");
+							 $('.cntrText').css('color','red');
+							}
+						});
+						
+						var gradeType = ${ wn.gradeType };
 						$.ajax({
 							url:"selectBestWnList.wn",
 							type:"get",
@@ -508,7 +700,7 @@
 								
 								$('.wnBestArea').find($(".bestWn")).on('click',function(){
 									var wid = $(this).children().last().children().children('input').val();
-									location.href = "selectWnRoundList.wn?wid=" + wid;
+									location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType="+${ wn.gradeType };
 								});
 								
 							},
@@ -575,7 +767,6 @@
 	
 	
 	
-	
 	<script>
 		function attentionId(){
 			alert("이미 관심등록을 하셨습니다.");
@@ -583,25 +774,25 @@
 		function fisrtWnr(){
 			$('.wnrListArea').find('td').children('p').click(function(){
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
-				location.href = "selectDetailedWebnovel.wn?wid=" + wid+"&gradeType=1" +"&currentPage=" + ${pi.listCount };
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid+"&gradeType="+${ wn.gradeType } +"&currentPage=" + ${pi.listCount };
 			});
 		}
 		$(function(){
 			$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
 				var rid = $(this).parents().children("input").eq(0).val();
-				location.href = "deleteWnRound.wn?rid=" + rid;
+				location.href = "deleteWnRound.wn?rid=" + rid +"&gradeType=" + ${ wn.gradeType };
 			});	
 			
 			$('.wnrListArea').find($("button[name=wnUpdateBtn]")).click(function(){
 				var rid = $(this).parents().children("input").eq(0).val();
-				location.href = "selectWnrUpdateForm.wn?rid=" + rid + "&gradeType=1";
+				location.href = "selectWnrUpdateForm.wn?rid=" + rid + "&gradeType=" + ${ wn.gradeType };
 			});
 			
 			$('.wnrListArea').find('td').children('p').click(function(){
 				var rid = $(this).parents().parents().children().children("input").eq(0).val();
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
 				var currentPage = $(this).parents().parents().children().children("input").eq(2).val();
-				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid+"&gradeType=1" +"&currentPage=" + currentPage;
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid+"&gradeType="+ ${ wn.gradeType } +"&currentPage=" + currentPage;
 			});
 		});
 		$(document).ready(function(){
@@ -653,7 +844,12 @@
 			});
 			
 		});
-
+		function login(){
+			var result = window.confirm("로그인 후 등록하세요");
+			if(result){
+				location.href='loginForm.me';
+			}
+		}
 
 	</script>
 	
