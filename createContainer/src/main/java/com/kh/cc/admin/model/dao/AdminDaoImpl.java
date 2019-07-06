@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Approve;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -518,7 +519,54 @@ public class AdminDaoImpl implements AdminDao{
 		
 		return (ArrayList)sqlSession.selectList("admin.selectIllustTypeList", str, rowBounds);
 	}
-	
+
+	//승인대기 내역 개수 조회
+	@Override
+	public int getApproveListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectApproveListCount");
+	}
+
+	//승인 대기 내역 전체 조회
+	@Override
+	public ArrayList<Approve> selectApproveList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectApproveList", null, rowBounds);
+	}
+
+	//승인대기 조건 검색 개수 조회
+	@Override
+	public int getApproveTypeListCount(SqlSessionTemplate sqlSession, int select1) {
+		String str = "";
+
+		switch(select1) {
+		case 1 : str = "%"; break;
+		case 2 : str = "WT"; break;
+		case 3 : str = "WN"; break;
+		case 4 : str = "ILL"; break;
+		}
+		return sqlSession.selectOne("admin.selectApproveTypeListCount", str);
+	}
+
+	@Override
+	public ArrayList<HashMap<String, Object>> selectApproveTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int select1) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		String str = "";
+		
+		switch(select1) {
+		case 1 : str = "%"; break;
+		case 2 : str = "WT"; break;
+		case 3 : str = "WN"; break;
+		case 4 : str = "ILL"; break;
+		}
+		
+		return (ArrayList)sqlSession.selectList("admin.selectApproveTypeList", str, rowBounds);
+	}
+
 	
 	
 }

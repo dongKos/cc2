@@ -20,6 +20,7 @@
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelPhoto" alias="WebnovelPhoto"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelAttention" alias="WebnovelAttention"/>
   		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelStarPoint" alias="WebnovelStarPoint"/>
+  		<typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelReply" alias="WebnovelReply"/>
   		<typeAlias type="com.kh.cc.mypage.model.vo.WriterProfile" alias="WriterProfile"/>
   		<typeAlias type="com.kh.cc.mypage.model.vo.Author" alias="Author"/>
   		<typeAlias type="com.kh.cc.illustrator.model.vo.Illustrator" alias="Illustrator"/>
@@ -38,7 +39,6 @@
   		<mapper resource="mappers/mypage-mapper.xml"/>
   		<mapper resource="mappers/approval-mapper.xml"/>
   	</mappers>
-  
   </configuration>
   
   
