@@ -13,6 +13,7 @@ import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
+import com.kh.cc.webnovel.model.vo.WebnovelReport;
 import com.kh.cc.webnovel.model.vo.WebnovelRound;
 import com.kh.cc.webnovel.model.vo.WebnovelStarPoint;
 
@@ -279,6 +280,21 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public ArrayList<HashMap<String, Object>> selectWebnovelReplyList(WebnovelPageInfo pi, WebnovelReply wReply) {
 		return wd.selectWebnovelReplyList(sqlSession, pi, wReply);
+	}
+	//신고등록
+	@Override
+	public int insertReport(WebnovelReport wReport) {
+		return wd.insertReport(sqlSession, wReport);
+	}
+	//신고 로그인/비로그인, 등록인/미등록인 구분
+	@Override
+	public WebnovelReport selectwReportOne(WebnovelReport wReport) {
+		return  wd.selectwReportOne(sqlSession, wReport);
+	}
+	//작품 신고 로그인/비로그인, 등록인/미등록인 구분
+	@Override
+	public WebnovelReport selectWorkReportOne(WebnovelReport wReport) {
+		return  wd.selectWorkReportOne(sqlSession, wReport);
 	}
 	
 	
