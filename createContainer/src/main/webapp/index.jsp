@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-   <h1 align="center">인덱스페이지</h1>
+   <h1 align="center">인덱스페이지입니다!</h1>
    <jsp:forward page="WEB-INF/views/main/main.jsp"/>
    
 </body>
