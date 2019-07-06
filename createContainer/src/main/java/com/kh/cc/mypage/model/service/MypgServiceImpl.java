@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.cc.approval.model.vo.Approval;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.dao.MypgDao;
 import com.kh.cc.mypage.model.exception.MypgException;
+import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
@@ -61,6 +64,16 @@ public class MypgServiceImpl implements MypgService{
 	@Override
 	public String getChangeName(int wid) {
 		return md.getChangeName(sqlSession, wid);
+	}
+//유료작품 신청 인서트
+	@Override
+	public int insertDocument(Member m, WriterPhoto file1, WriterPhoto file2, Approval appro) {
+		return md.insertDocument(sqlSession, m, file1, file2, appro);
+	}
+//결제완료
+	@Override
+	public int payComplete(PaymentCC pc) {
+		return md.payComplete(sqlSession, pc);
 	}
 	
 	
@@ -154,6 +167,10 @@ public ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m) {
 public int countProfilePic(WriterProfile mp) {
 	return md.countProfilePic(sqlSession, mp);
 }
-
+	//후원 insert
+	@Override
+	public int insertSupport(Member m, WriterPhoto mphoto, Support sp) {
+	 return md.insertSupport(sqlSession, m, mphoto, sp);
+}
 }
 

@@ -4,11 +4,14 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.cc.approval.model.vo.Approval;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 
@@ -32,6 +35,10 @@ public interface MypgDao {
 	int countRound(SqlSessionTemplate sqlSession, int wid);
 
 	String getChangeName(SqlSessionTemplate sqlSession, int wid);
+	//결제완료
+	int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc);
+	//유료작품신청 인서트 
+	int insertDocument(SqlSessionTemplate sqlSession, Member m, WriterPhoto file1, WriterPhoto file2, Approval appro);
 	
 	//탈퇴
     int resign(SqlSessionTemplate sqlSession, int mno);
@@ -53,5 +60,9 @@ public interface MypgDao {
 	ArrayList attentionWlArtist(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 	//작가 프로필 사진 카운팅
 	int countProfilePic(SqlSessionTemplate sqlSession, WriterProfile mp);
+	//후원insert
+	int insertSupport(SqlSessionTemplate sqlSession, Member m, WriterPhoto mphoto, Support sp);
 
 }
+
+
