@@ -83,7 +83,13 @@ public class IllustratorController {
 	
 	//일러스트 후원 페이지로 이동
 	@RequestMapping("illustSupportDetail.ill")
-	public String illustSupportDetail () {
+	public String illustSupportDetail (String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+		
+		System.out.println("supportDetail userId : " + userId);
+		
+		ArrayList<Illustrator> sdlist = is.selectIllSupportDetail(ill);
+		model.addAttribute("sdlist", sdlist);
+		
 		return "illustrator/illustSupport";
 	}
 	

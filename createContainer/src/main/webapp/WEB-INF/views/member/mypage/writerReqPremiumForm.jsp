@@ -86,12 +86,12 @@
   						</tr>
   						<tr>
   							<td width="100px;">사업자 등록증 : </td>
-  							<td><input type="file" readonly name="do1" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
+  							<td><input type="file" readonly name="do1" id="do1" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
   						</tr>
   						
   						<tr>
   							<td width="100px;">통신 판매증 : </td>
-  							<td><input type="file" readonly name="do2" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
+  							<td><input type="file" readonly name="do2" id="do2" value="${ round }회" style="width:80%; border-radius:2px; border:1px solid #ececec; text-align:center;">
   						</tr>
   						<tr>
   							<td>&nbsp;</td>

@@ -5,6 +5,7 @@
   
   
   <configuration>
+
      <settings>
         <setting name="jdbcTypeForNull" value="NULL"/>
      </settings>
@@ -24,6 +25,7 @@
         <typeAlias type="com.kh.cc.mypage.model.vo.WriterProfile" alias="WriterProfile"/>
         <typeAlias type="com.kh.cc.mypage.model.vo.Support" alias="Support"/>
         <typeAlias type="com.kh.cc.mypage.model.vo.Author" alias="Author"/>
+        <typeAlias type="com.kh.cc.mypage.model.vo.PaymentCC" alias="PaymentCC"/>
         <typeAlias type="com.kh.cc.illustrator.model.vo.Illustrator" alias="Illustrator"/>
         <typeAlias type="com.kh.cc.illustrator.model.vo.IllustratorPhoto" alias="IllustratorPhoto"/>
         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonRound" alias="WebtoonRound"/>
@@ -40,14 +42,5 @@
         <mapper resource="mappers/mypage-mapper.xml"/>
         <mapper resource="mappers/approval-mapper.xml"/>
      </mappers>
-  
+
   </configuration>
-  
-  
-  
-  
-  
-  
-  
-  
-  

@@ -35,8 +35,44 @@ public class WebtoonController {
 	@RequestMapping(value = "webtoonMain.wt")
 	public String webtoonMain() {
 		
+		
+		
 		return "webtoon/webtoonMain";
 	}
+	
+	
+	//메인페이지에서 장르카테고리 에서 구별 해주는것
+	  @RequestMapping(value="genrecategory.wt") public String
+	  genrecategory(HttpServletRequest request, HttpSession session, Webtoon wt, Model model) {
+	  
+	  String genre = request.getParameter("genre");
+	  
+	  System.out.println("genre : " + genre);
+	  
+	  int currentPage = 1;
+		
+		if(request.getParameter("currentPage")!= null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.selectListCount(genre);
+		System.out.println("listCount : " + listCount);
+		
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		
+	  
+	  ArrayList<Webtoon> list = ws.genreList(pi, genre);
+	  
+	  System.out.println("pi : " + pi);
+	  System.out.println("장르 list확인 : " + list);
+	  
+	  model.addAttribute("list", list);
+	  model.addAttribute("pi", pi);
+	  
+	  return "webtoon/webtoonMain";
+	  
+	  }
+	 
 
 	// 웹툰 TOP5페이지로 이동
 	@RequestMapping(value = "webtoonTop5.wt")
@@ -70,8 +106,29 @@ public class WebtoonController {
 
 	// 완결 조회
 	@RequestMapping(value = "webtoonComplete.wt")
-	public String webtoonComplete() {
-		return "webtoon/webtoonComplete";
+	public String webtoonComplete(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
+		
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage")!= null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.completeListCount(wt);
+		
+		System.out.println("완결리스트카운트 : " + listCount);
+		
+		/*
+		 * WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		 * 
+		 * ArrayList<Webtoon> list = ws.completeWtList(pi, wt);
+		 * 
+		 * System.out.println("완결작품list : " + list);
+		 * 
+		 * return "webtoon/webtoonComplete";
+		 */
+		
+		return null;
 	}
 
 	// 장르별 조회
@@ -215,10 +272,22 @@ public class WebtoonController {
 		
 		String workStatus = request.getParameter("workStatus");
 		
+		//완결기능
 		wr.setWorkStatus(workStatus);
 		if(workStatus == null) {
-			workStatus = "COMPLTE";
-		} 
+			workStatus = "RUN";
+		} else if(workStatus != null){
+			//마지막회차 체크 했을때
+			workStatus = "COMP";
+			
+			Webtoon wt3 = new Webtoon();
+			
+			wt3.setWorkStatus(workStatus);
+			wt3.setWid(wid);
+			
+			ws.updateComp(wt3);
+			System.out.println("완결 ws : " + ws);
+		}
 		
 		System.out.println("workStatus : " + workStatus);
 		System.out.println("wid : " + wid);
@@ -278,6 +347,20 @@ public class WebtoonController {
 			return "common/errorPage";
 		}
 		
+	}
+	
+	//회차 리스트에서 휴재신청을 했을때 실행하는 메소드
+	@RequestMapping(value="updateRest.wt")
+	public String updateRest(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
+		System.out.println("휴재 신청 메소드 실행");
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wt.setWid(wid);
+		
+		ws.updateRest(wt);
+		
+		
+		return "redirect:insertWork.wt";
 	}
 	
 	//리스트에서 회차 등록버튼을 눌렀을때 동작되는 메소드
@@ -663,6 +746,8 @@ public class WebtoonController {
 		return "webtoon/ContentForm";
 		
 	}
+	
+	
 
 }
 

@@ -98,6 +98,21 @@
 		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
 		<result property="intro" column="INTRO"/>
 	</resultMap>
+	<resultMap type="com.kh.cc.admin.model.vo.Approve" id="approveResultSet">
+		<id property="aCode" column="APPROVAL_CODE"/>
+		<result property="upDate" column="WUPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="workType" column="WORK_TYPE"/>
+		<result property="wId" column="WID"/>
+		<result property="rId" column="RID"/>
+		<result property="wishDate" column="WISH_DATE"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="workTitle" column="WTITLE"/>
+		<result property="illTitle" column="ILL_TITLE"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="fId" column="FID"/>
+	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -159,39 +174,39 @@
 	<select id="selectReportCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM REPORT
-		WHERE STATUS='N'
+		WHERE STATUS='WAIT'
 	</select>
 	<!-- 신고내역 전체 조회 -->
 	<select id="selectReportList" resultMap="reportResultSet">
 		SELECT * 
 		FROM REPORT
-		WHERE STATUS='N'
+		WHERE STATUS='WAIT'
 	</select>
 	<!-- 신고 내역 조건검색 전체 조회 -->
 	<select id="reportStatus" parameterType="String" resultMap="reportResultSet">
 		SELECT *
 		FROM REPORT
-		WHERE STATUS = 'N'
+		WHERE STATUS = 'WAIT'
 		AND REPORT_TYPE = #{str}
 	</select>
 	<!-- 신고내역 조건검색 개수 조회 -->
 	<select id="selectReportAjaxCount" resultType="_int" parameterType="String">
 		SELECT COUNT(*)
 		FROM REPORT
-		WHERE STATUS = 'N'
+		WHERE STATUS = 'WAIT'
 		AND REPORT_TYPE = #{str}
 	</select>
 	<!-- 신고 내역 처리 -->
 	<update id="complteReport" parameterType="_int">
 		UPDATE REPORT
-		SET STATUS = 'Y'
+		SET STATUS = 'COMP'
 		WHERE REPORT_ID = #{reportId}
 	</update>
 	<!-- 신고내역 상세보기 -->
 	<select id="selectOneReport" parameterType="_int" resultMap="reportResultSet">
 		SELECT *
 		FROM REPORT
-		WHERE STATUS = 'N'
+		WHERE STATUS = 'WAIT'
 		AND REPORT_ID = #{reportID} 
 	</select>
 	<!-- 회원 상세보기 - 올린작품이 있나 조회 -->
@@ -408,6 +423,65 @@
 		WHERE ILL_TYPE LIKE '%' || #{str} || '%'
 		ORDER BY USER_ID, ILL_CODE DESC
 	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 - 전체 개수 조회 -->
+	<select id="selectApproveListCount" resultType="_int">
+		SELECT (
+		    (SELECT COUNT(DISTINCT(WID))
+		     FROM APPROVAL
+		     WHERE STATUS='N') 
+		    + 
+		    (SELECT COUNT(DISTINCT(ILL_CODE))
+		     FROM APPROVAL
+		     WHERE STATUS='N')
+			   )
+		FROM DUAL
+	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 - 전체 조회 -->
+	<select id="selectApproveList" resultMap="approveResultSet">
+		SELECT *
+		FROM APPROVAL A
+        JOIN WORK W ON(A.WID = W.WID)
+        LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
+        LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE A.STATUS='N'
+		ORDER BY A.APPROVAL_CODE DESC
+	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 조건 검색 개수 조회 -->
+	<select id="selectApproveTypeListCount" resultType="_int" parameterType="String">
+		SELECT COUNT(*)
+		FROM APPROVAL
+		WHERE STATUS = 'N'
+		AND WORK_TYPE LIKE '%' || #{str} || '%'
+	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 조건 검색 전체 조회-->
+	<select id="selectApproveTypeList" resultMap="approveResultSet" parameterType="String">
+		SELECT *
+		FROM APPROVAL A
+        JOIN WORK W ON(A.WID = W.WID)
+        LEFT JOIN WORK_ROUND WR ON(A.RID = WR.RID)
+        LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
+        LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE A.STATUS='N'
+		AND A.WORK_TYPE LIKE '%' || #{str} || '%'
+		ORDER BY A.APPROVAL_CODE DESC
+	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 - 상세 페이지 -->
+	<select id="selectOneApprove" parameterType="_int" resultMap="approveResultSet">
+		SELECT *
+		FROM APPROVAL A
+        JOIN WORK W ON(A.WID = W.WID)
+        LEFT JOIN WORK_ROUND WR ON(A.RID = WR.RID)
+        LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
+        LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE A.STATUS='N'
+		AND A.APPROVAL_CODE = #{id}
+	</select>
+	
 </mapper>
 	
 

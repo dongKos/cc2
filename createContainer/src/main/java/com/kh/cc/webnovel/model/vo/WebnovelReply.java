@@ -10,11 +10,12 @@ public class WebnovelReply implements java.io.Serializable{
 	private int bid;
 	private String userId;
 	private String nickname;
+	private int commentId;
 	
 	public WebnovelReply() {}
 
 	public WebnovelReply(int replyId, Date replyDate, String replyContent, int rid, int bid, String userId,
-			String nickname) {
+			String nickname, int commentId) {
 		super();
 		this.replyId = replyId;
 		this.replyDate = replyDate;
@@ -23,6 +24,7 @@ public class WebnovelReply implements java.io.Serializable{
 		this.bid = bid;
 		this.userId = userId;
 		this.nickname = nickname;
+		this.commentId = commentId;
 	}
 
 	public int getReplyId() {
@@ -53,6 +55,10 @@ public class WebnovelReply implements java.io.Serializable{
 		return nickname;
 	}
 
+	public int getCommentId() {
+		return commentId;
+	}
+
 	public void setReplyId(int replyId) {
 		this.replyId = replyId;
 	}
@@ -81,11 +87,18 @@ public class WebnovelReply implements java.io.Serializable{
 		this.nickname = nickname;
 	}
 
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
+	}
+
 	@Override
 	public String toString() {
 		return "WebnovelReply [replyId=" + replyId + ", replyDate=" + replyDate + ", replyContent=" + replyContent
-				+ ", rid=" + rid + ", bid=" + bid + ", userId=" + userId + ", nickname=" + nickname + "]";
+				+ ", rid=" + rid + ", bid=" + bid + ", userId=" + userId + ", nickname=" + nickname + ", commentId="
+				+ commentId + "]";
 	}
+
+	
 
 	
 	

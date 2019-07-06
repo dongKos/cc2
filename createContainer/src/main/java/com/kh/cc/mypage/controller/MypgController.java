@@ -24,9 +24,11 @@ import com.kh.cc.approval.model.vo.Approval;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.common.WebtoonPagination;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
+import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.service.WebnovelService;
@@ -233,35 +235,66 @@ public class MypgController {
 		return "member/mypage/writerReqPremiumForm";
 	}
 	//작가페이지 - 유료등록 insert
-	@RequestMapping("insertRequest.mg")
-	public String insertRequest(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Approval appro, WriterPhoto mphoto,
-			@RequestParam(name = "do1", required = false) MultipartFile do1,
-			@RequestParam(name = "do2", required = false) MultipartFile do2) {
-		
-		//int wid = (int) session.getAttribute("wid");
-		
-		String root = request.getSession().getServletContext().getRealPath("resources");
-		
-		String filePath = root + "\\uploadFiles\\writerProfile";
-		String originFileName = do1.getOriginalFilename();
-		String originFileName2 = do2.getOriginalFilename();
-		String ext = originFileName.substring(originFileName.lastIndexOf("."));
-		String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
-		String changeFileName = CommonUtils.getRandomString();
-		String changeFileName2 = CommonUtils.getRandomString();
-		
-		WriterPhoto file1 = null;
-		WriterPhoto file2 = null; 
-		
-		file1.setOriginName(originFileName);
-		file1.setChangeName(changeFileName + ext);
-		file1.setFilePath(filePath);
-		//file1.setUserId(appro.);
-		
-		return null;
-		
-	}
+    @RequestMapping("insertRequest.mg")
+    public String insertRequest(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Approval appro, WriterPhoto mphoto, Member m,
+          @RequestParam(name = "do1", required = false) MultipartFile do1,
+          @RequestParam(name = "do2", required = false) MultipartFile do2) {
+       
+       int wid = appro.getWid();
+       m = (Member) session.getAttribute("loginUser");
+       String root = request.getSession().getServletContext().getRealPath("resources");
+       
+       String filePath = root + "\\uploadFiles\\writerProfile\\document";
+          String originFileName = do1.getOriginalFilename();
+          String originFileName2 = do2.getOriginalFilename();
+          String ext = originFileName.substring(originFileName.lastIndexOf("."));
+          String ext2 = originFileName2.substring(originFileName2.lastIndexOf("."));
+          String changeFileName = CommonUtils.getRandomString();
+          String changeFileName2 = CommonUtils.getRandomString();
+       
+          WriterPhoto file1 = null;
+          WriterPhoto file2 = null; 
+          
+          file1.setOriginName(originFileName);
+          file1.setChangeName(changeFileName + ext);
+          file1.setFilePath(filePath);
+          file1.setUserId(m.getUserId());
+          file1.setWid(wid);
+          file2.setOriginName(originFileName);
+          file2.setChangeName(changeFileName + ext);
+          file2.setFilePath(filePath);
+          file2.setUserId(m.getUserId());
+          file2.setWid(wid);
+          try {
+          do1.transferTo(new File(filePath + "\\" + changeFileName + ext));
+          do2.transferTo(new File(filePath + "\\" + changeFileName2 + ext2));
+          
+          System.out.println("try부분 접근성공?");
+          
+          int result = ms.insertDocument(m, file1, file2, appro);
+          
+          
+       } catch (IllegalStateException | IOException e) {
+          e.printStackTrace();
+       }
+          
+       return "writerReqPremium.mg";
+       
+    }
 	
+    //코인 결제
+    @RequestMapping("paycomplete.mg")
+    public String paycomplete( HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, PaymentCC pc) {
+    	String userId = request.getParameter("userId");
+    	int price = Integer.parseInt(request.getParameter("price"));
+    	
+    	System.out.println(userId + price);
+    	pc.setUserId(userId);
+    	pc.setpAmount(price/100);
+    	
+    	int result = ms.payComplete(pc);
+    	return "redirect:mypgCreditCharge.mg";
+    }
 	
 	
 	
@@ -566,6 +599,85 @@ public class MypgController {
 		return "member/mypage/mypageInterestWlArtist";
 		
 	}
+	//작가페이지 - 후원신청
+	   @RequestMapping(value = "writerSupport.mg")
+	   public String writerSupport(Model model, HttpServletRequest request, HttpSession session, Support sp,
+	         WriterPhoto mphoto, Member m, @RequestParam(name = "rewardFile", required = false) MultipartFile photo) {
+	      System.out.println("후원 성공했나");
+	      m = (Member) session.getAttribute("loginUser");
+	      String userId = m.getUserId();
+	      System.out.println("sp : " + sp);
+	      
+	      
+	      String root = request.getSession().getServletContext().getRealPath("resources");
+	      
+	      String filePath = root + "\\uploadFiles\\support";
+	      String originFileName = photo.getOriginalFilename();
+	      String ext = originFileName.substring(originFileName.lastIndexOf("."));
+	      String changeFileName = CommonUtils.getRandomString();
+	      
+	      System.out.println("filePath : " + filePath);
+	      System.out.println("originFileName : " + originFileName);
+	      System.out.println("changeFileName : " + changeFileName + ext);
+	      
+	      mphoto.setOriginName(originFileName);
+	      mphoto.setChangeName(changeFileName + ext);
+	      mphoto.setFilePath(filePath);
+	      mphoto.setUserId(userId);
+	      
+	      try {
+	         photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
+	         System.out.println("후원 try부분 접근성공?");
+	         int result = ms.insertSupport(m, mphoto, sp);
+	         
+	         
+	         /*int count = ms.countProfilePic(mp);
+	         
+	         if(count > 1) {
+	         changeFileName = ms.deletePhotoPath(userId);
+	         System.out.println("파일 이름 : " + changeFileName);
+	         new File(filePath + "\\" + changeFileName).delete();
+	         System.out.println(filePath + "\\" + changeFileName);
+	         ms.deletePhoto(userId);
+	         }*/
+	         return "member/mypage/writeSupport"; // 성공했을 때 돌아가야하는곳
+	      } catch (Exception e) {
+	         System.out.println(e.getMessage());
+	         new File(filePath + "\\" + changeFileName + ext).delete();
+	         
+	         model.addAttribute("msg", "프로필 설정 실패!!");
+	         
+	         return "common/errorPage";
+	      }
+	      
+	   }
+	     
+	   
+	   
+	   
+	   //공지사항으로 이동
+	   @RequestMapping("NoticeList.mg")
+	   public String showNoticeList() {
+	      return "cs/notice";
+	   }
+	   //faq로 이동
+	   @RequestMapping("Faq.mg")
+	   public String showFaqList() {
+	      return "cs/faq";
+	   }   
+	   
+	   
+	   //사이트 이용안내로 이동
+	   @RequestMapping("Guide.mg")
+	   public String showGuideList() {
+	      return "cs/guide";
+	   }
+
+	   //공지사항 상세페이지 
+	   @RequestMapping("NoticeDetail.mg")
+	      public String showNoticeDetail() {
+	      return "cs/noticeList";
+	   }
 }
 
 

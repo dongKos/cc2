@@ -193,6 +193,7 @@ input[type=checkbox]:checked + label:before{
 									<td class="wnrText">회차 썸네일</td>
 									<td class="wnContent">
 										<div class="imgBox">
+											<input type="hidden" name="gradeType" value="${wnr.gradeType}">
 											<img id="roundThumbnail" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 										</div>
 									</td>

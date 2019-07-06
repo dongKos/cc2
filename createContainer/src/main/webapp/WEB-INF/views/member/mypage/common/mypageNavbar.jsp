@@ -86,6 +86,10 @@
 				<!-- 로그인 활성화 상태 -->
 				<c:if test="${ !empty sessionScope.loginUser }">
 					<li>
+						<a href="${ contextPath }/mypgCreditCharge.mg"><img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+						</a>
+					</li>
+					<li>
 						<a href="${ contextPath }/writerMain.mg">작가 페이지
 						</a>
 					</li>

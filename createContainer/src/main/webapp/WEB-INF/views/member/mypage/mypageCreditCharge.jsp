@@ -10,6 +10,22 @@
 	li {
 		list-style:none;
 	}
+	.coinCount {
+		height:50px;
+	}
+	.btnclass {
+  background-color: #008CBA; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  width:70px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius:3px;
+  font-weight:bold;
+}
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -48,7 +64,7 @@
   						</tr>
   						<tr>
   							<td style="padding-left:10px; width:20%;"><h4>CC란?</h4> </td>
-  							<td>만화,장르소설 작품 감상을 위해 필요한 전용 결제수단이며,<br> 일러스트 구매, 후원 등 CreateContainer 에서 사용 가능한 화폐입니다.</td>
+  							<td colspan=2>만화,장르소설 작품 감상을 위해 필요한 전용 결제수단이며,<br> 일러스트 구매, 후원 등 CreateContainer 에서 사용 가능한 화폐입니다.</td>
   						</tr>
   						<tr>
   						<td colspan=3>
@@ -56,16 +72,61 @@
   						</td>
   						</tr>
   						<tr>
-  							<td style="padding-left:10px; width:20%;"><h4>CC결제</h4> </td>
-  							<td>
+  							<td rowspan=5 style="padding-left:10px; width:20%; height:10px;"><h4>CC결제</h4> </td>
+  							<td class="coinCount">
   							<span>
   												<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
   												<span>CC 1개</span>
   											</span>
   							</td>
-  							<td style="padding-right:10px;">
-  								<input type="button" value="100원">
+  							<td style="padding-right:10px;" align="right">
+  								<input class="btnclass" type="button" value="100" id="hund" onclick="gopay100()">
   							</td>
+  						</tr>
+  						<tr>
+  							<td class="coinCount">
+  							<span>
+  												<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+  												<span>CC 10개</span>
+  											</span>
+  							</td>
+  							<td style="padding-right:10px;" align="right">
+  								<input class="btnclass" type="button" value="1000">
+  							</td>
+  						</tr>
+  						<tr>
+  							<td class="coinCount">
+  							<span>
+  												<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+  												<span>CC 30개</span>
+  											</span>
+  							</td>
+  							<td style="padding-right:10px;" align="right">
+  								<input class="btnclass" type="button" value="3000">
+  							</td>
+  						</tr>
+  						<tr>
+  							<td class="coinCount">
+  							<span>
+  												<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+  												<span>CC 50개</span>
+  											</span>
+  							</td>
+  							<td style="padding-right:10px;" align="right">
+  								<input class="btnclass" type="button" value="5000">
+  							</td>
+  						</tr>
+  						<tr>
+  							<td class="coinCount">
+  							<span>
+  												<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+  												<span>CC 100개</span>
+  											</span>
+  							</td>
+  							<td style="padding-right:10px;" align="right">
+  								<input class="btnclass" type="button" value="10000">
+  							</td>
+  						</tr>
   							<%-- <td><ul>
   								<li>
   									<dl>
@@ -119,7 +180,6 @@
   									</dl>
   								</li>
   							</ul></td> --%>
-  						</tr>
   					<tr>
   						<td colspan=3>
   						<hr>
@@ -128,11 +188,59 @@
   						
   					</table>
 				</div>
+				<div style="display:none;">
+				<input type="text" id="userId" value="${sessionScope.loginUser.userId}">
+				</div>
     </div>
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
     </div>
   </div>
 </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script>
+function gopay100(){
+	IMP.init('imp41924715');
+	var userId = $("#userId").attr("value");
+	console.log(userId);
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : 'CC 코인 결제',
+	    amount : 100, //판매 가격
+	    buyer_email : '${sessionScope.loginUser.email}',
+	    buyer_name : '${ sessionScope.loginUser.userName }',
+	    buyer_tel : '${ sessionScope.loginUser.phone }',
+	    buyer_addr : '0',
+	    buyer_postcode : '0'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        var price = rsp.paid_amount;
+	        var applynum = rsp.apply_num;
+	        var status = new Array();
+			
+	        
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+			location = "/cc/paycomplete.mg?userId=" + userId + "&price=" + price;
+	        console.log(rsp.apply_num);
+	        
+
+
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	     alert(msg); 
+	});
+}
+	
+
+</script>
 </body>
 </html>

@@ -53,6 +53,7 @@
 		<result property="wrComment" column="WR_COMMENT"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="attentionId" column="ATTENTION_ID"/>
+		<result property="gradeType" column="GRADE_TYPE"/>
 	</resultMap>
 	<!-- 웹소설 관심 등록-->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelAttention" id="WebnovelAttentionResultSet">
@@ -67,7 +68,7 @@
 		<result property="rid" column="RID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
-	<!-- 웹소설 별점-->
+	<!-- 웹소설 댓글-->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelReply" id="WebnovelReplyResultSet">
 		<id property="replyId" column="REPLY_ID"/>
 		<result property="replyDate" column="REPLY_DATE"/>
@@ -76,6 +77,21 @@
 		<result property="bid" column="B_ID"/>
 		<result property="userId" column="USER_ID"/>
 		<result property="nickname" column="NICKNAME"/>
+		<result property="commentId" column="COMMENT_ID"/>
+	</resultMap>
+	<!-- 웹소설 신고 -->
+	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelReport" id="WebnovelReportResultSet">
+		<id property="reportId" column="REPORT_ID"/>
+		<result property="reportType" column="REPORT_TYPE"/>
+		<result property="reportDate" column="REPROT_DATE"/>
+		<result property="reportReason" column="REPORT_REASON"/>
+		<result property="reportCategory" column="REPORT_CATEGORY"/>
+		<result property="status" column="STATUS"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="wid" column="WID"/>
+		<result property="rid" column="RID"/>
+		<result property="commentId" column="COMMENT_ID"/>
+		<result property="bid" column="B_ID"/>
 	</resultMap>
 	
 	<!-- 작품 등록 메소드 -->
@@ -158,9 +174,11 @@
 	<select id="selectWnRoundList" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
 		SELECT *
 		FROM WORK_ROUND WR
+		JOIN WORK W ON(W.WID = WR.WID)
 		JOIN ATTACHMENT A ON(A.RID = WR.RID)
 		WHERE A.ATTACHMENT_CATEGORY = 'sub'
 		AND WR.WID = #{wid}
+		AND W.GRADE_TYPE = #{gradeType}
 		ORDER BY WR.RUPLOAD_DATE DESC
 	</select>
 	<!-- 회차, 사진 정보 -->
@@ -379,9 +397,29 @@
 	<select id="selectWebnovelReplyList" parameterType="WebnovelReply" resultMap="WebnovelReplyResultSet">
 		SELECT *
 		FROM REPLY R
-		JOIN MEMBER M ON(R.USER_ID = M.USER_ID)
+		LEFT JOIN MEMBER M ON(R.USER_ID = M.USER_ID)
+		LEFT JOIN REPORT RP ON(R.REPLY_ID = RP.REPORT_ID)
 		WHERE R.RID = #{rid}
-		ORDER BY R.REPLY_DATE DESC 
+		ORDER BY R.REPLY_DATE DESC
+	</select>
+	<!-- 댓글 등록 -->
+	<insert id="insertReport" parameterType="WebnovelReport">
+		INSERT INTO REPORT
+		VALUES (RPID_SEQ.NEXTVAL, #{reportType}, SYSDATE, #{reportReason}, #{reportCategory}, 'WAIT', #{userId}, #{wid}, #{rid}, #{commentId}, #{bid})
+	</insert>
+	<!-- 회차 신고 로그인/비로그인, 등록인/미등록인 구분 -->
+	<select id="selectwReportOne" parameterType="WebnovelReport" resultMap="WebnovelReportResultSet">
+		SELECT * 
+		FROM REPORT
+		WHERE RID = #{rid}
+		AND USER_ID = #{userId}
+	</select>
+	<!-- 작품 신고 로그인/비로그인, 등록인/미등록인 구분 -->
+	<select id="selectWorkReportOne" parameterType="WebnovelReport" resultMap="WebnovelReportResultSet">
+		SELECT * 
+		FROM REPORT
+		WHERE WID = #{wid}
+		AND USER_ID = #{userId}
 	</select>
 </mapper>
 

@@ -228,12 +228,12 @@
 							<td colspan="2">
 								<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
 								<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
-								<button class="wnrBtn" type="button">휴재 신청</button>
+								<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">휴재 신청</button>
 							</td>
 						</tr>
 					</table>
 				</div>
-				 <input type="text" name="wid" value="${wt.wid }">
+				 <input type="hidden" name="wid" value="${wt.wid }">
 				<div class="wnrListArea">
 					<c:forEach var="wtr" items="${ list }" varStatus="status">
 						<table class="wnrTable">

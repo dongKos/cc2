@@ -27,21 +27,56 @@
 	color:#84CEFA;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
 	<div class="genreNav">
 		<table class="genreMenu">
 			<tr>
-				<td class="genreItem" onClick="location.href=''">일상</td>
-				<td class="genreItem" onClick="location.href=''">개그</td>
-				<td class="genreItem" onClick="location.href=''">판타지</td>
-				<td class="genreItem" onClick="location.href=''">액션</td>
-				<td class="genreItem" onClick="location.href=''">로멘스</td>
-				<td class="genreItem" onClick="location.href=''">스릴러</td>
-				<td class="genreItem" onClick="location.href=''">스포츠</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG1">일상</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG2">개그</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG3">판타지</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG4">액션</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG5">로멘스</td>
+				<td class="genreItem"><input type="hidden" name="genre" value="GR_CTG6">스릴러</td>
+				<td class="genreItem" ><input type="hidden" name="genre" value="GR_CTG7">스포츠</td>
 			</tr>
 		</table>
 	</div>
+	
+	<script>
+		$(function(){
+			$(".genreItem").click(function(){
+			    var gen = $(this).children('input').val();
+				console.log(gen);
+				location.href="genrecategory.wt?genre=" + gen;
+			});
+		});
+	
+	</script>
+	
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
