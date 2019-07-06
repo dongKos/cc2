@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Approve;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -84,6 +85,17 @@ public interface AdminService {
 	int getIllustTypeListCount(int select1);
 
 	ArrayList<HashMap<String, Object>> selectIllustTypeList(AdminPageInfo pi, int select1);
+
+	int getApproveListCount();
+
+	ArrayList<Approve> selectApproveList(AdminPageInfo pi);
+
+	int getApproveTypeListCount(int select1);
+
+	ArrayList<HashMap<String, Object>> selectApproveTypeList(AdminPageInfo pi, int select1);
+
+	ArrayList<Approve> selectApproveDetailList(int id);
+
 
 
 	

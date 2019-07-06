@@ -39,7 +39,6 @@
   		<mapper resource="mappers/mypage-mapper.xml"/>
   		<mapper resource="mappers/approval-mapper.xml"/>
   	</mappers>
-  
   </configuration>
   
   

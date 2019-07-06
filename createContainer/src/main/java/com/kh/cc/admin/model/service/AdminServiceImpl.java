@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cc.admin.model.dao.AdminDao;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Approve;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -224,25 +225,56 @@ public class AdminServiceImpl implements AdminService{
 	public int getIllustListCount() {
 		return ad.getIllustListCount(sqlSession);
 	}
-
+	
 	//일러스트 전체 조회
 	@Override
 	public ArrayList<Illustrator> selectIllustList(AdminPageInfo pi) {
 		return ad.selectIllustWorkList(sqlSession, pi);
 	}
-
+	
 	//일러스트 조건 검색 개수 조회
 	@Override
 	public int getIllustTypeListCount(int select1) {
 		return ad.getIllustTypeListCount(sqlSession, select1);
 	}
-
+	
 	//일러스트 조건 검색 전체 조회
 	@Override
 	public ArrayList<HashMap<String, Object>> selectIllustTypeList(AdminPageInfo pi, int select1) {
 		return ad.selectIllustTypeList(sqlSession, pi, select1);
 	}
 	
+	//승인대기 내역 개수 조회
+	@Override
+	public int getApproveListCount() {
+		return ad.getApproveListCount(sqlSession);
+	}
+
+	//승인대기 내역 전체 조회
+	@Override
+	public ArrayList<Approve> selectApproveList(AdminPageInfo pi) {
+		return ad.selectApproveList(sqlSession, pi);
+	}
+
+	//승인대기 조건 검색 개수 조회
+	@Override
+	public int getApproveTypeListCount(int select1) {
+		return ad.getApproveTypeListCount(sqlSession, select1);
+	}
+
+	//승인대기 조건 검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectApproveTypeList(AdminPageInfo pi, int select1) {
+		return ad.selectApproveTypeList(sqlSession, pi, select1);
+	}
+
+	//승인대기 	
+	@Override
+	public ArrayList<Approve> selectApproveDetailList(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
 

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
+import com.kh.cc.admin.model.vo.Approve;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -87,5 +88,14 @@ public interface AdminDao {
 
 	ArrayList<HashMap<String, Object>> selectIllustTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
 			int select1);
-	
+
+	int getApproveListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Approve> selectApproveList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	int getApproveTypeListCount(SqlSessionTemplate sqlSession, int select1);
+
+	ArrayList<HashMap<String, Object>> selectApproveTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int select1);
+
 }
