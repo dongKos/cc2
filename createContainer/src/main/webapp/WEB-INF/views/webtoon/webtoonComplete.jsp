@@ -48,11 +48,16 @@ table td {
 	padding-left: 6px;
 }
 
-
+#whole{
+	display: inline-block;
+	width:31%;
+    height: 160px;
+}
 
 #whole td {
 	padding-bottom: 30px;
 	padding-right: 5px;
+
 }
 
 #challengeArea {
@@ -139,10 +144,10 @@ background-color: red;
 				</div>
 				<hr>
 				<div class="webtoonArea">
+								<c:forEach var="wtr" items="${list }">
 					<table id="whole">
 						<tbody>
 							<tr>
-								<c:forEach var="wtr" items="${list }">
 									<td>
 										<div id="area">
 											<img class="thumbnail"
@@ -151,10 +156,10 @@ background-color: red;
 										</div>
 										<p align="center">${wtr.wTitle}</p>
 									</td>
-								</c:forEach>
 							</tr>
 						</tbody>
 					</table>
+								</c:forEach>
 				</div>
 			</div>
 

@@ -257,8 +257,9 @@ public class WebtoonDaoImpl implements WebtoonDao {
 
 	@Override
 	public ArrayList<Webtoon> newList(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.newList");
+		return list;
 	}
 
 	
