@@ -9,6 +9,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
 
+
+
 .container{
 margin-top:8%;
 }
@@ -125,6 +127,8 @@ background-color: #fd7b52;
     cursor: pointer;
 }
 
+
+
 </style>
 
 
@@ -137,61 +141,56 @@ background-color: #fd7b52;
   	 <jsp:include page="../cs/common/csSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
-    <div style="float:right; margin-bottom:2%;">
-    <select name="" onchange="" onclick="return false;" id=""  class="select_mate">
-	<option value=""  >카테고리</option>
-	<option value="1">웹툰</option>
-	<option value="2" >웹소설</option>
-	<option value="3">일러스트</option>
-	<option value="4">기타</option>
-  </select>
-    </div>
+    <!-- <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">카테고리
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">날짜별</a></li>
+      <li><a href="#">카테고리별</a></li>
+     
+    </ul>
+  </div> -->
     
     
       <div class="point">
-					
-   <table class="table">
-    <thead>
-      <tr class="info">
-        <th>제목</th>
-        <th>작성일자</th>
-        <th>카테고리</th>
-         
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr onclick="NoticeDetail.mg" id="detail">
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-        
-      </tr>      
-     
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-    </tbody>
-  </table>
- 
+	
+ 	
+ 	
+ 	<div style="border:1px solid #ececec; width:100%; height:400px; margin-bottom:10%;">
+ 	<table width="100%" style="text-align:center; height:100%;">
+ 	<tr style="border:1px solid #ececec; height:20px;">
+ 	<td><input type="text"  style="border:none;" readonly value="날짜"></td>
+ 	<td><input type="text" id="title" style="border:none; width:100%; height:30px; padding-left:30px;" placeholder="제목을 입력해주세요." readonly value="내제목"></td>
+ 	<td style="border:1px solide #ececec">
+ 	<input value="웹툰" readonly style="border:none; text-align:right;">
+ 	
+ 	</td>
+ 	</tr>
+ 	<tr>
+ 		<td colspan=3>
+ 		<textarea placeholder="내용을 입력해주세요" style="border:none; width:99%; height:95%; padding-left:30px;" readonly value="내용"></textarea>
+ 		
+ 		</td>
+ 	</tr>
+ 	
+ 	</table>
+ 	
+ 	</div>
+ 			<div style="margin-bottom:10%; text-align:center;">
+	  		<button type="submit" class="btn btn-info" onclick="goMyQueList();">나의 문의 내역 보기</button>
+			</div>
 
-				</div>
+
+
+
+
+
+
+
+
+
+
+				</div> <!-- point -->
     </div>
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
@@ -233,10 +232,23 @@ background-color: #fd7b52;
 		  var accordion = new Accordion($('.accordion-menu'), false);
 		})
 	</script>
+	
+	
 	<script>
-	$("#detail").click(function(){
-		location.href="NoticeDetail.mg"
-	})
+	function goMyQueList(){
+		location.href="mypgQue.mg"
+	}
 	</script>
+	
+	
+	
+	
 </body>
 </html>
+
+
+
+
+
+
+

@@ -68,7 +68,8 @@
 			
 			<li><button class="btn btn-primary" onclick="goNotice();">공지사항</button></li>
          	<li><button class="btn btn-primary" onclick="goFaq();">FAQ</button></li>
-			<li><button class="btn btn-primary" onclick="goGuide();">사이트 이용안내</button></li>
+			<li><button class="btn btn-primary" onclick="goGuide();">사이트 이용안내 / 약관</button></li>
+			<li><button class="btn btn-primary" onclick="goQue();">일대일 문의</button></li>
 		
 		</ul>
 	</div>
@@ -82,6 +83,9 @@
 		function goGuide(){
 	        location.href="Guide.mg";
 	    }
+		function goQue(){
+			location.href="mtmQue.mg";
+		}
 	   
 	</script>
 </body>
