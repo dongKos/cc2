@@ -142,11 +142,6 @@ public class MypgController {
 		return "main/loginPage";
 	}
 	
-	//내 문의 내역 페이지 이동
-	@RequestMapping("mypgQue.mg")
-	public String showQue() {
-		return "member/mypage/mypageQuestion";
-	}
 	//회원탈퇴 페이지 이동
 	@RequestMapping("mypgResign.mg")
 	public String showResign() {
