@@ -57,9 +57,9 @@ public interface WebtoonDao {
 
 	Webtoon content1(SqlSessionTemplate sqlSession, int wid);
 
-	ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, String genre);
+	ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi,  Webtoon wt);
 
-	int genreListCount(SqlSessionTemplate sqlSession, String genre);
+	int genreListCount(SqlSessionTemplate sqlSession, Webtoon wt);
 
 	int updateComp(SqlSessionTemplate sqlSession, Webtoon wt3);
 
@@ -68,6 +68,23 @@ public interface WebtoonDao {
 	int completeListCount(SqlSessionTemplate sqlSession, Webtoon wt);
 
 	ArrayList<Webtoon> completeListCount(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+
+	ArrayList<Webtoon> monList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> tuesList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> wedList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> thurList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> friList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> satList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> sunList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> newList(SqlSessionTemplate sqlSession);
+
 
 
 	

@@ -171,7 +171,7 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	}
 
 	@Override
-	public ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, String genre) {
+	public ArrayList<Webtoon> genreList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt) {
 		
 		ArrayList<Webtoon> list = null;
 		
@@ -179,14 +179,14 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("Webtoon.genreList",genre, rowBounds);
+		list = (ArrayList) sqlSession.selectList("Webtoon.genreList",wt, rowBounds);
 		
 		return list;
 	}
 
 	@Override
-	public int genreListCount(SqlSessionTemplate sqlSession, String genre) {
-		return sqlSession.selectOne("Webtoon.genreListCount", genre);
+	public int genreListCount(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.selectOne("Webtoon.genreListCount", wt);
 	}
 
 	@Override
@@ -218,6 +218,50 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		
 		return list;
 	}
+
+	@Override
+	public ArrayList<Webtoon> monList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.monList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> tuesList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.tuesList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> wedList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.wedList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> thurList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.thurList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> friList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.friList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> satList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.satList");
+		return list; }
+	@Override
+	public ArrayList<Webtoon> sunList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> list = null;
+		list = (ArrayList) sqlSession.selectList("Webtoon.sunList");
+		return list; }
+
+	@Override
+	public ArrayList<Webtoon> newList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 

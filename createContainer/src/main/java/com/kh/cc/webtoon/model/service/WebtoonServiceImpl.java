@@ -15,7 +15,6 @@ import com.kh.cc.webtoon.model.vo.WebtoonRound;
 
 @Service
 public class WebtoonServiceImpl implements WebtoonService{
-	
 	@Autowired
 	private WebtoonDao wd;
 	@Autowired
@@ -190,17 +189,14 @@ public class WebtoonServiceImpl implements WebtoonService{
 	public Webtoon content1(int wid) {
 		return wd.content1(sqlSession, wid);
 	}
-
 	@Override
-	public ArrayList<Webtoon> genreList(WebtoonPageInfo pi, String genre) {
-		return wd.genreList(sqlSession, pi,  genre);
+	public ArrayList<Webtoon> genreList(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.genreList(sqlSession, pi,  wt);
 	}
-
 	@Override
-	public int selectListCount(String genre) {
-		return wd.genreListCount(sqlSession, genre);
+	public int genreListCount(Webtoon wt) {
+		return wd.genreListCount(sqlSession, wt);
 	}
-
 	@Override
 	public int updateComp(Webtoon wt3) {
 		return wd.updateComp(sqlSession, wt3);
@@ -221,6 +217,36 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.completeListCount(sqlSession,pi, wt);
 	}
 
+	
+	@Override
+	public ArrayList<Webtoon> monList() {
+		return wd.monList(sqlSession);  }
+	@Override
+	public ArrayList<Webtoon> tuesList() {
+		return wd.tuesList(sqlSession);  }
+	@Override
+	public ArrayList<Webtoon> wedList() {
+		return wd.wedList(sqlSession);	}
+	@Override
+	public ArrayList<Webtoon> thurList() {
+		return wd.thurList(sqlSession);	}
+	@Override
+	public ArrayList<Webtoon> friList() {
+		return wd.friList(sqlSession);	}
+	@Override
+	public ArrayList<Webtoon> satList() {
+		return wd.satList(sqlSession);	}
+	@Override
+	public ArrayList<Webtoon> sunList() {
+		return wd.sunList(sqlSession);	}
+
+	@Override
+	public ArrayList<Webtoon> newList() {
+		return wd.newList(sqlSession);
+	}
+
+
+	
 	
 
 	
