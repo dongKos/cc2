@@ -7,8 +7,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
+import com.kh.cc.webnovel.model.vo.WebnovelCoin;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
@@ -318,6 +320,31 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	@Override
 	public WebnovelReport selectWorkReportOne(SqlSessionTemplate sqlSession, WebnovelReport wReport) {
 		return sqlSession.selectOne("Webnovel.selectWorkReportOne", wReport);
+	}
+	//댓글 삭제
+	@Override
+	public int deleteReply(SqlSessionTemplate sqlSession, WebnovelReply wReply) {
+		return sqlSession.delete("Webnovel.deleteReply", wReply);
+	}
+	//유료작품 구매 -2 CC개
+	@Override
+	public int updatePayWallet(SqlSessionTemplate sqlSession, int mno) {
+		return sqlSession.update("Webnovel.updatePayWallet", mno);
+	}
+	//재로그인용
+	@Override
+	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
+		Member loginUser = sqlSession.selectOne("Webnovel.selectMember", m);
+		return loginUser;
+	}
+	@Override
+	public int insertCoin(SqlSessionTemplate sqlSession, WebnovelCoin wc) {
+		return sqlSession.insert("Webnovel.insertCoin", wc);
+	}
+	//상세보기 페이징 유료작품 구분
+	@Override
+	public WebnovelRound selectCheckWnr(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.selectOne("Webnovel.selectCheckWnr", wnr);
 	}
 	
 

@@ -3,8 +3,10 @@ package com.kh.cc.webnovel.model.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
+import com.kh.cc.webnovel.model.vo.WebnovelCoin;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
@@ -90,4 +92,12 @@ public interface WebnovelService {
 	WebnovelReport selectwReportOne(WebnovelReport wReport);
 	//작품 신고 로그인/비로그인, 등록인/미등록인 구분
 	WebnovelReport selectWorkReportOne(WebnovelReport wReport);
+	//댓글 삭제
+	int deleteReply(WebnovelReply wReply);
+	//유료작품 구매 -2 CC개
+	int updatePayWallet(int mno, WebnovelCoin wc);
+	//로그인 유저
+	Member loginMember(Member m);
+	//상세보기 페이징 유료작품 구분
+	WebnovelRound selectCheckWnr(WebnovelRound wnr);
 }

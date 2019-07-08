@@ -54,6 +54,8 @@
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="attentionId" column="ATTENTION_ID"/>
 		<result property="gradeType" column="GRADE_TYPE"/>
+		<result property="cRid" column="CRID"/>
+		<result property="mno" column="MNO"/>
 	</resultMap>
 	<!-- 웹소설 관심 등록-->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelAttention" id="WebnovelAttentionResultSet">
@@ -94,6 +96,39 @@
 		<result property="bid" column="B_ID"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.cc.member.model.vo.Member" id="memberResultSet">
+		<id property="mno" column="MNO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="memberType" column="MEMBER_TYPE"/>
+		<result property="intro" column="INTRO"/>
+		<result property="wallet" column="WALLET"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="email" column="EMAIL"/>
+		<result property="phone" column="PHONE"/>
+		<result property="wCount" column="WCOUNT"/>
+		<result property="status" column="STATUS"/>
+		<result property="joinDate" column="JOIN_DATE"/>
+	</resultMap>
+	<!-- 코인 -->
+	<resultMap type="com.kh.cc.member.model.vo.Member" id="coinResultSet">
+		<id property="coinCode" column="COIN_CODE"/>
+		<result property="mno" column="MNO"/>
+		<result property="coinCategory" column="COIN_CATEGORY"/>
+		<result property="coinCount" column="COIN_COUNT"/>
+		<result property="rid" column="RID"/>
+		<result property="cDate" column="C_DATE"/>
+	</resultMap>
+	<!-- 재로그인용 -->
+	<select id="selectMember" resultMap="memberResultSet" parameterType="Member">
+		SELECT * 
+		FROM MEMBER 
+		WHERE USER_ID = #{userId} 
+		AND USER_PWD = #{userPwd} 
+		AND STATUS = 'Y'
+	</select>
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
@@ -107,10 +142,14 @@
 	<!-- 메인썸네일 리스트 카운트 -->
 	<select id="selectListCount" parameterType="Webnovel" resultType="_int">
 		SELECT COUNT(*)
-		FROM WORK
-		WHERE USER_ID = #{userId}
-		AND WORK_TYPE = 'WN'
-		AND GRADE_TYPE = #{gradeType}
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE W.USER_ID = #{userId}
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_TYPE = 'WN'
+		AND W.GRADE_TYPE = #{gradeType}
+		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 메인썸네일 리스트 조회 -->
 	<select id="selectWnList" parameterType="Webnovel" resultMap="webnovelResultSet">
@@ -172,10 +211,10 @@
 	</select>
 	<!-- 회차 목록 리스트 -->
 	<select id="selectWnRoundList" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
-		SELECT *
+		SELECT WR.RID, WR.RTITLE, WR.VCOUNT, WR.RUPLOAD_DATE, WR.APPROVAL_CODE, WR.WID, WR.RCONTENT, WR.WR_COMMENT, A.CHANGE_NAME, W.GRADE_TYPE
 		FROM WORK_ROUND WR
-		JOIN WORK W ON(W.WID = WR.WID)
-		JOIN ATTACHMENT A ON(A.RID = WR.RID)
+		LEFT JOIN WORK W ON(W.WID = WR.WID)
+		LEFT JOIN ATTACHMENT A ON(A.RID = WR.RID)
 		WHERE A.ATTACHMENT_CATEGORY = 'sub'
 		AND WR.WID = #{wid}
 		AND W.GRADE_TYPE = #{gradeType}
@@ -398,11 +437,11 @@
 		SELECT *
 		FROM REPLY R
 		LEFT JOIN MEMBER M ON(R.USER_ID = M.USER_ID)
-		LEFT JOIN REPORT RP ON(R.REPLY_ID = RP.REPORT_ID)
+		LEFT JOIN REPORT RP ON(R.REPLY_ID = RP.COMMENT_ID)
 		WHERE R.RID = #{rid}
 		ORDER BY R.REPLY_DATE DESC
 	</select>
-	<!-- 댓글 등록 -->
+	<!-- 신고 등록 -->
 	<insert id="insertReport" parameterType="WebnovelReport">
 		INSERT INTO REPORT
 		VALUES (RPID_SEQ.NEXTVAL, #{reportType}, SYSDATE, #{reportReason}, #{reportCategory}, 'WAIT', #{userId}, #{wid}, #{rid}, #{commentId}, #{bid})
@@ -420,6 +459,28 @@
 		FROM REPORT
 		WHERE WID = #{wid}
 		AND USER_ID = #{userId}
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteReply" parameterType="WebnovelReply">
+		DELETE FROM REPLY 
+		WHERE REPLY_ID = #{replyId}
+	</delete>
+	<!-- 돈업글 -->
+	<update id="updatePayWallet" parameterType="_int">
+		UPDATE MEMBER 
+		SET WALLET=(SELECT WALLET FROM MEMBER WHERE MNO=#{mno}) -2 
+		WHERE MNO=#{mno}
+	</update>
+	<insert id="insertCoin" parameterType="WebnovelCoin">
+		INSERT INTO COIN
+		VALUES (COID_SEQ.NEXTVAL, #{mno}, '1', 2, #{rid}, SYSDATE)
+	</insert>
+	<select id="selectCheckWnr" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
+		SELECT WR.RID, C.RID AS CRID, C.MNO
+		FROM WORK_ROUND WR
+		JOIN COIN C ON(WR.RID = C.RID)
+		WHERE C.MNO = #{mno}
+		AND WR.RID = #{rid}
 	</select>
 </mapper>
 

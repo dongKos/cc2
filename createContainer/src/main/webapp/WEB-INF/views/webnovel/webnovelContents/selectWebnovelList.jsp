@@ -166,8 +166,24 @@
 					</table>
 				</div>
 				<div class="wnListDiv">
-				
-				<c:forEach var="wn" items="${ list }" varStatus="status">
+				<c:if test="${list[0].wid == null}">
+					<table class="wnListTable">
+						<tr>
+							<td class="workImg">
+								<div class="titleImg">
+									<img src="${ contextPath }/resources/images/icon/noImg.png">
+								</div>
+							</td>
+							<td class="contentTd">
+								<p class="titleArea">작품을 등록하세요</p>
+								<input type="hidden" class="wid" value="">
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</c:if>
+				<c:forEach var="wn" items="${ list }" varStatus="status" begin="0" end="4">
 					<table class="wnListTable">
 						<tr>
 							<td class="workImg">
@@ -284,8 +300,7 @@
 				</div>
 				<br>
 				<br>
-				
-				<c:if test="${list[0].gradeType == 1 }">
+				<c:if test="${gradeType == 1}">
 					<button class="insertWnBtn" onclick="location='insertWebnovel.wn'">새 작품 쓰기</button>
 				</c:if>
 			</div>

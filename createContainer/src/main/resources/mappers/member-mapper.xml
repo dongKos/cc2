@@ -19,7 +19,6 @@
 		<result property="wCount" column="WCOUNT"/>
 		<result property="status" column="STATUS"/>
 		<result property="joinDate" column="JOIN_DATE"/>
-		
 	</resultMap>
 	<select id="loginCheck" resultMap="memberResultSet" parameterType="Member">
 		SELECT * 
