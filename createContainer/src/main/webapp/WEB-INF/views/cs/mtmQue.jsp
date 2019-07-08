@@ -125,6 +125,8 @@ background-color: #fd7b52;
     cursor: pointer;
 }
 
+
+
 </style>
 
 
@@ -137,61 +139,75 @@ background-color: #fd7b52;
   	 <jsp:include page="../cs/common/csSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
-    <div style="float:right; margin-bottom:2%;">
-    <select name="" onchange="" onclick="return false;" id=""  class="select_mate">
-	<option value=""  >카테고리</option>
-	<option value="1">웹툰</option>
-	<option value="2" >웹소설</option>
-	<option value="3">일러스트</option>
-	<option value="4">기타</option>
-  </select>
-    </div>
+    <!-- <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">카테고리
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="#">날짜별</a></li>
+      <li><a href="#">카테고리별</a></li>
+     
+    </ul>
+  </div> -->
     
     
       <div class="point">
-					
-   <table class="table">
-    <thead>
-      <tr class="info">
-        <th>제목</th>
-        <th>작성일자</th>
-        <th>카테고리</th>
-         
-        
-      </tr>
-    </thead>
-    <tbody>
-      <tr onclick="NoticeDetail.mg" id="detail">
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-        
-      </tr>      
-     
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-      <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
-        
-      </tr>
-    </tbody>
-  </table>
- 
+	<div style="font-size:15px;">				
+   	<label style="font-weight:bold; font-size:25px;">CC의 중심</label>
+   	<label>은 항상</label>
+   	<label style="font-weight:bold; color:blue; font-size:25px;">독자와 작가님</label>
+   	<label>입니다.</label>
+   	
+ 	</div>
+ 	<div>
+ 	<h6>cc를 이용하면서 느끼신 불편사항이나 궁금한 점을 알려주세요!<br>
+   	여러분들의 소중한 의견으로 한 뼘 더 자라는 cc가 되겠습니다.</h6>
+   	<h6 style="color:#c4c0c0">고객님의 요청사항을 정확히 확인하고, 빠르게 개선하기 위해 담당자가 연락을 드리겠습니다.<br>
+	aliciakimwa@gamil.com</h6>
+ 	</div>
+ 	
+ 	<form action="insertMtmQue.mg">
+ 	<div style="border:1px solid #ececec; width:100%; height:400px; margin-bottom:10%;">
+ 	<table width="100%" style="text-align:center; height:100%;">
+ 	<tr style="border:1px solid #ececec; height:20px;">
+ 	
+ 	<td><input type="text" name="bTitle" id="bTitle" style="border:none; width:100%; height:30px; padding-left:30px;" placeholder="제목을 입력해주세요."  ></td>
+ 	<td>
+ 	<select name="subCategory" onchange="" onclick="return false;" id="subCategory"  class="select_mate">
+	<option value=""  >카테고리</option>
+	<option value="WT">웹툰</option>
+	<option value="WN" >웹소설</option>
+	<option value="ILL">일러스트</option>
+	<option value="ETC">기타</option>
+  </select></td>
+ 	</tr>
+ 	<tr>
+ 		<td colspan=3>
+ 		<textarea name="bContent" id="bContent" placeholder="내용을 입력해주세요" style="border:none; width:99%; height:95%; padding-left:30px;"></textarea>
+ 		
+ 		</td>
+ 	</tr>
+ 	
+ 	</table>
+ 	</div>
+ 			<div style="margin-bottom:10%; text-align:center;">
+	  		<button type="submit" class="btn btn-info">확인</button>
+ 	</form>
+			</div>
+			
+			
+			
+			
 
-				</div>
+
+
+
+
+
+
+
+
+
+				</div> <!-- point -->
     </div>
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
@@ -233,10 +249,23 @@ background-color: #fd7b52;
 		  var accordion = new Accordion($('.accordion-menu'), false);
 		})
 	</script>
+	
+	
 	<script>
-	$("#detail").click(function(){
-		location.href="NoticeDetail.mg"
-	})
+	function goQueList(){
+		location.href="queList.mg"
+	}
 	</script>
+	
+	
+	
+	
 </body>
 </html>
+
+
+
+
+
+
+

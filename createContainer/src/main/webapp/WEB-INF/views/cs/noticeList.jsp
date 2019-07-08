@@ -29,15 +29,16 @@ margin-top:10%;
   	 <jsp:include page="../cs/common/csSideNavbar.jsp"/>
     </div>
     <div class="col-sm-7">
-    <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">카테고리
+    
+    <!-- <div class="dropdown">
+   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">카테고리
     <span class="caret"></span></button>
     <ul class="dropdown-menu">
       <li><a href="#">날짜별</a></li>
       <li><a href="#">카테고리별</a></li>
      
     </ul>
-  </div>
+  </div> -->
     
     
       <div class="point">
@@ -83,9 +84,12 @@ margin-top:10%;
 		앞으로 더 다양하고 특별한 혜택의 쇼핑 서비스를 제공해 드릴 것을 약속 드리며,<br>
 		
 		혜택 종료와 관련 궁금하신 사항은 고객센터를 이용하시면 빠르게 응대하도록 하겠습니다.<br><br>
+		
+		<hr>
 
-
-
+		<div style="text-align:center; margin-bottom:10%;">
+  		<button type="submit" class="btn btn-info" onclick="goback();" >목록으로</button>
+		</div>
 		
 		
 		
@@ -115,7 +119,7 @@ margin-top:10%;
 	
 	
 	</div>
-	<script>
+	<!-- <script>
 	$(function() {
 		  var Accordion = function(el, multiple) {
 		    this.el = el || {};
@@ -145,6 +149,12 @@ margin-top:10%;
 		  
 		  var accordion = new Accordion($('.accordion-menu'), false);
 		})
+	</script> -->
+	
+	<script>
+	function goback(){
+		location.href="NoticeList.mg"
+	}
 	</script>
 	
 </body>

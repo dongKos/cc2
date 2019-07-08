@@ -8,7 +8,7 @@
 
   
 <style>
- #navbar{
+#navbar{
 margin-top:20%;
 
 } 
@@ -63,8 +63,8 @@ height:150px;
 	
 	<div id="nemo">
 	<div style="padding-top:5%;">
-	<h3 id="h3" align="left;" style="text-align:left; text-weight:bold;">이용약관</h3>
-	<h5 id="h5" align="left;" style="text-align:left;">사이트 이용안내</h5>
+	<h3 id="h3" align="left;" style="text-align:left;">사이트 이용안내</h3>
+	<h5 id="h5" align="left;" style="text-align:left; text-weight:bold;">이용약관</h5>
 	</div>
 	<hr id="hr">
 	
@@ -192,14 +192,14 @@ height:150px;
 	
 	<script>
 	$("#h3").click(function(){
-		location.href="Guide.mg"
+		location.href="Guide2.mg"
 	})
 	
 	</script>
 	
 	<script>
 	$("#h5").click(function(){
-		location.href="Guide2.mg"
+		location.href="Guide.mg"
 	})
 	</script>
 	
