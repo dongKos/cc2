@@ -138,19 +138,21 @@ background-color: #fd7b52;
     </div>
     <div class="col-sm-7">
     <div style="float:right; margin-bottom:2%;">
-    <select name="" onchange="" onclick="return false;" id=""  class="select_mate">
-	<option value=""  >카테고리</option>
-	<option value="1">웹툰</option>
-	<option value="2" >웹소설</option>
-	<option value="3">일러스트</option>
-	<option value="4">기타</option>
+    <select name="" onchange="" onclick="return false;" id="noticeCategory"  class="select_mate">
+	<option value="all"  >카테고리</option>
+	<option value="wt">웹툰</option>
+	<option value="wn" >웹소설</option>
+	<option value="Ill">일러스트</option>
+	<option value="etc">기타</option>
   </select>
     </div>
     
     
       <div class="point">
-					
+      
+			<div id="all">
    <table class="table">
+   
     <thead>
       <tr class="info">
         <th>제목</th>
@@ -162,36 +164,209 @@ background-color: #fd7b52;
     </thead>
     <tbody>
       <tr onclick="NoticeDetail.mg" id="detail">
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
+        <td>전체</td>
+        <td>전체</td>
+        <td>3</td>
         
         
       </tr>      
      
       <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
         
       </tr>
       <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
         
       </tr>
       <tr>
-        <td>제목</td>
-        <td>작성일자</td>
-        <td>카테고리</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
         
       </tr>
     </tbody>
   </table>
+ </div>
  
+ <div id="wt" hidden="true">
+   <table class="table">
+   
+    <thead>
+      <tr class="info">
+        <th>웹툰</th>
+        <th>작성일자</th>
+        <th>카테고리</th>
+         
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr onclick="NoticeDetail.mg" id="detail">
+        <td>전체</td>
+        <td>전체</td>
+        <td>3</td>
+        
+        
+      </tr>      
+     
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        
+      </tr>
+    </tbody>
+  </table>
+ </div>
+ 
+ <div id="wn" hidden="true">
+   <table class="table">
+   
+    <thead>
+      <tr class="info">
+        <th>웹소설</th>
+        <th>작성일자</th>
+        <th>카테고리</th>
+         
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr onclick="NoticeDetail.mg" id="detail">
+        <td>전체</td>
+        <td>전체</td>
+        <td>3</td>
+        
+        
+      </tr>      
+     
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        
+      </tr>
+    </tbody>
+  </table>
+ </div>
+ 
+ <div id="Ill" hidden="true">
+   <table class="table">
+   
+    <thead>
+      <tr class="info">
+        <th>일러스트</th>
+        <th>작성일자</th>
+        <th>카테고리</th>
+         
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr onclick="NoticeDetail.mg" id="detail">
+        <td>전체</td>
+        <td>전체</td>
+        <td>3</td>
+        
+        
+      </tr>      
+     
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        
+      </tr>
+    </tbody>
+  </table>
+ </div>
+ 
+ <div id="etc" hidden="true">
+   <table class="table">
+   
+    <thead>
+      <tr class="info">
+        <th>기타</th>
+        <th>작성일자</th>
+        <th>카테고리</th>
+         
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr onclick="NoticeDetail.mg" id="detail">
+        <td>전체</td>
+        <td>전체</td>
+        <td>3</td>
+        
+        
+      </tr>      
+     
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        
+      </tr>
+    </tbody>
+  </table>
+ </div>
 
 				</div>
+				
     </div>
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
@@ -238,5 +413,53 @@ background-color: #fd7b52;
 		location.href="NoticeDetail.mg"
 	})
 	</script>
+	
+	
+	<script>
+	$("#noticeCategory").change(function(){
+		var ctg = $(this).children("option:selected").val();
+		
+		if(ctg == "wt"){
+			$("#wt").attr("hidden", false);
+			$("#all").attr("hidden", true);
+			$("#Ill").attr("hidden", true);
+			$("#etc").attr("hidden", true);
+			$("#wn").attr("hidden", true);
+		}else if(ctg == "wn"){
+			$("#wt").attr("hidden", true);
+			$("#all").attr("hidden", true);
+			$("#Ill").attr("hidden", true);
+			$("#etc").attr("hidden", true);
+			$("#wn").attr("hidden", false);
+
+	
+			
+		}else if(ctg == "Ill"){
+			$("#wt").attr("hidden", true);
+			$("#all").attr("hidden", true);
+			$("#Ill").attr("hidden", false);
+			$("#etc").attr("hidden", true);
+			$("#wn").attr("hidden", true);
+		
+		}else if(ctg == "etc"){
+			$("#wt").attr("hidden", true);
+			$("#all").attr("hidden", true);
+			$("#Ill").attr("hidden", true);
+			$("#etc").attr("hidden", false);
+			$("#wn").attr("hidden", true);
+		}else if(ctg == "all"){
+			$("#wt").attr("hidden", true);
+			$("#all").attr("hidden", false);
+			$("#Ill").attr("hidden", true);
+			$("#etc").attr("hidden", true);
+			$("#wn").attr("hidden", true);
+		}
+		
+		
+		})
+	
+	</script>
+	
+	
 </body>
 </html>

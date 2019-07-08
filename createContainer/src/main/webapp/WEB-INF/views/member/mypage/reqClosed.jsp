@@ -325,18 +325,28 @@ padding:30px;
 	
 	
 	<div class="container">
+	
+	<form action="insertClosed.mg" method="post">
+	
+	<div hidden = true>
+	<input type="text" name="wid" id="wid" value="${ work.wid }">
+	</div>
+	
 	<label style="font-size:30px; margin-left:250px;">휴재 신청</label>
 		<div id="contents">
 		<table style="width:100%; ">
 		<tr>
 		<td colspan=3>
-		<input id="wid" value="dd" style="border:none;">
+		<input id="wTitle" value="${ work.wTitle }" style="border:none;">
 		</td>
 		
 		</tr>
 		<tr>
-		<td ><label>휴재 신청 기간(주 단위)</label></td>
-		<td colspan=2><input id="closedDate" name="closedDate"> </td>
+		<td ><label>휴재 신청 기간</label></td>
+		<td colspan=2>
+		<input type="date" id="startDate" name="startDate">
+		<input type="date" id="closedDate" name="closedDate">
+		</td>
 		</tr>
 		<tr>
 		<td colspan=3><label>휴재 신청 사유</label></td>
@@ -344,7 +354,7 @@ padding:30px;
 		</tr>
 		
 		</table>
-		<textarea style="border:1px solid #ececec; width:100%; height:200px; margin-top:15px; padding:10px;" placeholder="내용을 입력하세요"></textarea>
+		<textarea name="closedReason" style="border:1px solid #ececec; width:100%; height:200px; margin-top:15px; padding:10px;" placeholder="내용을 입력하세요"></textarea>
 		 <label style="color:#cf0404; font-size:10px;">※ 신청한 휴재 기간이 끝나고 이어서 연재를 안할 시, 제재가 있음을 알려드립니다.</label>
 		
 		</div>
@@ -358,7 +368,7 @@ padding:30px;
 		
 		
 		
-		
+		</form>
 	</div>
 	<script>
 	function goWriterRest(){
