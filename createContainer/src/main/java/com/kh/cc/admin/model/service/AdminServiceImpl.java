@@ -268,11 +268,28 @@ public class AdminServiceImpl implements AdminService{
 		return ad.selectApproveTypeList(sqlSession, pi, select1);
 	}
 
-	//승인대기 	
+	//승인대기 	상세 페이지
 	@Override
 	public ArrayList<Approve> selectApproveDetailList(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return ad.selectApproveDetailList(sqlSession, id);
+	}
+
+	//승인 완료 하기
+	@Override
+	public int completeApprove(int approvalCode) {
+		return ad.completeApprove(sqlSession, approvalCode);
+	}
+
+	//프리미엄 작가 수 조회
+	@Override
+	public int getPriMemberListCount() {
+		return ad.getPriMemberListCount(sqlSession);
+	}
+
+	//프리미엄 작가 전체 조회
+	@Override
+	public ArrayList<Member> selectPriMemberList(AdminPageInfo pi) {
+		return ad.selectPriMemberList(sqlSession, pi);
 	}
 
 	

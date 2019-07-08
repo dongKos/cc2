@@ -16,11 +16,12 @@ public class Approve implements java.io.Serializable{
 	private String illTitle;
 	private String changeName;
 	private int fId;
-
-	public Approve() {}
-
+	private String aCategory;
+	
+	public Approve () {}
+	
 	public Approve(int aCode, Date upDate, String status, String workType, int wId, int rId, Date wishDate, int illCode,
-			String userId, String workTitle, String illTitle, String changeName, int fId) {
+			String userId, String workTitle, String illTitle, String changeName, int fId, String aCategory) {
 		super();
 		this.aCode = aCode;
 		this.upDate = upDate;
@@ -35,6 +36,7 @@ public class Approve implements java.io.Serializable{
 		this.illTitle = illTitle;
 		this.changeName = changeName;
 		this.fId = fId;
+		this.aCategory = aCategory;
 	}
 
 	public int getaCode() {
@@ -141,12 +143,21 @@ public class Approve implements java.io.Serializable{
 		this.fId = fId;
 	}
 
+	public String getaCategory() {
+		return aCategory;
+	}
+
+	public void setaCategory(String aCategory) {
+		this.aCategory = aCategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Approve [aCode=" + aCode + ", upDate=" + upDate + ", status=" + status + ", workType=" + workType
 				+ ", wId=" + wId + ", rId=" + rId + ", wishDate=" + wishDate + ", illCode=" + illCode + ", userId="
 				+ userId + ", workTitle=" + workTitle + ", illTitle=" + illTitle + ", changeName=" + changeName
-				+ ", fId=" + fId + "]";
+				+ ", fId=" + fId + ", aCategory=" + aCategory + "]";
 	}
 
+	
 }

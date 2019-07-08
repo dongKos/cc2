@@ -323,7 +323,24 @@ public class AdminController {
 	
 	//통계관리 - 작가통계 페이지
 	@RequestMapping("showStatistic.ad")
-	public String showStatistic() {
+	public String showStatistic(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getPriMemberListCount();
+		
+		System.out.println("프리미엄 회원 전체 수  : " + listCount);
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Member> list = as.selectPriMemberList(pi);
+		System.out.println("list : " + list);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		
 		return "admin/adminStatistic";
 	}
 	
@@ -603,28 +620,34 @@ public class AdminController {
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 	}
 	
-	//작품 관리 페이지 - 승인 대기 상세 판별 
-//	@RequestMapping(value="approveDetailSearch.ad")
-//	public ResponseEntity<Integer> approveDetailSearch(HttpServletRequest request) {
-//		int id = Integer.parseInt(request.getParameter("aCode"));
-//		
-//		System.out.println(id);
-//		return new ResponseEntity<Integer>(id, HttpStatus.OK);
-//	}
-	
+	//작품 관리 페이지 - 승인 대기 내역 상세 보기
 	@RequestMapping(value="approveDetailSearch.ad")
 	public String approveDetailSearch(HttpServletRequest request, Model model) {
 		int id = Integer.parseInt(request.getParameter("aCode"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
 		ArrayList<Approve> list = as.selectApproveDetailList(id);		
+		
+		System.out.println("승인 대기 상세 보기 리스트 : " + list);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
 		
 		return "admin/adminWorkApproveDetail";
 	}
 	
-	//작품 관리 페이지 - 승인 대기 내역 상세 보기
-	@RequestMapping(value="showWorkApproveDetail.ad")
-	public String showWorkApproveDetail() {
-		return "admin/adminWorkApproveDetail";
+	//승인 완료 하기
+	@RequestMapping(value="completeApprove.ad")
+	public ResponseEntity<Integer> completeApprove(String aCode) {
+		int approvalCode = Integer.parseInt(aCode);
+		
+		System.out.println("승인 내역 코드 : " + approvalCode);
+		
+		int result = as.completeApprove(approvalCode);
+		
+		System.out.println("승인 결과  : " + result);
+		
+		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
 	//작품 관리 페이지 - 후원 대기 내역 조회

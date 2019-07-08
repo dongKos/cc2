@@ -341,27 +341,32 @@
           datasets: [
             {
               label: "My First dataset",
-              data: [60, 40],
+              data: [100, 200, 300],
               backgroundColor: [
                 '#00b5e9',
-                '#fa4251'
+                '#fa4251',
+                '#000002'
               ],
               hoverBackgroundColor: [
                 '#00b5e9',
-                '#fa4251'
+                '#fa4251',
+                '#000002'
               ],
               borderWidth: [
-                0, 0
+                0, 0, 0
               ],
               hoverBorderColor: [
                 'transparent',
+                'transparent',
                 'transparent'
+                
               ]
             }
           ],
           labels: [
-            'Products',
-            'Services'
+            'webtoon',
+            'webnovel',
+            'illust'
           ]
         },
         options: {
@@ -693,12 +698,12 @@
       var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
           type: 'line',
           defaultFontFamily: 'Poppins',
           datasets: [{
-            label: "Foods",
-            data: [0, 30, 10, 120, 50, 63, 10],
+            label: "webtoon",
+            data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120],
             backgroundColor: 'transparent',
             borderColor: 'rgba(220,53,69,0.75)',
             borderWidth: 3,
@@ -707,8 +712,8 @@
             pointBorderColor: 'transparent',
             pointBackgroundColor: 'rgba(220,53,69,0.75)',
           }, {
-            label: "Electronics",
-            data: [0, 50, 40, 80, 40, 79, 120],
+            label: "webnovel",
+            data: [120, 110, 100, 90, 80, 70, 60, 50, 40, 30, 20, 10],
             backgroundColor: 'transparent',
             borderColor: 'rgba(40,167,69,0.75)',
             borderWidth: 3,
@@ -716,7 +721,19 @@
             pointRadius: 5,
             pointBorderColor: 'transparent',
             pointBackgroundColor: 'rgba(40,167,69,0.75)',
-          }]
+          },
+          {
+              label: "illust",
+              data: [50, 10, 60, 80, 20, 40, 100, 120, 50, 70, 110, 30],
+              backgroundColor: 'transparent',
+              borderColor: 'rgba(40,187,80,0.75)',
+              borderWidth: 3,
+              pointStyle: 'circle',
+              pointRadius: 5,
+              pointBorderColor: 'transparent',
+              pointBackgroundColor: 'rgba(40,187,80,0.75)',
+            }
+          ]
         },
         options: {
           responsive: true,
@@ -1155,7 +1172,6 @@
   }
 
   try {
-
     // polar chart
     var ctx = document.getElementById("polarChart");
     if (ctx) {
@@ -1279,197 +1295,7 @@
   
   
   })(jQuery);
-(function ($) {
-  // USE STRICT
-  "use strict";
 
-  // Map
-  try {
-
-    var vmap = $('#vmap');
-    if(vmap[0]) {
-      vmap.vectorMap( {
-        map: 'world_en',
-        backgroundColor: null,
-        color: '#ffffff',
-        hoverOpacity: 0.7,
-        selectedColor: '#1de9b6',
-        enableZoom: true,
-        showTooltip: true,
-        values: sample_data,
-        scaleColors: [ '#1de9b6', '#03a9f5'],
-        normalizeFunction: 'polynomial'
-      });
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Europe Map
-  try {
-    
-    var vmap1 = $('#vmap1');
-    if(vmap1[0]) {
-      vmap1.vectorMap( {
-        map: 'europe_en',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        enableZoom: true,
-        showTooltip: true
-      });
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-
-  // USA Map
-  try {
-    
-    var vmap2 = $('#vmap2');
-
-    if(vmap2[0]) {
-      vmap2.vectorMap( {
-        map: 'usa_en',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        enableZoom: true,
-        showTooltip: true,
-        selectedColor: null,
-        hoverColor: null,
-        colors: {
-            mo: '#001BFF',
-            fl: '#001BFF',
-            or: '#001BFF'
-        },
-        onRegionClick: function ( event, code, region ) {
-            event.preventDefault();
-        }
-      });
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Germany Map
-  try {
-    
-    var vmap3 = $('#vmap3');
-    if(vmap3[0]) {
-      vmap3.vectorMap( {
-        map: 'germany_en',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        onRegionClick: function ( element, code, region ) {
-            var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
-
-            alert( message );
-        }
-      });
-    }
-    
-  } catch (error) {
-    console.log(error);
-  }
-  
-  // France Map
-  try {
-    
-    var vmap4 = $('#vmap4');
-    if(vmap4[0]) {
-      vmap4.vectorMap( {
-        map: 'france_fr',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        enableZoom: true,
-        showTooltip: true
-      });
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Russia Map
-  try {
-    var vmap5 = $('#vmap5');
-    if(vmap5[0]) {
-      vmap5.vectorMap( {
-        map: 'russia_en',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        hoverOpacity: 0.7,
-        selectedColor: '#999999',
-        enableZoom: true,
-        showTooltip: true,
-        scaleColors: [ '#C8EEFF', '#006491' ],
-        normalizeFunction: 'polynomial'
-      });
-    }
-
-
-  } catch (error) {
-    console.log(error);
-  }
-  
-  // Brazil Map
-  try {
-    
-    var vmap6 = $('#vmap6');
-    if(vmap6[0]) {
-      vmap6.vectorMap( {
-        map: 'brazil_br',
-        color: '#007BFF',
-        borderColor: '#fff',
-        backgroundColor: '#fff',
-        onRegionClick: function ( element, code, region ) {
-            var message = 'You clicked "' + region + '" which has the code: ' + code.toUpperCase();
-            alert( message );
-        }
-      });
-    }
-
-  } catch (error) {
-    console.log(error);
-  }
-})(jQuery);
-(function ($) {
-  // Use Strict
-  "use strict";
-  try {
-    var progressbarSimple = $('.js-progressbar-simple');
-    progressbarSimple.each(function () {
-      var that = $(this);
-      var executed = false;
-      $(window).on('load', function () {
-
-        that.waypoint(function () {
-          if (!executed) {
-            executed = true;
-            /*progress bar*/
-            that.progressbar({
-              update: function (current_percentage, $this) {
-                $this.find('.js-value').html(current_percentage + '%');
-              }
-            });
-          }
-        }, {
-            offset: 'bottom-in-view'
-          });
-
-      });
-    });
-  } catch (err) {
-    console.log(err);
-  }
-})(jQuery);
 (function ($) {
   // USE STRICT
   "use strict";
@@ -1575,8 +1401,6 @@
       right_sidebar.removeClass("show-sidebar");
 
     });
- 
-
   // Sublist Sidebar
   try {
     var arrow = $('.js-arrow');
@@ -1589,79 +1413,6 @@
         that.parent().find('.js-sub-list').slideToggle("250");
       });
     });
-
-  } catch (error) {
-    console.log(error);
-  }
-
-
-  try {
-    // Hamburger Menu
-    $('.hamburger').on('click', function () {
-      $(this).toggleClass('is-active');
-      $('.navbar-mobile').slideToggle('500');
-    });
-    $('.navbar-mobile__list li.has-dropdown > a').on('click', function () {
-      var dropdown = $(this).siblings('ul.navbar-mobile__dropdown');
-      $(this).toggleClass('active');
-      $(dropdown).slideToggle('500');
-      return false;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-})(jQuery);
-(function ($) {
-  // USE STRICT
-  "use strict";
-
-  // Load more
-  try {
-    var list_load = $('.js-list-load');
-    if (list_load[0]) {
-      list_load.each(function () {
-        var that = $(this);
-        that.find('.js-load-item').hide();
-        var load_btn = that.find('.js-load-btn');
-        load_btn.on('click', function (e) {
-          $(this).text("Loading...").delay(1500).queue(function (next) {
-            $(this).hide();
-            that.find(".js-load-item").fadeToggle("slow", 'swing');
-          });
-          e.preventDefault();
-        });
-      })
-
-    }
-  } catch (error) {
-    console.log(error);
-  }
-
-})(jQuery);
-(function ($) {
-  // USE STRICT
-  "use strict";
-
-  try {
-    
-    $('[data-toggle="tooltip"]').tooltip();
-
-  } catch (error) {
-    console.log(error);
-  }
-
-  // Chatbox
-  try {
-    var inbox_wrap = $('.js-inbox');
-    var message = $('.au-message__item');
-    message.each(function(){
-      var that = $(this);
-
-      that.on('click', function(){
-        $(this).parent().parent().parent().toggleClass('show-chat-box');
-      });
-    });
-    
 
   } catch (error) {
     console.log(error);

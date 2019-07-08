@@ -98,4 +98,12 @@ public interface AdminDao {
 	ArrayList<HashMap<String, Object>> selectApproveTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
 			int select1);
 
+	ArrayList<Approve> selectApproveDetailList(SqlSessionTemplate sqlSession, int id);
+
+	int completeApprove(SqlSessionTemplate sqlSession, int approvalCode);
+
+	int getPriMemberListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Member> selectPriMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
 }
