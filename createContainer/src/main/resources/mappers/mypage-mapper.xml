@@ -105,7 +105,18 @@
       <result property="commentId" column="COMMENT_ID"/>
       <result property="bid" column="BID"/>
    </resultMap>
-	
+	<resultMap id="BoardResultSet" type="com.kh.cc.admin.model.vo.Board">
+		<id column="B_ID" property="bId"/>
+		<result column="USER_ID" property="userId"/>
+		<result column="BOARD_CATEGORY" property="boardCategory"/>
+		<result column="B_COUNT" property="bCount"/>
+		<result column="UPLOAD_DATE" property="uploadDate"/>
+		<result column="UPDATE_DATE" property="updateDate"/>
+		<result column="BCONTENT" property="bContent"/>
+		<result column="BTITLE" property="bTitle"/>
+		<result column="STATUS" property="status"/>
+		<result column="SUB_CATEGORY" property="subCategory"/>
+</resultMap>
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
