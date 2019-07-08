@@ -283,6 +283,11 @@
       		SELECT * FROM COIN
       		WHERE MNO = #{mno} AND COIN_CATEGORY = 2
       	</select>
+      	<!-- 코인사용 내역리스트 -->
+      	<select id="coinUseList" parameterType="int" resultMap="coinResultSet">
+      		SELECT * FROM COIN
+      		WHERE MNO = #{mno} AND COIN_CATEGORY = 1
+      	</select>
       	<!-- 신고내역 -->
       	<select id="showReportPage" parameterType="int" resultMap="reportResultSet">
       		SELECT * FROM REPORT R
@@ -300,8 +305,14 @@
          <select id="showQue" parameterType="String" resultMap="BoardResultSet">
          SELECT * FROM BOARD
          WHERE USER_ID = #{userId} AND BOARD_CATEGORY = 'OTO'
+         ORDER BY UPLOAD_DATE DESC
          
          </select>
+         <!-- 휴재신청insert -->
+         <insert id="insertClosed" parameterType="Closed">
+         INSERT INTO CLOSED
+         VALUES (CLOS_SEQ.NEXTVAL, #{wid} , #{startDate} , #{closedDate} , SYSDATE , #{closedReason}, 'N')
+         </insert>
       	
 </mapper>
 

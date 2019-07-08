@@ -18,6 +18,7 @@ import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
+import com.kh.cc.mypage.model.vo.Closed;
 
 @Repository
 public class MypgDaoImpl implements MypgDao{
@@ -91,6 +92,11 @@ public class MypgDaoImpl implements MypgDao{
     @Override
     public ArrayList coinChargeList(SqlSessionTemplate sqlSession, int mno) {
     	return (ArrayList) sqlSession.selectList("Mypage.coinChargeList", mno);
+    }
+//코인 사용 리스트
+    @Override
+    public ArrayList coinUseList(SqlSessionTemplate sqlSession, int mno) {
+    	return (ArrayList) sqlSession.selectList("Mypage.coinUseList", mno);
     }
     //신고내역
     @Override
@@ -221,10 +227,16 @@ public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
  }
  
  
- //내 문의내역
- @Override
- public ArrayList<Board> showQue(SqlSessionTemplate sqlSession, String userId) {
-    ArrayList list = (ArrayList) sqlSession.selectList("Mypage.showQue", userId);
-    return list;
- }
+	 //내 문의내역
+	 @Override
+	 public ArrayList<Board> showQue(SqlSessionTemplate sqlSession, String userId) {
+	    ArrayList list = (ArrayList) sqlSession.selectList("Mypage.showQue", userId);
+	    return list;
+	 }
+	//휴재신청insert
+	@Override
+	public int insertClosed(SqlSessionTemplate sqlSession, Closed c) {
+	  System.out.println("c : " + c);
+	  return sqlSession.insert("Mypage.insertClosed", c);
+	}
 }
