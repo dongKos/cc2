@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="col-sm-8 newchallengeList">
+	<div class=" newchallengeList">
 		<div class="col-sm-10 "><p class="challengeMenu">신규 프리미엄 작품</p></div>
 		<div class="col-sm-2 "><div id="newPagingArea"></div>
 		

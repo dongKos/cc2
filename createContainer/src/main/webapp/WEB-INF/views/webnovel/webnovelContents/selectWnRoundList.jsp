@@ -441,11 +441,11 @@ input[type=checkbox]:checked + label:before{
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
 									<button class="wnrBtn" type="button" onclick="location.href='insertWnRoundForm.wn?wid=' + ${wn.wid} + '&gradeType=' + ${wn.gradeType }">신규 회차 등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='selectWnUpdateOne.wn?wid=' + ${wn.wid} + '&gradeType=' + ${wn.gradeType }">작품 정보 수정</button>
-									<button class="wnrBtn" type="button">휴재 신청</button>
+									 <button class="wnrBtn" type="button" onclick="location.href='reqDormant.mg?wid=' + ${wn.wid}">휴재 신청</button>
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType='+ ${wn.gradeType}  +'&currentPage='+${pi.listCount}">첫회보기</button>
-									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=' + ${wn.gradeType}  +'&currentPage='+${pi.startPage}">최신화보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType='+ ${wn.gradeType}  +'&currentPage='+${pi.listCount} +'&rid=0'">첫회보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='selectDetailedWebnovel.wn?wid=' + ${wn.wid}+'&gradeType=' + ${wn.gradeType}  +'&currentPage='+${pi.startPage}+'&rid=0'">최신화보기</button>
 									<c:if test="${sessionScope.loginUser.userId == wn.userId}">
 									</c:if>
 									<c:if test="${sessionScope.loginUser.userId != wn.userId}">
@@ -571,84 +571,12 @@ input[type=checkbox]:checked + label:before{
 			<div class="col-sm-10 wnrArea">
 				<!-- 자신이 올린 작품일 경우 -->
 				<c:if test="${ wn.gradeType==1}">
-				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
-				<c:forEach var="wnr" items="${ list }" varStatus="status" begin="${free2}" end="9">
-					<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
-						<table class="wnrTable">
-							<tr>
-								<td rowspan="3" class="wnrImg">
-									<div class="subImg">
-									<c:if test="${ workStatus eq 'COMP'}">
-										<div class="wnrStatus">완결</div>
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-									</c:if>
-									<c:if test="${ workStatus eq 'RUN'}">
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-									</c:if>
-									</div>
-								</td>
-								<td colspan="2" class="wnrContent"></td>
-							</tr>
-							<tr>
-								<td class="wnrContent">
-									<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
-								</td>
-								<td class="wnrBtnArea">
-									<input type="hidden" value="${ wnr.rid }">
-									<input type="hidden" value="${ wnr.wid }">
-									<input type="hidden" value="${currentPage}">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="wnrContent">
-									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-									${ wnr.ruploadDate }
-								</td>
-							</tr>
-						</table>
-						
-					</c:forEach>
-					</c:if>
+				<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+					
 					<c:if test="${ pi.maxPage == pi.currentPage}">
 						
-						<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2}">
-						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
-						<table class="wnrTable">
-							<tr>
-								<td rowspan="3" class="wnrImg">
-									<div class="subImg">
-									<c:if test="${ workStatus eq 'COMP'}">
-										<div class="wnrStatus">완결</div>
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-									</c:if>
-									<c:if test="${ workStatus eq 'RUN'}">
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
-									</c:if>
-									</div>
-								</td>
-								<td colspan="2" class="wnrContent"></td>
-							</tr>
-							<tr>
-								<td class="wnrContent">
-									<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
-								</td>
-								<td class="wnrBtnArea">
-									<input type="hidden" value="${ wnr.rid }">
-									<input type="hidden" value="${ wnr.wid }">
-									<input type="hidden" value="${currentPage}">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="wnrContent">
-									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-									${ wnr.ruploadDate }
-								</td>
-							</tr>
-						</table>
-						
-					</c:forEach>
 				</c:if>
-				
+				</c:if>
 				
 				
 				<c:if test="${sessionScope.loginUser.userId == wn.userId}">
@@ -773,7 +701,7 @@ input[type=checkbox]:checked + label:before{
 					</c:forEach>
 				</div>
 				</c:if>
-				
+				</c:if>
 				
 				
 			
@@ -1009,6 +937,7 @@ input[type=checkbox]:checked + label:before{
 					</div>
 				</div>
 				</c:if>
+				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 				<div class="col-sm-4">
 					<!-- 베스트 도전 작품 -->
 					<h4 align="center">베스트 도전 작품</h4>
@@ -1016,6 +945,7 @@ input[type=checkbox]:checked + label:before{
 									
 					</div>
 				</div>
+				</c:if>
 				<script>
 					$(document).ready(function(){
 						
@@ -1030,7 +960,8 @@ input[type=checkbox]:checked + label:before{
 							}
 						});
 						
-						var gradeType = ${ wn.gradeType };
+						var gradeType = ${ gradeType1 };
+						console.log(gradeType);
 						$.ajax({
 							url:"selectBestWnList.wn",
 							type:"get",
@@ -1096,7 +1027,7 @@ input[type=checkbox]:checked + label:before{
 					});
 				
 				</script>
-				</c:if>
+				
 			</div>
 			<div class="col-sm-1"></div>
 		</div>
@@ -1175,6 +1106,15 @@ input[type=checkbox]:checked + label:before{
 				location.href = "selectWnrUpdateForm.wn?rid=" + rid + "&gradeType=" + ${ wn.gradeType };
 			});
 			
+			$('.wnrListArea').find('.wnrTitleArea').click(function(){
+				var rid = $(this).parents().parents().children().children("input").eq(0).val();
+				var wid = $(this).parents().parents().children().children("input").eq(1).val();
+				var currentPage = $(this).parents().parents().children().children("input").eq(2).val();
+				console.log(rid);
+				console.log(wid);
+				console.log(currentPage);
+				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid+"&gradeType="+ ${ wn.gradeType } +"&currentPage=" + currentPage;
+			});
 			$('.wnrListArea').find('.wnrTitleAreaFree').click(function(){
 				var rid = $(this).parents().parents().children().children("input").eq(0).val();
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
@@ -1261,6 +1201,6 @@ input[type=checkbox]:checked + label:before{
 
 	</script>
 	
-	
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
 </html>

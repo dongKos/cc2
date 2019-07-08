@@ -211,7 +211,20 @@
 	</select>
 	<!-- 회차 목록 리스트 -->
 	<select id="selectWnRoundList" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
-		SELECT WR.RID, WR.RTITLE, WR.VCOUNT, WR.RUPLOAD_DATE, WR.APPROVAL_CODE, WR.WID, WR.RCONTENT, WR.WR_COMMENT, A.CHANGE_NAME, W.GRADE_TYPE
+		SELECT WR.WID, WR.RID, WR.RTITLE, WR.VCOUNT, WR.RUPLOAD_DATE, WR.APPROVAL_CODE, WR.WID, WR.RCONTENT, WR.WR_COMMENT, A.CHANGE_NAME, W.GRADE_TYPE, C.RID AS CRID, C.MNO                                                                                                                                                                      
+		FROM WORK_ROUND WR
+		LEFT JOIN COIN C ON(WR.RID = C.RID)
+		LEFT JOIN WORK W ON(W.WID = WR.WID)
+		LEFT JOIN MEMBER M ON(M.MNO = C.MNO)
+		LEFT JOIN ATTACHMENT A ON(A.RID = WR.RID)
+		WHERE A.ATTACHMENT_CATEGORY = 'sub'
+		AND WR.WID = #{wid}
+		AND W.GRADE_TYPE = #{gradeType}
+		AND C.MNO IS NULL OR( C.MNO = #{mno})
+		ORDER BY WR.RUPLOAD_DATE DESC
+	</select>
+	<select id="selectWnRoundListAll" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
+		SELECT WR.WID, WR.RID, WR.RTITLE, WR.VCOUNT, WR.RUPLOAD_DATE, WR.APPROVAL_CODE, WR.WID, WR.RCONTENT, WR.WR_COMMENT, A.CHANGE_NAME, W.GRADE_TYPE                                                                                                                                                       
 		FROM WORK_ROUND WR
 		LEFT JOIN WORK W ON(W.WID = WR.WID)
 		LEFT JOIN ATTACHMENT A ON(A.RID = WR.RID)
@@ -481,6 +494,12 @@
 		JOIN COIN C ON(WR.RID = C.RID)
 		WHERE C.MNO = #{mno}
 		AND WR.RID = #{rid}
+	</select>
+	<select id="selectCheckwRound" parameterType="WebnovelRound" resultType="_int">
+		SELECT COUNT(*)
+		FROM COIN C
+		JOIN MEMBER M ON(C.MNO = M.MNO)
+		WHERE C.MNO = #{mno}
 	</select>
 </mapper>
 

@@ -352,11 +352,10 @@
 										<c:param name="rid" value="${ list[0].rid }"/>
 										<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 									</c:url>
-									<br>
-									<h2>${pi}</h2>
+									<%--<h2>${pi}</h2>
 									<h1>${ (pi.listCount - pi.currentPage) + 1 }</h1>
 									<h1>${ ((pi.listCount - pi.currentPage) + 1) == 10 }</h1>
-									<h1>${ checkWnr.mno }fdsafsdaA</h1>
+									<h1>${ checkWnr.mno }fdsafsdaA</h1> --%>
 									<button class="pageBtn" type="button" onclick="location.href='${ wnrListEnd }'"><</button>
 								</c:if>
 								&nbsp;&nbsp;${ wnr.rTitle }
@@ -1015,6 +1014,6 @@
 	</script>
 	
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
 </html>

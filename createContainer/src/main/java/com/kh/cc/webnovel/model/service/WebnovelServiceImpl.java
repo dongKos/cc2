@@ -100,7 +100,16 @@ public class WebnovelServiceImpl implements WebnovelService{
 	//웹소설 회차 목록 리스트
 	@Override
 	public ArrayList<WebnovelRound> selectWnRoundList(WebnovelPageInfo pi, WebnovelRound wnr) {
-		return wd.selectWnRoundList(sqlSession, pi, wnr);
+		ArrayList<WebnovelRound> list = null;
+		
+		int result = wd.selectCheckwRound(sqlSession, wnr);
+		if(result > 0) {
+			list = wd.selectWnRoundList(sqlSession, pi, wnr);
+		}else {
+			list = wd.selectWnRoundListAll(sqlSession, pi, wnr);
+		}
+		System.out.println(result + "fsdafds");
+		return list;
 	}
 	//웹소설 회차, 사진 정보
 	@Override

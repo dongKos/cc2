@@ -231,17 +231,21 @@ public class WebnovelController {
 		return "webnovel/updateWebnovel/updateWebnovel";
 	}
 	
-	//웹소설 회차 리스트 이동WORK_ROUND
+	//웹소설 회차 리스트 이동
 	@RequestMapping("selectWnRoundList.wn")
 	public String selectWnRoundList(Member m, WebnovelAttention wa, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
 		
+		wnr.setMno(m.getMno());
 		wnr.setWid(wid);
 		wnr.setGradeType(gradeType);
+		
+		System.out.println(wnr);
 		int buttonCount = 10;
 		int limit = 10;
 		int currentPage = 1;
@@ -271,6 +275,7 @@ public class WebnovelController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("wn", wn);
 		model.addAttribute("wa", wa);
+		model.addAttribute("gradeType1", gradeType);
 		
 		return "webnovel/webnovelContents/selectWnRoundList";
 	}
@@ -662,12 +667,12 @@ public class WebnovelController {
 		wn.setGradeType(gradeType);
 		
 		int buttonCount = 5;
-		int limit = 6;
+		int limit = 8;
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int listCount = 18;
+		int listCount = 24;
 		
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
