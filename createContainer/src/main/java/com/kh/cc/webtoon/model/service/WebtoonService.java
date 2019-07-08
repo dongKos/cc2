@@ -44,9 +44,9 @@ public interface WebtoonService {
 
 	Webtoon content1(int wid);
 
-	ArrayList<Webtoon> genreList (WebtoonPageInfo pi, String genre);
+	ArrayList<Webtoon> genreList (WebtoonPageInfo pi, Webtoon wt);
 
-	int selectListCount(String genre);
+	int genreListCount(Webtoon wt);
 
 	int updateComp(Webtoon wt3);
 
@@ -55,6 +55,17 @@ public interface WebtoonService {
 	int completeListCount(Webtoon wt);
 
 	ArrayList<Webtoon> completeWtList(WebtoonPageInfo pi, Webtoon wt);
+
+	ArrayList<Webtoon> monList();
+	ArrayList<Webtoon> tuesList();
+	ArrayList<Webtoon> wedList();
+	ArrayList<Webtoon> thurList();
+	ArrayList<Webtoon> friList();
+	ArrayList<Webtoon> satList();
+	ArrayList<Webtoon> sunList();
+
+	ArrayList<Webtoon> newList();
+
 
 
 

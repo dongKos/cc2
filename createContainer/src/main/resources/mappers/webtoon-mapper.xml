@@ -220,6 +220,7 @@
 		FROM WORK
 		WHERE GENRE = #{genre}
 		AND WORK_TYPE = 'WT'
+        AND WORK_STATUS = 'RUN'
 	</select>
 	
 	<update id="updateComp">
@@ -235,10 +236,10 @@
 	</update>
 
 
-	<select id="completeListCount">
+	<select id="completeListCount" resultType="_int">
 		SELECT COUNT(*)
 		FROM WORK
-		WHERE WORK_STATUS = 'COMP'
+		WHERE WORK_STATUS = #{workStatus}
 	</select>
 
 	<select id="completeList" resultMap="webtoonResultSet">
@@ -248,6 +249,76 @@
 		WHERE W.WORK_STATUS = 'COMP'
 		AND ATTACHMENT_CATEGORY = 'ma'
 	</select>
+	
+	
+	
+	<!-- 요일별 조회 리스트 -->
+	<select id="monList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'MON'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="tuesList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'TUES'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="wedList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'WED'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="thurList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'THUR'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="friList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'FRI'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="satList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'SAT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	<select id="sunList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WCYCLE = 'SUN'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.WORK_STATUS != 'COMP'
+	</select>
+	
+	
+	
 </mapper>
 
 

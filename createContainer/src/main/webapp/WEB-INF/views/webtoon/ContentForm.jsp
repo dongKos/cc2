@@ -66,9 +66,11 @@
 .contentTd {
 	width: 50%;
 }
+.introImg{
 
-
-
+	width: 30%;
+    height: 162px;
+}
 .workImg {
 	width: 10%;
 	border-right: 1px solid lightgray;
@@ -85,7 +87,11 @@
 	height: 100%;
 }
 
-
+.mainThumbnail{
+	width:200%;
+	margin-left:85%;
+	margin-top:-13%;
+}
 
 
 .wnrBtn{
@@ -107,9 +113,11 @@
 .starPoitn{
 	text-align: left;
 }
-.introImg{
-	width:45%;
+
+.content{
+	width:90%;
 }
+
 </style>
 </head>
 <body>
@@ -137,7 +145,7 @@
 								<%-- <c:set var="workStatus" value="${ wt.workStatus }" />
 								<c:if test="${ workStatus eq 'COMPLTE'}"> --%>
 								<div class="introImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
+									<img class="mainThumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 								</div>
 							
 							</td>
@@ -151,7 +159,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2">
+							<td class="attention" colspan="2">
 								<button class="wnrBtn" type="button">관심웹툰</button>
 								<button class="wnrBtn" type="button">첫화보기</button>
 								<button class="wnrBtn" type="button">작가의 다른 작품 보기</button>
@@ -165,7 +173,7 @@
 				</div>
 				<hr>
 				<div class="contentArea">
-					<img src="${ contextPath }/resources/uploadFiles/webtoonContent/${ wr.changeName }">
+					<img class="content" src="${ contextPath }/resources/uploadFiles/webtoonContent/${ wr.changeName }">
 				</div>
 				<hr>
 				<br> <br>

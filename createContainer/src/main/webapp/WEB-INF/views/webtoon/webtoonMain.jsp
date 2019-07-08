@@ -125,35 +125,20 @@ footer {
 			<h4>장르별 추천</h4>
 			<hr>
 			<jsp:include page="common/genreNavbar.jsp" />
-			<c:forEach var="wtr" items="${ list }">
 			<table id="genreRecommed">
+			<c:forEach var="wtr" items="${list }">
+			<tbody>
 				<tr>
 					<td>
 						<div id="area">
-							<img class="mainThumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
-							<h4>${ wrt.wTitle }</h4>
+							<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+							<h4>${ wtr.wTitle }</h4>
 						</div>
 					</td>
-					<!-- <td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td> -->
 				</tr>
-				<!-- <tr>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-				</tr> -->
-			</table>
+				</tbody>
 			</c:forEach>
+			</table>
 			<hr>
 			<h4>도전 추천웹툰</h4>
 			<jsp:include page="common/genreNavbar.jsp" />

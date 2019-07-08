@@ -22,7 +22,7 @@
 
 /* Set gray background color and 100% height */
 .sidenav {
-	background-color: #f1f1f1;
+	
 	height: 100%;
 }
 
@@ -122,12 +122,12 @@ background-color: red;
 					<div style="display: inline; margin-top: 0px;">
 						<h4>장르별</h4>
 					</div>
-					<div style="display: inline;">
-						<ul id="sideCategory" style="padding-left: 120px;">
-							<li><a href="#">조회수</a></li>
-							<li><a href="#">인기순</a></li>
-							<li><a href="#">별점순</a></li>
-						</ul>
+					<div style="display: inline; float: left;">
+							<select class="selectOption">
+								<option>조회순</option>
+								<option>인기순</option>
+								<option>별점순</option>
+							</select>
 					</div>
 				</div>
 				<hr>

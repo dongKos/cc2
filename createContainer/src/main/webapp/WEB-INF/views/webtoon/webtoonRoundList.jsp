@@ -125,11 +125,12 @@
 	padding-right:30px;
 }
 .wnrArea{
-	background-color:#FBFBFB;
 	padding:0px 20px 50px 20px;
 }
 .introImg{
 	position:relative;
+	width: 30%;
+    height: 162px;
 }
 .wnStatus{ 
 	position:absolute;
@@ -182,6 +183,14 @@
 .modal-footer{
 	text-align:center;
 }
+p{
+    float: left;
+    padding-left: 15%;
+}
+.mainThumbnail{
+	width:50%;
+	height:50%;
+}
 </style>
 </head>
 <body>
@@ -203,7 +212,7 @@
 								<%-- <c:set var="workStatus" value="${ wt.workStatus }" />
 								<c:if test="${ workStatus eq 'COMPLTE'}"> --%>
 								<div class="introImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
+									<img class="mainThumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wt.changeName }">
 								</div>
 							<%-- 	</c:if>
 								<c:if test="${ workStatus eq 'CLOSE'}">

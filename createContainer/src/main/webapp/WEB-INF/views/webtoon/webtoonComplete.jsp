@@ -22,7 +22,7 @@
 
 /* Set gray background color and 100% height */
 .sidenav {
-	background-color: #f1f1f1;
+	/* background-color: #f1f1f1; */
 	height: 100%;
 }
 
@@ -46,16 +46,6 @@ footer {
 
 table td {
 	padding-left: 6px;
-}
-
-#sideCategory {
-	list-style: none;
-	display: inline;
-}
-
-#sideCategory li {
-	display: inline-block;
-	padding-left: 90px;
 }
 
 
@@ -90,10 +80,9 @@ table td {
 	display: inline;
 }
 #area {
-	background-color: red;
+	
 	width: 150px;
 	height: 120px;
-	margin-right: 10px;
 	margin-top: 10px;
 	margin-bottom:10px;
 	
@@ -104,10 +93,28 @@ background-color: red;
 	height: 150px;
 	margin: 0 auto;
 }
+.thumbnail{
+	width:90%;
+	height:100%;
+	margin: 0 auto;
+}
+.selectOption{
+	margin-left:25%;
+	margin-top:15%;
+}
+.webtoonArea{
+	width:100%;
+	height: 100%;
+}
+.whole{
+	width:100%;
+	table-layout:fixed;
+}
+
 </style>
 </head>
 <body style="margin-top: 3.5%;">
-
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application" />
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
@@ -118,44 +125,37 @@ background-color: red;
 		<div class="row">
 			<div class="col-sm-2"></div>
 			<div class="col-sm-6 content">
-				<div id="middleTopCategory">
-					<div style="display: inline; margin-top: 0px;">
+				<div id="middleTopCategory" >
+					<div style="display: inline; margin-top: 0px; float:left;">
 						<h4>완결웹툰</h4>
 					</div>
-					<div style="display: inline;">
-						<ul id="sideCategory" style="padding-left: 120px;">
-							<li><a href="#">조회수</a></li>
-							<li><a href="#">인기순</a></li>
-							<li><a href="#">별점순</a></li>
-						</ul>
+					<div style="display: inline; float: left;">
+							<select class="selectOption">
+								<option>조회순</option>
+								<option>인기순</option>
+								<option>별점순</option>
+							</select>
 					</div>
 				</div>
 				<hr>
-				<table id="whole">
-					<tbody>
-						<tr>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-						</tr>
-						<tr>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-						</tr>
-						<tr>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-						</tr>
-						<tr>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-							<td><div id="area"><h4 align="center">test</h4></div></td>
-						</tr>
-						
-					</tbody>
-				</table>
+				<div class="webtoonArea">
+					<table id="whole">
+						<tbody>
+							<tr>
+								<c:forEach var="wtr" items="${list }">
+									<td>
+										<div id="area">
+											<img class="thumbnail"
+												src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+												<input type="hidden" value="${wtr.wid }"/>
+										</div>
+										<p align="center">${wtr.wTitle}</p>
+									</td>
+								</c:forEach>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 
 			<div class="col-sm-2 sidenav">
@@ -189,9 +189,26 @@ background-color: red;
 					<a href="#">만화FAQ</a>
 				</h4>
 			</div>
-
 		</div>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<script>
+		$(function(){
+			var wtr = 
+			
+			$(".compList").append()
+			
+			
+		});
+	</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

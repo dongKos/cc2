@@ -46,6 +46,7 @@ public class WebtoonController {
 	  genrecategory(HttpServletRequest request, HttpSession session, Webtoon wt, Model model) {
 	  
 	  String genre = request.getParameter("genre");
+	  wt.setGenre(genre);
 	  
 	  System.out.println("genre : " + genre);
 	  
@@ -55,19 +56,19 @@ public class WebtoonController {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int listCount = ws.selectListCount(genre);
-		System.out.println("listCount : " + listCount);
+		int listCount = ws.genreListCount(wt);
+		System.out.println("genrelistCount : " + listCount);
 		
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
 		
 	  
-	  ArrayList<Webtoon> list = ws.genreList(pi, genre);
+	  ArrayList<Webtoon> list = ws.genreList(pi, wt);
 	  
 	  System.out.println("pi : " + pi);
 	  System.out.println("장르 list확인 : " + list);
 	  
-	  model.addAttribute("list", list);
 	  model.addAttribute("pi", pi);
+	  model.addAttribute("list", list);
 	  
 	  return "webtoon/webtoonMain";
 	  
@@ -100,13 +101,35 @@ public class WebtoonController {
 
 	// 웹툰 요일별페이지로 이동
 	@RequestMapping(value = "webtoonDaily.wt")
-	public String webtoonDaily() {
+	public String webtoonDaily(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
+		
+		ArrayList<Webtoon> newList = ws.newList();
+		
+		ArrayList<Webtoon> list1 = ws.monList();
+		ArrayList<Webtoon> list2 = ws.tuesList();
+		ArrayList<Webtoon> list3 = ws.wedList();
+		ArrayList<Webtoon> list4 = ws.thurList();
+		ArrayList<Webtoon> list5 = ws.friList();
+		ArrayList<Webtoon> list6 = ws.satList();
+		ArrayList<Webtoon> list7 = ws.sunList();
+		
+		model.addAttribute("list1", list1);
+		model.addAttribute("list2", list2);
+		model.addAttribute("list3", list3);
+		model.addAttribute("list4", list4);
+		model.addAttribute("list5", list5);
+		model.addAttribute("list6", list6);
+		model.addAttribute("list7", list7);
+		
+		
 		return "webtoon/webtoonDaily";
 	}
 
 	// 완결 조회
 	@RequestMapping(value = "webtoonComplete.wt")
 	public String webtoonComplete(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
+		
+		wt.setWorkStatus("COMP");
 		
 		int currentPage = 1;
 		
@@ -118,17 +141,18 @@ public class WebtoonController {
 		
 		System.out.println("완결리스트카운트 : " + listCount);
 		
-		/*
-		 * WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
-		 * 
-		 * ArrayList<Webtoon> list = ws.completeWtList(pi, wt);
-		 * 
-		 * System.out.println("완결작품list : " + list);
-		 * 
-		 * return "webtoon/webtoonComplete";
-		 */
 		
-		return null;
+		  WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		  
+		  ArrayList<Webtoon> list = ws.completeWtList(pi, wt);
+		  
+		  System.out.println("완결작품list : " + list);
+		  
+		  model.addAttribute("pi", pi);
+		  model.addAttribute("list", list);
+		  
+		  return "webtoon/webtoonComplete";
+		
 	}
 
 	// 장르별 조회
@@ -159,7 +183,15 @@ public class WebtoonController {
 	@RequestMapping(value = "webtoonUpload.wt")
 	public String insertWebtoon(HttpServletRequest request, HttpSession session, Member m, Model model) {
 		
+		m = (Member) session.getAttribute("loginUser");
+		
+		if(m == null) {
+			model.addAttribute("msg","로그인이 필요한 서비스입니다");
+			return "common/errorPage";
+		}
+		
 		return "webtoon/webtoonUpload";
+		
 	}
 
 	// 메뉴바에서 눌렀을떄 웹툰 Work등록폼으로 가기
@@ -168,6 +200,11 @@ public class WebtoonController {
 		System.out.println("웹툰 작품등록포 가기전 리스트 셀렉트");
 		
 		m = (Member) session.getAttribute("loginUser");
+		
+		if(m == null) {
+			model.addAttribute("msg","로그인이 필요한 서비스입니다");
+			return "common/errorPage";
+		}
 		
 		int currentPage = 1;
 		
@@ -401,7 +438,6 @@ public class WebtoonController {
 	public String workUpdate(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		m = (Member) session.getAttribute("loginUser");
-		
 		
 		wt = ws.selectWork(wid);
 		System.out.println("수정버튼눌렀을떄wt : " + wt);
