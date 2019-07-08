@@ -5,8 +5,10 @@ import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
+import com.kh.cc.webnovel.model.vo.WebnovelCoin;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
@@ -103,6 +105,16 @@ public interface WebnovelDao {
 	WebnovelReport selectwReportOne(SqlSessionTemplate sqlSession, WebnovelReport wReport);
 	//작품 신고 로그인/비로그인, 등록인/미등록인 구분
 	WebnovelReport selectWorkReportOne(SqlSessionTemplate sqlSession, WebnovelReport wReport);
+	//댓글 삭제
+	int deleteReply(SqlSessionTemplate sqlSession, WebnovelReply wReply);
+	//유료작품 구매 -2 CC개
+	int updatePayWallet(SqlSessionTemplate sqlSession, int mno);
+	//코인 내역 입력
+	int insertCoin(SqlSessionTemplate sqlSession, WebnovelCoin wc);
+	//재로그인용
+	Member selectMember(SqlSessionTemplate sqlSession, Member m);
+	//상세보기 페이징 유료작품 구분
+	WebnovelRound selectCheckWnr(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	
 	
 }

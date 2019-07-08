@@ -37,8 +37,8 @@
 	    border-bottom:1px solid #E0E0E0 !important;
 	}
 	.navbar-default {
-    border: none;
-}
+    	border: none;
+	}
 	.navbar-toggle{
 		margin-top:13px;
 	}
@@ -81,6 +81,16 @@
 				</c:if>
 				<!-- 로그인 활성화 상태 -->
 				<c:if test="${ !empty sessionScope.loginUser }">
+					<li>
+						<a href="${ contextPath }/mypgCreditCharge.mg">
+							<img src="${ contextPath }/resources/images/icon/coin.png" width="20px;">
+							&nbsp;&nbsp;<c:out value="${sessionScope.loginUser.wallet}"/>&nbsp;&nbsp; CC
+						</a>
+					</li>
+					<li>
+						<a href="${ contextPath }/writerMain.mg">작가 페이지
+						</a>
+					</li>
 					<li>
 						<a href="mypgMain.mg">
 							<c:out value="${ sessionScope.loginUser.userName }님 "/>

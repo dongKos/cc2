@@ -1,3 +1,4 @@
+	
 package com.kh.cc.webnovel.controller;
 
 import java.io.File;
@@ -16,15 +17,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
+import com.kh.cc.member.model.exception.LoginException;
+import com.kh.cc.member.model.service.MemberService;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
+import com.kh.cc.webnovel.model.vo.WebnovelCoin;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
@@ -37,6 +42,8 @@ public class WebnovelController {
 	
 	@Autowired
 	private WebnovelService ws;
+	@Autowired
+	private MemberService ms;
 	
 	//웹소설 등록insertNovel.wn
 	@RequestMapping(value="insertNovel.wn")
@@ -199,6 +206,7 @@ public class WebnovelController {
 		ArrayList<Webnovel> list = ws.selectWnList(pi, wn);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("gradeType", gradeType);
 		
 		return "webnovel/webnovelContents/selectWebnovelList";
 	}
@@ -408,10 +416,12 @@ public class WebnovelController {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		int rid = Integer.parseInt(request.getParameter("rid"));
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
 		wn = ws.selectWnOne(wn);
 		wnr.setWid(wid);
+		wnr.setMno(m.getMno());
 		int buttonCount = 0;
 		int limit = 1;
 		int currentPage = 1;
@@ -428,11 +438,15 @@ public class WebnovelController {
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(pi, wnr);
+		
+		WebnovelRound checkWnr = new WebnovelRound();
+		checkWnr = ws.selectCheckWnr(wnr);
+		System.out.println(checkWnr);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		//model.addAttribute("wnr", wnr);
 		model.addAttribute("wn", wn);
-//		model.addAttribute("wnsp", wnsp);
+		model.addAttribute("checkWnr", checkWnr);
 		
 		return "webnovel/webnovelContents/selectDetailedWebnovel";
 		
@@ -717,6 +731,24 @@ public class WebnovelController {
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
+	//댓글 삭제
+	@RequestMapping(value="deleteReply.wn")
+	public void deleteReply(Model model, HttpServletRequest request, HttpServletResponse response, WebnovelReply wReply, HttpSession session, Member m) {
+		int replyId = Integer.parseInt(request.getParameter("replyId"));
+		
+		wReply.setReplyId(replyId);
+		ObjectMapper mapper = new ObjectMapper();
+		
+		int result = ws.deleteReply(wReply);
+		
+		System.out.println("댓글 삭제 성공?? : " + result);
+		try {
+			response.getWriter().print(mapper.writeValueAsString(wReply));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	//회차 신고 등록
 	@RequestMapping(value="insertReport.wn")
@@ -849,6 +881,39 @@ public class WebnovelController {
 		return new ResponseEntity<HashMap<String, Object>>(starOk,HttpStatus.OK);
 	}
 	
+	//유료작품 구매 -2 CC개
+	@RequestMapping(value="updatePayWallet.wn")
+	public String updatePayWallet(Model model, SessionStatus status, HttpServletRequest request, Member m, HttpSession session, WebnovelCoin wc) {
+		m = (Member) session.getAttribute("loginUser");
+		
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		System.out.println("mno : " + mno);
+		System.out.println("wid : " + wid);
+		System.out.println("gradeType : " + gradeType);
+		System.out.println("currentPage : " + currentPage);
+		System.out.println("rid : " + rid);
+		wc.setMno(mno);
+		wc.setRid(rid);
+		int result = ws.updatePayWallet(mno, wc);
+		
+		String userId = m.getUserId();
+		String password = m.getUserPwd();
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			m.setUserId(userId);
+			m.setUserPwd(password);
+			Member loginUser = ws.loginMember(m);
+			session.setAttribute("loginUser", loginUser);
+		}
+		
+		//http://127.0.0.1:8001/cc/selectDetailedWebnovel.wn?wid=11003&rid=58&gradeType=2&currentPage=19
+		return "redirect:selectDetailedWebnovel.wn?wid=" + wid +"&rid="+rid+ "&gradeType=" + gradeType + "&currentPage="+currentPage;
+	}
+	
 	
 	//웹소설 메인홈 이동 
 	@RequestMapping("webnovelMain.wn")
@@ -875,6 +940,5 @@ public class WebnovelController {
 	public String cancelWebnovel() {
 		return "webnovel/webnovelContents/selectWebnovelList";
 	}
-	
 	
 }

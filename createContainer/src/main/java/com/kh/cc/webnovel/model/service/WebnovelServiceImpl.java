@@ -7,9 +7,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.dao.WebnovelDao;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
+import com.kh.cc.webnovel.model.vo.WebnovelCoin;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
 import com.kh.cc.webnovel.model.vo.WebnovelReply;
@@ -295,6 +297,38 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public WebnovelReport selectWorkReportOne(WebnovelReport wReport) {
 		return  wd.selectWorkReportOne(sqlSession, wReport);
+	}
+	//댓글 삭제
+	@Override
+	public int deleteReply(WebnovelReply wReply) {
+		return  wd.deleteReply(sqlSession, wReply);
+	}
+	//유료작품 구매 -2 CC개
+	@Override
+	public int updatePayWallet(int mno, WebnovelCoin wc) {
+		int result = 0;
+		int result1 = wd.updatePayWallet(sqlSession, mno);
+		System.out.println(result1);
+		int result2 = wd.insertCoin(sqlSession, wc);
+		System.out.println(result2);
+		if(result1 > 0 && result2 > 0) {
+			result = 1;
+		}else {
+			result = 0 ;
+		}
+		
+		return result;
+	}
+	//재로그인용 
+	@Override
+	public Member loginMember(Member m) {
+		Member loginUser = wd.selectMember(sqlSession, m);
+		return loginUser;
+	}
+	//상세보기 페이징 유료작품 구분
+	@Override
+	public WebnovelRound selectCheckWnr(WebnovelRound wnr) {
+		return  wd.selectCheckWnr(sqlSession, wnr);
 	}
 	
 	

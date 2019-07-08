@@ -11,6 +11,43 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
+input[type=checkbox]{
+	display:none;
+}
+input[type=checkbox] + label{
+	display:inline-block;
+	cursor:poonter;
+	position:relative;
+	padding-left:25px;
+	margin-right:18px;
+	font-size:13px;
+}
+input[type=checkbox]+label:before{
+	content:"";
+	display:inline-block;
+	
+	border:1px solid lightgray;
+	
+	width:16px;
+	height:16px;
+	
+	margin-right:10px;
+	position:absolute;
+	left:0;
+	bottom:1px;
+	background-color:white;
+	border-radius:2px;
+}
+input[type=checkbox]:checked + label:before{
+	content: "\2713";
+	text-shadow:1px 1px 1px rgba(0,0,0,.2);
+	font-size:14px;
+	font-weight:800;
+	color:white;
+	background:skyblue;
+	text-align:center;
+	line-height:18px;
+}
 .introArea{
 	margin-top:30px;
 	border:1px solid lightgray;
@@ -135,6 +172,17 @@
 	font-weight:bold;
 	cursor:pointer;
 }
+.payBtn{
+	width:100px;
+	height:25px;
+	border-radius:8px 8px 8px 8px;
+	background-color:white;
+	color:skyblue;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
 .wnrBtnArea{
 	text-align:right;
 	padding-right:30px;
@@ -179,7 +227,12 @@
 	opacity: 0.5;
 	color:red;
 }
-.wnrTitleArea{
+.wnrTitleAreaFree{
+	width:200px;
+	line-height:40px;
+	cursor:pointer;
+}
+.wnrTitleAreaPay{
 	width:200px;
 	line-height:40px;
 	cursor:pointer;
@@ -262,7 +315,7 @@
 	font-size:8px;
 }
 .modal{
-	margin-top:40%;
+	margin-top:10%;
 	text-align:center;
 }
 .modal-footer{
@@ -517,6 +570,87 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10 wnrArea">
 				<!-- 자신이 올린 작품일 경우 -->
+				<c:if test="${ wn.gradeType==1}">
+				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+				<c:forEach var="wnr" items="${ list }" varStatus="status" begin="${free2}" end="9">
+					<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'COMP'}">
+										<div class="wnrStatus">완결</div>
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'RUN'}">
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${currentPage}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+						
+					</c:forEach>
+					</c:if>
+					<c:if test="${ pi.maxPage == pi.currentPage}">
+						
+						<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2}">
+						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'COMP'}">
+										<div class="wnrStatus">완결</div>
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'RUN'}">
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${currentPage}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+						
+					</c:forEach>
+				</c:if>
+				
+				
+				
 				<c:if test="${sessionScope.loginUser.userId == wn.userId}">
 				<div class="wnrListArea">
 					<c:forEach var="wnr" items="${ list }" varStatus="status">
@@ -537,7 +671,69 @@
 							</tr>
 							<tr>
 								<td class="wnrContent">
-									<h1>${status.end}</h1>
+									<p class="wnrTitleArea">${ wnr.rTitle }</p>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${status.index + 1}">
+									<button class="wnUpdateBtn" name="wnUpdateBtn">회차 정보 수정</button><br><br>
+									<button class="wnDeleteBtn" name="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+						<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">작품 삭제</h4>
+									</div>
+									<div class="modal-body">
+										<p>정말로 삭제 하시겠습니까?<br><br>삭제하시면 복구가 불가능합니다.</p>
+									</div>
+									<div class="modal-footer">
+										<input type="hidden" class="wid" value="${ wnr.rid }">
+										<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+										<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</c:forEach>
+				</div>
+				</c:if>
+				
+				
+				</c:if>
+				<c:if test="${ wn.gradeType==2}">
+				<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+				<div class="wnrListArea">
+					<c:forEach var="wnr" items="${ list }" varStatus="status">
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'COMP'}">
+										<div class="wnrStatus">완결</div>
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'RUN'}">
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
 									<p class="wnrTitleArea">${ wnr.rTitle }</p>
 								</td>
 								<td class="wnrBtnArea">
@@ -581,23 +777,28 @@
 				
 				
 			
-			
-			
+				<c:set var="free" value="${pi.limit * pi.maxPage - pi.listCount}" />
+				<c:set var="free2" value="${pi.limit - (pi.limit * pi.maxPage - pi.listCount)}" />
 				<!-- 자신의 작품이 아닌경우 -->
+				
 				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 				<div class="col-sm-8">
 					<div class="wnrListArea">
+						<c:if test="${pi.currentPage < (pi.maxPage-1)}">
 						<c:forEach var="wnr" items="${ list }" varStatus="status">
+						
+						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+						<c:set var="mno" value="${sessionScope.loginUser.mno}" />
 						<table class="wnrTable">
 							<tr>
 								<td rowspan="3" class="wnrImg">
 									<div class="subImg">
 									<c:if test="${ workStatus eq 'COMP'}">
 										<div class="wnrStatus">완결</div>
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										<img class="wnrTitleArea" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
 									<c:if test="${ workStatus eq 'RUN'}">
-										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										<img class="wnrTitleArea" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
 									</c:if>
 									</div>
 								</td>
@@ -605,12 +806,45 @@
 							</tr>
 							<tr>
 								<td class="wnrContent">
-									<p class="wnrTitleArea">${ wnr.rTitle }</p>
+									<c:if test="${ empty sessionScope.loginUser }">
+									<p class="wnrTitleAreaPay" onclick="nologin()">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									<c:if test="${ wnr.mno != sessionScope.loginUser.mno}">
+									<c:if test="${ sessionScope.loginUser.wallet <= 1 }">
+										<p class="wnrTitleAreaPay" onclick="noCoin()">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									<c:if test="${ sessionScope.loginUser.wallet >= 2 }">
+										<p class="wnrTitleAreaPay" data-toggle="modal" data-target="#myModal<c:out value="5${status.index}" />">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									</c:if>
+									<c:if test="${ wnr.mno == sessionScope.loginUser.mno}">
+									<p class="wnrTitleAreaPay wnrTitleAreaFree" style="color:skyblue;">${ wnr.rTitle } [구매완료]</p>
+									</c:if>
+									<div class="modal fade" id="myModal5<c:out value="${status.index}" />" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">사용 가능 CC : <c:out value="${sessionScope.loginUser.wallet}"/>개</h4>
+												</div>
+												
+												<div class="modal-body">
+													<p style="color:skyblue;">CC 2개로</p><p>${wnr.rTitle}를 구매합니다</p><br>
+													<input id="payWebnovel<c:out value="${status.index}" />" type="checkbox" name="payWebnovel"><label for="payWebnovel<c:out value="${status.index}" />">구매조건 확인 및 결제진행 동의</label>
+												</div>
+												<div class="modal-footer">
+													<input type="hidden" class="wid" value="${ wnr.rid }">
+													<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+													<button type="button" class="payBtn" name="payBtn" onclick="updatePayWallet(${mno},${wnr.wid},${ wn.gradeType },${currentPage},${wnr.rid})">구매하기</button>
+												</div>
+											</div>
+										</div>
+									</div>
 								</td>
 								<td class="wnrBtnArea">
 									<input type="hidden" value="${ wnr.rid }">
 									<input type="hidden" value="${ wnr.wid }">
-									<input type="hidden" value="${status.index + 1}">
+									<input type="hidden" value="${currentPage}">
 								</td>
 							</tr>
 							<tr>
@@ -620,11 +854,161 @@
 								</td>
 							</tr>
 						</table>
+						</c:forEach>
+						</c:if>
+						<!-- 여기서부터는 유료 -->
+						<c:if test="${ pi.maxPage-1 == pi.currentPage}">
+						<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2-1}">
 						
-					</c:forEach>
+						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+						<c:set var="mno" value="${sessionScope.loginUser.mno}" />
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'COMP'}">
+										<div class="wnrStatus">완결</div>
+										<img class="wnrTitleArea" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'RUN'}">
+										<img class="wnrTitleArea" src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<c:if test="${ wnr.mno != sessionScope.loginUser.mno}">
+									<c:if test="${ empty sessionScope.loginUser }">
+									<p class="wnrTitleAreaPay" onclick="nologin()">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									<c:if test="${ sessionScope.loginUser.wallet <= 1 }">
+										<p class="wnrTitleAreaPay" onclick="noCoin()">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									<c:if test="${ sessionScope.loginUser.wallet >= 2 }">
+										<p class="wnrTitleAreaPay" data-toggle="modal" data-target="#myModal<c:out value="5${status.index}" />">${ wnr.rTitle } [유료]</p>
+									</c:if>
+									</c:if>
+									<c:if test="${ wnr.mno == sessionScope.loginUser.mno}">
+									<p class="wnrTitleAreaPay wnrTitleAreaFree" style="color:skyblue;">${ wnr.rTitle } [구매완료]</p>
+									</c:if>
+									<div class="modal fade" id="myModal5<c:out value="${status.index}" />" role="dialog">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h4 class="modal-title">사용 가능 CC : <c:out value="${sessionScope.loginUser.wallet}"/>개</h4>
+												</div>
+												
+												<div class="modal-body">
+													<p style="color:skyblue;">CC 2개로</p><p>${wnr.rTitle}를 구매합니다</p><br>
+													<input id="payWebnovel<c:out value="${status.index}" />" type="checkbox" name="payWebnovel"><label for="payWebnovel<c:out value="${status.index}" />">구매조건 확인 및 결제진행 동의</label>
+												</div>
+												<div class="modal-footer">
+													<input type="hidden" class="wid" value="${ wnr.rid }">
+													<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+													<button type="button" class="payBtn" name="payBtn" onclick="updatePayWallet(${mno},${wnr.wid},${ wn.gradeType },${currentPage},${wnr.rid})">구매하기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${currentPage}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+						</c:forEach>
+						<!-- 여기까지가 무료작품 -->
+						<c:forEach var="wnr" items="${ list }" varStatus="status" begin="${free2}" end="9">
+						
+						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+							<table class="wnrTable">
+								<tr>
+									<td rowspan="3" class="wnrImg">
+										<div class="subImg">
+										<c:if test="${ workStatus eq 'COMP'}">
+											<div class="wnrStatus">완결</div>
+											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										</c:if>
+										<c:if test="${ workStatus eq 'RUN'}">
+											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										</c:if>
+										</div>
+									</td>
+									<td colspan="2" class="wnrContent"></td>
+								</tr>
+								<tr>
+									<td class="wnrContent">
+										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+									</td>
+									<td class="wnrBtnArea">
+										<input type="hidden" value="${ wnr.rid }">
+										<input type="hidden" value="${ wnr.wid }">
+										<input type="hidden" value="${currentPage}">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="wnrContent">
+										조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+										${ wnr.ruploadDate }
+									</td>
+								</tr>
+							</table>
 							
+						</c:forEach>
+						</c:if>
+						<c:if test="${ pi.maxPage == pi.currentPage}">
+							
+							<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2}">
+							<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+							<table class="wnrTable">
+								<tr>
+									<td rowspan="3" class="wnrImg">
+										<div class="subImg">
+										<c:if test="${ workStatus eq 'COMP'}">
+											<div class="wnrStatus">완결</div>
+											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										</c:if>
+										<c:if test="${ workStatus eq 'RUN'}">
+											<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+										</c:if>
+										</div>
+									</td>
+									<td colspan="2" class="wnrContent"></td>
+								</tr>
+								<tr>
+									<td class="wnrContent">
+										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+									</td>
+									<td class="wnrBtnArea">
+										<input type="hidden" value="${ wnr.rid }">
+										<input type="hidden" value="${ wnr.wid }">
+										<input type="hidden" value="${currentPage}">
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="wnrContent">
+										조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+										${ wnr.ruploadDate }
+									</td>
+								</tr>
+							</table>
+							
+						</c:forEach>
+						</c:if>
 					</div>
 				</div>
+				</c:if>
 				<div class="col-sm-4">
 					<!-- 베스트 도전 작품 -->
 					<h4 align="center">베스트 도전 작품</h4>
@@ -726,6 +1110,7 @@
 				<c:if test="${ pi.currentPage > 1 }">
 					<c:url var="wnrListBack" value="/selectWnRoundList.wn?">
 						<c:param name="wid" value="${ wn.wid }"/>
+						<c:param name="gradeType" value="${ wn.gradeType }"/>
 						<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 					</c:url>
 					<a href="${ wnrListBack }">[이전]</a> &nbsp;
@@ -738,6 +1123,7 @@
 					<c:if test="${ p ne pi.currentPage }">
 						<c:url var="wnrListCheck" value="/selectWnRoundList.wn">
 							<c:param name="wid" value="${ wn.wid }"/>
+							<c:param name="gradeType" value="${ wn.gradeType }"/>
 							<c:param name="currentPage" value="${ p }"/>
 						</c:url>
 						<a href="${ wnrListCheck }">${ p }</a>
@@ -750,6 +1136,7 @@
 				<c:if test="${ pi.currentPage < pi.maxPage }">
 					<c:url var="wnrListEnd" value="/selectWnRoundList.wn">
 						<c:param name="wid" value="${ wn.wid }"/>
+						<c:param name="gradeType" value="${ wn.gradeType }"/>
 						<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 					</c:url>
 					<a href="${ wnrListEnd }">&nbsp;[다음]</a>
@@ -788,13 +1175,22 @@
 				location.href = "selectWnrUpdateForm.wn?rid=" + rid + "&gradeType=" + ${ wn.gradeType };
 			});
 			
-			$('.wnrListArea').find('td').children('p').click(function(){
+			$('.wnrListArea').find('.wnrTitleAreaFree').click(function(){
 				var rid = $(this).parents().parents().children().children("input").eq(0).val();
 				var wid = $(this).parents().parents().children().children("input").eq(1).val();
 				var currentPage = $(this).parents().parents().children().children("input").eq(2).val();
+				console.log(rid);
+				console.log(wid);
+				console.log(currentPage);
 				location.href = "selectDetailedWebnovel.wn?wid=" + wid + "&rid="+ rid+"&gradeType="+ ${ wn.gradeType } +"&currentPage=" + currentPage;
 			});
+			
+			
 		});
+		function updatePayWallet(mno, wid, gradeType, currentPage, rid){
+			console.log(mno);console.log(wid);console.log(gradeType);console.log(currentPage);console.log(rid);
+			location.href = "updatePayWallet.wn?mno=" + mno + "&wid=" + wid + "&gradeType=" + gradeType + "&currentPage="+currentPage+"&rid="+rid;
+		}
 		$(document).ready(function(){
 			var wid = ${ wn.wid};
 			$.ajax({
@@ -844,8 +1240,20 @@
 			});
 			
 		});
+		function noCoin(){
+			var result = window.confirm("CC 부족. 결제 페이지로 이동하시겠습니까?");
+			if(result){
+				location.href='mypgCreditCharge.mg';
+			}
+		}
 		function login(){
 			var result = window.confirm("로그인 후 등록하세요");
+			if(result){
+				location.href='loginForm.me';
+			}
+		}
+		function nologin(){
+			var result = window.confirm("로그인 후 이용하세요");
 			if(result){
 				location.href='loginForm.me';
 			}

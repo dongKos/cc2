@@ -335,6 +335,7 @@
 								<c:url var="wnrmaxPage" value="/selectDetailedWebnovel.wn">
 									<c:param name="wid" value="${ wn.wid }"/>
 									<c:param name="gradeType" value="${wn.gradeType}"/>
+									<c:param name="rid" value="${ list[0].rid }"/>
 									<c:param name="currentPage" value="${ pi.maxPage }"/>
 								</c:url>
 								<button class="firstBtn" type="button" onclick="location.href='${ wnrmaxPage }'">첫화보기</button>
@@ -344,11 +345,18 @@
 									<button class="pageBtn" type="button" ><</button>
 								</c:if>
 								<c:if test="${ pi.currentPage < pi.maxPage }">
+									
 									<c:url var="wnrListEnd" value="/selectDetailedWebnovel.wn">
 										<c:param name="wid" value="${ wn.wid }"/>
 										<c:param name="gradeType" value="${wn.gradeType}"/>
+										<c:param name="rid" value="${ list[0].rid }"/>
 										<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 									</c:url>
+									<br>
+									<h2>${pi}</h2>
+									<h1>${ (pi.listCount - pi.currentPage) + 1 }</h1>
+									<h1>${ ((pi.listCount - pi.currentPage) + 1) == 10 }</h1>
+									<h1>${ checkWnr.mno }fdsafsdaA</h1>
 									<button class="pageBtn" type="button" onclick="location.href='${ wnrListEnd }'"><</button>
 								</c:if>
 								&nbsp;&nbsp;${ wnr.rTitle }
@@ -359,6 +367,7 @@
 									<c:url var="wnrListBack" value="/selectDetailedWebnovel.wn">
 										<c:param name="wid" value="${ wn.wid }"/>${wn.gradeType}
 										<c:param name="gradeType" value="${wn.gradeType}"/>
+										<c:param name="rid" value="${ list[0].rid }"/>
 										<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 									</c:url>
 									<button class="pageBtn" type="button" onclick="location.href='${ wnrListBack }'">></button>
@@ -368,6 +377,7 @@
 								<c:url var="wnrstartPage" value="/selectDetailedWebnovel.wn">
 									<c:param name="wid" value="${ wn.wid }"/>
 									<c:param name="gradeType" value="${wn.gradeType}"/>
+									<c:param name="rid" value="${ list[0].rid }"/>
 									<c:param name="currentPage" value="${ pi.startPage }"/>
 								</c:url>
 								<button class="lastBtn" type="button" onclick="location.href='${ wnrstartPage }'">최신화보기</button>
@@ -733,18 +743,22 @@
 				data:{rid:rid, currentPage:currentPage},
 				success:function(data){
 					for(var i = 0; i < data.list.length; i++){
-						console.log(data.list[i].rid);
 						var replyListArea = $(".replyListArea");
 						var replyList =$('<table class="replyList">');
 						var replyNickname = $('<td class="replyNickname">' + data.list[i].nickname +'<button class="replyReportBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal0'+i+'" name="replyReportBtn">신고하기</button>');
+						var replyNicknameOk = $('<td class="replyNickname">' + data.list[i].nickname +'<button class="replyReportBtn" type="button" name="replyReportBtn">신고완료</button>');
+						var replyNicknameNo = $('<td class="replyNickname">' + data.list[i].nickname + '<button class="replyReportBtn" type="button" onclick="deleteReply('+data.list[i].replyId+')">삭제하기</button>');
 						var replycontents = $('<td class="replycontents">').text(data.list[i].replyContent);
-						var replyReport = $('<td class="replyReport"><button class="replyReportBtn" onclick="">신고하기</button>');
-						var replyReportComp = $('<td class="replyReport"><button class="replyReportBtn">신고완료</button>');
 						var hiddenReplayId = $('<input type="hidden" id="replyId" value="'+data.list[i].replyId+'">')
 						
 						var list = new Array();
-						
-						list[0] = replyNickname;
+						if(${sessionScope.loginUser.userId} == data.list[i].userId){
+							list[0] = replyNicknameNo;
+						}else if(data.list[i].replyId == data.list[i].commentId){
+							list[0] = replyNicknameOk;
+						}else if(data.list[i].commentId == 0){
+							list[0] = replyNickname;
+						}
 						list[1] = replycontents;
 						list[2] = hiddenReplayId;
 						
@@ -784,20 +798,13 @@
 							var reportReason = $(this).parent().parent().find($(".reportText")).val();
 							var replyId = $(this).parent().find($(".replyId")).val();
 							
-							console.log(reportType);
-							console.log(status);
-							console.log(reportCategory);
-							console.log(reportReason);
-							console.log(replyId);
-							
 							$.ajax({
 								url:"insertReplyReport.wn",
 								type:"post",
 								data:{reportType:reportType, reportCategory:reportCategory,
 									  status:status, reportReason:reportReason, replyId:replyId},
 								success:function(data){
-									console.log(data);
-									//location.reload();
+									location.reload();
 								},
 								error:function(status){
 									alert(status);
@@ -867,6 +874,7 @@
 			
 			
 		});
+		
 		
 		function rPaging(currentPage){
 			$.ajax({
@@ -987,7 +995,23 @@
 				location.href='loginForm.me';
 			}
 		}
-		
+		function deleteReply(replyId){
+			$.ajax({
+				url:"deleteReply.wn",
+				type:"post",
+				data:{replyId:replyId},
+				success:function(data){
+					var result = window.confirm("댓글을 삭제하시겠습니까?");
+					if(result){
+						location.reload();
+					}
+					
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+		}
 	</script>
 	
 	
