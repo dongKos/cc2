@@ -94,12 +94,12 @@
 			data:{userId:userId,nickName:nickName,phone:phone,email:email,birthday:birthday},
 			success:function(data) {
 					alert("수정이 완료 되었습니다. 다시 로그인 해 주세요.")
-					location.href = "${ contextPath }/mypgInfoPass.mg";
+					location.href = "${ contextPath }/loginForm.me";
 			}, error:function(data) {
 				alert("수정실패");
 			}
 		})
-	})
+	}) 
 </script>
 <script>
 	$("#birthYear").change(function(){

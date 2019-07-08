@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.kh.cc.admin.model.vo.Board;
+import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.approval.model.vo.Approval;
-import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.dao.MypgDao;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.vo.PaymentCC;
+import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
@@ -75,6 +77,22 @@ public class MypgServiceImpl implements MypgService{
 	public int payComplete(PaymentCC pc) {
 		return md.payComplete(sqlSession, pc);
 	}
+//코인환불신청
+	@Override
+	public int refundReq(Refund refund) {
+		return md.refundReq(sqlSession, refund);
+	}
+	//코인충전리스트
+	@Override
+	public ArrayList coinChargeList(int mno) {
+		return md.coinChargeList(sqlSession, mno);
+	}
+	//신고 내역
+	@Override
+	public ArrayList showReportPage(int mno) {
+		return md.showReportPage(sqlSession, mno);
+	}
+	
 	
 	
 	
@@ -167,10 +185,25 @@ public ArrayList attentionWlArtist(WebnovelPageInfo pi, Member m) {
 public int countProfilePic(WriterProfile mp) {
 	return md.countProfilePic(sqlSession, mp);
 }
+	
 	//후원 insert
-	@Override
-	public int insertSupport(Member m, WriterPhoto mphoto, Support sp) {
-	 return md.insertSupport(sqlSession, m, mphoto, sp);
-}
+	   @Override
+	   public int insertSupport(Member m, WriterPhoto mphoto, Support sp) {
+	    return md.insertSupport(sqlSession, m, mphoto, sp);
+	}
+	   //insert 일대일문의
+	   @Override
+	   public int insertMtmQue(Board board) {
+	      
+	      return md.insertMtmQue(sqlSession, board);
+	   }
+	   
+	   
+	   //내 문의 내역
+	   @Override
+	   public ArrayList<Board> showQue(String userId) {
+
+	      return md.showQue(sqlSession, userId);
+	   }
 }
 

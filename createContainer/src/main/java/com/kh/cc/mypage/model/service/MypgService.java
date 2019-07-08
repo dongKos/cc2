@@ -4,11 +4,13 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
+import com.kh.cc.admin.model.vo.Board;
+import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.approval.model.vo.Approval;
-import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.vo.PaymentCC;
+import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
@@ -39,6 +41,12 @@ public interface MypgService {
 	int insertDocument(Member m, WriterPhoto file1, WriterPhoto file2, Approval appro);
 	//결제완료
 	int payComplete(PaymentCC pc);
+	//코인환불
+	int refundReq(Refund refund);
+	//코인충전리스트
+	ArrayList coinChargeList(int mno);
+	//신고 내역
+	ArrayList showReportPage(int mno);
 	//탈퇴
 	int resign(int mno);
 	   
@@ -59,7 +67,10 @@ public interface MypgService {
 	int countProfilePic(WriterProfile mp);
 	//후원insert
 	int insertSupport(Member m, WriterPhoto mphoto, Support sp);
-		
+	//insert일대일문의
+	int insertMtmQue(Board board);
+   	//내 문의내역
+   	ArrayList<Board> showQue(String userId);
 }
 
 

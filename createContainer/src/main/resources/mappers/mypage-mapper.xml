@@ -84,7 +84,27 @@
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
-	
+	<resultMap type="com.kh.cc.mypage.model.vo.Coin" id="coinResultSet">
+		<id property="coid" column="COIN_CODE"/>
+		<result property="mno" column="MNO"/>
+		<result property="cCategory" column="COIN_CATEGORY"/>
+		<result property="cCount" column="COIN_COUNT"/>
+		<result property="rid" column="RID"/>
+		<result property="cDate" column="C_DATE"/>
+	</resultMap>
+	<resultMap type="com.kh.cc.admin.model.vo.Report" id="reportResultSet">
+      <id property="reportId" column="REPORT_ID"/>            
+      <result property="reportType" column="REPORT_TYPE"/>   
+      <result property="ReportDate" column="REPROT_DATE"/>
+      <result property="reportReason" column="REPORT_REASON"/>
+      <result property="reportCategory" column="REPORT_T"/>
+      <result property="status" column="STATUS"/>
+      <result property="userId" column="USER_ID"/>
+      <result property="wid" column="WID"/>
+      <result property="rid" column="RID"/>
+      <result property="commentId" column="COMMENT_ID"/>
+      <result property="bid" column="BID"/>
+   </resultMap>
 	
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
@@ -208,6 +228,11 @@
 		WHERE USER_ID = #{userId}
 		AND ATTACHMENT_CATEGORY = 'prf'
 		</select>
+		<!-- 코인환불신청 -->
+		<insert id="refundReq">
+		INSERT INTO REFUND
+		VALUES(RFID_SEQ.NEXTVAL, SYSDATE, null, #{price}, 'N', #{refundReason}, #{userId})
+		</insert>
 		
 		<!-- 서류파일 insert -->
 		<insert id="insertDocu">
@@ -234,8 +259,39 @@
   	 	<!-- 후원 content-->
       	<insert id="insertSupportContent" parameterType="Support">
          INSERT INTO SPONSOR_CODE
-         VALUES ((SELECT SP_CODE FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), 100, (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'prf'), SYSDATE, 'N' ,#{stitle},#{scontent},(SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}))
+         VALUES ((SELECT SP_CODE FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), #{sprice}, (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'rew'), (SELECT FID FROM ATTACHMENT WHERE USER_ID = #{userId} AND ATTACHMENT_CATEGORY = 'prf'), SYSDATE, 'N' ,#{stitle},#{scontent},(SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}))
       	</insert>
+      	
+      	<!-- 코인 충전 insert -->
+      	<insert id="coinCharge" parameterType="PaymentCC">
+      		INSERT INTO COIN
+      		VALUES(COID_SEQ.NEXTVAL, (SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}), 2, #{pAmount}, null, SYSDATE)
+      	</insert>
+      	<!-- 코인충전리스트 -->
+      	<select id="coinChargeList" parameterType="int" resultMap="coinResultSet">
+      		SELECT * FROM COIN
+      		WHERE MNO = #{mno} AND COIN_CATEGORY = 2
+      	</select>
+      	<!-- 신고내역 -->
+      	<select id="showReportPage" parameterType="int" resultMap="reportResultSet">
+      		SELECT * FROM REPORT R
+      		JOIN REPORT_TYPE T ON(R.REPORT_CATEGORY = T.REPORTT_ID)
+      		WHERE USER_ID = (SELECT USER_ID FROM MEMBER WHERE MNO = #{mno})
+      	</select>
+      	   <!-- 일대일문의 insert -->
+         <insert id="insertMtmQue" parameterType="Board">
+         INSERT INTO BOARD
+         VALUES (BID_SEQ.NEXTVAL, #{userId}, 'OTO', #{bCount}, SYSDATE, null, #{bContent}, #{bTitle}, 'N', #{subCategory} )
+         
+         
+         </insert>
+         <!-- 일대일문의 리스트 -->
+         <select id="showQue" parameterType="String" resultMap="BoardResultSet">
+         SELECT * FROM BOARD
+         WHERE USER_ID = #{userId} AND BOARD_CATEGORY = 'OTO'
+         
+         </select>
+      	
 </mapper>
 
 

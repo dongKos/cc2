@@ -71,6 +71,7 @@
 			<li><button class="btn btn-primary" onclick="goInfoPage();">개인정보관리</button></li>
 			<li><button class="btn btn-primary" onclick="goIllustAf()">일러스트내역</button></li>
 			<li><button class="btn btn-primary" onclick="goQuestion();">1:1문의내역</button></li>
+			<li><button class="btn btn-primary" onclick="goReport()">신고 내역</button></li>
 			<li><button class="btn btn-primary" onclick="goResign()">회원탈퇴</button></li>
 		</ul>
 	</div>
@@ -87,7 +88,7 @@
 	    function gointerestWa(){
 	       	location.href="attentionArtist.mg";
 	    }
-	    function goIllustAf(){
+	    function goIllustAf(){ 
 	        location.href="mypgIllustAf.mg";
 	    }
 	    function goQuestion(){
@@ -95,6 +96,9 @@
 	    }
 	    function goResign(){
 	        location.href="mypgResign.mg";
+	    }
+	    function goReport(){
+	        location.href="mypgReport.mg";
 	    }
 
 	</script>
