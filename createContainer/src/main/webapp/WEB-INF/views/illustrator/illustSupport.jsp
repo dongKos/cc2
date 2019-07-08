@@ -26,16 +26,17 @@
 <body>
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 	<div class="container">
+	<br>
 		<div class="row">
-			<div class="main-img">
 			<c:forEach var="illSupportDetail" items="${ sdlist }">
-			<c:if test="${sdlist[0].aCategory eq 'ma' }">
-				<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illSupportDetail.changeName }" >
+			<c:if test="${illSupportDetail.aCategory eq 'ma' }">
+			<div class="main-img">
+				<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illSupportDetail.changeName }" style="width:100%; height:100%">
+			</div>
 			</c:if>
 			</c:forEach>
-			</div>
 		</div>
-		
+		<br>
 		<div class="row">
 		<c:forEach var="illSupportDetail" items="${ sdlist }">
 		<c:if test="${illSupportDetail.aCategory eq 'prf' }">
@@ -44,18 +45,17 @@
 			</div>
 		</c:if>
 		</c:forEach>
-			<div class="profile">
-				<h3>${sdlist[1].nickName}</h3>
-				<p>#${sdlist[1].illCategory}</p>	
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="profile"><br>
+				<h3 style="font-size:30px;">${sdlist[1].nickName}</h3>
+				<p style="font-size:20px;">#${sdlist[1].illCategory}</p>
 			</div>
-			<br>
-			<button class="btn btn-primary form-control" onclick="reward();">후원하기</button>
+				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px">후원하기</button>
 		</div>
+		<br>
 		<div class="row">
-			<h2>작가소개</h2>
-			<div class="text">
-				${ sdlist[0].intro}
-			</div>
+			<h2>작가소개<br><br>
+			${ sdlist[0].intro}</h2>
 		</div>
 	</div>
 	
