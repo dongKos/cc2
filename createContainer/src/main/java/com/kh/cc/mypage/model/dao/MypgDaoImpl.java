@@ -6,10 +6,12 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cc.admin.model.vo.Board;
+import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.approval.model.vo.Approval;
-import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.PaymentCC;
+import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
@@ -80,8 +82,21 @@ public class MypgDaoImpl implements MypgDao{
     public String deletePhotoPath(SqlSessionTemplate sqlSession, String userId) {
        return sqlSession.selectOne("WriterProfile.deletePhotoPath", userId);
     }
-    
-    
+    //코인환불
+    @Override
+    public int refundReq(SqlSessionTemplate sqlSession, Refund refund) {
+    	return sqlSession.insert("Mypage.refundReq",refund);
+    }
+    //코인충전리스트
+    @Override
+    public ArrayList coinChargeList(SqlSessionTemplate sqlSession, int mno) {
+    	return (ArrayList) sqlSession.selectList("Mypage.coinChargeList", mno);
+    }
+    //신고내역
+    @Override
+    public ArrayList showReportPage(SqlSessionTemplate sqlSession, int mno) {
+    	return (ArrayList) sqlSession.selectList("Mypage.showReportPage", mno);
+    }
     //탈퇴
  @Override
  public int resign(SqlSessionTemplate sqlSession, int mno) {
@@ -155,48 +170,61 @@ public int countProfilePic(SqlSessionTemplate sqlSession, WriterProfile mp) {
 //결제완료
 @Override
 public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
-	int result1 = sqlSession.insert("Mypage.payComplete", pc);
-	int result2 = sqlSession.update("Mypage.updateCoin", pc);
-	if(result1 > 0) {
-		if(result2 > 0) {
-			return result2;
-		}
-	}
-	 return 0;
+ int result1 = sqlSession.insert("Mypage.payComplete", pc);
+ int result2 = sqlSession.update("Mypage.updateCoin", pc);
+ if(result1 > 0) {
+    if(result2 > 0) {
+       return result2;
+    }
+ }
+  return 0;
 }
-	//유료작품신청 인서트
-	@Override
-	public int insertDocument(SqlSessionTemplate sqlSession, Member m, WriterPhoto file1, WriterPhoto file2, Approval appro) {
-		file1.setUserId(m.getUserId());
-		file2.setUserId(m.getUserId());
-		int result = sqlSession.insert("Mypage.insertDocu", file1);
-		if(result > 0) {
-		int result2 = sqlSession.insert("Mypage.insertDocu", file1);
-			if(result2 > 0) {
-				int result3 = sqlSession.insert("Mypage.insertApproval", appro);
-				if(result3 > 0) {
-					int result4 = sqlSession.update("Mypage.updateWork", appro);
-					return result4;
-				}
-		}
-		
-	}
-		return 0;
-	
-	}
-	//후원insert
-	@Override
-	public int insertSupport(SqlSessionTemplate sqlSession, Member m, WriterPhoto mphoto, Support sp) {
-	   
-	   mphoto.setUserId(m.getUserId());
-	   sp.setUserId(m.getUserId());
+ //유료작품신청 인서트
+ @Override
+ public int insertDocument(SqlSessionTemplate sqlSession, Member m, WriterPhoto file1, WriterPhoto file2, Approval appro) {
+    file1.setUserId(m.getUserId());
+    file2.setUserId(m.getUserId());
+    int result = sqlSession.insert("Mypage.insertDocu", file1);
+    if(result > 0) {
+    int result2 = sqlSession.insert("Mypage.insertDocu", file1);
+       if(result2 > 0) {
+          int result3 = sqlSession.insert("Mypage.insertApproval", appro);
+          if(result3 > 0) {
+             int result4 = sqlSession.update("Mypage.updateWork", appro);
+             return result4;
+          }
+    }
+    
+ }
+    return 0;
+ 
+ }
+ //후원insert
+ @Override
+ public int insertSupport(SqlSessionTemplate sqlSession, Member m, WriterPhoto mphoto, Support sp) {
+    
+    mphoto.setUserId(m.getUserId());
+    sp.setUserId(m.getUserId());
 
-	   int result = sqlSession.insert("Mypage.insertSupport", mphoto);
-	   if(result >0) {
-	      
-	      int result2 = sqlSession.insert("Mypage.insertSupportContent",sp);
-	      return result2;
-	   }
-	   return 0;
-	}
+    int result = sqlSession.insert("Mypage.insertSupport", mphoto);
+    if(result >0) {
+       
+       int result2 = sqlSession.insert("Mypage.insertSupportContent",sp);
+       return result2;
+    }
+    return 0;
+ }
+ //일대일 문의 insert
+ @Override
+ public int insertMtmQue(SqlSessionTemplate sqlSession, Board board) {
+    return sqlSession.insert("Mypage.insertMtmQue", board);
+ }
+ 
+ 
+ //내 문의내역
+ @Override
+ public ArrayList<Board> showQue(SqlSessionTemplate sqlSession, String userId) {
+    ArrayList list = (ArrayList) sqlSession.selectList("Mypage.showQue", userId);
+    return list;
+ }
 }
