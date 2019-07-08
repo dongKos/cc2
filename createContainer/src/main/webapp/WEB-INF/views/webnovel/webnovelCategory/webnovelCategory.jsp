@@ -350,7 +350,10 @@
 				
 			</div>
 			<div class="col-sm-1"></div>
-		</div><br><br>
+		</div>
+		
+		
+		<jsp:include page="../common/webnovelFooter.jsp"/>
 		
 		
 		

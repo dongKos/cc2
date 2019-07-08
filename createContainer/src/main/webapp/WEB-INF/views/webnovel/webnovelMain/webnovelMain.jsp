@@ -292,7 +292,7 @@
 }
 .nwnTable{
 	border:1px solid lightgray;
-	width:140px;
+	width:165px;
 	display:inline-block;
 	cursor:pointer;
     margin-left: 15px;
@@ -304,7 +304,7 @@
 }
 .newRecommendImg{
 	height:180px;
-	width:129px;
+	width:153px;
 	font-size:10px;
 }
 .newRecommendTitle{
@@ -394,11 +394,9 @@
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10 ">
 				<jsp:include page="../webnovelMain/newWebnovelList.jsp"/>
-				<div class="col-sm-4">
 					<%-- <p class="challengeMenu">광고광고</p>
 					<br><br>
 					<jsp:include page="../common/webnovelNotice.jsp"/> --%>
-				</div>
 			
 			</div>
 			<div class="col-sm-1"></div>
@@ -408,6 +406,6 @@
 		<hr>
 	</div>
 	<jsp:include page="../webnovelMain/webnovelBestGenre.jsp"/>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
 </html>

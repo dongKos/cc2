@@ -102,8 +102,7 @@
 		</div>
 	</div>
 	
-	<br><br><br><br><br>
-	<br><br><br><br><br>
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 	<script>
 		$(function(){
 			$("#fileArea").hide();

@@ -115,6 +115,9 @@ public interface WebnovelDao {
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
 	//상세보기 페이징 유료작품 구분
 	WebnovelRound selectCheckWnr(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	//회차보기 구분하기
+	int selectCheckwRound(SqlSessionTemplate sqlSession, WebnovelRound wnr);
+	ArrayList<WebnovelRound> selectWnRoundListAll(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelRound wnr);
 	
 	
 }

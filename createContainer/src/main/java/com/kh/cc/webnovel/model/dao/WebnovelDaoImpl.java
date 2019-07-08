@@ -346,6 +346,23 @@ public class WebnovelDaoImpl implements WebnovelDao{
 	public WebnovelRound selectCheckWnr(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
 		return sqlSession.selectOne("Webnovel.selectCheckWnr", wnr);
 	}
+	//회차 구분하기
+	@Override
+	public int selectCheckwRound(SqlSessionTemplate sqlSession, WebnovelRound wnr) {
+		return sqlSession.selectOne("Webnovel.selectCheckwRound", wnr);
+	}
+	@Override
+	public ArrayList<WebnovelRound> selectWnRoundListAll(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelRound wnr) {
+		ArrayList<WebnovelRound> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectWnRoundListAll", wnr, rowBounds);
+		
+		return list;
+	}
 	
 
 }

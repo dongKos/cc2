@@ -308,7 +308,7 @@
 		</div>
 	</div>
 	
-	
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
 </html>
 

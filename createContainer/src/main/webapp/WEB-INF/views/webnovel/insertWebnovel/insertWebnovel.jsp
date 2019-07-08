@@ -98,8 +98,7 @@
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 		</div>
 	</div>
-	<br><br><br><br><br>
-	<br><br><br><br><br>
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 	<script>
 		$(function(){
 			$("#fileArea").hide();
