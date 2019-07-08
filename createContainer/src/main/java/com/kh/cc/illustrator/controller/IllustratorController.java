@@ -107,7 +107,11 @@ public class IllustratorController {
 	
 	//일러스트 의뢰하기 페이지 이동
 	@RequestMapping("illustRequest.ill")
-	public String illustRequest() {
+	public String illustRequest(String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+		
+		ArrayList<Illustrator> rlist = is.selectIllRequest(ill);
+		model.addAttribute("rlist", rlist);
+		
 		return "illustrator/illustRequest";
 	}
 	

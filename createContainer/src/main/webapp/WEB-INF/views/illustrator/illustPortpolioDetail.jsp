@@ -188,7 +188,7 @@
 		<h2>서비스 설명</h2><br><br><br>
 		</div>
 			<div class="col-lg-10 content" style="font-size:13px">
-				안녕하세요. 일러스트레이터 에머디입니다.<br><br>
+				안녕하세요. 일러스트레이터 ${list[0].nickName}입니다.<br><br>
 				
 				어릴 적부터 책을 보고 그 책의 내용을 그림으로 만날 수 있는 삽화에 반해 그림을 시작한게 어느덧 일로서 이어가고 있습니다.<br>
 				일러스트레이터이기 전에 한명의 독자와 청자인 만큼 사람들이 처음 만날 표지의 중요성과 그 표지가 전달해야하는 정보의 중요성을 잘 알고 있습니다.<br> 
@@ -390,7 +390,7 @@
 				</div>
 				
 				<div class="fixed-area">
-					<a href="#">TOP</a>
+					<a href="#" style="color:black; text-decoration:none; font-size:30px;">TOP</a>
 				</div>
 	</div>
 </body>
