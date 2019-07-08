@@ -9,17 +9,18 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("#refundTable tr").click(function(){
-			var num = $(this).children().eq(0).text();
-			location.href="showStatisticDetail.ad";
-		});
-		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#statistic").parent().children();
 		var selectedLi = selectedUl.children().children().eq(0);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
-	})
+	});
+	
+	function trClick(num){
+		var mno = num;
+		
+		location.href="showStatisticDetail.ad?mno=" + mno;
+	}
 </script>
 </head>
 
@@ -58,66 +59,58 @@
                                     <table class="table table-borderless table-striped table-earning" id="refundTable">
                                         <thead>
                                             <tr>
-                                                <th>date</th>
-                                                <th>order ID</th>
-                                                <th>name</th>
-                                                <th class="text-right">price</th>
-                                                <th class="text-right">quantity</th>
-                                                <th class="text-right">total</th>
+                                                <th>회원 아이디</th>
+                                                <th>필명</th>
+                                                <th class="text-right">구분</th>
+                                                <th class="text-right">가입일</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>2018-09-29 05:57</td>
-                                                <td>100398</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$999.00<input type="checkbox"></td>
-                                                	
+                                        <c:forEach var="m" items="${list }">
+                                            <tr onclick="trClick(${m.mno })">
+                                                <td>${m.userId }</td>
+                                                <td>${m.nickName }</td>
+                                                <td class="text-right">프리미엄 작가</td>
+                                                <td class="text-right">${m.joinDate }</td>
                                             </tr>
-                                            <tr>
-                                                <td>2018-09-28 01:22</td>
-                                                <td>100397</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$756.00<input type="checkbox"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-27 02:12</td>
-                                                <td>100396</td>
-                                                <td>Game Console Controller</td>
-                                                <td class="text-right">$22.00</td>
-                                                <td class="text-right">2</td>
-                                                <td class="text-right">$44.00<input type="checkbox"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-26 23:06</td>
-                                                <td>100395</td>
-                                                <td>iPhone X 256Gb Black</td>
-                                                <td class="text-right">$1199.00</td>
-                                                <td class="text-right">1</td>
-                                                <td class="text-right">$1199.00<input type="checkbox"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2018-09-25 19:03</td>
-                                                <td>100393</td>
-                                                <td>USB 3.0 Cable</td>
-                                                <td class="text-right">$10.00</td>
-                                                <td class="text-right">3</td>
-                                                <td class="text-right">$30.00<input type="checkbox"></td>
-                                            </tr>
-                                      
+                                        </c:forEach>
                                         </tbody>
                                     </table>
+                                    <!-- 페이징 영역 -->
+                                    <div id="pagingArea" align="center">
+						                <c:if test="${pi.currentPage <= 1 }">
+						                        [이전]&nbsp;
+						                </c:if>
+						                <c:if test="${pi.currentPage > 1 }">
+						                        <c:url var="blistBack" value="/showStatistic.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage - 1 }"/>
+						                        </c:url>
+						                        <a href="${blistBack }">[이전]</a> &nbsp;
+						                </c:if>
+						                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						            <c:if test="${ p eq pi.currentPage }">
+						               <font color="red" size="4"><b>[${ p }]</b></font>
+						            </c:if>
+						            <c:if test="${ p ne pi.currentPage }">
+						               <c:url var="blistCheck" value="showStatistic.ad">
+						                  <c:param name="currentPage" value="${ p }"/>
+						               </c:url>
+						               <a href="${ blistCheck }">${ p }</a>
+						            </c:if>
+						         </c:forEach> 
+						                
+						                <c:if test="${pi.currentPage >= pi.maxPage}">
+						                        &nbsp;[다음]
+						                </c:if>
+						                <c:if test="${pi.currentPage < pi.maxPage }">
+						                        <c:url var="blistEnd" value="showStatistic.ad">
+						                                <c:param name="currentPage" value="${pi.currentPage + 1 }"/>
+						                        </c:url>
+						                        <a href="${blistEnd }">&nbsp;[다음]</a>
+						                </c:if>
+						      	  </div>
                                 </div>
                             </div>
-                        </div>
-                            <div align="right">
-                            	<button class="btn btn-primary">삭제</button>
-                            </div>
-                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">

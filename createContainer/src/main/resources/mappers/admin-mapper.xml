@@ -112,6 +112,7 @@
 		<result property="illTitle" column="ILL_TITLE"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fId" column="FID"/>
+		<result property="aCategory" column="ATTACHMENT_CATEGORY"/>
 	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
@@ -442,7 +443,7 @@
 	<select id="selectApproveList" resultMap="approveResultSet">
 		SELECT *
 		FROM APPROVAL A
-        JOIN WORK W ON(A.WID = W.WID)
+        LEFT JOIN WORK W ON(A.WID = W.WID)
         LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
         LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE A.STATUS='N'
@@ -455,31 +456,57 @@
 		FROM APPROVAL
 		WHERE STATUS = 'N'
 		AND WORK_TYPE LIKE '%' || #{str} || '%'
+		AND RID IS NULL
 	</select>
 	
 	<!-- 작품 관리 - 승인대기 내역 조회 조건 검색 전체 조회-->
 	<select id="selectApproveTypeList" resultMap="approveResultSet" parameterType="String">
 		SELECT *
 		FROM APPROVAL A
-        JOIN WORK W ON(A.WID = W.WID)
-        LEFT JOIN WORK_ROUND WR ON(A.RID = WR.RID)
+        LEFT JOIN WORK W ON(A.WID = W.WID)
         LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
         LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE A.STATUS='N'
 		AND A.WORK_TYPE LIKE '%' || #{str} || '%'
+		AND RID IS NULL
 		ORDER BY A.APPROVAL_CODE DESC
 	</select>
 	
 	<!-- 작품 관리 - 승인대기 내역 조회 - 상세 페이지 -->
-	<select id="selectOneApprove" parameterType="_int" resultMap="approveResultSet">
+	<select id="selectApproveDetailList" parameterType="_int" resultMap="approveResultSet">
 		SELECT *
 		FROM APPROVAL A
-        JOIN WORK W ON(A.WID = W.WID)
+        LEFT JOIN WORK W ON(A.WID = W.WID)
         LEFT JOIN WORK_ROUND WR ON(A.RID = WR.RID)
         LEFT JOIN ILLUSTRATION ILL ON(A.ILL_CODE = ILL.ILL_CODE)
+        LEFT JOIN ATTACHMENT AT ON(AT.WID = W.WID OR AT.RID = WR.RID OR AT.ILL_CODE = ILL.ILL_CODE)
         LEFT JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE A.STATUS='N'
 		AND A.APPROVAL_CODE = #{id}
+	</select>
+	
+	<!-- 작품 관리 - 승인대기 내역 조회 - 상세 페이지 - 승인 완료 하기 -->
+	<update id="completeApprove" parameterType="_Int">
+		UPDATE APPROVAL 
+		SET STATUS = 'Y'
+        WHERE APPROVAL_CODE = #{approvalCode}
+	</update>
+	
+	<!-- 통계 관리 - 작가 통계 - 프리미엄 작가 수 조회 -->
+	<select id="selectPriMemberListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND MEMBER_TYPE = 2
+	</select>
+	
+	<!-- 통계 관리 - 작가 통계 - 프리미엄 작가 전체 조회 -->
+	<select id="selectPriMemberList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		AND MEMBER_TYPE = 2
+		ORDER BY MNO DESC
 	</select>
 	
 </mapper>

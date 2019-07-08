@@ -280,7 +280,7 @@
 						                        [이전]&nbsp;
 						                </c:if>
 						                <c:if test="${pi.currentPage > 1 }">
-						                        <c:url var="blistBack" value="/showWork.ad">
+						                        <c:url var="blistBack" value="/showIllust.ad">
 						                                <c:param name="currentPage" value="${pi.currentPage - 1 }"/>
 						                        </c:url>
 						                        <a href="${blistBack }">[이전]</a> &nbsp;
@@ -290,7 +290,7 @@
 						               <font color="red" size="4"><b>[${ p }]</b></font>
 						            </c:if>
 						            <c:if test="${ p ne pi.currentPage }">
-						               <c:url var="blistCheck" value="showWork.ad">
+						               <c:url var="blistCheck" value="showIllust.ad">
 						                  <c:param name="currentPage" value="${ p }"/>
 						               </c:url>
 						               <a href="${ blistCheck }">${ p }</a>
@@ -301,7 +301,7 @@
 						                        &nbsp;[다음]
 						                </c:if>
 						                <c:if test="${pi.currentPage < pi.maxPage }">
-						                        <c:url var="blistEnd" value="showWork.ad">
+						                        <c:url var="blistEnd" value="showIllust.ad">
 						                                <c:param name="currentPage" value="${pi.currentPage + 1 }"/>
 						                        </c:url>
 						                        <a href="${blistEnd }">&nbsp;[다음]</a>

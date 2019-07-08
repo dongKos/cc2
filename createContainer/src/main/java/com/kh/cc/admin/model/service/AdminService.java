@@ -96,6 +96,12 @@ public interface AdminService {
 
 	ArrayList<Approve> selectApproveDetailList(int id);
 
+	int completeApprove(int approvalCode);
+
+	int getPriMemberListCount();
+
+	ArrayList<Member> selectPriMemberList(AdminPageInfo pi);
+
 
 
 	

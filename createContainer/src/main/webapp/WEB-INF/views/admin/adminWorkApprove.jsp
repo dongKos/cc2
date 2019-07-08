@@ -8,6 +8,39 @@
 <title>작품 관리 - 승인 대기 내역</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	//날짜 관련 함수
+	Date.prototype.format = function(f) {    
+	    if (!this.valueOf()) return " ";     
+	    
+	    var weekName = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];    
+	    var d = this;         
+	    
+	    return f.replace(/(yyyy|yy|MM|dd|E|hh|mm|ss|a\/p)/gi, function($1) {        
+	        switch ($1) {            
+	           case "yyyy": return d.getFullYear();            
+	           case "yy": return (d.getFullYear() % 1000).zf(2);            
+	           case "MM": return (d.getMonth() + 1).zf(2);            
+	           case "dd": return d.getDate().zf(2);            
+	           case "E": return weekName[d.getDay()];            
+	           case "HH": return d.getHours().zf(2);            
+	           case "hh": return ((h = d.getHours() % 12) ? h : 12).zf(2);            
+	           case "mm": return d.getMinutes().zf(2);            
+	           case "ss": return d.getSeconds().zf(2);            
+	           case "a/p": return d.getHours() < 12 ? "오전" : "오후";            
+	           default: return $1;        
+	         }    
+	    });
+	}; 
+	
+	//한자리일경우 앞에 0을 붙여준다.
+	String.prototype.string = function(len){
+	    var s = '', i = 0; 
+	    while (i++ < len) { s += this; } 
+	    return s;
+	}; 
+	String.prototype.zf = function(len){return "0".string(len - this.length) + this;};
+	Number.prototype.zf = function(len){return this.toString().zf(len);};
+
 	$(function(){
 		
 		//선택된 사이드 메뉴바 표시
@@ -29,7 +62,7 @@
 	//상세페이지 이동
 	function trClick(num){
 		var aCode = num;
-		location.href="approveDetailSearch.ad?aCode=" + aCode;
+		location.href="approveDetailSearch.ad?aCode=" + aCode + "&currentPage=" + ${pi.currentPage};
 	};
 	
 	//조건검색 ajax
@@ -51,7 +84,7 @@
 				
 					var tr = $("<tr onclick='trClick(" + data.list[i].aCode + ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
-					
+					var date = new Date(data.list[i].upDate).format("yyyy-MM-dd");
 					//작품구분
 					if(data.list[i].workType == "WT"){
 						var categoryTd = $("<td>").text("웹툰");
@@ -65,9 +98,9 @@
 					}
 					//프리미엄구분
 					if(data.list[i].gradeType == 1){
-						var priTd = $("<td>").text("일반");
+						var priTd = $("<td>").text(date);
 					}else{
-						var priTd = $("<td>").text("프리미엄");
+						var priTd = $("<td>").text(date);
 					}
 					
 					tr.append(userIdTd);
@@ -135,10 +168,10 @@
 				
 				//테이블 영역 재생성
 				for(var i = 0; i < data.list.length;i++){
-
+				
 					var tr = $("<tr onclick='trClick(" + data.list[i].aCode + ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
-					
+					var date = new Date(data.list[i].upDate).format("yyyy-MM-dd");
 					//작품구분
 					if(data.list[i].workType == "WT"){
 						var categoryTd = $("<td>").text("웹툰");
@@ -152,9 +185,9 @@
 					}
 					//프리미엄구분
 					if(data.list[i].gradeType == 1){
-						var priTd = $("<td>").text("일반");
+						var priTd = $("<td>").text(date);
 					}else{
-						var priTd = $("<td>").text("프리미엄");
+						var priTd = $("<td>").text(date);
 					}
 					
 					tr.append(userIdTd);

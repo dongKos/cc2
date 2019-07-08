@@ -567,6 +567,34 @@ public class AdminDaoImpl implements AdminDao{
 		return (ArrayList)sqlSession.selectList("admin.selectApproveTypeList", str, rowBounds);
 	}
 
+	//승인 대기 상세 조회
+	@Override
+	public ArrayList<Approve> selectApproveDetailList(SqlSessionTemplate sqlSession, int id) {
+		return (ArrayList)sqlSession.selectList("admin.selectApproveDetailList", id);
+		
+	}
+
+	//승인 완료 하기
+	@Override
+	public int completeApprove(SqlSessionTemplate sqlSession, int approvalCode) {
+		return sqlSession.update("admin.completeApprove", approvalCode);
+	}
+
+	//프리미엄 작가 수 조회
+	@Override
+	public int getPriMemberListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectPriMemberListCount");
+	}
+
+	//프리미엄 작가 전체 조회
+	@Override
+	public ArrayList<Member> selectPriMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectPriMemberList", null, rowBounds);
+	}
+
 	
 	
 }
