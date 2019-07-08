@@ -16,6 +16,7 @@ import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webnovel.model.vo.WebnovelPhoto;
+import com.kh.cc.mypage.model.vo.Closed;
 
 public interface MypgService {
 
@@ -71,6 +72,10 @@ public interface MypgService {
 	int insertMtmQue(Board board);
    	//내 문의내역
    	ArrayList<Board> showQue(String userId);
+   	//코인 사용내역
+	ArrayList coinUseList(int mno);
+	//휴재신청insert
+	int insertClosed(Closed c);
 }
 
 

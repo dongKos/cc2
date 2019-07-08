@@ -29,6 +29,7 @@ import com.kh.cc.common.WebtoonPagination;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.Support;
@@ -67,8 +68,9 @@ public class MypgController {
 	public String showCreditPage(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m) {
 		m = (Member) session.getAttribute("loginUser");
 		ArrayList list = ms.coinChargeList(m.getMno());
-		
+		ArrayList list2 = ms.coinUseList(m.getMno());
 		model.addAttribute("chargeList", list);
+		model.addAttribute("useList", list2);
 		return "member/mypage/mypageCredit";
 	}
 	//CC 페이지 - 충전
@@ -752,9 +754,35 @@ public class MypgController {
           
        }
        
-       //휴재신청 폼
+     //휴재신청 폼
        @RequestMapping("reqDormant.mg")
-       public String showReqDormant() {
+       public String showReqDormant(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, Closed c, Webnovel work) {
+          
+          int wid = Integer.parseInt(request.getParameter("wid"));
+          m = (Member) session.getAttribute("loginUser");
+          
+          work = ms.selectWork(wid);
+          model.addAttribute("work", work);
+          
           return "member/mypage/reqClosed";
+       }
+       
+       
+      //휴재신청insert
+       @RequestMapping("insertClosed.mg")
+       public String showInsertClosed(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, Closed c, Webnovel work) {
+          
+          int result = ms.insertClosed(c);
+          if(result > 0) {
+             
+             model.addAttribute("msg","휴재 신청이 완료 되었습니다.");
+             model.addAttribute("url", "writerRest.mg");
+             return "common/redirect";
+          }else {
+             model.addAttribute("msg", "휴재 신청 실패!!");
+               
+               return "common/errorPage";
+          }
+          
        }
 }

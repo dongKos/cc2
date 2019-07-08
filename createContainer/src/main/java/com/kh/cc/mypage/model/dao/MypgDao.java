@@ -16,6 +16,7 @@ import com.kh.cc.mypage.model.vo.PaymentCC;
 import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
+import com.kh.cc.mypage.model.vo.Closed;
 
 public interface MypgDao {
 
@@ -47,6 +48,8 @@ public interface MypgDao {
 	ArrayList coinChargeList(SqlSessionTemplate sqlSession, int mno);
 	//신고 내역
 	ArrayList showReportPage(SqlSessionTemplate sqlSession, int mno);
+	//코인 사용 내역
+	ArrayList coinUseList(SqlSessionTemplate sqlSession, int mno);
 	
 	//탈퇴
     int resign(SqlSessionTemplate sqlSession, int mno);
@@ -73,6 +76,8 @@ public interface MypgDao {
 	   int insertMtmQue(SqlSessionTemplate sqlSession, Board board);
 	   //내 문의내역
 	   ArrayList<Board> showQue(SqlSessionTemplate sqlSession, String userId);
+	   //휴재신청insert
+	   int insertClosed(SqlSessionTemplate sqlSession, Closed c);
 }
 
 

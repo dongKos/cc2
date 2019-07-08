@@ -19,6 +19,7 @@ import com.kh.cc.mypage.model.vo.WriterPhoto;
 import com.kh.cc.mypage.model.vo.WriterProfile;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
+import com.kh.cc.mypage.model.vo.Closed;
 
 @Service
 public class MypgServiceImpl implements MypgService{
@@ -91,6 +92,11 @@ public class MypgServiceImpl implements MypgService{
 	@Override
 	public ArrayList showReportPage(int mno) {
 		return md.showReportPage(sqlSession, mno);
+	}
+	//코인 사용내역
+	@Override
+	public ArrayList coinUseList(int mno) {
+		return md.coinUseList(sqlSession, mno);
 	}
 	
 	
@@ -202,8 +208,14 @@ public int countProfilePic(WriterProfile mp) {
 	   //내 문의 내역
 	   @Override
 	   public ArrayList<Board> showQue(String userId) {
-
+	
 	      return md.showQue(sqlSession, userId);
+	   }
+	 //휴재신청insert
+	   @Override
+	   public int insertClosed(Closed c) {
+	
+	      return md.insertClosed(sqlSession,c);
 	   }
 }
 

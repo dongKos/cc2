@@ -54,11 +54,11 @@
   					<br>
   					<table width="100%;" style="text-align:center;">
   					<tr>
-  						<th style="text-align:center;">날짜</th><th>내용</th><th>개수</th><th>상태</th>
+  						<th style="text-align:center;" width="20%;">날짜</th><th width="60%;">내용</th><th width="10%;">개수</th><th>상태</th>
   					</tr>
   					<c:forEach var="ch" items="${ chargeList }">
   					<tr>
-  						<td>${ ch.cDate }</td><td>사용자 충전</td><td>${ ch.cCount }</td><td>정상</td>
+  						<td width="20%;">${ ch.cDate }</td><td width="60%;">사용자 충전</td><td width="10%;">${ ch.cCount }</td><td>정상</td>
   					</tr>
   					</c:forEach>
   					<c:if test="${ chargeList == null }">
@@ -71,27 +71,20 @@
   					<div id="use" hidden>
   					
   					<br>
-  					<div style="text-align:right;" >
-  					<select id="ctg" style="border:none; width:80px; height:30px; align:center; font-size:15px;" >
-  							<option value="wt">웹툰</option>
-  							<option value="wn">웹소설</option>
-  							<option value="ill">일러스트</option>
-  							<option value="etc">기타</option>
-  						</select>
-  						</div>
   					<table width="100%;" style="text-align:center;" >
   					<tr>
-  						<th style="text-align:center;">날짜</th><th>내용</th><th>개수</th><th>상태</th>
+  						<th style="text-align:center;" width="20%;">날짜</th><th width="60%;">내용</th><th width="10%;">개수</th><th>상태</th>
   					</tr>
+  					<c:forEach var="us" items="${ useList }">
   					<tr>
-  						<td>날짜</td><td>코코의 모험 1화</td><td>2개</td><td>사용</td>
+  						<td width="20%;">${ us.cDate }</td><td width="60%;">${ us.rid }</td><td width="10%;">${ us.cCount }</td><td>사용</td>
   					</tr>
+  					</c:forEach>
+  					<c:if test="${ useList == null }">
   					<tr>
-  						<td>날짜</td><td>코코의 모험 2화</td><td>2개</td><td>사용</td>
+  						<td colspan=4 style="height:100px;">사용한 내역이 없습니다.</td>
   					</tr>
-  					<tr>
-  						<td>날짜</td><td>코코의 모험 3화</td><td>2개</td><td>사용</td>
-  					</tr>
+  					</c:if>
   					</table>
   					</div>
   					<div id="refund" hidden>
@@ -118,5 +111,17 @@
     </div>
   </div>
 </div>
+<script>
+	$("#ctg").change(function(){
+		var cate = $(this).children("option:selected").val();
+		if(cate == "charge"){
+			$("#charge").attr("hidden", false);
+			$("#use").attr("hidden", true);
+		}else if(cate == "user"){
+			$("#charge").attr("hidden", true);
+			$("#use").attr("hidden", false);
+		}
+	})
+</script>
 </body>
 </html>
