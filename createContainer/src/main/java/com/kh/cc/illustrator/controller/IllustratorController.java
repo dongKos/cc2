@@ -54,6 +54,7 @@ public class IllustratorController {
 	public String illustSupport(HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
 		
 		ArrayList<Illustrator> slist = is.selectIllSupportList(ill);
+		
 		model.addAttribute("slist", slist);
 		
 		return "illustrator/illust_Support";
@@ -95,7 +96,13 @@ public class IllustratorController {
 	
 	//일러스트 후원 리워드 페이지 이동
 	@RequestMapping("illustSupportReward.ill")
-	public String illustSupportReward() {
+	public String illustSupportReward(String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+		
+		System.out.println("SupportReward userId : " + userId);
+		
+		ArrayList<Illustrator> srlist = is.selectIllSupportReward(ill);
+		model.addAttribute("srlist", srlist);
+		
 		return "illustrator/illustSupportReward";
 	}
 	

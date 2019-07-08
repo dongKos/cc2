@@ -39,11 +39,13 @@
 					원하는 만큼 후원하기 <button class="btn btn-primary" onclick="apply();">></button>
 				</div>
 				<hr>
+				<c:forEach var="illSupportReward" items="${ srlist }">
 				<div class="img-content">
-					img
+					<img src="${contextPath }/resources/uploadFiles/support/${ illSupportReward.changeName }">
 				</div>
+				</c:forEach>
 				<hr>
-				<h4>핸드폰 배경 화면 2증!</h4>
+				<h4>핸드폰 배경 화면 2종!</h4>
 				<div class="textArea">
 					이상! 이것이야말로 무한한 가치를 가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게 살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며<br> 
 					예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여

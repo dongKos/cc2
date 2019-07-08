@@ -158,6 +158,17 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return rlist;
 	}
 
+	//일러스트 후원하기 리워드 조회
+	@Override
+	public ArrayList<Illustrator> selectIllSupportReward(SqlSessionTemplate sqlSession, Illustrator ill) {
+
+		ArrayList<Illustrator> srlist = null;
+		
+		srlist = (ArrayList) sqlSession.selectList("Illustrator.selectIllSupportReward", ill);
+		
+		return srlist;
+	}
+
 	
 
 

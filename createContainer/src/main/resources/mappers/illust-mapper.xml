@@ -39,6 +39,21 @@
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
+	
+	<!-- 일러스트 후원 -->
+	<resultMap type="com.kh.cc.illustrator.model.vo.IllSupport" id="IllSupportResultSet">
+		<id property="scode" column="S_CODE"/>
+		<result property="sprice" column="S_PRICE"/>
+		<result property="reward" column="REWARD"/>
+		<result property="fid" column="FID"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="stitle" column="STITLE"/>
+		<result property="scontent" column="SCONTENT"/>
+		<result property="mno" column="MNO"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+	</resultMap>
 
 	<!-- 일러스트 포트폴리오 작품 등록 메소드 -->
 	<insert id="insertIllustrator" parameterType="Illustrator">
@@ -136,6 +151,7 @@
 		FROM MEMBER M
 		JOIN ATTACHMENT A ON (A.USER_ID = M.USER_ID)
 		WHERE A.ATTACHMENT_CATEGORY = 'prf'
+		AND M.USER_ID = #{ userId }
 	</select>
 	
 	<!-- 일러스트 후원 리스트 조회 -->
@@ -143,7 +159,9 @@
 		SELECT A.CHANGE_NAME, A.FILE_PATH, A.ATTACHMENT_CATEGORY, A.USER_ID, M.NICKNAME
 		FROM MEMBER M
 		JOIN ATTACHMENT A ON (A.USER_ID = M.USER_ID)
+		JOIN SPONSOR_CODE S ON(S.FID = A.FID)
 		WHERE A.ATTACHMENT_CATEGORY = 'prf'
+		AND S.STATUS = 'Y'
 	</select>
 	
 	<!-- 일러스트 후원 상세페이지 조회 -->
@@ -160,5 +178,16 @@
 		FROM MEMBER M
 		JOIN ATTACHMENT A ON (A.USER_ID = M.USER_ID)
 		WHERE A.ATTACHMENT_CATEGORY = 'prf'
+		AND M.USER_ID = #{ userId }
+	</select>
+	
+	<!-- 일러스트 후원하기 리워드 조회 -->
+	<select id="selectIllSupportReward" parameterType="Illustrator" resultMap="IllSupportResultSet">
+		SELECT *
+		FROM SPONSOR_CODE S
+		JOIN MEMBER M ON (M.MNO = S.MNO)
+		JOIN ATTACHMENT A ON (A.USER_ID = M.USER_ID)
+		WHERE M.USER_ID = #{ userId }
+		AND A.ATTACHMENT_CATEGORY = 'rew'
 	</select>
 </mapper>

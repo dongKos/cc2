@@ -55,27 +55,29 @@
       <!-- Portfolio Grid Items -->
       <div class="row">
         <!-- Portfolio Item 1 -->
-        <c:forEach var="illPortfolio" items="${ slist }">
+        <c:forEach var="illSupportList" items="${ slist }">
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal1" onclick="supportDetail();">
-          	<script>
-			  	function supportDetail(){
-			  		var userId = "<c:out value='${slist[0].userId}'/>";
-			  		console.log(userId);
-			  		
-			  		location.href="illustSupportDetail.ill?userId=" + userId;
-			  	}
-  			</script>
+        <input type="hidden" value="${illSupportList.userId }" id="userId">
+          <div class="portfolio-item mx-auto" data-target="#portfolioModal1"  style="width:300px; height:300px;">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/writerProfile/${ illPortfolio.changeName }"><br><br>
-            <h2 align="center" style="font-family: 'Yeon Sung', cursive; font-size:30px;">${illPortfolio.nickName}</h2>
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/writerProfile/${ illSupportList.changeName }" style="width:100%; height:80%;"><br><br>
+            <h2 align="center" style="font-family: 'Yeon Sung', cursive; font-size:30px;">${ illSupportList.nickName}</h2>
           </div>
         </div>
 		</c:forEach>
+    <script>
+    	$(function(){
+    		$(".portfolio-item").click(function(){
+    			var userId = $(this).siblings().val();
+    			console.log(userId);
+    			location.href="illustSupportDetail.ill?userId=" + userId;
+    		})
+    	})
+	</script>
     </div>
     </div>
   </section>
