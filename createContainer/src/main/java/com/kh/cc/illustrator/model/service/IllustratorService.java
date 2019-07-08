@@ -45,6 +45,9 @@ public interface IllustratorService {
 	//일러스트 의뢰하기 조회
 	ArrayList<Illustrator> selectIllRequest(Illustrator ill);
 
+	//일러스트 후원하기 리워드 조회
+	ArrayList<Illustrator> selectIllSupportReward(Illustrator ill);
+
 
 	
 

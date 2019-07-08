@@ -12,7 +12,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css">
   <script>
   	function reward(){
-  		location.href="illustSupportReward.ill";
+  		var userId = '${sdlist[0].userId}';
+  		console.log(userId);
+  		location.href="illustSupportReward.ill?userId=" + userId;
   	}
   </script>
   <style>
@@ -29,9 +31,14 @@
 	<br>
 		<div class="row">
 			<c:forEach var="illSupportDetail" items="${ sdlist }">
-			<c:if test="${illSupportDetail.aCategory eq 'ma' }">
+			<%-- <c:if test="${illSupportDetail.aCategory eq 'ma' && illSupportDetail.illType eq 'chall'}">
 			<div class="main-img">
 				<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illSupportDetail.changeName }" style="width:100%; height:100%">
+			</div>
+			</c:if> --%>
+			<c:if test="${illSupportDetail.aCategory eq 'ma' && illSupportDetail.illType eq 'pri'}">
+			<div class="main-img">
+				<img src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illSupportDetail.changeName }" style="width:100%; height:100%">
 			</div>
 			</c:if>
 			</c:forEach>
@@ -39,7 +46,7 @@
 		<br>
 		<div class="row">
 		<c:forEach var="illSupportDetail" items="${ sdlist }">
-		<c:if test="${illSupportDetail.aCategory eq 'prf' }">
+		<c:if test="${illSupportDetail.aCategory eq 'prf'}">
 			<div class="img" >
 				<img src="${contextPath }/resources/uploadFiles/writerProfile/${ illSupportDetail.changeName }" style="width:200px; height:200px">
 			</div>
@@ -49,7 +56,7 @@
 			<div class="profile"><br>
 				<h3 style="font-size:30px;">${sdlist[1].nickName}</h3>
 				<p style="font-size:20px;">#${sdlist[1].illCategory}</p>
-			</div>
+			</div><div hidden=true><input type="text" id="userIdspace"></div>
 				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px">후원하기</button>
 		</div>
 		<br>

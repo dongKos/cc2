@@ -32,6 +32,7 @@
         <typeAlias type="com.kh.cc.mypage.model.vo.Closed" alias="Closed"/>
         <typeAlias type="com.kh.cc.illustrator.model.vo.Illustrator" alias="Illustrator"/>
         <typeAlias type="com.kh.cc.illustrator.model.vo.IllustratorPhoto" alias="IllustratorPhoto"/>
+        <typeAlias type="com.kh.cc.illustrator.model.vo.IllSupport" alias="IllSupport"/>
         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonRound" alias="WebtoonRound"/>
         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonPhoto" alias="WebtoonPhoto"/>
         <typeAlias type="com.kh.cc.approval.model.vo.Approval" alias="Approval"/>
