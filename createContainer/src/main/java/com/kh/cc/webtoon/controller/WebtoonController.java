@@ -51,6 +51,8 @@ public class WebtoonController {
 	  System.out.println("genre : " + genre);
 	  
 	  int currentPage = 1;
+	  int limit = 3;
+	  int buttonCount = 5;
 		
 		if(request.getParameter("currentPage")!= null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -59,8 +61,7 @@ public class WebtoonController {
 		int listCount = ws.genreListCount(wt);
 		System.out.println("genrelistCount : " + listCount);
 		
-		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
-		
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 	  
 	  ArrayList<Webtoon> list = ws.genreList(pi, wt);
 	  
@@ -120,6 +121,9 @@ public class WebtoonController {
 		model.addAttribute("list5", list5);
 		model.addAttribute("list6", list6);
 		model.addAttribute("list7", list7);
+		model.addAttribute("newList", newList);
+		
+		
 		
 		
 		return "webtoon/webtoonDaily";
@@ -132,6 +136,8 @@ public class WebtoonController {
 		wt.setWorkStatus("COMP");
 		
 		int currentPage = 1;
+		int limit = 5;
+		int buttonCount = 10;
 		
 		if(request.getParameter("currentPage")!= null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -142,7 +148,7 @@ public class WebtoonController {
 		System.out.println("완결리스트카운트 : " + listCount);
 		
 		
-		  WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		  WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		  
 		  ArrayList<Webtoon> list = ws.completeWtList(pi, wt);
 		  
@@ -207,6 +213,8 @@ public class WebtoonController {
 		}
 		
 		int currentPage = 1;
+		int limit = 5;
+		int buttonCount = 10;
 		
 		if(request.getParameter("currentPage")!= null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -215,7 +223,7 @@ public class WebtoonController {
 		int listCount = ws.selectListCount(m);
 		System.out.println("listCount : " + listCount);
 		
-		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		
 		ArrayList<Webtoon> list = ws.selectWtList(pi, m);
 		System.out.println("pi : " + pi);
@@ -411,14 +419,16 @@ public class WebtoonController {
 		wt = ws.selectMainPhoto(wid);
 		
 		int currentPage = 1;
+		int limit = 5;
+		int buttonCount = 10;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		System.out.println("wr : " + wid);
 		int listCount = ws.selectListCount(wid);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		
-		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage,listCount);
 		
 		ArrayList<WebtoonRound> list = ws.selectWtRoundList(pi, wt);
 		System.out.println("list : " + list);

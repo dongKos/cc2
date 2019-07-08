@@ -125,6 +125,17 @@ table td {
 .dayT{
 	font-size: 20px;
 }
+.newThumbnail{
+	width:100%;
+	height:90%;
+	margin: 0 auto;
+}
+
+.thumbnailArea{
+	width: 90px;
+	 height:100px;
+}
+
 </style>
 </head>
 <body style="margin-top: 3.5%;">
@@ -140,20 +151,19 @@ table td {
 			<div class="col-sm-2"></div>
 			<div class="col-sm-6 content">
 				<div class="new">
-					<table id="new">
+					<table id="newTable">
 						<h3>신규웹툰</h3>
 						<tbody>
 							<tr>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
+								<c:forEach var="nwtr" items="${ newList }">
+									<td class="newImgArea">
+										<div class="thumbnailArea">
+											<img class="newThumbnail" src="${contextPath}/resources/uploadFiles/webtoonMain/${ nwtr.changeName }">
+											<p class="title" align="center">${ nwtr.wTitle }</p>
+											<input type="hidden" value="${nwtr.wid }" />
+										</div>
+									</td>
+								</c:forEach>
 							</tr>
 						</tbody>
 					</table>

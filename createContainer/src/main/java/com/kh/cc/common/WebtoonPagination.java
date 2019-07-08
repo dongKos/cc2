@@ -4,11 +4,11 @@ import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 
 public class WebtoonPagination {
-	public static WebtoonPageInfo getPageInfo(int currentPage, int listCount) {
+	public static WebtoonPageInfo getPageInfo(int currentPage, int listCount, int limit, int buttonCount) {
 		WebtoonPageInfo pi = null;
 		
-		int limit = 10;
-		int buttonCount = 10;
+		//int limit = 10;
+		//int buttonCount = 10;
 		int maxPage;
 		int startPage;
 		int endPage;
