@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -101,6 +102,10 @@ public interface AdminService {
 	int getPriMemberListCount();
 
 	ArrayList<Member> selectPriMemberList(AdminPageInfo pi);
+
+	ArrayList<Integer> selectPurchaseAvg(int mno);
+
+	ArrayList<Integer> selectAllPurchaseAvg();
 
 
 

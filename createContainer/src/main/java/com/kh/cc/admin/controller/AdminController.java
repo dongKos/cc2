@@ -1,5 +1,7 @@
 package com.kh.cc.admin.controller;
 
+import java.sql.Date;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
@@ -346,7 +349,44 @@ public class AdminController {
 	
 	//통계관리 - 작가통계 상세 페이지
 	@RequestMapping("showStatisticDetail.ad")
-	public String showStatisticDetail() {
+	public String showStatisticDetail(HttpServletRequest request, Model model) {
+		int mno = Integer.parseInt(request.getParameter("mno"));
+		
+		Member reqMember = as.selectOneMember(mno);
+		
+		System.out.println("해당 회원 정보 : " + reqMember);
+		
+		int workCtn = as.workCount(reqMember.getUserId());
+		int illCtn = as.illustCount(reqMember.getUserId());
+		
+		//작가의 해당작품
+		ArrayList<Webnovel> work = null;
+		ArrayList<Illustrator> ill = null;
+		
+		//해당 작가의 월별 매출 평균
+		ArrayList<Integer> list = null;
+		
+		//전체 매출 평균
+		ArrayList<Integer> wholeList = as.selectAllPurchaseAvg();
+		
+		if(workCtn > 0) {
+			//작가의 작품 조회
+			work = as.selectWorkList(reqMember.getUserId());
+			model.addAttribute("work", work);
+			System.out.println("작품 조회 : " + work);
+			
+			list = as.selectPurchaseAvg(mno);
+			System.out.println("월별 통계 : " + list);
+		}
+		if(illCtn > 0) {
+			ill = as.selectIllustList(reqMember.getUserId());
+			model.addAttribute("ill", ill);
+			System.out.println("일러스트 조회 : " + ill);
+		}
+		
+		model.addAttribute("reqMember", reqMember);
+		model.addAttribute("wholeList", wholeList);
+		model.addAttribute("list", list);
 		return "admin/adminStatisticDetail";
 	}
 	

@@ -19,6 +19,33 @@
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
 		
+		//월별 통계를 담은 변수들
+		var January = "<c:out value='${list[0]}'/>";
+		var February = "<c:out value='${list[1]}'/>";
+		var March = "<c:out value='${list[2]}'/>";
+		var April = "<c:out value='${list[3]}'/>";
+		var May = "<c:out value='${list[4]}'/>";
+		var June = "<c:out value='${list[5]}'/>";
+		var July = "<c:out value='${list[6]}'/>";
+		var August = "<c:out value='${list[7]}'/>";
+		var September = "<c:out value='${list[8]}'/>";
+		var October = "<c:out value='${list[9]}'/>";
+		var November = "<c:out value='${list[10]}'/>";
+		var December = "<c:out value='${list[10]}'/>";
+		
+		//전체 통계를 담은 변수들
+		var January2 = "<c:out value='${wholeList[0]}'/>";
+		var February2 = "<c:out value='${wholeList[1]}'/>";
+		var March2 = "<c:out value='${wholeList[2]}'/>";
+		var April2 = "<c:out value='${wholeList[3]}'/>";
+		var May2 = "<c:out value='${wholeList[4]}'/>";
+		var June2 = "<c:out value='${wholeList[5]}'/>";
+		var July2 = "<c:out value='${wholeList[6]}'/>";
+		var August2 = "<c:out value='${wholeList[7]}'/>";
+		var September2 = "<c:out value='${wholeList[8]}'/>";
+		var October2 = "<c:out value='${wholeList[9]}'/>";
+		var November2 = "<c:out value='${wholeList[10]}'/>";
+		var December2 = "<c:out value='${wholeList[10]}'/>";
 		//차트
 		try {
 		    //bar chart
@@ -32,16 +59,16 @@
 		        	labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
 		          datasets: [
 		            {
-		              label: "My First dataset",
-		              data: [65, 59, 80, 81, 56, 55, 40, 55, 40, 56, 81, 32, 32],
+		              label: "작가의 월별 매출",
+		              data: [January, February, March, April, May, June, July, August, September, October, November, December],
 		              borderColor: "rgba(0, 123, 255, 0.9)",
 		              borderWidth: "0",
 		              backgroundColor: "rgba(0, 123, 255, 0.5)",
 		              fontFamily: "Poppins"
 		            },
 		            {
-		              label: "My Second dataset",
-		              data: [28, 48, 40, 19, 86, 27, 90, 12, 60, 50, 32, 100],
+		              label: "전체 월별 매출",
+		              data: [January2, February2, March2, April2, May2, June2, July2, August2, September2, October2, November2, December2],
 		              borderColor: "rgba(0,0,0,0.09)",
 		              borderWidth: "0",
 		              backgroundColor: "rgba(0,0,0,0.07)",
@@ -80,6 +107,11 @@
 		    console.log(error);
 		  }
 	});
+	
+	//뒤로가기
+	function goBack(){
+		console.log("뒤로가기 버튼 클릭");
+	}
 </script>
 </head>
 
@@ -106,12 +138,16 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="m-b-25">
-                                	<!-- <input type="text">
-                                	<button class="btn btn-primary" type="submit">검색</button> -->
                                 </div>
                                  <div class="au-card m-b-30">
                                     <div class="au-card-inner">
-                                        <h3 class="title-2 m-b-40">작품 상세 통계</h3>
+                                    	<c:if test="${work eq null }">
+                                    		<h3 class="title-2 m-b-40">${ill[0].illTitle } 수익 통계</h3>
+                                    	</c:if>
+                                    	<c:if test="${ill eq null }">
+	                                        <h3 class="title-2 m-b-40">${work[0].wTitle} 수익 통계</h3>
+                                    	</c:if>
+                                    
                                         <canvas id="barChart"></canvas>
                                     </div>
                                 </div>
@@ -121,7 +157,7 @@
 	                          </div>
 	                        </div>
                             <div align="right">
-                            	<button class="btn btn-primary">뒤로</button>
+                            	<button class="btn btn-primary" onclick="goBack()">뒤로</button>
                             </div>
                         
                         <div class="row">
