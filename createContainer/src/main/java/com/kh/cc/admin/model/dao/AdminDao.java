@@ -106,4 +106,8 @@ public interface AdminDao {
 
 	ArrayList<Member> selectPriMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
 
+	ArrayList<Integer> selectPurchaseAvg(SqlSessionTemplate sqlSession, int mno);
+
+	ArrayList<Integer> selectAllPurchaseAvg(SqlSessionTemplate sqlSession);
+
 }

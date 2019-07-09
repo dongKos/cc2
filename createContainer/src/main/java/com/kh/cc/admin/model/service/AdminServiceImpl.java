@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.admin.model.dao.AdminDao;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -290,6 +291,18 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<Member> selectPriMemberList(AdminPageInfo pi) {
 		return ad.selectPriMemberList(sqlSession, pi);
+	}
+
+	//해당 작품 전체 매출통계 조회
+	@Override
+	public ArrayList<Integer> selectPurchaseAvg(int mno) {
+		return ad.selectPurchaseAvg(sqlSession, mno);
+	}
+
+	//전체 매출통계
+	@Override
+	public ArrayList<Integer> selectAllPurchaseAvg() {
+		return ad.selectAllPurchaseAvg(sqlSession);
 	}
 
 	

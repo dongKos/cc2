@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
@@ -593,6 +594,18 @@ public class AdminDaoImpl implements AdminDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("admin.selectPriMemberList", null, rowBounds);
+	}
+
+	//해당 작품 전체 매출 통계 구하기
+	@Override
+	public ArrayList<Integer> selectPurchaseAvg(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList)sqlSession.selectList("admin.selectPurchaseAvg", mno);
+	}
+
+	//전체 매출 통계
+	@Override
+	public ArrayList<Integer> selectAllPurchaseAvg(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectAllPurchaseAvg");
 	}
 
 	
