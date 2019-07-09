@@ -169,6 +169,12 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return srlist;
 	}
 
+	//일러스트 도전하기 증가
+	@Override
+	public int updateRecommendCount(SqlSessionTemplate sqlSession, int ill) {
+		return sqlSession.update("Illustrator.updateRecommendCount", ill);
+	}
+	
 	
 
 

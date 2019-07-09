@@ -54,6 +54,10 @@ public interface IllustratorDao {
 	//일러스트 후원하기 리워드 조회
 	ArrayList<Illustrator> selectIllSupportReward(SqlSessionTemplate sqlSession, Illustrator ill);
 
+	//일러스트 도전하기 추천수 증가
+	int updateRecommendCount(SqlSessionTemplate sqlSession, int ill);
+	
+
 	
 	
 	

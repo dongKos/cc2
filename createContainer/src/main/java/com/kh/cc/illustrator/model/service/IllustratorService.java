@@ -48,6 +48,10 @@ public interface IllustratorService {
 	//일러스트 후원하기 리워드 조회
 	ArrayList<Illustrator> selectIllSupportReward(Illustrator ill);
 
+	//일러스트 도전하기 추천 카운트 업데이트
+	int updateRecommendCount(int illCode);
+	
+
 
 	
 

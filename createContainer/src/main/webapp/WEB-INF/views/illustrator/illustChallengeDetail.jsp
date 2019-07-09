@@ -20,6 +20,14 @@
 			console.log("리퀘스트!");
 			location.href="illustRequest.ill";
 		}
+		
+		function updateRecommendCount(){
+			console.log("추천눌림");
+			var illCode = '${clist[0].illCode}'
+			var userId = '${clist[0].userId}'
+			location.href="IllRecommendCount.ill?illCode=" + illCode + "&userId=" + userId;
+			console.log(illCode);
+		}
 
   </script>
 <style>
@@ -113,7 +121,7 @@
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${clist[0].nickName}</i><br><br>
 				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
-				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
+				<button type="button" class="btn" onclick="updateRecommendCount();" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>
 				<script>
@@ -148,7 +156,7 @@
 					</tbody>
 				</table>
 				<div align="center">
-					<input type="text" value="추천수 : ${list[0].viewCount}">
+					<input type="text" value="추천수 : ${clist[0].recommendCount}">
 				</div>
 				<hr>
 			</div>
