@@ -62,43 +62,34 @@
       <!-- Portfolio Grid Items -->
       <div class="row">
 
-        <!-- Portfolio Item 1 -->
+        <c:forEach var="illChallenge" items="${ clist }">
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal1">
+        <input type="hidden" value="${illChallenge.illCode }" id="illCode">
+        <input type="hidden" value="${illChallenge.userId }" id="illCode">
+          <div class="portfolio-item chall mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ illChallenge.changeName }">
           </div>
         </div>
-
-        <!-- Portfolio Item 2 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal2">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 3 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal3">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div>
-
-		<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="display:inline-block; margin:0 auto">포트폴리오 BEST 3</h2>
+        <script>
+        $(function(){
+	        $(".chall").click(function(){
+	            var illCode = $(this).siblings().eq(0).val();
+	            var userId = $(this).siblings().eq(1).val();
+	         	location.href='selectIllChallengeDetail.ill?illCode=' + illCode + '&userId=' + userId;
+	        })
+	        
+	     })
+	     
+	   
+        </script>
+		</c:forEach>
+		
+		<div style="width:100%;"><br><br><br><br><h2 class="page-section-heading text-center text-uppercase text-secondary mb-0" style="align:center">포트폴리오 BEST 3</h2></div>
 
       <!-- Icon Divider -->
       <div class="divider-custom">
@@ -109,42 +100,32 @@
         <div class="divider-custom-line"></div>
       </div>
 
-        <!-- Portfolio Item 4 -->
+       <!-- Portfolio Item 1 -->
+        <c:forEach var="illPortfolio" items="${ list }">
         <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal4">
+        <input type="hidden" value="${illPortfolio.illCode }" id="illCode">
+        <input type="hidden" value="${illPortfolio.userId }" id="illCode">
+          <div class="portfolio-item port mx-auto" data-target="#portfolioModal1">
             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
               <div class="portfolio-item-caption-content text-center text-white">
                 <i class="fas fa-plus fa-3x"></i>
               </div>
             </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
+            <img class="img-fluid" src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ illPortfolio.changeName }">
           </div>
         </div>
-
-        <!-- Portfolio Item 5 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal5">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div>
-
-        <!-- Portfolio Item 6 -->
-        <div class="col-md-6 col-lg-4">
-          <div class="portfolio-item mx-auto" data-target="#portfolioModal6">
-            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-              <div class="portfolio-item-caption-content text-center text-white">
-                <i class="fas fa-plus fa-3x"></i>
-              </div>
-            </div>
-            <img class="img-fluid" src="${contextPath }/resources/images/logoEdit.png" alt="">
-          </div>
-        </div>
-
+        <script>
+        $(function(){
+	        $(".port").click(function(){
+	            var illCode = $(this).siblings().eq(0).val();
+	            var userId = $(this).siblings().eq(1).val();
+	         	location.href='selectIllPortfolioDetail.ill?illCode=' + illCode + '&userId=' + userId;
+	        })
+	        
+	     })
+		
+        </script>
+		</c:forEach>
       </div>
       <!-- /.row -->
 
