@@ -7,39 +7,68 @@
 <meta charset="UTF-8">
 <title>CreateContainer</title>
 <style>
-	.testImg{
-		margin-top:50px;
-	}
+.container{
+	margin-top:80px;
+}
+.noticeImg{
+	height:400px !important;
+	cursor:pointer;
+}
+.col-sm-10{
+	text-align:center;
+}
+.logoTitleImg{
+	height:50px;
+	margin-bottom: 30px;
+    margin-top: 10px;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="common/mainMenubar.jsp"/>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
-	<div align="center">
-	
-	<!-- 로그아웃 상태 -->
-	<c:if test="${ empty sessionScope.loginUser }">
-		<img class="testImg" src="${ contextPath }/resources/images/spring.png" width="50%">	
-		<h1>로그인 고고</h1>
-	</c:if>
-	<!-- 로그인 상태 -->
-	<c:if test="${ !empty sessionScope.loginUser }">
-		<img class="testImg" src="${ contextPath }/resources/images/logo.png" width="50%">	
-		<h1>로그인 성고옹</h1>
-	</c:if>
-	<!-- 관리자 로그인 -->
-	<c:if test="${loginUser.userId eq 'admin' }">
-		<jsp:forward page="../admin/adminMain.jsp"/>  - 
-	</c:if>
+	<div class="container">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<img class="logoTitleImg" src="${ contextPath }/resources/images/logoTitle.png" alt="1">
+			<div class="row">
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+						<li data-target="#myCarousel" data-slide-to="1"></li>
+						<li data-target="#myCarousel" data-slide-to="2"></li>
+					</ol>
+		
+					<div class="carousel-inner">
+						<div class="item active">
+							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='webtoonMain.wt'" alt="웹툰 메인">
+						</div>
+						<div class="item">
+							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='webnovelMain.wn'" alt="웹소설 메인">
+						</div>
+						<div class="item">
+							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='illustMain.ill'"  alt="일러스트 메인">
+						</div>
+					</div>
+		
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev"> 
+						<span class="glyphicon glyphicon-chevron-left"></span> 
+						<span class="sr-only">Previous</span>
+					</a> 
+					<a class="right carousel-control" href="#myCarousel" data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right"></span> <span
+						class="sr-only">Next</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-1"></div>
 	</div>
 	
 	<div align="center">
-	<button onclick="location.href='illustMain.ill'">일러스트 메인</button>
-	<button onclick="location.href='webtoonMain.wt'">웹툰 메인</button><br>
-	<button onclick="location.href='webnovelMain.wn'">웹소설 메인</button>
 	<button onclick="location.href='NoticeList.mg'">공지사항</button>
 	
 	</div>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="common/footer.jsp"/>
 </body>
 </html>

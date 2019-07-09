@@ -916,7 +916,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td class="wnrContent">
-										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]ㄹㅇㄴㅁ</p>
 									</td>
 									<td class="wnrBtnArea">
 										<input type="hidden" value="${ wnr.rid }">
