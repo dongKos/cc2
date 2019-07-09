@@ -30,27 +30,27 @@
 <body>
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 	<div class="container">
+			<br><br>
 			<h2>선택할 수 있는 후원 작품이에요!</h2>
 			<br><br>
 			
 		<div class="row">
-			<div class="reward">
-				<div align="right">
-					원하는 만큼 후원하기 <button class="btn btn-primary" onclick="apply();">></button>
+			<c:forEach var="illSupportReward" items="${ srlist }">
+				<div class="reward">
+					<div align="right">
+						원하는 만큼 후원하기 <button class="btn btn-primary" onclick="apply();">></button>
+					</div>
+					<hr>
+					<div class="img-content">
+						<img src="${contextPath }/resources/uploadFiles/support/${ illSupportReward.changeName }" style="width:100%; height:100%;">
+					</div>
+					<hr>
+					<h4>${ srlist[0].stitle}</h4>
+					<div class="textArea">
+						${srlist[0].scontent}
+					</div>
 				</div>
-				<hr>
-				<c:forEach var="illSupportReward" items="${ srlist }">
-				<div class="img-content">
-					<img src="${contextPath }/resources/uploadFiles/support/${ illSupportReward.changeName }">
-				</div>
-				</c:forEach>
-				<hr>
-				<h4>${ srlist[0].stitle}</h4>
-				<div class="textArea">
-					${srlist[0].scontent}
-				</div>
-				
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 	

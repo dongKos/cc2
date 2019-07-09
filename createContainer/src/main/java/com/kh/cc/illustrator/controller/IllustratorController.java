@@ -33,7 +33,31 @@ public class IllustratorController {
 	
 	//일러스트 메인 페이지로 이동
 	@RequestMapping(value="illustMain.ill")
-	public String illustMain() {
+	public String illustMain(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+		
+		System.out.println("컨트롤러 접근?");
+		
+		int currentPage = 1;
+		int limit = 5;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = is.selectListCount();
+		
+		  IllustratorPageInfo pi = IllustratorPagination.getPageInfo(currentPage, listCount, limit);
+		  
+		  ArrayList<Illustrator> list = is.selectIllPortfolioList(pi, ill);
+		  model.addAttribute("list", list);
+		  model.addAttribute("pi", pi);
+		  
+		  ArrayList<Illustrator> clist = is.selectIllChallengeList(pi, ill);
+		  model.addAttribute("clist", clist);
+		  
+		  System.out.println("listCount" + listCount);
+		  System.out.println("list" + list);
+		
 		return "illustrator/illust_main";
 	}
 	
