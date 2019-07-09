@@ -25,6 +25,10 @@
 </style>
 </head>
 <body>
+
+<c:if test="${sessionScope.loginUser.memberType eq 3 }">
+	<jsp:forward page="../admin/adminMain.jsp"/>
+</c:if>
 	<jsp:include page="common/mainMenubar.jsp"/>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<div class="container">
