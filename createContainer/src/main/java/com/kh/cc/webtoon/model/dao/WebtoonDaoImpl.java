@@ -274,6 +274,24 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return topList;
 	}
 
+	@Override
+	public int anothorListCount(SqlSessionTemplate sqlSession, int wid) {
+		return sqlSession.selectOne("Webtoon.anthorListCount", wid);
+	}
+
+	@Override
+	public ArrayList<Webtoon> anthorWork(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt) {
+		ArrayList<Webtoon> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.anthorWork", wt, rowBounds);
+		
+		return list;
+	}
+
 	
 
 	

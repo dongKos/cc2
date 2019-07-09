@@ -33,7 +33,8 @@ public class WebtoonController {
 
 	// 웹툰 메인페이지로 이동
 	@RequestMapping(value = "webtoonMain.wt")
-	public String webtoonMain(HttpServletRequest request, HttpSession session, Webtoon wt, Model model) {
+	public String webtoonMain(/* HttpServletRequest request, HttpSession session, Webtoon wt, Model model */) {
+		
 		
 		/*
 		 * int currentPage = 1; int limit = 3; int buttonCount = 5;
@@ -412,6 +413,9 @@ public class WebtoonController {
 	@RequestMapping(value="updateRest.wt")
 	public String updateRest(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
 		System.out.println("휴재 신청 메소드 실행");
+		
+		
+		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		
 		wt.setWid(wid);
@@ -424,8 +428,10 @@ public class WebtoonController {
 	
 	//리스트에서 회차 등록버튼을 눌렀을때 동작되는 메소드
 	@RequestMapping(value = "roundList.wt")
-	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
+	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		
+		 m = (Member) session.getAttribute("loginUser"); 
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		System.out.println("wid : " + wid);
@@ -807,8 +813,44 @@ public class WebtoonController {
 		
 	}
 	
-	
+	//일반사용자가 썸내일을 누를시 회차 를  보여주는 메소드
+	@RequestMapping(value="anthorWork.wt")
+	public String anothorWork(Model model, HttpServletRequest request, HttpSession session, Webtoon wt) {
+		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		System.out.println("wid : " + wid);
+		
+		wt.setWid(wid);
+		
+		int currentPage = 1;
+		int limit = 5;
+		int buttonCount = 10;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		System.out.println("wr : " + wid);
+		int listCount = ws.anothorListCount(wid);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
+		System.out.println("listCount(다른작품 조회) : " + listCount);
+		
+		ArrayList<Webtoon> list = ws.anthorWork(pi, wt);
+		list.get(0);
+		System.out.println("list: " + list);
+		
+		model.addAttribute("list1", list.get(0));
+		
+		model.addAttribute("list",list);
+		
+		model.addAttribute("pi",pi);
+		
+		return "webtoon/anthorWork";
+		
+	}
 
+	
+	   
+	 
 }
 
 

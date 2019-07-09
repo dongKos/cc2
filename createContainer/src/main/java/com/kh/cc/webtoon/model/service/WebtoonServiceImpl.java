@@ -255,6 +255,16 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.topList(sqlSession);
 	}
 
+	@Override
+	public int anothorListCount(int wid) {
+		return wd.anothorListCount(sqlSession, wid);
+	}
+
+	@Override
+	public ArrayList<Webtoon> anthorWork(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.anthorWork(sqlSession, pi, wt);
+	}
+
 
 	
 	

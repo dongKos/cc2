@@ -16,14 +16,16 @@ public class Webtoon implements java.io.Serializable {
 	private Date workDate;
 	private String ageGrade;
 	private String genre;
+	private String genreExplain;
 	private String changeName;
 	private int fid;
+	private String userName;
 	
 	public Webtoon() {}
 
 	public Webtoon(int wid, String userId, Date wuploadDate, String wTitle, String wIntro, int vCount, String wCycle,
 			int gradeType, String workType, String workStatus, Date workDate, String ageGrade, String genre,
-			String changeName, int fid) {
+			String genreExplain, String changeName, int fid, String userName) {
 		super();
 		this.wid = wid;
 		this.userId = userId;
@@ -38,8 +40,10 @@ public class Webtoon implements java.io.Serializable {
 		this.workDate = workDate;
 		this.ageGrade = ageGrade;
 		this.genre = genre;
+		this.genreExplain = genreExplain;
 		this.changeName = changeName;
 		this.fid = fid;
+		this.userName = userName;
 	}
 
 	public int getWid() {
@@ -94,12 +98,20 @@ public class Webtoon implements java.io.Serializable {
 		return genre;
 	}
 
+	public String getGenreExplain() {
+		return genreExplain;
+	}
+
 	public String getChangeName() {
 		return changeName;
 	}
 
 	public int getFid() {
 		return fid;
+	}
+
+	public String getUserName() {
+		return userName;
 	}
 
 	public void setWid(int wid) {
@@ -154,6 +166,10 @@ public class Webtoon implements java.io.Serializable {
 		this.genre = genre;
 	}
 
+	public void setGenreExplain(String genreExplain) {
+		this.genreExplain = genreExplain;
+	}
+
 	public void setChangeName(String changeName) {
 		this.changeName = changeName;
 	}
@@ -162,14 +178,18 @@ public class Webtoon implements java.io.Serializable {
 		this.fid = fid;
 	}
 
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	@Override
 	public String toString() {
 		return "Webtoon [wid=" + wid + ", userId=" + userId + ", wuploadDate=" + wuploadDate + ", wTitle=" + wTitle
 				+ ", wIntro=" + wIntro + ", vCount=" + vCount + ", wCycle=" + wCycle + ", gradeType=" + gradeType
 				+ ", workType=" + workType + ", workStatus=" + workStatus + ", workDate=" + workDate + ", ageGrade="
-				+ ageGrade + ", genre=" + genre + ", changeName=" + changeName + ", fid=" + fid + "]";
+				+ ageGrade + ", genre=" + genre + ", genreExplain=" + genreExplain + ", changeName=" + changeName
+				+ ", fid=" + fid + ", userName=" + userName + "]";
 	}
 
 	
-	
-	}
+}

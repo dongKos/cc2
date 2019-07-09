@@ -195,6 +195,7 @@ p{
 </head>
 <body>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
+	<c:set var="userId" value="${ m.userId }"/>
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../main/common/serviceNavbar.jsp"/>
 	<!-- 웹소설 중단 네비바 -->
@@ -233,13 +234,25 @@ p{
 								<p class="wtrIntro">${ wt.wIntro }</p>
 							</td>
 						</tr>
+					
 						<tr>
 							<td colspan="2">
-								<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
-								<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
-								<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">휴재 신청</button>
+							<!-- 로그인 유저가 작가의 아이랑 동일 할경우 -->
+							
+								<c:if test="${ loginUser eq wt.userId}">
+									<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
+									<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">휴재 신청</button>
+								</c:if>
+							<!-- 로그인유저와 작가의 아이디와 다를 경우 -->
+								<c:if test="${ loginUser == null && loginUser ne wt.userId }">
+									<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">관심작품등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
+									<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">작품 신고</button>
+								</c:if>
 							</td>
 						</tr>
+						
 					</table>
 				</div>
 				 <input type="hidden" name="wid" value="${wt.wid }">
