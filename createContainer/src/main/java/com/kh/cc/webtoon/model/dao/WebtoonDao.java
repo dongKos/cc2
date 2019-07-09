@@ -89,6 +89,10 @@ public interface WebtoonDao {
 
 	ArrayList<Webtoon> topList(SqlSessionTemplate sqlSession);
 
+	int anothorListCount(SqlSessionTemplate sqlSession, int wid);
+
+	ArrayList<Webtoon> anthorWork(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+
 
 
 	

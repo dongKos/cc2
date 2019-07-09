@@ -18,8 +18,10 @@
 		<result property="workDate" column="WORK_DATE"/>
 		<result property="ageGrade" column="AGE_GRADE"/>
 		<result property="genre" column="GENRE"/>
+		<result property="genreExplain" column="GENRE_EXPLAIN"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="fid" column="FID"/>
+		<result property="userName" column="USER_NAME"/>
 	</resultMap>
 	<!-- 메인 썸네일 -->
 	<resultMap type="com.kh.cc.webtoon.model.vo.WebtoonPhoto" id="webtoonPhotoResultSet">
@@ -47,6 +49,7 @@
 		<result property="rContent" column="RCONTENT"/>
 		<result property="wrComment" column="WR_COMMENT"/>
 		<result property="changeName" column="CHANGE_NAME"/>
+		
 	</resultMap>
 
 	<!-- 작품등록 메소드 -->
@@ -214,6 +217,7 @@
 		AND W.GENRE = #{genre}
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
+	
 	<!-- 장르 리스트 카운트 -->
 	<select id="genreListCount" parameterType="java.lang.String" resultType="_int">
 		SELECT COUNT(*)
@@ -338,6 +342,28 @@
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY W.WUPLOAD_DATE DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 5
+	</select>
+
+	<select id="anthorListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE W.USER_ID = (SELECT USER_ID
+		FROM WORK
+		WHERE WID = #{wid})
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+
+	<select id="anthorWork" resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		JOIN GENRE G ON(W.GENRE = G.GENRE_CODE)
+		WHERE W.USER_ID = (SELECT USER_ID
+		FROM WORK
+		WHERE WID = #{wid})
+		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	
 </mapper>

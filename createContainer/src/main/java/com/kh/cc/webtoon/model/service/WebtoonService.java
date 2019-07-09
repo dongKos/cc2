@@ -70,6 +70,10 @@ public interface WebtoonService {
 
 	ArrayList<Webtoon> topList();
 
+	int anothorListCount(int wid);
+
+	ArrayList<Webtoon> anthorWork(WebtoonPageInfo pi, Webtoon wt);
+
 
 
 

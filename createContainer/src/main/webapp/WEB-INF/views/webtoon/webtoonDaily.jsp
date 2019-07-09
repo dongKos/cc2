@@ -314,5 +314,25 @@ table td {
 	<br>
 	<br>
 	<br>
+<script>
+	$(function(){
+		$(".newThumbnail").click(function(){
+		var wid = $(this).parents().children("input").val();
+			console.log(wid);
+			location.href = "roundList.wt?wid=" + wid;
+		});
+		
+		$(".thumbnail").click(function(){
+			var wid = $(this).parents().children("input").val();
+			console.log(wid);
+			location.href = "roundList.wt?wid=" + wid;
+		});
+	});
+</script>
 </body>
 </html>
+
+
+
+
+

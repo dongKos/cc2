@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,6 +96,10 @@ footer {
 	height: 150px;
 	margin: 0 auto;
 }
+.thumbnail{
+	width:180px;
+	height:170px;
+}
 </style>
 </head>
 <body>
@@ -127,7 +132,6 @@ footer {
 			<jsp:include page="common/genreNavbar.jsp" />
 			<table id="genreRecommed">
 			<c:forEach var="wtr" items="${ list }">
-			<h3>${ wtr.changeName }</h3>
 			<tbody>
 				<tr>
 					<td>
