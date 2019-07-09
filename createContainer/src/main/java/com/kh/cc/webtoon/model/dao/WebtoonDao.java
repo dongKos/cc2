@@ -85,6 +85,10 @@ public interface WebtoonDao {
 
 	ArrayList<Webtoon> newList(SqlSessionTemplate sqlSession);
 
+	int challengeListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webtoon> topList(SqlSessionTemplate sqlSession);
+
 
 
 	

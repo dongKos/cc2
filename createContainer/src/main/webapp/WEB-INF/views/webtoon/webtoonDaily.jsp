@@ -184,19 +184,11 @@ table td {
 				</div>
 				<hr>
 
-				<div id="dayText" style="display: inline;">
-					<h3 class="dayT">
-						월&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						화&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						금&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						토&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;일
-					</h3>
-				</div>
+				
 				<hr>
 				
 				<div id="mondayArea" style="display: inline-block;">
+				<h3 align="center">월</h3>
 				<c:forEach var="dwtr1" items="${ list1 }">
 					<div id="area">
 						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr1.changeName }">
@@ -207,6 +199,7 @@ table td {
 				</div>
 
 				<div id="tuesdayArea" style="display: inline-block;">
+				<h3 align="center">화</h3>
 				<c:forEach var="dwtr2" items="${ list2 }">
 						<div id="area"><img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr2.changeName }">
 						<input type="hidden" value="${ dwtr2.wid }"/>
@@ -216,6 +209,7 @@ table td {
 				</div>
 
 				<div id="wednesdayArea" style="display: inline-block;">
+				<h3 align="center">수</h3>
 				<c:forEach var="dwtr3" items="${ list3 }">
 					<div id="area">
 					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr3.changeName }">
@@ -226,6 +220,7 @@ table td {
 				</div>
 
 				<div id="thursdayArea" style="display: inline-block;">
+				<h3 align="center">목</h3>
 				<c:forEach var="dwtr4" items="${ list4 }">
 					<div id="area">
 					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr4.changeName }">
@@ -236,6 +231,7 @@ table td {
 				</div>
 
 				<div id="fridayArea" style="display: inline-block;">
+				<h3 align="center">금</h3>
 				<c:forEach var="dwtr5" items="${ list5 }">
 					<div id="area">
 						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr5.changeName }">
@@ -246,6 +242,7 @@ table td {
 				</div>
 
 				<div id="saturdayArea" style="display: inline-block;">
+				<h3 align="center">토</h3>
 				<c:forEach var="dwtr6" items="${ list6 }">
 					<div id="area">
 						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr6.changeName }">
@@ -256,6 +253,7 @@ table td {
 				</div>
 
 				<div id="sundayArea" style="display: inline-block;">
+				<h3 align="center">일</h3>
 				<c:forEach var="dwtr7" items="${ list7 }">
 					<div id="area">
 					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr7.changeName }">

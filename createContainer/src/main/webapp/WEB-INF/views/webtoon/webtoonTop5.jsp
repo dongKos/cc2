@@ -99,10 +99,25 @@ background-color: red;
 	height: 150px;
 	margin: 0 auto;
 }
+.topImgArea{
+	 width: 95px;
+}
+
+.thumbnailArea{
+	width: 90px;
+	height:100px;
+}
+
+.newThumbnail{
+	width:100%;
+	height:90%;
+	margin: 0 auto;
+}
+
 </style>
 </head>
 <body style="margin-top: 3.5%;">
-
+<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
@@ -116,16 +131,15 @@ background-color: red;
 						<h3>Top5</h3>
 						<tbody>
 							<tr>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
-								<td><img src="${contextPath}/resources/images/noimg.png"
-									style="width: 100%;"></td>
+								<c:forEach var="wtr" items="${ topList }">
+									<td class="topImgArea">
+										<div class="thumbnailArea">
+											<img class="newThumbnail" src="${contextPath}/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+											<p class="title" align="center">${ wtr.wTitle }</p>
+											<input type="hidden" value="${wtr.wid }" />
+										</div>
+									</td>
+								</c:forEach>
 							</tr>
 						</tbody>
 					</table>

@@ -328,7 +328,17 @@
 		ORDER BY W.WUPLOAD_DATE DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 5
 	</select>
-	
+	<select id="top5" resultMap="webtoonResultSet">
+		SELECT *
+		FROM (SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.WORK_STATUS = 'RUN'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY W.WUPLOAD_DATE DESC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 5
+	</select>
 	
 </mapper>
 
