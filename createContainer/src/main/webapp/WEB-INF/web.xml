@@ -44,7 +44,7 @@
 
 
  <!-- 마이페이지 관련 서블릿 요청주소 -->
- <servlet>
+ <!-- <servlet>
       <servlet-name>mypage</servlet-name>
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
@@ -55,7 +55,7 @@
    <servlet-mapping>
       <servlet-name>mypage</servlet-name>
       <url-pattern>*.mg</url-pattern>
-   </servlet-mapping>
+   </servlet-mapping> -->
    <!-- 관리자 관련 서블릿 요청주소 -->
   <!--  <servlet>
       <servlet-name>admin</servlet-name>
@@ -114,6 +114,7 @@
    </servlet-mapping>
     -->
    	<!-- 웹툰 관련 서블릿 요청주소 -->
+
 <!-- 	<servlet>
 		<servlet-name>webtoon</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet
@@ -129,7 +130,7 @@
 	</servlet-mapping> -->
    
 <!-- 웹소설 관련 서블릿 요청주소 -->
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>webnovel</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -140,7 +141,7 @@
 	<servlet-mapping>
 		<servlet-name>webnovel</servlet-name>
 		<url-pattern>*.wn</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> -->
  	<!-- 인코딩 필터 추가 -->
  	<filter>
  		<filter-name>encodingFilter</filter-name>
