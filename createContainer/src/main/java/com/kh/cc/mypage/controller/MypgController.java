@@ -195,14 +195,14 @@ public class MypgController {
 		m = (Member) session.getAttribute("loginUser");
 		
 		int currentPage = 1;
-		//int limit = 12;
+		int limit = 12;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		
+		int buttonCount = 10;
 		int listCount = wts.selectListCount(m);
 		
-		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage ,buttonCount,limit, listCount);
 		
 		ArrayList<Webtoon> list = wts.selectWtList(pi, m);
 		model.addAttribute("list",list);
