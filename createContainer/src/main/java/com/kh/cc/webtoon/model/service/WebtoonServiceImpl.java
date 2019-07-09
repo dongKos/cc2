@@ -245,6 +245,16 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.newList(sqlSession);
 	}
 
+	@Override
+	public int challengeListCount() {
+		return wd.challengeListCount(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Webtoon> topList() {
+		return wd.topList(sqlSession);
+	}
+
 
 	
 	

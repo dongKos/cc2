@@ -43,14 +43,14 @@ footer {
 }
 
 #todayWebtoon {
-	width: 60%;
+	width: 57%;
 	height: 150px;
 	background-color: red;
 	margin: 0 auto;
 	float: right;
 	display: inline-block;
 	margin-top: 5%;
-	margin-right: 5%;
+	margin-right: 3%;
 }
 
 #sideCategory {
@@ -126,12 +126,13 @@ footer {
 			<hr>
 			<jsp:include page="common/genreNavbar.jsp" />
 			<table id="genreRecommed">
-			<c:forEach var="wtr" items="${list }">
+			<c:forEach var="wtr" items="${ list }">
+			<h3>${ wtr.changeName }</h3>
 			<tbody>
 				<tr>
 					<td>
 						<div id="area">
-							<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+							<img class="thumbnail" src="${contextPath}/resources/uploadFiles/webtoonMain/${ wtr.changeName }"/>
 							<h4>${ wtr.wTitle }</h4>
 						</div>
 					</td>
@@ -200,6 +201,7 @@ footer {
 			</h4>
 		</div>
 	</div>
+	<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
 	<br>
 	<br>
 	<br>

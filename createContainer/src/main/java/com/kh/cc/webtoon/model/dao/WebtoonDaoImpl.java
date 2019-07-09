@@ -262,6 +262,18 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return list;
 	}
 
+	@Override
+	public int challengeListCount(SqlSessionTemplate sqlSession) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Webtoon> topList(SqlSessionTemplate sqlSession) {
+		ArrayList<Webtoon> topList = null;
+		topList = (ArrayList) sqlSession.selectList("Webtoon.top5");
+		return topList;
+	}
+
 	
 
 	

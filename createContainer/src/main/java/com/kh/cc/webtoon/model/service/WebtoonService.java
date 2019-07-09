@@ -66,6 +66,10 @@ public interface WebtoonService {
 
 	ArrayList<Webtoon> newList();
 
+	int challengeListCount();
+
+	ArrayList<Webtoon> topList();
+
 
 
 

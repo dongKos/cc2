@@ -33,9 +33,13 @@ public class WebtoonController {
 
 	// 웹툰 메인페이지로 이동
 	@RequestMapping(value = "webtoonMain.wt")
-	public String webtoonMain() {
+	public String webtoonMain(HttpServletRequest request, HttpSession session, Webtoon wt, Model model) {
 		
-		
+		/*
+		 * int currentPage = 1; int limit = 3; int buttonCount = 5;
+		 * 
+		 * int listCount = ws.challengeListCount();
+		 */
 		
 		return "webtoon/webtoonMain";
 	}
@@ -78,19 +82,29 @@ public class WebtoonController {
 
 	// 웹툰 TOP5페이지로 이동
 	@RequestMapping(value = "webtoonTop5.wt")
-	public String webtoonTop5() {
+	public String webtoonTop5(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
+		
+		ArrayList<Webtoon> topList = ws.topList();
+		
+		
+		model.addAttribute("topList", topList);
+		
 		return "webtoon/webtoonTop5";
 	}
 
+	
 	// 웹툰 홈으로 이동
 	@RequestMapping(value = "webtoonHome.wt")
 	public String webtoonHome() {
 		return "webtoon/webtoonHome";
 	}
+	
 
 	// 웹툰 도전페이지로 이동
 	@RequestMapping(value = "webtoonChallenge.wt")
 	public String webtoonChallenge() {
+		
+		
 		return "webtoon/webtoonChallenge";
 	}
 
