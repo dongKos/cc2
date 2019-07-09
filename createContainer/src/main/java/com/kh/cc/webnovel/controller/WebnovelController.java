@@ -245,7 +245,6 @@ public class WebnovelController {
 		wnr.setWid(wid);
 		wnr.setGradeType(gradeType);
 		
-		System.out.println(wnr);
 		int buttonCount = 10;
 		int limit = 10;
 		int currentPage = 1;
@@ -271,6 +270,7 @@ public class WebnovelController {
 		
 		
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(pi, wnr);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		model.addAttribute("wn", wn);
@@ -444,14 +444,9 @@ public class WebnovelController {
 		
 		ArrayList<WebnovelRound> list = ws.selectWnRoundList(pi, wnr);
 		
-		WebnovelRound checkWnr = new WebnovelRound();
-		checkWnr = ws.selectCheckWnr(wnr);
-		System.out.println(checkWnr);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		//model.addAttribute("wnr", wnr);
 		model.addAttribute("wn", wn);
-		model.addAttribute("checkWnr", checkWnr);
 		
 		return "webnovel/webnovelContents/selectDetailedWebnovel";
 		
@@ -896,11 +891,6 @@ public class WebnovelController {
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int rid = Integer.parseInt(request.getParameter("rid"));
-		System.out.println("mno : " + mno);
-		System.out.println("wid : " + wid);
-		System.out.println("gradeType : " + gradeType);
-		System.out.println("currentPage : " + currentPage);
-		System.out.println("rid : " + rid);
 		wc.setMno(mno);
 		wc.setRid(rid);
 		int result = ws.updatePayWallet(mno, wc);

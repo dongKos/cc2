@@ -103,6 +103,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 		ArrayList<WebnovelRound> list = null;
 		
 		int result = wd.selectCheckwRound(sqlSession, wnr);
+		System.out.println("result" + result);
 		if(result > 0) {
 			list = wd.selectWnRoundList(sqlSession, pi, wnr);
 		}else {
