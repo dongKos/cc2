@@ -133,6 +133,14 @@ public class IllustratorServiceImpl implements IllustratorService{
 		
 		return id.selectIllSupportReward(sqlSession, ill);
 	}
+
+
+	//일러스트 도전하기 추천수 증가
+	@Override
+	public int updateRecommendCount(int ill) {
+		return id.updateRecommendCount(sqlSession, ill);
+	}
+	
 	
 	
 

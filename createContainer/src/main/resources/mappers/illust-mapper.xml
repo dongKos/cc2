@@ -190,4 +190,11 @@
 		WHERE M.USER_ID = #{ userId }
 		AND A.ATTACHMENT_CATEGORY = 'rew'
 	</select>
+	
+	<!-- 일러스트 도전하기 추천수 증가 -->
+	<update id="updateRecommendCount" parameterType="_int">
+		UPDATE ILLUSTRATION SET 
+		RECOMMEND_COUNT = RECOMMEND_COUNT+1
+		WHERE ILL_CODE = #{ill}
+	</update>
 </mapper>

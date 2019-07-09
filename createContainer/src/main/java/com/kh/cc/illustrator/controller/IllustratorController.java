@@ -412,4 +412,17 @@ public class IllustratorController {
 			
 			return "illustrator/illust_Support";
 		}
+		
+		//일러스트 도전하기 추천 카운트
+		@RequestMapping(value="IllRecommendCount.ill")
+		public String updateIllRecommendCount(int illCode, String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
+//			int RecommendCount = Integer.parseInt(request.getParameter("recommendCount"));
+//			ill.setRecommendCount(RecommendCount);
+			System.out.println("컨트롤러!!!!!!!!!!!!!!!!!!!!" + illCode);
+			
+			is.updateRecommendCount(illCode);
+			model.addAttribute("userId" , userId);
+			
+			return "redirect:selectIllChallengeDetail.ill";
+		}
 }

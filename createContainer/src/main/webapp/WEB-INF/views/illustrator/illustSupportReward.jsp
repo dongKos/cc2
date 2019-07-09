@@ -30,7 +30,7 @@
 <body>
 <jsp:include page="common/IllustTopNavbar.jsp"/>
 	<div class="container">
-			<h2>선택할 수 있는 후원 작품이 2개 있어요!</h2>
+			<h2>선택할 수 있는 후원 작품이에요!</h2>
 			<br><br>
 			
 		<div class="row">
@@ -45,10 +45,9 @@
 				</div>
 				</c:forEach>
 				<hr>
-				<h4>핸드폰 배경 화면 2종!</h4>
+				<h4>${ srlist[0].stitle}</h4>
 				<div class="textArea">
-					이상! 이것이야말로 무한한 가치를 가진 것이다 사람은 크고 작고 간에 이상이 있음으로써 용감하고 굳세게 살 수 있는 것이다 석가는 무엇을 위하여 설산에서 고행을 하였으며<br> 
-					예수는 무엇을 위하여 광야에서 방황하였으며 공자는 무엇을 위하여
+					${srlist[0].scontent}
 				</div>
 				
 			</div>
