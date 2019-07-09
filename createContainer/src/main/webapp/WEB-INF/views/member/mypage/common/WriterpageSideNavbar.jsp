@@ -90,10 +90,10 @@
 			location.href="writerRest.mg"
 		}
 		function goWriteMyWt(){
-	        location.href="writeWtFree.mg"
+	        location.href="insertWork.wt"
 	    }
 	    function goWriteMyNo(){
-	        location.href="writeWnoFree.mg"
+	        location.href="selectWnList.wn?gradeType=1"
 	    }
 	    function goAdministration(){
 	        location.href="Administration.mg"
