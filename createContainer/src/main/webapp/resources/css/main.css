@@ -59,12 +59,9 @@ hr{
 	width:90%;
 	height:20px;
 	font-size:11px;
-	text-align:center;
+	text-align:right;
 	padding-top:10px;
 	margin:0 auto;
-}
-.findUser{
-	margin-left:65px;
 }
 .loginImg{
 	width:376px;

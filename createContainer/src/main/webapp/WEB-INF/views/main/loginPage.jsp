@@ -28,7 +28,6 @@
 				<input class="mainInput" type="password" name="userPwd" placeholder="비밀번호" maxlength="20"  required>
 			</div>
 			<div class="loginDiv">	
-				<input id="saveId" class="subCheck" type="checkbox"><label for="saveId">아이디저장 </label>
 				<a class="findUser" href="${ contextPath }/findUser.me">아이디 / 비밀번호를 잊어버리셨나요?</a>
 			</div>
 			<div class="divBox">
@@ -37,16 +36,9 @@
 			</div>
 			<table class="lineTable">
 				<tr>
-					<td class="hr"><hr></td>
-					<td class="line"><h4>SNS 로그인</h4></td>
-					<td class="hr"><hr></td>
+					<td class="hr"><br><vr><hr></td>
 				</tr>
 			</table>
-			<div class="divBox">
-				<img class="loginImg" src="${ contextPath }/resources/images/kakaoLogin.png">
-				<img class="loginImg" src="${ contextPath }/resources/images/gogleLogin.png">
-				<img class="loginImg" src="${ contextPath }/resources/images/naverLogin.png">
-			</div>
 		</form>
 	</div>
 </body>

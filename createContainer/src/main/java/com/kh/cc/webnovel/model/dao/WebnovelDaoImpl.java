@@ -303,7 +303,7 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		list = (ArrayList) sqlSession.selectList("Webnovel.selectWebnovelReplyList", wReply, rowBounds);
-		
+		System.out.println(list + "!!!!!");
 		return list;	
 	}
 	//신고등록

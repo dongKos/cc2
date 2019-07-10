@@ -167,6 +167,7 @@
 	<select id="selectWnOne" parameterType="Webnovel" resultMap="webnovelResultSet">
 		SELECT *
 		FROM WORK W
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
 		WHERE A.WID = #{wid}
 		AND W.GRADE_TYPE = #{gradeType}

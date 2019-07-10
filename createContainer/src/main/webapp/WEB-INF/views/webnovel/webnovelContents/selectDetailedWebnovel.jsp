@@ -11,6 +11,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${ contextPath }/resources/css/webnovel/insertWebnovel.css">
 <style>
+
 .col-sm-10{
 	background-color:#FAFAFA;
 	height:100%;
@@ -311,7 +312,7 @@
 }
 </style>
 </head>
-<body>
+<body oncontextmenu='return false' ondragstart='return false' onselectstart='return false'>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	<!-- 서비스 상단 네비바 -->
 	<jsp:include page="../../main/common/serviceNavbar.jsp"/>
@@ -512,7 +513,7 @@
 									</select>
 									<input type="hidden" name="rid" value="${ wnr.rid }">
 									<input type="hidden" name="gradeType" value="${wn.gradeType }">
-									
+									<input type="hidden" name="currentPage" value="${ pi.currentPage }">
 										<c:if test="${ empty sessionScope.loginUser }">
 											<button class="insertStarP"  type="button" onclick="login()">별점주기</button>
 										</c:if>
@@ -521,13 +522,6 @@
 											<div class="insertStarBtn">
 											</div>
 										</c:if>
-									
-									
-									
-									
-									
-									
-									
 									<div class="modal fade" id="myModal" role="dialog">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -576,6 +570,8 @@
 								</script>
 							</td>
 							<td class="tdRight">
+								<h1>${sessionScope.loginUser.userId}</h1>
+								<h1>${wn.userId}</h1>
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
@@ -635,12 +631,13 @@
 								$(document).ready(function(){
 									var sessionUserId = "${sessionScope.loginUser.userId}";
 									var userId = "${wn.userId}";
+									var rid = ${wnr.rid};
 									$.ajax({
 										url:"selectwReportOne.wn",
 										type:"get",
 										data:{rid:rid},
 										success:function(data){
-											//console.log(data);
+											console.log(data);
 											if(data.wReport == null){
 												$(".replyReportBtnArea").empty();
 												$(".replyReportBtnArea").append(
@@ -731,16 +728,17 @@
 		</div>
 	</div>
 	<script>
-		var rid = ${list[0].rid};
-		
+		var rid = 4011;
+		console.log(4011);
 		$(document).ready(function(){
-			
+			console.log(rid);
 			var currentPage = 1;
 			$.ajax({
 				url:"selectWebnovelReply.wn",
 				type:"get",
 				data:{rid:rid, currentPage:currentPage},
 				success:function(data){
+					
 					for(var i = 0; i < data.list.length; i++){
 						var replyListArea = $(".replyListArea");
 						var replyList =$('<table class="replyList">');
@@ -749,13 +747,17 @@
 						var replyNicknameNo = $('<td class="replyNickname">' + data.list[i].nickname + '<button class="replyReportBtn" type="button" onclick="deleteReply('+data.list[i].replyId+')">삭제하기</button>');
 						var replycontents = $('<td class="replycontents">').text(data.list[i].replyContent);
 						var hiddenReplayId = $('<input type="hidden" id="replyId" value="'+data.list[i].replyId+'">')
-						
+						var userIdCk = data.list[0].userId;
+						var replyId = data.list[i].replyId;
+						var commentId = data.list[i].commentId
+						var userId = '${wn.userId}';
 						var list = new Array();
-						if(${sessionScope.loginUser.userId} == data.list[i].userId){
+						
+						if(userId == userIdCk){
 							list[0] = replyNicknameNo;
-						}else if(data.list[i].replyId == data.list[i].commentId){
+						}else if(replyId == userIdCk){
 							list[0] = replyNicknameOk;
-						}else if(data.list[i].commentId == 0){
+						}else if(commentId == 0){
 							list[0] = replyNickname;
 						}
 						list[1] = replycontents;
@@ -1012,7 +1014,6 @@
 			});
 		}
 	</script>
-	
 	
 	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
