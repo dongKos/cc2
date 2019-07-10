@@ -62,7 +62,7 @@ input[type=checkbox]:checked + label:before{
 }
 .introImg img{
 	width:200px;
-	height:160px;
+	height:280px;
 }
 
 .wnrBtn{
@@ -114,9 +114,9 @@ input[type=checkbox]:checked + label:before{
 .subImg{
 	padding: 10px 10px 10px 10px;
 }
-.subImg img{
-	width:140px;
-	height:110px;
+.subImg img {
+    width: 90px;
+    height: 119px;
 }
 .wnrTable{
 	border-top:1px solid lightgray;
@@ -387,7 +387,7 @@ input[type=checkbox]:checked + label:before{
 				<div class="introArea">
 					<table class="introTable">
 						<tr>
-							<td rowspan="3"width="210">
+							<td rowspan="4"width="210">
 								<c:set var="workStatus" value="${ wn.workStatus }" />
 								<c:if test="${ workStatus eq 'RUN'}">
 								<div class="introImg">
@@ -401,8 +401,9 @@ input[type=checkbox]:checked + label:before{
 								</div>
 								</c:if>
 							</td>
-							<td width="220" height="50%">
+							<td width="220" height="50%" style="padding-bottom:20px;">
 								<p class="wnrTitle">${ wn.wTitle }</p>
+								<p class="" style="color:gray; float:right;">작가 - ${ wn.nickname } 님</p>
 							</td>
 							<td>
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
@@ -410,18 +411,47 @@ input[type=checkbox]:checked + label:before{
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 									<c:if test="${ empty sessionScope.loginUser }">
 										<button class="attentionBtn" type="button" onclick="login()">
-										<span class="glyphicon glyphicon-star-empty" ></span> 관심등록
+										<span class="glyphicon glyphicon-star-empty" ></span> 관심작가
 									</button>
 									</c:if>
 									<c:if test="${ !empty sessionScope.loginUser }">
 										<c:if test="${wa.attentionId != null}">
 											<button class="attentionBtn" type="button" onclick="attentionId()">
-												<span class="glyphicon glyphicon-star"></span> 관심등록
+												<span class="glyphicon glyphicon-star"></span> 관심작가
 											</button>
 										</c:if>
 										<c:if test="${wa.attentionId == null}">
 											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid} + '&gradeType='+ ${ wn.gradeType }">
-												<span class="glyphicon glyphicon-star-empty"></span> 관심등록
+												<span class="glyphicon glyphicon-star-empty"></span> 관심작가
+											</button>
+										</c:if>
+									</c:if>
+								</c:if>
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-bottom:20px;">
+								<p class="wnrIntro" style="font-size:14px;font-weight:bold;">&nbsp;연재 주기</p>
+								<p class="wnrIntro" style="color:gray;">${ wn.wCycle }</p>
+							</td>
+							<td>
+								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
+								</c:if>
+								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+									<c:if test="${ empty sessionScope.loginUser }">
+										<button class="attentionBtn" type="button" onclick="login()">
+										<span class="glyphicon glyphicon-star-empty" ></span> 관심작품
+									</button>
+									</c:if>
+									<c:if test="${ !empty sessionScope.loginUser }">
+										<c:if test="${wa.attentionId != null}">
+											<button class="attentionBtn" type="button" onclick="attentionId()">
+												<span class="glyphicon glyphicon-star"></span> 관심작품
+											</button>
+										</c:if>
+										<c:if test="${wa.attentionId == null}">
+											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid} + '&gradeType='+ ${ wn.gradeType }">
+												<span class="glyphicon glyphicon-star-empty"></span> 관심작품
 											</button>
 										</c:if>
 									</c:if>
@@ -430,7 +460,8 @@ input[type=checkbox]:checked + label:before{
 						</tr>
 						<tr>
 							<td colspan="1">
-								<p class="wnrIntro">${ wn.wIntro }</p>
+								<p class="wnrIntro" style="font-size:14px;font-weight:bold;">&nbsp;작품 소개</p>
+								<p class="wnrIntro" style="color:gray;">${ wn.wIntro }</p>
 							</td>
 							<td class="starP" colspan="1">
 								
@@ -450,7 +481,7 @@ input[type=checkbox]:checked + label:before{
 									</c:if>
 									<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 										<c:if test="${ empty sessionScope.loginUser }">
-											<button type="button" class="replyReportBtn" onclick="login()">신고하기</button>
+											<button type="button" class="reportBtn" onclick="login()">신고하기</button>
 										</c:if>
 										<c:if test="${ !empty sessionScope.loginUser }">
 											<div class="replyReportBtnArea">
@@ -708,7 +739,51 @@ input[type=checkbox]:checked + label:before{
 				<c:set var="free" value="${pi.limit * pi.maxPage - pi.listCount}" />
 				<c:set var="free2" value="${pi.limit - (pi.limit * pi.maxPage - pi.listCount)}" />
 				<!-- 자신의 작품이 아닌경우 -->
+				<c:if test="${ wn.gradeType==1}">
+				<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+				<div class="col-sm-8">
+					<div class="wnrListArea">
+					<c:if test="${sessionScope.loginUser.userId != wn.userId}">
+					<c:forEach var="wnr" items="${ list }" varStatus="status">
+						<table class="wnrTable">
+							<tr>
+								<td rowspan="3" class="wnrImg">
+									<div class="subImg">
+									<c:if test="${ workStatus eq 'COMP'}">
+										<div class="wnrStatus">완결</div>
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									<c:if test="${ workStatus eq 'RUN'}">
+										<img src="${ contextPath }/resources/uploadFiles/webnovelSub/${ wnr.changeName }">
+									</c:if>
+									</div>
+								</td>
+								<td colspan="2" class="wnrContent"></td>
+							</tr>
+							<tr>
+								<td class="wnrContent">
+									<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
+								</td>
+								<td class="wnrBtnArea">
+									<input type="hidden" value="${ wnr.rid }">
+									<input type="hidden" value="${ wnr.wid }">
+									<input type="hidden" value="${currentPage}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="wnrContent">
+									조회&nbsp; ${ wnr.vCount } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+									${ wnr.ruploadDate }
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
+					</c:if>
+					</div>
+				</div>
 				
+				</c:if>
+				<c:if test="${ wn.gradeType==2}">
 				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 				<div class="col-sm-8">
 					<div class="wnrListArea">
@@ -896,9 +971,8 @@ input[type=checkbox]:checked + label:before{
 						</c:forEach>
 						</c:if>
 						<c:if test="${ pi.maxPage == pi.currentPage}">
-							
-							<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2}">
-							<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
+						<c:forEach var="wnr" items="${ list }" varStatus="status" begin="0" end="${free2}">
+						<c:set var="currentPage" value="${(pi.limit * (pi.currentPage-pi.startPage)) + (status.index + 1)}" />
 							<table class="wnrTable">
 								<tr>
 									<td rowspan="3" class="wnrImg">
@@ -916,7 +990,7 @@ input[type=checkbox]:checked + label:before{
 								</tr>
 								<tr>
 									<td class="wnrContent">
-										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]ㄹㅇㄴㅁ</p>
+										<p class="wnrTitleAreaFree">${ wnr.rTitle } [무료]</p>
 									</td>
 									<td class="wnrBtnArea">
 										<input type="hidden" value="${ wnr.rid }">
@@ -937,6 +1011,8 @@ input[type=checkbox]:checked + label:before{
 					</div>
 				</div>
 				</c:if>
+				</c:if>
+				
 				<c:if test="${sessionScope.loginUser.userId != wn.userId}">
 				<div class="col-sm-4">
 					<!-- 베스트 도전 작품 -->
@@ -1087,7 +1163,7 @@ input[type=checkbox]:checked + label:before{
 	
 	<script>
 		function attentionId(){
-			alert("이미 관심등록을 하셨습니다.");
+			alert("이미 관심작품을 하셨습니다.");
 		}
 		function fisrtWnr(){
 			$('.wnrListArea').find('td').children('p').click(function(){

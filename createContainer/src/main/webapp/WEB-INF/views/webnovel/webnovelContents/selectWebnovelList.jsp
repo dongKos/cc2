@@ -52,9 +52,9 @@
 	width:100%;
 	margin-bottom:50px;
 }
-.titleImg img{
-	width:150px;
-	height:120px;
+.titleImg img {
+    width: 130px;
+    height: 160px;
 }
 .contentTd{
 	width:50%;

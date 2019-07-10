@@ -38,11 +38,12 @@
 								<tr>
 									<td class="wnText">장르</td>
 									<td class="wnContent">
-										<input id="cb1" type="radio" name="genre" value="GR_CTG3"><label for="cb1">판타지</label>
-										<input id="cb2" type="radio" name="genre" value="GR_CTG8"><label for="cb2">무협</label>
-										<input id="cb3" type="radio" name="genre" value="GR_CTG10"><label for="cb3">로맨스</label>
-										<input id="cb4" type="radio" name="genre" value="GR_CTG1"><label for="cb4">현대</label>
-										<input id="cb5" type="radio" name="genre" value="GR_CTG6"><label for="cb5">공포</label>
+										<input id="genre" type="hidden" value="${ wn.genre }">
+										<input id="GR_CTG3" type="radio" name="genre" value="GR_CTG3"><label for="GR_CTG3">판타지</label>
+										<input id="GR_CTG8" type="radio" name="genre" value="GR_CTG8"><label for="GR_CTG8">무협</label>
+										<input id="GR_CTG10" type="radio" name="genre" value="GR_CTG10"><label for="GR_CTG10">로맨스</label>
+										<input id="GR_CTG1" type="radio" name="genre" value="GR_CTG1"><label for="GR_CTG1">현대</label>
+										<input id="GR_CTG6" type="radio" name="genre" value="GR_CTG6"><label for="GR_CTG6">공포</label>
 									</td>
 								</tr>
 								<tr>
@@ -104,6 +105,20 @@
 	
 	<jsp:include page="../common/webnovelFooter.jsp"/>
 	<script>
+		$(function(){
+			if($('#genre').val() == 'GR_CTG3'){
+				$('#GR_CTG3').prop('checked', true);
+			}else if($('#genre').val() == 'GR_CTG8'){
+				$('#GR_CTG8').prop('checked', true);
+			}else if($('#genre').val() == 'GR_CTG10'){
+				$('#GR_CTG10').prop('checked', true);
+			}else if($('#genre').val() == 'GR_CTG1'){
+				$('#GR_CTG1').prop('checked', true);
+			}else if($('#genre').val() == 'GR_CTG6'){
+				$('#GR_CTG6').prop('checked', true);
+			}
+		});
+		
 		$(function(){
 			$("#fileArea").hide();
 			

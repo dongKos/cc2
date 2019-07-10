@@ -106,14 +106,9 @@ public class MemberController {
 	public String showLoginForm() {
 		return "main/loginPage";
 	}
-	//회원가입 선택 페이지 이동
+	//회원가입 페이지 이동
 	@RequestMapping("showStepForm.me")
 	public String showStepFrom(@ModelAttribute Member m) {
-		return "main/chooseSignUp";
-	}
-	//회원가입 페이지 이동
-	@RequestMapping("showInsetForm.me")
-	public String showInsetForm(@ModelAttribute Member m) {
 		return "main/insertMember";
 	}
 	//메인 페이지 이동

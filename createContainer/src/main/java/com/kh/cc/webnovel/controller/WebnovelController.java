@@ -241,7 +241,9 @@ public class WebnovelController {
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
 		
-		wnr.setMno(m.getMno());
+		if(session.getAttribute("loginUser") != null) {
+			wnr.setMno(m.getMno());
+		}
 		wnr.setWid(wid);
 		wnr.setGradeType(gradeType);
 		
@@ -426,7 +428,10 @@ public class WebnovelController {
 		wn.setGradeType(gradeType);
 		wn = ws.selectWnOne(wn);
 		wnr.setWid(wid);
-		wnr.setMno(m.getMno());
+		if(session.getAttribute("loginUser") != null) {
+			wnr.setMno(m.getMno());
+		}
+		
 		int buttonCount = 0;
 		int limit = 1;
 		int currentPage = 1;
@@ -520,6 +525,7 @@ public class WebnovelController {
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		int starPoint = Integer.parseInt(request.getParameter("starPoint"));
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		wnr = ws.selectWnrOne(rid);
 		int wid = wnr.getWid();
 		
@@ -529,7 +535,7 @@ public class WebnovelController {
 		
 		ws.insertStarPoint(wnsp);
 		
-		return "redirect:selectDetailedWebnovel.wn?wid=" + wid + "&rid=" + rid +"&gradeType=" + gradeType;
+		return "redirect:selectDetailedWebnovel.wn?wid=" + wid + "&rid=" + rid +"&gradeType=" + gradeType +"&currentPage=" + currentPage;
 	}
 	//별점 평균, 별점준 인원
 	@RequestMapping(value="selectStarAvgCnt.wn")
@@ -708,7 +714,7 @@ public class WebnovelController {
 	public ResponseEntity<HashMap<String, Object>> selectWebnovelReply(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
 		
 		int rid =  Integer.parseInt(request.getParameter("rid"));
-		
+		System.out.println(rid);
 		wReply.setRid(rid);
 		
 		int buttonCount = 5;
@@ -728,6 +734,7 @@ public class WebnovelController {
 		
 		wnList.put("list", list);
 		wnList.put("pi", pi);
+		System.out.println(list);
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
