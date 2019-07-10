@@ -491,7 +491,7 @@
 	</update>
 	<insert id="insertCoin" parameterType="WebnovelCoin">
 		INSERT INTO COIN
-		VALUES (COID_SEQ.NEXTVAL, #{mno}, '1', 2, #{rid}, SYSDATE)
+		VALUES (COID_SEQ.NEXTVAL, #{mno}, '1', 2, #{rid}, NULL, SYSDATE)
 	</insert>
 	<select id="selectCheckWnr" parameterType="WebnovelRound" resultMap="webnovelRoundResultSet">
 		SELECT WR.RID, C.RID AS CRID, C.MNO
