@@ -9,6 +9,7 @@ import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
+import com.kh.cc.member.model.vo.Member;
 
 public interface IllustratorDao {
 	
@@ -60,6 +61,13 @@ public interface IllustratorDao {
 
 	//일러스트 의뢰하기 신청
 	int IllRequest(SqlSessionTemplate sqlSession, IllReq illReq);
+
+	int IllRequestCoin(SqlSessionTemplate sqlSession, String totalPrice, Member m);
+
+	//추천 수 가져와
+	int selectRecommend(SqlSessionTemplate sqlSession, int illCode);
+
+	int insertSponsor(SqlSessionTemplate sqlSession, int sPrice, int mno, int sCode);
 	
 
 	

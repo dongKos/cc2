@@ -21,6 +21,18 @@
   		height: 500px;
   	}
   </style>
+  <script>
+  	function support(){
+  		var sCode = ${scode};
+  		var sPrice = $("#price").val();
+  		var mno = "<c:out value='${sessionScope.loginUser.mno}'/>";
+  		console.log(mno);
+  		console.log(sCode);
+  		console.log(sPrice);
+  		
+  		location.href="insertSponsor.ill?sPrice=" + sPrice + "&mno=" + mno + "&sCode=" + sCode;
+  	}
+  </script>
 </head>
 <body>
 <jsp:include page="common/IllustTopNavbar.jsp"/>
@@ -28,7 +40,7 @@
 	<div class="container">
 		<br><br>
 		<div class="row">
-			<input type="number" class="form-control" placeholder="후원할 금액을 입력해주세요!">
+			<input type="number" class="form-control" placeholder="후원할 금액을 입력해주세요!" id="price">
 		</div>
 		
 		<hr>
@@ -44,7 +56,7 @@
 	</div>
 	<br><br>
 	<div align="center">
-		<button class="btn btn-primary">후원하기</button>
+		<button class="btn btn-primary" onclick="support()">후원하기</button>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

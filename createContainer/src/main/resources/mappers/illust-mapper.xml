@@ -213,4 +213,25 @@
 		INSERT INTO ILLUSTRATION_REQUEST
 		VALUES(ILR_SEQ.NEXTVAL, #{userId}, SYSDATE, #{illCode}, #{illContent}, DEFAULT, #{totalPrice})
 	</insert>
+	
+	
+	<!-- 의뢰하기 코인감소 -->
+	<update id="IllRequestCoin" parameterType="java.util.HashMap">
+		UPDATE MEMBER M
+		SET M.WALLET = M.WALLET - #{totalPrice}
+		WHERE M.USER_ID = #{userId}
+	</update>
+	
+	<!-- 추천 수 가져오기 -->
+	<select id="selectRecommend" resultType="_int" parameterType="_int">
+		SELECT RECOMMEND_COUNT 
+		FROM ILLUSTRATION
+		WHERE ILL_CODE = #{illCode}
+	</select>
+	
+	<!-- 작가 후원하기 -->
+	<insert id="insertSponsor" parameterType="java.util.HashMap">
+		INSERT INTO SPONSOR 
+		VALUES (#{sCode}, #{mno}, #{sPrice})
+	</insert>
 </mapper>
