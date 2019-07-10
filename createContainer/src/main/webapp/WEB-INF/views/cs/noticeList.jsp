@@ -156,6 +156,7 @@ margin-top:10%;
 		location.href="NoticeList.mg"
 	}
 	</script>
+	<jsp:include page="../member/mypage/common/mypgFooter.jsp"/>
 	
 </body>
 </html>

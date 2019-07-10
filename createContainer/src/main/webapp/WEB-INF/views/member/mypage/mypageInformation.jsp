@@ -124,5 +124,7 @@
 		$("#birthday").attr("value", birthYear + "/" + birthMonth + "/" + birthDay);
 	})
 </script>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>

@@ -239,5 +239,7 @@ function gopay100(){
 			
 		})
 	</script>
+	<jsp:include page="common/mypgFooter.jsp"/>
+	
 </body>
 </html>

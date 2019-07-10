@@ -55,5 +55,7 @@
 		location.href="mypgInfo.mg";
 	}
 </script>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>

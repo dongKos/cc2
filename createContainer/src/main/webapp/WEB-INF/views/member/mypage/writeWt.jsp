@@ -55,5 +55,7 @@
     </div>
   </div>
 </div>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>

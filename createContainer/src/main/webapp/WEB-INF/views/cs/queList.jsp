@@ -195,7 +195,10 @@ background-color: #fd7b52;
     <div class="col-sm-2">
      <img src="${ contextPath }/resources/images/advertisement.png" width="100%">     
     </div>
+    
+    
   </div>
+  
 </div>
 	
 	
@@ -241,6 +244,7 @@ background-color: #fd7b52;
 	</script>
 	
 	
+		<jsp:include page="../member/mypage/common/mypgFooter.jsp"/>
 	
 	
 </body>

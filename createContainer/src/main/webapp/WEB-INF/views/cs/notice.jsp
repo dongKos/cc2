@@ -459,6 +459,7 @@ background-color: #fd7b52;
 		})
 	
 	</script>
+		<jsp:include page="../member/mypage/common/mypgFooter.jsp"/>
 	
 	
 </body>

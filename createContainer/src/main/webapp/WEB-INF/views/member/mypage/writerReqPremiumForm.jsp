@@ -228,5 +228,7 @@ CreateContainer웹툰 이용약관에서 정한 바에 따라 다음과 같은 �
 		}
 	}
 </script>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>

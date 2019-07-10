@@ -202,6 +202,8 @@ background-color: #fd7b52;
     </div>
   </div>
 </div>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 <script>
 	$("#detail").click(function(){

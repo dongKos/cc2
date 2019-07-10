@@ -202,6 +202,7 @@ height:150px;
 		location.href="Guide2.mg"
 	})
 	</script>
+		<jsp:include page="../member/mypage/common/mypgFooter.jsp"/>
 	
 </body>
 </html>

@@ -17,7 +17,7 @@ margin-top:10%;
 }
 .point{
 border:1px solid #ececec;
-height:500px;
+height:550px;
 margin-bottom:20%;
 
 
@@ -164,7 +164,45 @@ h2 {
       
     </ul>
   </li>
-</ul>
+  
+  <li>
+    <div class="dropdownlink"><i class="fa fa-road" aria-hidden="true"></i> 회원가입 어떻게 하나요?
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </div>
+    <ul class="submenuItems">
+      <li><a href="#">이렇게 저렇게</a></li>
+    
+    </ul>
+  </li>
+  
+  <li>
+    <div class="dropdownlink"><i class="fa fa-road" aria-hidden="true"></i> 작품 어떻게 올리나요?
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </div>
+    <ul class="submenuItems">
+      <li><a href="#">이렇게 저렇게</a></li>
+    
+    </ul>
+  </li>
+  <li>
+    <div class="dropdownlink"><i class="fa fa-road" aria-hidden="true"></i> 신고 어떻게 하나요?
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </div>
+    <ul class="submenuItems">
+      <li><a href="#">이렇게 저렇게</a></li>
+    
+    </ul>
+  </li><li>
+    <div class="dropdownlink"><i class="fa fa-road" aria-hidden="true"></i> 회원 탈퇴 어떻게 하나요?
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </div>
+    <ul class="submenuItems">
+      <li><a href="#">이렇게 저렇게</a></li>
+    
+    </ul>
+  </li>
+  
+</ul><!-- 아코디언메뉴 -->
 			
 			
 			
@@ -211,6 +249,7 @@ h2 {
 	
 	
 	
+		<jsp:include page="../member/mypage/common/mypgFooter.jsp"/>
 
 	
 

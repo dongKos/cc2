@@ -135,5 +135,7 @@
 		}
 	})
 </script>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>
