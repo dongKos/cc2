@@ -66,5 +66,7 @@
 		location.href="writerPgInfo.mg";
 	}
 </script>
+<jsp:include page="common/mypgFooter.jsp"/>
+
 </body>
 </html>

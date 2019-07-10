@@ -375,6 +375,7 @@ padding:30px;
 		location.href="writerRest.mg"
 	}
 	</script>
+	<jsp:include page="common/mypgFooter.jsp"/>
 	
 </body>
 </html>
