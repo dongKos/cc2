@@ -30,10 +30,28 @@
     <div class="col-sm-7">
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li class="active" style="width:50%; text-align:center;"><a href="#" style="font-weight:bold;">내 휴재 내역</a></li>
+    					<li class="active" style="width:100%; text-align:center;"><a href="#" style="font-weight:bold;">내 휴재 내역</a></li>
     					
   					</ul>
   					<br>
+  					<div id="charge">
+  					<br>
+  					<table width="100%;" style="text-align:center;">
+  					<tr>
+  						<th style="text-align:center;">날짜</th><th>내용</th><th>분류</th><th>상태</th>
+  					</tr>
+  					<c:forEach var="ch" items="${ chargeList }">
+  					<tr>
+  						<td>${ ch.reportDate }</td><td>${ ch.reportReason }</td><td>${ ch.reportCategory }</td><td>${ ch.status }</td>
+  					</tr>
+  					</c:forEach>
+  					<c:if test="${ chargeList == null }">
+  					<tr>
+  						<td colspan=4 style="height:100px;">신고한 내역이 없습니다.</td>
+  					</tr>
+  					</c:if>
+  					</table>
+  					</div>
 				</div>
     </div>
     <div class="col-sm-2">
