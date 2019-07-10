@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -183,6 +185,7 @@ public class MypgController {
 		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		
 		ArrayList<Webnovel> list = ws.selectWnList(pi, m);
+		System.out.println("lisssssssssssssssssssssssssst: " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -336,13 +339,14 @@ public class MypgController {
   	}
   	//코인불러오기
   	@RequestMapping("selectMemberMem.mg")
-  	public void selectMember(@RequestParam("userId")String id,Member m ,HttpServletRequest request,
+  	public ResponseEntity<Member> selectMember(@RequestParam("userId")String id,Member m ,HttpServletRequest request,
           HttpServletResponse response) {
   		ObjectMapper mapper = new ObjectMapper();
         String userId = request.getParameter("userId");
         m.setUserId(userId);
         
         Member result = ms.selectMember(userId);
+		return new ResponseEntity<Member>(result,HttpStatus.OK);
         
         
   	}

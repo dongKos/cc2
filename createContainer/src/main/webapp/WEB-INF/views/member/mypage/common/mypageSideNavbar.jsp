@@ -122,57 +122,21 @@
 					console.log("status : " , status);
 					
 				}
-			$.ajax({
-				url:"selectMemberMem.mg",
-				type:"get",
-				data:{userId:userId},
-				success:function(data){
-					console.log("data : " , data);	
-					var changeName = data.replace("\"","");
-					console.log(data.getWallet());
-					$("#coin").attr("value", data.getWallet());
-				},
-				error:function(status){
-					console.log("status : " , status);
-					
-				}
-			});  
 			
-			/* console.log("우에")
-			var userId = ${sessionScope.loginUser.userId}
-			$.ajax({
-				url:"selectMember.mg",
-				type:"post",
-				data:{userId:userId},
-				success:function(data){
-					console.log(data);
-				},
-				error:function(status){
-					console.log("우ㅇㄹㄴㄹㅇ에")
-				}
-			}) */
-		})
-	</script>
-	<script>
-		$(document).ready(function(){
-			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
-			//var userId = ${ sessionScope.loginUser.userId };
-			var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
-			console.log("userId : ", userId);
-			$.ajax({
+			});  
+		 	$.ajax({
 				url:"selectMemberMem.mg",
 				type:"get",
 				data:{userId:userId},
 				success:function(data){
 					console.log("data : " , data);	
-					var changeName = data.replace("\"","");
-					console.log(data.getWallet());
-					$("#coin").attr("value", data.getWallet());
+					$("#coin").text(data.wallet);
 				},
 				error:function(status){
 					console.log("status : " , status);
 					
 				}
+			
 			});  
 			
 			/* console.log("우에")
