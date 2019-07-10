@@ -178,6 +178,7 @@ public int countProfilePic(SqlSessionTemplate sqlSession, WriterProfile mp) {
 public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
  int result1 = sqlSession.insert("Mypage.payComplete", pc);
  int result2 = sqlSession.update("Mypage.updateCoin", pc);
+ int result3 = sqlSession.update("Mypage.coinCharge", pc);
  if(result1 > 0) {
     if(result2 > 0) {
        return result2;
@@ -238,5 +239,10 @@ public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
 	public int insertClosed(SqlSessionTemplate sqlSession, Closed c) {
 	  System.out.println("c : " + c);
 	  return sqlSession.insert("Mypage.insertClosed", c);
+	}
+	//맴버가져오기
+	@Override
+	public Member selectMember(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("Member.selectLoginUser", userId);
 	}
 }

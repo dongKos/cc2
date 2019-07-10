@@ -76,6 +76,8 @@ public interface MypgService {
 	ArrayList coinUseList(int mno);
 	//휴재신청insert
 	int insertClosed(Closed c);
+	//멤버가져오김
+	Member selectMember(String userId);
 }
 
 

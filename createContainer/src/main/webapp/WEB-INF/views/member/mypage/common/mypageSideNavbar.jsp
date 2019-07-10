@@ -56,7 +56,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					보유이용권 : ${ sessionScope.loginUser.wallet }개
+					보유이용권 : <label id="coin" value="0"></label>개
 				</td>
 				
 			</tr>
@@ -117,6 +117,57 @@
 					var changeName = data.replace("\"","");
 					console.log(changeName.replace("\"",""));
 					$("#profilePic").attr("src", "${contextPath}/resources/uploadFiles/writerProfile/"+changeName.replace("\"",""));
+				},
+				error:function(status){
+					console.log("status : " , status);
+					
+				}
+			$.ajax({
+				url:"selectMemberMem.mg",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log("data : " , data);	
+					var changeName = data.replace("\"","");
+					console.log(data.getWallet());
+					$("#coin").attr("value", data.getWallet());
+				},
+				error:function(status){
+					console.log("status : " , status);
+					
+				}
+			});  
+			
+			/* console.log("우에")
+			var userId = ${sessionScope.loginUser.userId}
+			$.ajax({
+				url:"selectMember.mg",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					console.log(data);
+				},
+				error:function(status){
+					console.log("우ㅇㄹㄴㄹㅇ에")
+				}
+			}) */
+		})
+	</script>
+	<script>
+		$(document).ready(function(){
+			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
+			//var userId = ${ sessionScope.loginUser.userId };
+			var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
+			console.log("userId : ", userId);
+			$.ajax({
+				url:"selectMemberMem.mg",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log("data : " , data);	
+					var changeName = data.replace("\"","");
+					console.log(data.getWallet());
+					$("#coin").attr("value", data.getWallet());
 				},
 				error:function(status){
 					console.log("status : " , status);
