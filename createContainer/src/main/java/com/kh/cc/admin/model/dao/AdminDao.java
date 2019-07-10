@@ -7,10 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Board;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
 public interface AdminDao {
@@ -109,5 +111,19 @@ public interface AdminDao {
 	ArrayList<Integer> selectPurchaseAvg(SqlSessionTemplate sqlSession, int mno);
 
 	ArrayList<Integer> selectAllPurchaseAvg(SqlSessionTemplate sqlSession);
+
+	int completeApprove2(SqlSessionTemplate sqlSession, int approvalCode);
+
+	int getDormantListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<com.kh.cc.illustrator.model.vo.Support> selectDormantList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	com.kh.cc.illustrator.model.vo.Support selectOneDormant(SqlSessionTemplate sqlSession, int sCode);
+
+	int completeDormant(SqlSessionTemplate sqlSession, int sCode);
+
+	int insertBoard(SqlSessionTemplate sqlSession, Board b);
+
+	Board selectOneBoard(SqlSessionTemplate sqlSession, int bId);
 
 }

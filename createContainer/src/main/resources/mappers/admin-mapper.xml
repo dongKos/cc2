@@ -123,6 +123,19 @@
 		<result property="rId" column="RID"/>
 		<result property="illCode" column="ILL_CODE"/>
 	</resultMap>
+	<resultMap type="com.kh.cc.illustrator.model.vo.Support" id="supportResultSet">
+		<id property="scode" column="S_CODE"/>
+		<result property="sprice" column="S_PRICE"/>
+		<result property="reward" column="REWARD"/>
+		<result property="fid" column="FID"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="STATUS"/>
+		<result property="stitle" column="STITLE"/>
+		<result property="scontent" column="SCONTENT"/>
+		<result property="mno" column="MNO"/>
+		<result property="changeName" column="CHANGE_NAME"/>
+		<result property="userId" column="USER_ID"/>
+	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -501,6 +514,15 @@
         WHERE APPROVAL_CODE = #{approvalCode}
 	</update>
 	
+	<!-- 작품 관리 - 승인대기 내역 조회 - 상세 페이지 - 승인 완료 하기2 -->
+	<update id="completeApprove2" parameterType="_int">
+		UPDATE WORK W
+		SET GRADE_TYPE = 2
+		WHERE W.WID = (SELECT WID 
+                	   FROM APPROVAL
+                	   WHERE APPROVAL_CODE = #{approvalCode})
+	</update>
+	
 	<!-- 통계 관리 - 작가 통계 - 프리미엄 작가 수 조회 -->
 	<select id="selectPriMemberListCount" resultType="_int">
 		SELECT COUNT(*)
@@ -557,6 +579,51 @@
 		AND TO_DATE('2020-01-31', 'yyyy-mm-dd')
 		GROUP BY TO_CHAR(C_DATE, 'YYYY-MM')
 		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
+	</select>
+	
+	<!-- 전체 후원 목록 개수 조회 -->
+	<select id="selectDormantListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM SPONSOR_CODE
+		WHERE STATUS = 'N'
+	</select>
+	
+	<!-- 전체 후원 목록 조회 -->
+	<select id="selectDormantList" resultMap="supportResultSet">
+		SELECT * 
+		FROM SPONSOR_CODE SC
+		JOIN ATTACHMENT A ON (SC.FID = A.FID)
+		WHERE SC.STATUS = 'N'
+	</select>
+	
+	<!-- 후원 상세보기 페이지 -->
+	<select id="selectOneDormant" parameterType="_int" resultMap="supportResultSet">
+		SELECT * 
+		FROM SPONSOR_CODE SC
+		JOIN ATTACHMENT A ON (SC.FID = A.FID)
+		WHERE SC.STATUS = 'N'
+		AND SC.S_CODE = #{sCode}
+	</select>
+	
+	<!-- 후원 내역 승인하기 -->
+	<update id="completeDormant" parameterType="_int">
+		UPDATE SPONSOR_CODE
+		SET STATUS = 'Y'
+		WHERE S_CODE = #{sCode}
+	</update>
+	
+	<!-- 게시판에 공지사항 작성 -->
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD
+		VALUES(BID_SEQ.NEXTVAL, #{userId}, #{boardCategory}, 0,
+				SYSDATE, SYSDATE, #{bContent}, #{bTitle}, DEFAULT, #{subCategory})
+	</insert>
+	
+	<!-- 게시판 상세보기 -->
+	<select id="selectOneBoard" parameterType="_int" resultMap="BoardResultSet">
+		SELECT * 
+		FROM BOARD
+		WHERE B_ID = #{bId}
 	</select>
 	
 </mapper>

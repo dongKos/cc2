@@ -152,6 +152,32 @@
 		var selectedLi = selectedUl.children().children().eq(0);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
+		
+		$("#keySearch").on("keyup", function(){
+			var value = $(this).val();
+			console.log(value);
+			
+			 $("#memberTable tr").each(function(index) {
+			         if (index !== 0) {
+			            $row = $(this);
+
+			            var $tdElement = $row.find("td:nth-child(3)");
+			            var id = $tdElement.text();
+			            console.log(id);
+			            var matchedIndex = id.indexOf(value);
+
+			            if (matchedIndex != 0) {
+			                $row.hide();
+			            }
+			            else {
+			                $row.show();
+			            }
+			        }
+			        
+			 });
+			
+		});
+	
 	});
 </script>
 </head>
@@ -186,7 +212,7 @@
                                 		<option value="4">블랙리스트</option>
                                 		<option value="5">탈퇴회원</option>
                                 	</select>
-                                	<input type="text">
+                                	<input type="text" id="keySearch">
                                 	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">

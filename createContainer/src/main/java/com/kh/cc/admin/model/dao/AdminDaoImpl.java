@@ -10,11 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Board;
 import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Repository
@@ -606,6 +608,51 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Integer> selectAllPurchaseAvg(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("admin.selectAllPurchaseAvg");
+	}
+
+	//승인 완료 시 , 작품 테이블 grade_type 변경
+	@Override
+	public int completeApprove2(SqlSessionTemplate sqlSession, int approvalCode) {
+		return sqlSession.update("admin.completeApprove2", approvalCode);
+	}
+
+	//전체 후원 목록 개수 조회
+	@Override
+	public int getDormantListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectDormantListCount");
+	}
+
+	//전체 후원 목록 조회
+	@Override
+	public ArrayList<Support> selectDormantList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectDormantList", null, rowBounds);
+	}
+
+	//후원 상세 보기 페이지
+	@Override
+	public Support selectOneDormant(SqlSessionTemplate sqlSession, int sCode) {
+		return sqlSession.selectOne("admin.selectOneDormant", sCode);
+	}
+
+	//후원 승인
+	@Override
+	public int completeDormant(SqlSessionTemplate sqlSession, int sCode) {
+		return sqlSession.update("admin.completeDormant", sCode);
+	}
+
+	//공지사항 작성
+	@Override
+	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("admin.insertBoard", b);
+	}
+
+	//공지사항 상세보기
+	@Override
+	public Board selectOneBoard(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("admin.selectOneBoard", bId);
 	}
 
 	

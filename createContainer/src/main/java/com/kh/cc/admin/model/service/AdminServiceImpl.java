@@ -12,11 +12,13 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.admin.model.dao.AdminDao;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
+import com.kh.cc.admin.model.vo.Board;
 import com.kh.cc.admin.model.vo.Purchase;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Service
@@ -303,6 +305,50 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<Integer> selectAllPurchaseAvg() {
 		return ad.selectAllPurchaseAvg(sqlSession);
+	}
+
+	//승인 완료 시 , 작품 테이블 grade_type 변경
+	@Override
+	public int completeApprove2(int approvalCode) {
+		return ad.completeApprove2(sqlSession, approvalCode);
+	}
+
+	
+	//전체 후원 목록 개수 조회
+	@Override
+	public int getDormantListCount() {
+		return ad.getDormantListCount(sqlSession);
+	}
+
+	
+	//전체 후원 목록 조회
+	@Override
+	public ArrayList<Support> selectDormantList(AdminPageInfo pi) {
+		return ad.selectDormantList(sqlSession, pi);
+	}
+
+	//후원 상세보기 페이지
+	@Override
+	public Support selectOneDormant(int sCode) {
+		return ad.selectOneDormant(sqlSession, sCode);
+	}
+
+	//후원 승인
+	@Override
+	public int completeDormant(int sCode) {
+		return ad.completeDormant(sqlSession, sCode);
+	}
+
+	//공지사항 작성
+	@Override
+	public int insertBoard(Board b) {
+		return ad.insertBoard(sqlSession, b);
+	}
+
+	//공지사항 상세보기
+	@Override
+	public Board selectOneBoard(int bId) {
+		return ad.selectOneBoard(sqlSession, bId);
 	}
 
 	

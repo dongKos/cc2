@@ -85,7 +85,7 @@
                                <a href="showStatistic.ad">작가 통계</a>
                            </li>
                            <li>
-                               <a href="showStatisticPoint.ad">포인트 내역</a>
+                               <a href="showStatisticPoint.ad">코인 내역</a>
                            </li>
                            <li>
                                <a href="showStatisticCalculate.ad">정산 관리</a>
