@@ -103,13 +103,11 @@ public class WebnovelServiceImpl implements WebnovelService{
 		ArrayList<WebnovelRound> list = null;
 		
 		int result = wd.selectCheckwRound(sqlSession, wnr);
-		System.out.println("result" + result);
 		if(result > 0) {
 			list = wd.selectWnRoundList(sqlSession, pi, wnr);
 		}else {
 			list = wd.selectWnRoundListAll(sqlSession, pi, wnr);
 		}
-		System.out.println(result + "fsdafds");
 		return list;
 	}
 	//웹소설 회차, 사진 정보
@@ -125,8 +123,6 @@ public class WebnovelServiceImpl implements WebnovelService{
 		int result2 = wd.updateWnrPhoto(sqlSession, wp);
 		int result3 = wd.updateWorkStatus(sqlSession, wn);
 		
-		System.out.println("작품회차 리저트 1 : " + result1);
-		
 		if(result1 > 0 && result2 > 0 && result3 > 0) {
 			result = 1;
 		}else {
@@ -140,9 +136,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int updateWnRound(WebnovelRound wnr, Webnovel wn) {
 		int result = 0;
 		int result1 = wd.updateWnRound(sqlSession, wnr);
-		System.out.println("result1 : " + result1);
 		int result2 = wd.updateWorkStatus(sqlSession, wn);
-		System.out.println("result2 : " + result2);
 		if(result1 > 0 && result2 > 0) {
 			result = 1;
 		}else {
@@ -156,11 +150,8 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int deleteWebnovel(Webnovel wn) {
 		int result = 0;
 		int result1 = wd.deleteWebnovel(sqlSession, wn);
-		System.out.println("result1 : " + result1);
 		int result2 = wd.deleteWnRound(sqlSession, wn);
-		System.out.println("result2 : " + result2);
 		int result3 = wd.deleteWebnovelPhoto(sqlSession, wn);
-		System.out.println("result3 : " + result3);
 		
 		if(result1 > 0 && result2 >= 0 && result3 > 0) {
 			result = 1;
@@ -180,9 +171,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int deleteWnRound(WebnovelRound wnr) {
 		int result = 0;
 		int result1 = wd.deleteWnRoundOne(sqlSession, wnr);
-		System.out.println("result1 : " + result1);
 		int result2 = wd.deleteWnrPhoto(sqlSession, wnr);
-		System.out.println("result2 : " + result2);
 		
 		if(result1 > 0 && result2 >= 0) {
 			result = 1;
@@ -318,9 +307,7 @@ public class WebnovelServiceImpl implements WebnovelService{
 	public int updatePayWallet(int mno, WebnovelCoin wc) {
 		int result = 0;
 		int result1 = wd.updatePayWallet(sqlSession, mno);
-		System.out.println(result1);
 		int result2 = wd.insertCoin(sqlSession, wc);
-		System.out.println(result2);
 		if(result1 > 0 && result2 > 0) {
 			result = 1;
 		}else {

@@ -714,7 +714,6 @@ public class WebnovelController {
 	public ResponseEntity<HashMap<String, Object>> selectWebnovelReply(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
 		
 		int rid =  Integer.parseInt(request.getParameter("rid"));
-		System.out.println(rid);
 		wReply.setRid(rid);
 		
 		int buttonCount = 5;
@@ -734,7 +733,6 @@ public class WebnovelController {
 		
 		wnList.put("list", list);
 		wnList.put("pi", pi);
-		System.out.println(list);
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
 	}
@@ -748,7 +746,6 @@ public class WebnovelController {
 		
 		int result = ws.deleteReply(wReply);
 		
-		System.out.println("댓글 삭제 성공?? : " + result);
 		try {
 			response.getWriter().print(mapper.writeValueAsString(wReply));
 		} catch (IOException e) {
