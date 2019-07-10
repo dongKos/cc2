@@ -11,11 +11,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css">
   <script>
-
-		function support(){
-			console.log("버튼눌림");
-			location.href="illustSupportDetail.ill";
-		}
 		function request(){
 			console.log("리퀘스트!");
 			location.href="illustRequest.ill";
@@ -28,7 +23,6 @@
 			location.href="IllRecommendCount.ill?illCode=" + illCode + "&userId=" + userId;
 			console.log(illCode);
 		}
-
   </script>
 <style>
 	td{
@@ -121,6 +115,7 @@
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${clist[0].nickName}</i><br><br>
 				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
+				<br><br><br><br><br>
 				<button type="button" class="btn" onclick="updateRecommendCount();" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>

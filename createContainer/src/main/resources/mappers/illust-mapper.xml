@@ -197,4 +197,20 @@
 		RECOMMEND_COUNT = RECOMMEND_COUNT+1
 		WHERE ILL_CODE = #{ill}
 	</update>
+	
+	<!-- 일러스트 의뢰하기 조회 -->
+	<select id="selectIllRequest" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM MEMBER M
+        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE ILL.ILL_CODE = #{ illCode }
+		AND ILL.ILL_TYPE = 'pri'
+	</select>
+	
+	<!-- 일러스트 의뢰하기 신청 -->
+	<insert id="InsertIllRequest" parameterType="ILlReq">
+		INSERT INTO ILLUSTRATION_REQUEST
+		VALUES(ILR_SEQ.NEXTVAL, #{userId}, SYSDATE, #{illCode}, #{illContent}, DEFAULT, #{totalPrice})
+	</insert>
 </mapper>

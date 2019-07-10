@@ -54,7 +54,7 @@
 			<a href="https://www.instagram.com/"><i class="fab fa-instagram" style="font-size:40px; color:pink;"><br><p style="font-size:12px">Instargram</p></i></a>
 			<a href="https://www.facebook.com/"><i class="fab fa-facebook-square" style="font-size:40px; color:lightblue; margin-left:5%;"><br><p style="font-size:12px">Facebook</p></i></a>
 			<a href="https://www.twitter.com/"><i class="fab fa-twitter-square" style="font-size:40px; color:skyblue; margin-left:10%;"><br><p style="font-size:12px">Twitter</p></i></a><br><br>
-			<button type="button" class="btn btn-info" style="width:70%; font-size:13px;">Follow</button><br><br>
+			<!-- <button type="button" class="btn btn-info" style="width:70%; font-size:13px;">Follow</button><br><br> -->
 			<hr style="border:2px solid darkgray; width:100%"><br><br>
 			<h3 style="text-align:justify; font-family: 'Yeon Sung', cursive; font-size:20px;">${ilist[0].intro}</h3>
 		</div>
