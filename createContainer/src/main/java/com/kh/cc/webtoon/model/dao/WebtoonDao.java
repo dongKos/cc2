@@ -93,6 +93,8 @@ public interface WebtoonDao {
 
 	ArrayList<Webtoon> anthorWork(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
 
+	int attentionWork(SqlSessionTemplate sqlSession, Webtoon wt);
+
 
 
 	

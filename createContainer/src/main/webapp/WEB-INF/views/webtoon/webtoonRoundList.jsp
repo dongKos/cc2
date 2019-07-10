@@ -239,20 +239,19 @@ p{
 							<td colspan="2">
 							<!-- 로그인 유저가 작가의 아이랑 동일 할경우 -->
 							
-								<c:if test="${ loginUser eq wt.userId}">
+								<c:if test="${ loginUser.userId eq wt.userId}">
 									<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
 									<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">휴재 신청</button>
 								</c:if>
 							<!-- 로그인유저와 작가의 아이디와 다를 경우 -->
-								<c:if test="${ loginUser == null && loginUser ne wt.userId }">
-									<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">관심작품등록</button>
+								<c:if test="${ sessionScope.loginUser == null || loginUser.userId ne wt.userId }">
+									<button class="wnrBtn" type="button" id="nullUser">관심작품등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
-									<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">작품 신고</button>
+									<button class="wnrBtn" type="button" id="nullUser1" >작품 신고</button>
 								</c:if>
 							</td>
 						</tr>
-						
 					</table>
 				</div>
 				 <input type="hidden" name="wid" value="${wt.wid }">
@@ -349,6 +348,15 @@ p{
 							location.href = "contentView.wt?rid=" + rid + "&wid=" + wid;
 						});
 						
+						$("#nullUser").click(function(){
+							alert("로그인이 필요한 서비스입니다");
+							location.href = "loginForm.me";
+						});
+						
+						$("#nullUser1").click(function(){
+							alert("로그인이 필요한 서비스입니다");
+							location.href = "loginForm.me";
+						});
 					});
 				</script>
 				</div>

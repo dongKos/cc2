@@ -67,9 +67,8 @@
 	width: 50%;
 }
 .introImg{
-
-	width: 30%;
-    height: 162px;
+    width: 34%;
+    height: 125px;
 }
 .workImg {
 	width: 10%;
@@ -117,6 +116,21 @@
 .content{
 	width:90%;
 }
+.optionBtn{
+width: 530px;
+}
+.anthorWork{
+width:160px;
+	height:30px;
+	border-radius:8px 8px 8px 8px;
+	background-color:skyblue;
+	color:white;
+	border:1px solid skyblue;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+	margin-left:10px;
+}
 
 </style>
 </head>
@@ -160,9 +174,12 @@
 						</tr>
 						<tr>
 							<td class="attention" colspan="2">
-								<button class="wnrBtn" type="button">관심웹툰</button>
+							<div class="optionBtn">
+								<button class="wnrBtn" type="button" onclick="location.href='attention.wt?wid=' + ${wt.wid}">관심웹툰</button>
 								<button class="wnrBtn" type="button">첫화보기</button>
-								<button class="wnrBtn" type="button">작가의 다른 작품 보기</button>
+								<button class="anthorWork" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">
+								작가의 다른 작품 보기</button>
+								</div>
 							</td>
 						</tr>
 					</table>
@@ -184,7 +201,7 @@
 	</div>
 	
 	<script>
-		
+	
 	
 	</script>
 

@@ -33,14 +33,7 @@ public class WebtoonController {
 
 	// 웹툰 메인페이지로 이동
 	@RequestMapping(value = "webtoonMain.wt")
-	public String webtoonMain(/* HttpServletRequest request, HttpSession session, Webtoon wt, Model model */) {
-		
-		
-		/*
-		 * int currentPage = 1; int limit = 3; int buttonCount = 5;
-		 * 
-		 * int listCount = ws.challengeListCount();
-		 */
+	public String webtoonMain() {
 		
 		return "webtoon/webtoonMain";
 	}
@@ -431,7 +424,9 @@ public class WebtoonController {
 	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
 		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		
-		 m = (Member) session.getAttribute("loginUser"); 
+		 //m = (Member) session.getAttribute("loginUser"); 
+		 
+		 System.out.println("userId : " + m.getUserId());
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		System.out.println("wid : " + wid);
@@ -453,7 +448,7 @@ public class WebtoonController {
 		ArrayList<WebtoonRound> list = ws.selectWtRoundList(pi, wt);
 		System.out.println("list : " + list);
 		
-		System.out.println("listCount :" +listCount);
+		System.out.println("listCount :" + listCount);
 		System.out.println("wt : " + wt);
 		
 		model.addAttribute("list", list);
@@ -845,6 +840,24 @@ public class WebtoonController {
 		model.addAttribute("pi",pi);
 		
 		return "webtoon/anthorWork";
+		
+	}
+	
+	@RequestMapping(value="attention.wt")
+	public String attention(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wt.setWid(wid);
+		wt.setUserId(m.getUserId());
+		
+		ws.attentionWork(wt);
+		
+		System.out.println("관심등록 ws : " + ws);
+		
+		return null;
 		
 	}
 

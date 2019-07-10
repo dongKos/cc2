@@ -292,6 +292,11 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return list;
 	}
 
+	@Override
+	public int attentionWork(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.insert("Webtoon.insertAttention",wt);
+	}
+
 	
 
 	
