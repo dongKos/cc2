@@ -44,6 +44,9 @@
 	//상세보기 페이지 이동
 	function trClick(num){
 		console.log("상세보기 페이지 이동 용"+num);
+		var bId = num;
+		
+		location.href="showBoardDetail.ad?bId=" + bId;
 	}
 	$(function(){
 		//선택된 사이드 메뉴바 표시
@@ -310,6 +313,8 @@
                                 		<option value="5">기타</option>
                                 	</select>
                                 	<button class="btn btn-primary" type="submit" onclick="search();" id="searchBtn" disabled>검색하기</button>
+                                	
+                                	<button class="btn btn-primary" type="submit" id="boardBtn" style="float: right" onclick="location.href='boardWrite.ad'">공지 작성</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
                                     <table class="table table-borderless table-striped table-earning" id="boardTable">

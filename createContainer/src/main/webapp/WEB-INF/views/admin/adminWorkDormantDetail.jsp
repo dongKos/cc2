@@ -9,16 +9,30 @@
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
-		$("#refundTable tr").click(function(){
-			var num = $(this).children().eq(0).text();
-		});
-		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#work").parent().children();
-		var selectedLi = selectedUl.children().children().eq(2);
+		var selectedLi = selectedUl.children().children().eq(3);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
 	})
+	
+	//승인 완료
+	function completeDormant(){
+		var sCode = "<c:out value='${reqSup.scode}'/>";
+		var result = window.confirm("승인 하시겠습니까?");
+		
+		if(result){
+			location.href="completeDormant.ad?sCode=" + sCode;
+		}		
+		
+	}
+	
+	//뒤로가기
+	function goBack(){
+		var currentPage = "<c:out value='${currentPage}'/>";
+		
+		location.href="showWorkDormant.ad?currentPage=" + currentPage;
+	}
 </script>
 </head>
 
@@ -52,33 +66,50 @@
                                                     <label for="text-input" class=" form-control-label">제목</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control">
+                                                    <input type="text" id="text-input" name="text-input" placeholder="Text" class="form-control"
+                                                     		value="${reqSup.stitle }">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="email-input" class=" form-control-label">기간</label>
+                                                    <label for="email-input" class=" form-control-label">등록일</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <input type="email" id="email-input" name="email-input" placeholder="Enter Email" class="form-control">
+                                                    <input type="email" id="email-input" name="email-input" placeholder="Enter Email" class="form-control"
+                                                    		value="${reqSup.uploadDate }">
                                                 </div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3">
-                                                    <label for="textarea-input" class=" form-control-label">사유</label>
+                                                    <label for="textarea-input" class=" form-control-label">내용</label>
                                                 </div>
                                                 <div class="col-12 col-md-9">
-                                                    <textarea name="textarea-input" id="textarea-input" rows="9" placeholder="Content..." class="form-control"></textarea>
+                                                    <input name="textarea-input" id="textarea-input" placeholder="Content..." class="form-control" style="resize: none;" value="${reqSup.scontent }">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3">
+                                                    <label for="textarea-input" class=" form-control-label">후원 리워드 </label>
+                                                </div>
+                                                <div class="col-12 col-md-9">
+                                                    <img src="${contextPath }/resources/uploadFiles/writerProfile/${reqSup.changeName}">
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                               </div>
                         </div>
-                       <div align="right">
-                       	<button class="btn btn-primary">승인</button>
-                       	<button class="btn btn-warning">승인 거절</button>
-                       </div>
+                        <div class="row">
+                        	<div class="col-md-6" align="left">
+                        		<button class="btn btn-primary" onclick="goBack()">뒤로가기</button>
+                        	</div>
+	                       <div class="col-md-6" align="right">
+	                       	<button class="btn btn-primary" onclick="completeDormant()">승인</button>
+	                       	<button class="btn btn-warning" onclick="goBack()">승인 거절</button>
+	                       </div>
+                        </div>
+                        
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="copyright">

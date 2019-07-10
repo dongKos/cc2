@@ -1,13 +1,12 @@
 package com.kh.cc.admin.controller;
 
-import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.cc.admin.model.service.AdminService;
 import com.kh.cc.admin.model.vo.AdminPageInfo;
 import com.kh.cc.admin.model.vo.Approve;
-import com.kh.cc.admin.model.vo.Purchase;
+import com.kh.cc.admin.model.vo.Board;
 import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.Pagination;
 import com.kh.cc.illustrator.model.vo.Illustrator;
+import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -392,7 +392,11 @@ public class AdminController {
 	
 	//통계관리 - 포인트 내역 
 	@RequestMapping("showStatisticPoint.ad")
-	public String showStatisticPoint() {
+	public String showStatisticPoint(HttpServletRequest request, Model model) {
+		
+		
+		
+		
 		return "admin/adminStatisticPoint";
 	}
 	
@@ -687,27 +691,107 @@ public class AdminController {
 		
 		System.out.println("승인 결과  : " + result);
 		
+		if(result > 0) {
+			int result2 = as.completeApprove2(approvalCode);
+			
+			System.out.println("워크 테이블 grade_type 변경 : " + result2);
+		}
+		
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
 	}
 	
 	//작품 관리 페이지 - 후원 대기 내역 조회
 	@RequestMapping("showWorkDormant.ad")
-	public String showWorkDormant() {
+	public String showWorkDormant(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getDormantListCount();
+		System.out.println("후원 대기 내역전체 개수 : " + listCount);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		ArrayList<Support> list = as.selectDormantList(pi);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		System.out.println("전체 후원대기 내역 list : " + list);
+		
 		return "admin/adminWorkDormant";
 	}
 	
 	//작품 관리 페이지 - 후원대기 내역 조회 상세 페이지
 	@RequestMapping("showWorkDormantDetail.ad")
-	public String showWorkDormantDetail() {
+	public String showWorkDormantDetail(HttpServletRequest request, Model model) {
+		int sCode = Integer.parseInt(request.getParameter("scode"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		System.out.println(sCode);
+		
+		Support reqSup = as.selectOneDormant(sCode);
+		
+		System.out.println("요청한 후원 : " + reqSup);
+		
+		model.addAttribute("reqSup", reqSup);
+		model.addAttribute("currentPage", currentPage);
+		
 		return "admin/adminWorkDormantDetail";
+	}
+	
+	//작품 관리 페이지 - 후원 신청 승인
+	@RequestMapping(value="completeDormant.ad")
+	public String completeDormant(HttpServletRequest request) {
+		int sCode = Integer.parseInt(request.getParameter("sCode"));
+		
+		System.out.println("후원 코드 : " + sCode);
+		
+		int result = as.completeDormant(sCode);
+		
+		System.out.println("후원 승인 결과 : " + result);
+		
+		
+		return "admin/adminWorkDormant";
 	}
 	
 	
 	
+	//게시글 관리에서 게시글 작성 폼으로 이동
+	@RequestMapping(value="boardWrite.ad")
+	public String boardWrite() {
+		return "admin/adminBoardWrite";
+	}
 	
+	//공지사항 글 작성
+	@RequestMapping(value="writeBoard.ad")
+	public String insertNotice(HttpServletRequest request, Board b, HttpSession session) {
+		System.out.println(b);
+		Member m = (Member) session.getAttribute("loginUser");
+		
+		b.setUserId(m.getUserId());
+		b.setBoardCategory("NTC");
+		
+		int result = as.insertBoard(b);
+		
+		System.out.println("공지사항 작성 결과 : " + result);
+		
+		
+		return "redirect:showBoard.ad";
+	}
 	
-	
-	
+	//공지사항 상세보기
+	@RequestMapping(value="showBoardDetail.ad")
+	public String showBoardDetail(HttpServletRequest request, Model model) {
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		Board b = as.selectOneBoard(bId);
+			
+		
+		System.out.println("조회 해온 게시판 글 : " + b);
+		model.addAttribute("b", b);
+		
+		return "admin/adminBoardDetail";
+	}
 	
 	
 	

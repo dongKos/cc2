@@ -202,8 +202,6 @@
                                 		<option value="1">처리대기</option>
                                 		<option value="2">처리완료</option>
                                 	</select>
-                                	<input type="text">
-                                	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
                                 <div class="table-responsive table--no-card m-b-40">
                                     <table class="table table-borderless table-striped table-earning" id="refundTable">

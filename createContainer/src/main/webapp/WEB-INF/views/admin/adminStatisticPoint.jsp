@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>통계관리 - 포인트 통계</title>
+<title>통계관리 - 코인 통계</title>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 	$(function(){
@@ -44,14 +44,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="m-b-25">
-                                	<select>
-                                		<option>연도 별</option>
-                                		<option>월별</option>
-                                	</select>
-                                	<input type="text">
-                                	<button class="btn btn-primary" type="submit">검색</button>
-                                </div>
+                               
                               <div class="au-card m-b-30">
                                     <div class="au-card-inner">
                                         <h3 class="title-2 m-b-40">Yearly Sales</h3>
