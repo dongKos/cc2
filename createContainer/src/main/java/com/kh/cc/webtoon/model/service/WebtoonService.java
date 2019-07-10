@@ -74,6 +74,8 @@ public interface WebtoonService {
 
 	ArrayList<Webtoon> anthorWork(WebtoonPageInfo pi, Webtoon wt);
 
+	int attentionWork(Webtoon wt);
+
 
 
 

@@ -265,6 +265,11 @@ public class WebtoonServiceImpl implements WebtoonService{
 		return wd.anthorWork(sqlSession, pi, wt);
 	}
 
+	@Override
+	public int attentionWork(Webtoon wt) {
+		return wd.attentionWork(sqlSession, wt);
+	}
+
 
 	
 	
