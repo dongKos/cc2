@@ -55,7 +55,7 @@
   					<br>
   					<table width="100%;">
   						<tr>
-  							<td colspan=3 align="center" style="text-align:center;"><h4>보유중인 CC : ${sessionScope.loginUser.wallet }개</h4><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">CC 환불 신청</button> </td>
+  							<td colspan=3 align="center" style="text-align:center;"><div width=100%;><label>보유중인 CC : <label><label id="coin" value="0">${ date.wallet }</label><label>개</label></div><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">CC 환불 신청</button> </td>
   						</tr>
   						<tr>
   						<td colspan=3>
@@ -216,5 +216,28 @@ function gopay100(){
 	
 
 </script>
+<script>
+		$(document).ready(function(){
+			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
+			//var userId = ${ sessionScope.loginUser.userId };
+			var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
+			console.log("userId : ", userId);
+		 	$.ajax({
+				url:"selectMemberMem.mg",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log("data : " , data);	
+					$("#coin").text(data.wallet);
+				},
+				error:function(status){
+					console.log("status : " , status);
+					
+				}
+			
+			});  
+			
+		})
+	</script>
 </body>
 </html>

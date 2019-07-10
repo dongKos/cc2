@@ -56,7 +56,7 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					보유이용권 : ${ sessionScope.loginUser.wallet }개
+					보유이용권 : <label id="coin" value="0"></label>개
 				</td>
 				
 			</tr>
@@ -125,6 +125,21 @@
 					console.log("status : " , status);
 					
 				}
+			
+			});  
+		 	$.ajax({
+				url:"selectMemberMem.mg",
+				type:"get",
+				data:{userId:userId},
+				success:function(data){
+					console.log("data : " , data);	
+					$("#coin").text(data.wallet);
+				},
+				error:function(status){
+					console.log("status : " , status);
+					
+				}
+			
 			});  
 			
 			/* console.log("우에")
