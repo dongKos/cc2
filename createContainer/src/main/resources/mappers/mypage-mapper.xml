@@ -276,7 +276,7 @@
       	<!-- 코인 충전 insert -->
       	<insert id="coinCharge" parameterType="PaymentCC">
       		INSERT INTO COIN
-      		VALUES(COID_SEQ.NEXTVAL, (SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}), 2, #{pAmount}, null, SYSDATE)
+      		VALUES(COID_SEQ.NEXTVAL, (SELECT MNO FROM MEMBER WHERE USER_ID = #{userId}), 2, #{pAmount}, null, null, SYSDATE)
       	</insert>
       	<!-- 코인충전리스트 -->
       	<select id="coinChargeList" parameterType="int" resultMap="coinResultSet">

@@ -78,6 +78,8 @@ public interface MypgDao {
 	   ArrayList<Board> showQue(SqlSessionTemplate sqlSession, String userId);
 	   //휴재신청insert
 	   int insertClosed(SqlSessionTemplate sqlSession, Closed c);
+	   //멤버가져오기
+	Member selectMember(SqlSessionTemplate sqlSession, String userId);
 }
 
 

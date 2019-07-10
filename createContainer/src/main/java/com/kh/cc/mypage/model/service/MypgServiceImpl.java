@@ -217,5 +217,10 @@ public int countProfilePic(WriterProfile mp) {
 	
 	      return md.insertClosed(sqlSession,c);
 	   }
+
+	@Override
+	public Member selectMember(String userId) {
+		return md.selectMember(sqlSession, userId);
+	}
 }
 

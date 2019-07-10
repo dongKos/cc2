@@ -290,6 +290,7 @@ public class MypgController {
     //코인 결제
     @RequestMapping("paycomplete.mg")
     public String paycomplete( HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, PaymentCC pc) {
+    	m = (Member) session.getAttribute("loginUser");
     	String userId = request.getParameter("userId");
     	int price = Integer.parseInt(request.getParameter("price"));
     	
@@ -298,6 +299,17 @@ public class MypgController {
     	pc.setpAmount(price/100);
     	
     	int result = ms.payComplete(pc);
+    	
+    	userId = m.getUserId();
+		String password = m.getUserPwd();
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			m.setUserId(userId);
+			m.setUserPwd(password);
+			
+			Member loginUser = ws.loginMember(m);
+			session.setAttribute("loginUser", loginUser);
+		}
     	return "redirect:mypgCreditCharge.mg";
     }
     
@@ -322,8 +334,18 @@ public class MypgController {
   		model.addAttribute("chargeList", list);
   		return "member/mypage/mypageReport";
   	}
-	
-	
+  	//코인불러오기
+  	@RequestMapping("selectMemberMem.mg")
+  	public void selectMember(@RequestParam("userId")String id,Member m ,HttpServletRequest request,
+          HttpServletResponse response) {
+  		ObjectMapper mapper = new ObjectMapper();
+        String userId = request.getParameter("userId");
+        m.setUserId(userId);
+        
+        Member result = ms.selectMember(userId);
+        
+        
+  	}
 	
  // 소희
     // 마이페이지 관심작품 - 웹툰으로 이동
