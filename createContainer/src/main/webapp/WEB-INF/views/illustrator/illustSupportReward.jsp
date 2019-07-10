@@ -12,7 +12,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css">
   <script>
   	function apply(){
-  		location.href="illustRewardApply.ill";
+  		var scode = "<c:out value='${srlist[0].scode }'/>"
+  		location.href="illustRewardApply.ill?scode=" + scode;
   	}
   </script>
   <style>
@@ -48,6 +49,7 @@
 					<h4>${ srlist[0].stitle}</h4>
 					<div class="textArea">
 						${srlist[0].scontent}
+						
 					</div>
 				</div>
 			</c:forEach>

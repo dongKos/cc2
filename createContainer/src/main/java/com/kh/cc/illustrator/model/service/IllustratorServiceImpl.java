@@ -11,6 +11,7 @@ import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
+import com.kh.cc.member.model.vo.Member;
 
 @Service
 public class IllustratorServiceImpl implements IllustratorService{
@@ -146,6 +147,22 @@ public class IllustratorServiceImpl implements IllustratorService{
 	@Override
 	public int IllRequest(IllReq illReq) {
 		return id.IllRequest(sqlSession, illReq);
+	}
+
+	@Override
+	public int IllRequestCoin(Member m, String totalPrice) {
+		return id.IllRequestCoin(sqlSession, totalPrice, m);
+	}
+
+	//추천 수 가져오기
+	@Override
+	public int selectRecommend(int illCode) {
+		return id.selectRecommend(sqlSession, illCode);
+	}
+
+	@Override
+	public int insertSponsor(int sPrice, int mno, int sCode) {
+		return id.insertSponsor(sqlSession, sPrice, mno, sCode);
 	}
 	
 

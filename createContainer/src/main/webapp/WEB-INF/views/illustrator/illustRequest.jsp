@@ -137,9 +137,8 @@
 					</tbody>
 				</table>
 		</div>
-		
-		<h2 style="display:inline-block;">옵션을 선택해 주세요 : </h2>
-				<select id="requestPackage" style="font-size:20px; display:inline-block;">
+		<h2 style="float:left">옵션을 선택해 주세요 : </h2>
+				<select id="requestPackage" style="font-size:20px; margin-left:1%; float:left;">
 					<option value="20000">-------------</option>
 					<option value="700">STANDARD +700CC</option>
 					<option value="1500">DELUXE +1500CC</option>
@@ -147,14 +146,12 @@
 				</select>
 				
 		
-		<h2 style="display:inline-block;">최종결제 CC : </h2>
-		<input type="text" id="totalPrice" name="totalPrice" value="${rlist[0].illPrice}" style="display:inline-block;">
-		<br><br>
-		<button type="button" class="btn btn-primary form-control" id="submitBtn" onclick="Requestsubmit();">의뢰 신청하기</button>		
+		<h2 style="font-size:20px; float:left;">최종결제CC : </h2>
+		<input type="text" id="totalPrice" name="totalPrice" value="${rlist[0].illPrice}" style="font-size:20px; margin-left:1%; float:left">
+		<br><br><br><button type="button" class="btn btn-primary form-control" id="submitBtn" onclick="Requestsubmit();">의뢰 신청하기</button>		
 		
 		<br><br>
 		
-		<hr>
 		<h2 align="center">이용약관</h2>
 		<br><br>
 		
@@ -163,7 +160,6 @@
 		<br><br>
 		
 		<textarea style="resize:none; width: 100%;" rows="10"></textarea>
-		
 	</div>
 	</form>
 		<script>
@@ -177,14 +173,15 @@
 			})
 			
 			function Requestsubmit(){
-				var coin = $("#userCoin").val();
-				var totalCoin = $("#totalPrice").val();
+				var coin = Number($("#userCoin").val());
+				var totalCoin = Number($("#totalPrice").val());
 				
-				if(coin >= totalCoin){
+				 if(coin >= totalCoin){
+					console.log("제출");
 					$("#illRequest").submit();
 				}else {
 					alert("돈없음");
-				}
+				} 
 				
 			}
 			

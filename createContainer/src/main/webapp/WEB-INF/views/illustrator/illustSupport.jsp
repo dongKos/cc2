@@ -57,7 +57,12 @@
 				<h3 style="font-size:30px;">${sdlist[1].nickName}</h3>
 				<p style="font-size:20px;">#${sdlist[1].illCategory}</p>
 			</div><div hidden=true><input type="text" id="userIdspace"></div>
+			<c:if test="${sessionScope.loginUser.userId ne  sdlist[0].userId}">
 				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px">후원하기</button>
+			</c:if>
+			<c:if test="${sessionScope.loginUser.userId eq  sdlist[0].userId}"> 	
+				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px" disabled>후원하기</button>
+			</c:if>
 		</div>
 		<br>
 		<div class="row">

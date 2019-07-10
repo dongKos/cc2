@@ -18,10 +18,22 @@
 		
 		function updateRecommendCount(){
 			console.log("추천눌림");
-			var illCode = '${clist[0].illCode}'
-			var userId = '${clist[0].userId}'
-			location.href="IllRecommendCount.ill?illCode=" + illCode + "&userId=" + userId;
+			var illCode = "<c:out value='${clist[0].illCode}'/>";
+			var userId = "<c:out value='${clist[0].userId}'/>";
 			console.log(illCode);
+			
+			$.ajax({
+				url:"IllRecommendCount.ill",
+				data:{illCode:illCode, userId:userId},
+				success:function(data){
+					console.log(data);
+					$("#recommendCount").val("추천수 : " + data);
+					
+				},
+				error:function(){
+					console.log("실패!");
+				}
+			})
 		}
   </script>
 <style>
@@ -151,7 +163,7 @@
 					</tbody>
 				</table>
 				<div align="center">
-					<input type="text" value="추천수 : ${clist[0].recommendCount}">
+					<input type="text" value="추천수 : ${clist[0].recommendCount}" id="recommendCount">
 				</div>
 				<hr>
 			</div>

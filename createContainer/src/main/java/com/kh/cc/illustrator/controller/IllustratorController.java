@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -132,7 +134,9 @@ public class IllustratorController {
 	
 	//일러스트 후원 신청 페이지 이동
 	@RequestMapping("illustRewardApply.ill")
-	public String illustRewardApply() {
+	public String illustRewardApply(String scode, Model model) {
+		
+		model.addAttribute("scode", scode);
 		return "illustrator/illustSupportApply";
 	}
 	
@@ -439,15 +443,18 @@ public class IllustratorController {
 		
 		//일러스트 도전하기 추천 카운트
 		@RequestMapping(value="IllRecommendCount.ill")
-		public String updateIllRecommendCount(int illCode, String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
+		public ResponseEntity<Integer> updateIllRecommendCount(int illCode, String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
 //			int RecommendCount = Integer.parseInt(request.getParameter("recommendCount"));
 //			ill.setRecommendCount(RecommendCount);
 			System.out.println("컨트롤러!!!!!!!!!!!!!!!!!!!!" + illCode);
 			
 			is.updateRecommendCount(illCode);
+			int recommend = is.selectRecommend(illCode);
+			
+			System.out.println("recommend : " + recommend);
 			model.addAttribute("userId" , userId);
 			
-			return "redirect:selectIllChallengeDetail.ill";
+			return new ResponseEntity<Integer>(recommend, HttpStatus.OK);
 		}
 		
 		//일러스트 의뢰하기
@@ -458,8 +465,46 @@ public class IllustratorController {
 			illReq.setUserId(m.getUserId());
 			System.out.println("illReq : " + illReq);
 			int result = is.IllRequest(illReq);
+			System.out.println("result1 : " + result);
+			
+			if(result > 0) {
+//				int result2 = is.IllRequestCoin(m, totalPrice);
+//				System.out.println("코인감소 : " + result2);
+				int result2 = IllRequestCoin(m, totalPrice);
+				System.out.println("result2 : " + result2);
+			}
+			
 			model.addAttribute("msg","의뢰 신청이 완료 되었습니다.");
 	    	model.addAttribute("url", "illustRequest.ill?illCode="+illReq.getIllCode());
 			return "common/redirect";
 		}
+		
+		@RequestMapping(value="IllRequestCoin")
+		public int IllRequestCoin(Member m, String totalPrice) {
+			int result = is.IllRequestCoin(m, totalPrice);
+			
+			System.out.println("코인감소 : " + result);
+			
+			return result;
+		}
+		
+		//후원 하기
+		@RequestMapping("insertSponsor.ill")
+		public String insertSponsor(HttpServletRequest request, Model model) {
+			int sPrice = Integer.parseInt(request.getParameter("sPrice"));
+			int mno = Integer.parseInt(request.getParameter("mno"));
+			int sCode = Integer.parseInt(request.getParameter("sCode"));
+			
+			System.out.println("sprice : "+ sPrice);
+			System.out.println("회원번호 : " +mno);
+			System.out.println("일러스트 번호 : " + sCode);
+			
+			int result = is.insertSponsor(sPrice, mno, sCode);
+			
+			System.out.println("후원 삽입 결과 : " + result);
+			
+			model.addAttribute("url", "illustRewardApply.ill");
+			return "common/redirect";
+		}
+		
 }

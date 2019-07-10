@@ -7,6 +7,7 @@ import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
+import com.kh.cc.member.model.vo.Member;
 
 public interface IllustratorService {
 
@@ -54,6 +55,14 @@ public interface IllustratorService {
 
 	//일러스트 의뢰하기 신청
 	int IllRequest(IllReq illReq);
+
+	//일러스트 의뢰 돈차감
+	int IllRequestCoin(Member m, String totalPrice);
+
+	//추천수 가져오기
+	int selectRecommend(int illCode);
+
+	int insertSponsor(int sPrice, int mno, int sCode);
 	
 
 

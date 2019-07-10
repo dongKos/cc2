@@ -1,6 +1,7 @@
 package com.kh.cc.illustrator.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -10,6 +11,7 @@ import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
+import com.kh.cc.member.model.vo.Member;
 
 @Repository
 public class IllustratorDaoImpl implements IllustratorDao{
@@ -183,6 +185,34 @@ public class IllustratorDaoImpl implements IllustratorDao{
 	@Override
 	public int IllRequest(SqlSessionTemplate sqlSession, IllReq illReq) {
 		return sqlSession.insert("Illustrator.InsertIllRequest", illReq);
+	}
+
+	@Override
+	public int IllRequestCoin(SqlSessionTemplate sqlSession, String totalPrice, Member m) {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("userId", m.getUserId());
+		hmap.put("totalPrice", totalPrice);
+		
+		return sqlSession.update("Illustrator.IllRequestCoin", hmap);
+	}
+
+	//추천수 가져오기
+	@Override
+	public int selectRecommend(SqlSessionTemplate sqlSession, int illCode) {
+		return sqlSession.selectOne("Illustrator.selectRecommend", illCode);
+	}
+
+	@Override
+	public int insertSponsor(SqlSessionTemplate sqlSession, int sPrice, int mno, int sCode) {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("sPrice", sPrice);
+		hmap.put("mno", mno);
+		hmap.put("sCode", sCode);
+		
+		
+		return sqlSession.insert("Illustrator.insertSponsor", hmap);
 	}
 	
 	
