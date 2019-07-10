@@ -144,22 +144,21 @@ background-color: red;
 				</div>
 				<hr>
 				<div class="webtoonArea">
-								<c:forEach var="wtr" items="${list }">
-					<table id="whole">
-						<tbody>
-							<tr>
+					<c:forEach var="wtr" items="${list }">
+						<table id="whole">
+							<tbody>
+								<tr>
 									<td>
 										<div id="area">
-											<img class="thumbnail"
-												src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
-												<input type="hidden" value="${wtr.wid }"/>
+											<img class="thumbnailComp" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wtr.changeName }">
+											<input type="hidden" value="${wtr.wid }" />
 										</div>
 										<p align="center">${wtr.wTitle}</p>
 									</td>
-							</tr>
-						</tbody>
-					</table>
-								</c:forEach>
+								</tr>
+							</tbody>
+						</table>
+					</c:forEach>
 				</div>
 			</div>
 
@@ -199,10 +198,12 @@ background-color: red;
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 	<script>
 		$(function(){
-			var wtr = 
 			
-			$(".compList").append()
-			
+			$(".thumbnailComp").click(function(){
+				var wid = $(this).siblings().val();
+				console.log(wid);
+				location.href="roundList.wt?wid=" + wid;
+			});
 			
 		});
 	</script>

@@ -90,6 +90,7 @@
 	width:200%;
 	margin-left:85%;
 	margin-top:-13%;
+	height: 100%;
 }
 
 

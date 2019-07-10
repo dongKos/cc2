@@ -119,6 +119,7 @@ table td {
 	margin: 0 auto;
 	display: inline-block;
 }
+
 .title{
 	font-size: 4px;
 }
@@ -132,10 +133,36 @@ table td {
 }
 
 .thumbnailArea{
-	width: 90px;
-	 height:100px;
+	    width: 155px;
+    height: 115px;
 }
-
+.weak{
+	
+}
+.weakArea{
+	text-align:center;
+	padding:5px;
+	display:inline-block;
+	width: 110px;
+    height: 1400px;
+}
+.weakTable{
+    text-align: center;
+    width: 100px;
+    border-radius: 5px;
+	margin-bottom:10px;
+}
+.imgBox{
+    padding: 1px;
+}
+.thumbnailImg{
+    margin-top: 5px;
+    height: 93px;
+    width: 80px;
+}
+.weakName{
+	width:30px;
+}
 </style>
 </head>
 <body style="margin-top: 3.5%;">
@@ -148,8 +175,8 @@ table td {
 	<br>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-6 content">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-10 content">
 				<div class="new">
 					<table id="newTable">
 						<h3>신규웹툰</h3>
@@ -186,85 +213,149 @@ table td {
 
 				
 				<hr>
-				
-				<div id="mondayArea" style="display: inline-block;">
-				<h3 align="center">월</h3>
-				<c:forEach var="dwtr1" items="${ list1 }">
-					<div id="area">
-						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr1.changeName }">
-						<input type="hidden" value="${ dwtr1.wid }"/>
-						<p class="title" align="center">${ dwtr1.wTitle }</p>
-					</div>
-				</c:forEach>
-				</div>
-
-				<div id="tuesdayArea" style="display: inline-block;">
-				<h3 align="center">화</h3>
-				<c:forEach var="dwtr2" items="${ list2 }">
-						<div id="area"><img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr2.changeName }">
-						<input type="hidden" value="${ dwtr2.wid }"/>
-						<p class="title" align="center">${ dwtr2.wTitle }</p>
-						</div>
-				</c:forEach>
-				</div>
-
-				<div id="wednesdayArea" style="display: inline-block;">
-				<h3 align="center">수</h3>
-				<c:forEach var="dwtr3" items="${ list3 }">
-					<div id="area">
-					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr3.changeName }">
-					<input type="hidden" value="${ dwtr3.wid }"/>
-						<p class="title" align="center">${ dwtr3.wTitle }</p>
-					</div>
+				<div class="weakArea">
+					<h2>월</h2>
+					<c:forEach var="dwtr1" items="${ list1 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr1.changeName }">
+										<input type="hidden" value="${ dwtr1.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr1.wTitle }</p>
+								</td>
+							</tr>
+						</table>
 					</c:forEach>
 				</div>
-
-				<div id="thursdayArea" style="display: inline-block;">
-				<h3 align="center">목</h3>
-				<c:forEach var="dwtr4" items="${ list4 }">
-					<div id="area">
-					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr4.changeName }">
-					<input type="hidden" value="${ dwtr4.wid }"/>
-						<p class="title" align="center">${ dwtr4.wTitle }</p>
-					</div>
+				<div class="weakArea">
+					<h2>화</h2>
+					<c:forEach var="dwtr2" items="${ list2 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr2.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr2.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr2.wTitle }</p>
+								</td>
+							</tr>
+						</table>
 					</c:forEach>
 				</div>
-
-				<div id="fridayArea" style="display: inline-block;">
-				<h3 align="center">금</h3>
-				<c:forEach var="dwtr5" items="${ list5 }">
-					<div id="area">
-						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr5.changeName }">
-						<input type="hidden" value="${ dwtr5.wid }"/>
-						<p class="title" align="center">${ dwtr5.wTitle }</p>
-						</div>
+				<div class="weakArea">
+					<h2>수</h2>
+					<c:forEach var="dwtr3" items="${ list3 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr3.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr3.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr3.wTitle }</p>
+								</td>
+							</tr>
+						</table>
 					</c:forEach>
 				</div>
-
-				<div id="saturdayArea" style="display: inline-block;">
-				<h3 align="center">토</h3>
-				<c:forEach var="dwtr6" items="${ list6 }">
-					<div id="area">
-						<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr6.changeName }">
-						<input type="hidden" value="${ dwtr6.wid }"/>
-						<p class="title" align="center">${ dwtr6.wTitle }</p>
-						</div>
+				<div class="weakArea">
+					<h2>목</h2>
+					<c:forEach var="dwtr4" items="${ list4 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr4.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr4.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr4.wTitle }</p>
+								</td>
+							</tr>
+						</table>
 					</c:forEach>
 				</div>
-
-				<div id="sundayArea" style="display: inline-block;">
-				<h3 align="center">일</h3>
-				<c:forEach var="dwtr7" items="${ list7 }">
-					<div id="area">
-					<img class="thumbnail" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr7.changeName }">
-					<input type="hidden" value="${ dwtr7.wid }"/>
-						<p class="title" align="center">${ dwtr7.wTitle }</p>
-					</div>
+				<div class="weakArea">
+					<h2>금</h2>
+					<c:forEach var="dwtr5" items="${ list5 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr5.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr5.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr5.wTitle }</p>
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
+				</div>
+				<div class="weakArea">
+					<h2>토</h2>
+					<c:forEach var="dwtr6" items="${ list6 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr6.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr6.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr6.wTitle }</p>
+								</td>
+							</tr>
+						</table>
+					</c:forEach>
+				</div>
+				<div class="weakArea">
+					<h2>일</h2>
+					<c:forEach var="dwtr7" items="${ list7 }">
+						<table class="weakTable">
+							<tr>
+								<td>
+									<div class="imgBox">
+										<img class="thumbnailImg" src="${ contextPath }/resources/uploadFiles/webtoonMain/${ dwtr7.changeName }">
+										<input type="hidden" id="widVal" value="${ dwtr7.wid }"/>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<p class="title" align="center">${ dwtr7.wTitle }</p>
+								</td>
+							</tr>
+						</table>
 					</c:forEach>
 				</div>
 			</div>
-
-			<div class="col-sm-2 sidenav">
+			<div class="col-sm-1"></div>
+			<!-- <div class="col-sm-2 sidenav">
 				<h2>베스트도전만화</h2>
 				<div id="challengeArea">
 					<h3>도전만화 이미지</h3>
@@ -294,7 +385,7 @@ table td {
 				<h4>
 					<a href="#">만화FAQ</a>
 				</h4>
-			</div>
+			</div> -->
 
 		</div>
 	</div>
@@ -322,8 +413,8 @@ table td {
 			location.href = "roundList.wt?wid=" + wid;
 		});
 		
-		$(".thumbnail").click(function(){
-			var wid = $(this).parents().children("input").val();
+		$(".thumbnailImg").click(function(){
+			var wid = $(this).siblings().val();
 			console.log(wid);
 			location.href = "roundList.wt?wid=" + wid;
 		});
