@@ -117,6 +117,15 @@
 		<result column="STATUS" property="status"/>
 		<result column="SUB_CATEGORY" property="subCategory"/>
 </resultMap>
+<resultMap id="ClosedResultSet" type="com.kh.cc.mypage.model.vo.Closed">
+	<id property="closedCode" column="CLOSED_CODE"/>
+	<id property="wid" column="WID"/>
+	<id property="startDate" column="START_DATE"/>
+	<id property="closedDate" column="CLOSED_DATE"/>
+	<id property="uploadDate" column="UPLOAD_DATE"/>
+	<id property="status" column="CLOSED_REASON"/>
+	<id property="closedReason" column="CLOSED_STATUS"/>
+</resultMap>
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
@@ -313,7 +322,12 @@
          INSERT INTO CLOSED
          VALUES (CLOS_SEQ.NEXTVAL, #{wid} , #{startDate} , #{closedDate} , SYSDATE , #{closedReason}, 'N')
          </insert>
-      	
+      	<!-- 휴재 가져오기 -->
+      	<select id="closeList" parameterType="int" resultMap="ClosedResultSet">
+      	SELECT *
+      	FROM CLOSED
+      	WHERE WID = #{wid}
+      	</select>
 </mapper>
 
 

@@ -46,7 +46,7 @@
   					<br>
   					<table width="100%;" style="text-align:center;">
   					<tr>
-  						<th style="text-align:center;">날짜</th><th>내용</th><th>개수</th><th>상태</th>
+  						<th style="text-align:center;">날짜</th><th>내용</th><th>분류</th><th>상태</th>
   					</tr>
   					<c:forEach var="ch" items="${ chargeList }">
   					<tr>
