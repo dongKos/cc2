@@ -2,7 +2,6 @@ package com.kh.cc.illustrator.controller;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.IllustratorPagination;
 import com.kh.cc.illustrator.model.service.IllustratorService;
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
@@ -448,5 +448,18 @@ public class IllustratorController {
 			model.addAttribute("userId" , userId);
 			
 			return "redirect:selectIllChallengeDetail.ill";
+		}
+		
+		//일러스트 의뢰하기
+		@RequestMapping("IllRequest.ill")
+		public String IllRequest(IllReq illReq, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m, String totalPrice) {
+			System.out.println(totalPrice);
+			m = (Member) session.getAttribute("loginUser");
+			illReq.setUserId(m.getUserId());
+			System.out.println("illReq : " + illReq);
+			int result = is.IllRequest(illReq);
+			model.addAttribute("msg","의뢰 신청이 완료 되었습니다.");
+	    	model.addAttribute("url", "illustRequest.ill?illCode="+illReq.getIllCode());
+			return "common/redirect";
 		}
 }

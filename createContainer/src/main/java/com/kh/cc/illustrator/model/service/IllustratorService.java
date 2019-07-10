@@ -3,6 +3,7 @@ package com.kh.cc.illustrator.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
@@ -50,6 +51,9 @@ public interface IllustratorService {
 
 	//일러스트 도전하기 추천 카운트 업데이트
 	int updateRecommendCount(int illCode);
+
+	//일러스트 의뢰하기 신청
+	int IllRequest(IllReq illReq);
 	
 
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
@@ -48,14 +49,17 @@ public interface IllustratorDao {
 	//일러스트 후원 상세페이지 조회
 	ArrayList<Illustrator> selectIllSupportDetail(SqlSessionTemplate sqlSession, Illustrator ill);
 
-	//일러스트 의뢰하기 조회
-	ArrayList<Illustrator> selectIllRequest(SqlSessionTemplate sqlSession, Illustrator ill);
-	
 	//일러스트 후원하기 리워드 조회
 	ArrayList<Illustrator> selectIllSupportReward(SqlSessionTemplate sqlSession, Illustrator ill);
 
 	//일러스트 도전하기 추천수 증가
 	int updateRecommendCount(SqlSessionTemplate sqlSession, int ill);
+
+	//일러스트 의뢰하기 조회
+	ArrayList<Illustrator> selectIllRequest(SqlSessionTemplate sqlSession, Illustrator ill);
+
+	//일러스트 의뢰하기 신청
+	int IllRequest(SqlSessionTemplate sqlSession, IllReq illReq);
 	
 
 	

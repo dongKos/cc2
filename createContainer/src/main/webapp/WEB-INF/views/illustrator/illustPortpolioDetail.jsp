@@ -11,16 +11,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css">
   <script>
-
-		function support(){
-			console.log("버튼눌림");
-			location.href="illustSupportDetail.ill";
-		}
 		function request(){
+			var illCode = "<c:out value='${list[0].illCode}'/>";
 			console.log("리퀘스트!");
-			location.href="illustRequest.ill";
+			location.href="illustRequest.ill?illCode=" + illCode;
 		}
-
   </script>
 <style>
 	td{
@@ -116,7 +111,7 @@
 				<h3>시작가 : ${list[0].illPrice}</h3><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${list[0].nickName}</i><br><br>
 				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
-				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="support();">후원하기</button><br><br>
+				<br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>
@@ -239,7 +234,7 @@
 		</c:if>
 		</c:forEach>
 		<br><br>
-		<hr style="border-color:black;">
+		<!-- <hr style="border-color:black;">
 		<div class="row">
 				<table class="col-lg-10 table table-bordered" id="priceTable">
 				<div class="col-lg-10">
@@ -334,7 +329,7 @@
 					<button class="btn btn-warning" style="margin-left:31%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
 					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
 					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-				</div><br><br>
+				</div><br><br> -->
 				
 				<!-- 텍스트 설명 -->
 				<hr style="border-color:black;">

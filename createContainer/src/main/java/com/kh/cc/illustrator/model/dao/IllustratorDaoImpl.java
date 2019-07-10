@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
@@ -147,16 +148,7 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		return sdlist;
 	}
 
-	//일러스트 의뢰하기 조회
-	@Override
-	public ArrayList<Illustrator> selectIllRequest(SqlSessionTemplate sqlSession, Illustrator ill) {
-		
-		ArrayList<Illustrator> rlist = null;
-		
-		rlist = (ArrayList) sqlSession.selectList("Illustrator.selectIllRequest", ill);
-		
-		return rlist;
-	}
+	
 
 	//일러스트 후원하기 리워드 조회
 	@Override
@@ -173,6 +165,24 @@ public class IllustratorDaoImpl implements IllustratorDao{
 	@Override
 	public int updateRecommendCount(SqlSessionTemplate sqlSession, int ill) {
 		return sqlSession.update("Illustrator.updateRecommendCount", ill);
+	}
+
+	//일러스트 의뢰하기 조회
+	@Override
+	public ArrayList<Illustrator> selectIllRequest(SqlSessionTemplate sqlSession, Illustrator ill) {
+		ArrayList<Illustrator> rlist = null;
+		
+		rlist = (ArrayList) sqlSession.selectList("Illustrator.selectIllRequest", ill);
+		
+		
+		return rlist;
+	}
+
+	
+	//일러스트 의뢰하기 신청
+	@Override
+	public int IllRequest(SqlSessionTemplate sqlSession, IllReq illReq) {
+		return sqlSession.insert("Illustrator.InsertIllRequest", illReq);
 	}
 	
 	

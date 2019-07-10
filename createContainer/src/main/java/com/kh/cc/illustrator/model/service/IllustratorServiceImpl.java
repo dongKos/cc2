@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.cc.illustrator.model.dao.IllustratorDao;
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
 import com.kh.cc.illustrator.model.vo.IllustratorPhoto;
@@ -119,27 +120,36 @@ public class IllustratorServiceImpl implements IllustratorService{
 		return id.selectIllSupportDetail(sqlSession, ill);
 	}
 
-	
-	//일러스트 의뢰하기 조회
-	@Override
-	public ArrayList<Illustrator> selectIllRequest(Illustrator ill) {
-		
-		return id.selectIllRequest(sqlSession, ill);
-	}
-
 	//일러스트 후원하기 리워드 조회
 	@Override
 	public ArrayList<Illustrator> selectIllSupportReward(Illustrator ill) {
 		
 		return id.selectIllSupportReward(sqlSession, ill);
 	}
-
-
+	
+	
 	//일러스트 도전하기 추천수 증가
 	@Override
 	public int updateRecommendCount(int ill) {
 		return id.updateRecommendCount(sqlSession, ill);
 	}
+	
+	//일러스트 의뢰하기 조회
+	@Override
+	public ArrayList<Illustrator> selectIllRequest(Illustrator ill) {
+		// TODO Auto-generated method stub
+		return id.selectIllRequest(sqlSession, ill);
+	}
+
+	
+	//일러스트 의뢰하기 신청
+	@Override
+	public int IllRequest(IllReq illReq) {
+		return id.IllRequest(sqlSession, illReq);
+	}
+	
+
+
 	
 	
 	
