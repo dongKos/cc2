@@ -364,7 +364,7 @@ public class AdminController {
 		ArrayList<Illustrator> ill = null;
 		
 		//해당 작가의 월별 매출 평균
-		ArrayList<Integer> list = null;
+		ArrayList<Integer> list = as.selectPurchaseAvg(mno);
 		
 		//전체 매출 평균
 		ArrayList<Integer> wholeList = as.selectAllPurchaseAvg();
@@ -375,7 +375,6 @@ public class AdminController {
 			model.addAttribute("work", work);
 			System.out.println("작품 조회 : " + work);
 			
-			list = as.selectPurchaseAvg(mno);
 			System.out.println("월별 통계 : " + list);
 		}
 		if(illCtn > 0) {
@@ -387,6 +386,7 @@ public class AdminController {
 		model.addAttribute("reqMember", reqMember);
 		model.addAttribute("wholeList", wholeList);
 		model.addAttribute("list", list);
+		
 		return "admin/adminStatisticDetail";
 	}
 	
