@@ -4,12 +4,15 @@ package com.kh.cc.webtoon.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebtoonPagination;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webtoon.model.service.WebtoonService;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
@@ -96,8 +100,32 @@ public class WebtoonController {
 
 	// 웹툰 도전페이지로 이동
 	@RequestMapping(value = "webtoonChallenge.wt")
-	public String webtoonChallenge() {
+	public String webtoonChallenge(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
 		
+		wt.setGradeType(1);
+		
+		int currentPage = 1;
+		int limit = 8;
+		int buttonCount = 10;
+		
+		if(request.getParameter("currentPage")!= null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.challengeListCount(wt);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		ArrayList<Webtoon> list = ws.challengeList(pi, wt);
+		
+		ArrayList<Webtoon> newList = ws.newChallenge(wt);
+		 
+		System.out.println("newList : " + newList);
+		
+		
+		
+		
+		model.addAttribute("newList", newList);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		
 		return "webtoon/webtoonChallenge";
 	}
@@ -860,9 +888,35 @@ public class WebtoonController {
 		return null;
 		
 	}
-
 	
-	   
+	//도전 장르 리스트
+	@RequestMapping(value="challengeGenre.wt")
+	public ResponseEntity<HashMap<String, Object>> challengeGenre(Webtoon wt, HttpServletRequest request, HttpServletResponse response, Model model) {
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		String genre = request.getParameter("genre");
+		wt.setGradeType(gradeType);
+		wt.setGenre(genre);
+		
+		int buttonCount = 10;
+		int limit = 12;
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = ws.WebtoonGenreCount(wt);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.WebtoonGenreList(pi, wt);
+		HashMap<String, Object> wtList = new HashMap<String, Object>();
+		
+		wtList.put("list", list);
+		wtList.put("pi", pi);
+		
+		
+		return new ResponseEntity<HashMap<String, Object>>(wtList,HttpStatus.OK);
+	}
 	 
 }
 

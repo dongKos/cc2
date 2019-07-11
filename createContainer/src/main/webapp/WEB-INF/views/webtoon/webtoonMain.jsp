@@ -97,8 +97,8 @@ footer {
 	margin: 0 auto;
 }
 .thumbnail{
-	width:180px;
-	height:170px;
+    width: 90%;
+    height: 85%;
 }
 </style>
 </head>
@@ -145,32 +145,7 @@ footer {
 			</c:forEach>
 			</table>
 			<hr>
-			<h4>도전 추천웹툰</h4>
-			<jsp:include page="common/genreNavbar.jsp" />
-			<table id="genreRecommed">
-				<tr>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-				</tr>
-				<tr>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-					<td><div id="area">
-							<h4 align="center">test</h4>
-						</div></td>
-				</tr>
-			</table>
+		
 		</div>
 		<div class="col-sm-2 sidenav">
 
@@ -179,11 +154,7 @@ footer {
 				<h3>도전만화 이미지</h3>
 			</div>
 			<br> <br> <br> <br>
-			<div id="event">
-				<br>
-				<h4 align="center">이벤트</h4>
-			</div>
-			<br> <br> <br> <br>
+		
 			<div id="todayWebtoon1">
 				<br>
 				<h4 align="center">오늘 업데이트 된 웹툰</h4>

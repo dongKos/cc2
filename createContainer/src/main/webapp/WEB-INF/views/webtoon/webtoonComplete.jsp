@@ -124,7 +124,7 @@ background-color: red;
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
 	<jsp:include page="common/djcNavbar.jsp" />
-	<jsp:include page="common/genreNavbar.jsp" />
+	
 	<br>
 	<div class="container-fluid">
 		<div class="row">

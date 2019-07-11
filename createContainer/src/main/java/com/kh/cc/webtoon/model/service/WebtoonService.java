@@ -1,6 +1,7 @@
 package com.kh.cc.webtoon.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
@@ -75,6 +76,16 @@ public interface WebtoonService {
 	ArrayList<Webtoon> anthorWork(WebtoonPageInfo pi, Webtoon wt);
 
 	int attentionWork(Webtoon wt);
+
+	int challengeListCount(Webtoon wt);
+
+	ArrayList<Webtoon> challengeList(WebtoonPageInfo pi, Webtoon wt);
+	//도전 장르 리스트 카운트
+	int WebtoonGenreCount(Webtoon wt);
+	//도전 장르 리스트 카운트
+	ArrayList<HashMap<String, Object>> WebtoonGenreList(WebtoonPageInfo pi, Webtoon wt);
+
+	ArrayList<Webtoon> newChallenge(Webtoon wt);
 
 
 

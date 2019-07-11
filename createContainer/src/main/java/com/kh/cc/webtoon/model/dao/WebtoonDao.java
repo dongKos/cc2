@@ -1,6 +1,7 @@
 package com.kh.cc.webtoon.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
@@ -94,6 +95,17 @@ public interface WebtoonDao {
 	ArrayList<Webtoon> anthorWork(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
 
 	int attentionWork(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	int challengeListCount(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	ArrayList<Webtoon> challengeList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+	//도전 장르 리스트 카운트
+	int WebtoonGenreCount(SqlSessionTemplate sqlSession, Webtoon wt);
+	//도전 장르 리스트
+	ArrayList<HashMap<String, Object>> WebtoonGenreList(SqlSessionTemplate sqlSession, Webtoon wt,
+			WebtoonPageInfo pi);
+
+	ArrayList<Webtoon> WebtoonNewChallenge(SqlSessionTemplate sqlSession, Webtoon wt);
 
 
 

@@ -44,7 +44,7 @@ footer {
 }
 
 table td {
-	padding-left: 6px;
+	padding-left: 16px;
 }
 
 #sideCategory {
@@ -133,8 +133,8 @@ table td {
 }
 
 .thumbnailArea{
-	    width: 155px;
-    height: 115px;
+	width: 140px;
+    height: 150px;
 }
 .weak{
 	
@@ -171,7 +171,6 @@ table td {
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
 	<jsp:include page="common/djcNavbar.jsp" />
-	<jsp:include page="common/genreNavbar.jsp" />
 	<br>
 	<div class="container-fluid">
 		<div class="row">
@@ -200,13 +199,6 @@ table td {
 				<div id="middleTopCategory">
 					<div style="display: inline; margin-top: 0px;">
 						<h4>요일별 전체 웹툰</h4>
-					</div>
-					<div style="display: inline; float: left;">
-							<select class="selectOption">
-								<option>조회순</option>
-								<option>인기순</option>
-								<option>별점순</option>
-							</select>
 					</div>
 				</div>
 				<hr>
@@ -418,6 +410,7 @@ table td {
 			console.log(wid);
 			location.href = "roundList.wt?wid=" + wid;
 		});
+
 	});
 </script>
 </body>
