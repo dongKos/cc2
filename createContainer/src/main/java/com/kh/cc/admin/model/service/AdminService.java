@@ -12,6 +12,7 @@ import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -123,6 +124,21 @@ public interface AdminService {
 
 	Board selectOneBoard(int bId);
 
+	int getCloseListCount();
+
+	ArrayList<Closed> selectCloseList(AdminPageInfo pi);
+
+	Closed selectOneClosed(int cCode);
+
+	int completeClosed(int cCode);
+
+	int getCloseListCount(int type);
+
+	ArrayList<HashMap<String, Object>> selectClosedTypeList(AdminPageInfo pi, int type);
+
+	int noticeChange(int bId, String bContent);
+
+	HashMap<String, Object> selectAllAvg();
 
 
 	

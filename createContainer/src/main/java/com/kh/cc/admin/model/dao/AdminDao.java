@@ -12,6 +12,7 @@ import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -125,5 +126,22 @@ public interface AdminDao {
 	int insertBoard(SqlSessionTemplate sqlSession, Board b);
 
 	Board selectOneBoard(SqlSessionTemplate sqlSession, int bId);
+
+	int getCloseListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Closed> selectCloseList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	Closed selectOneClosed(SqlSessionTemplate sqlSession, int cCode);
+
+	int completeClosed(SqlSessionTemplate sqlSession, int cCode);
+
+	int getClosedListCount(SqlSessionTemplate sqlSession, int type);
+
+	ArrayList<HashMap<String, Object>> selectClosedTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi, int type);
+
+	int noticeChange(SqlSessionTemplate sqlSession, int bId, String bContent);
+
+	HashMap<String, Object> selectAllAvg(SqlSessionTemplate sqlSession);
+
 
 }

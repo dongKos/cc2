@@ -16,6 +16,7 @@ import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -129,13 +130,13 @@ public class AdminDaoImpl implements AdminDao{
 		
 		String str = "";
 		if(statusVal.equals("1")) {
-			str = "댓글";
+			str = "REPLY";
 		}else if(statusVal.equals("2")){
-			str = "작품";
+			str = "WORK";
 		}else if(statusVal.equals("3")){
-			str = "회차";
+			str = "ROUND";
 		}else if(statusVal.equals("4")){
-			str= "게시판";
+			str= "BOARD";
 		}else {
 			return (ArrayList)sqlSession.selectList("admin.selectReportList", null, rowBounds);
 		}
@@ -148,13 +149,13 @@ public class AdminDaoImpl implements AdminDao{
 	public int getReportAjaxCount(SqlSessionTemplate sqlSession, String statusVal) {
 		String str = "";
 		if(statusVal.equals("1")) {
-			str = "댓글";
+			str = "REPLY";
 		}else if(statusVal.equals("2")){
-			str = "작품";
+			str = "WORK";
 		}else if(statusVal.equals("3")){
-			str = "회차";
+			str = "ROUND";
 		}else if(statusVal.equals("4")){
-			str= "게시판";
+			str= "BOARD";
 		}else {
 			return sqlSession.selectOne("admin.selectReportCount");
 		}
@@ -655,6 +656,75 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectOne("admin.selectOneBoard", bId);
 	}
 
-	
-	
+	//휴재신청 내역 전체 개수 조회
+	@Override
+	public int getCloseListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectCloseListCount");
+	}
+
+	//휴재신청 내역 전체 조회
+	@Override
+	public ArrayList<Closed> selectCloseList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectCloseList", null, rowBounds);
+	}
+
+	//휴재신청 내역 상세보기
+	@Override
+	public Closed selectOneClosed(SqlSessionTemplate sqlSession, int cCode) {
+		return sqlSession.selectOne("admin.selectOneClosed", cCode);
+	}
+
+	//휴재신청 승인
+	@Override
+	public int completeClosed(SqlSessionTemplate sqlSession, int cCode) {
+		return sqlSession.update("admin.completeClosed", cCode);
+	}
+
+	//휴재신청 조건검색 개수 조회
+	@Override
+	public int getClosedListCount(SqlSessionTemplate sqlSession, int type) {
+		String str = "";
+		
+		if(type == 1)str = "%";
+		else if(type == 2)str = "WT";
+		else str = "WN";
+		
+		return sqlSession.selectOne("admin.getClosedListCount", str);
+	}
+
+	//휴재신청 조건검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectClosedTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi,
+			int type) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		String str = "";
+		if(type == 1)str = "%";
+		else if(type == 2)str = "WT";
+		else str = "WN";
+		
+		return (ArrayList)sqlSession.selectList("admin.selectClosedTypeList", str, rowBounds);
+	}
+
+	//공지사항 수정
+	@Override
+	public int noticeChange(SqlSessionTemplate sqlSession, int bId, String bContent) {
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		
+		hmap.put("bId", bId);
+		hmap.put("bContent", bContent);
+		
+		return sqlSession.update("admin.noticeChange", hmap);
+	}
+
+	//전체 매출 통계 조회
+	@Override
+	public HashMap<String, Object> selectAllAvg(SqlSessionTemplate sqlSession) {
+		return (HashMap<String, Object>)sqlSession.selectOne("admin.selectAllAvg");
+	}
+
 }

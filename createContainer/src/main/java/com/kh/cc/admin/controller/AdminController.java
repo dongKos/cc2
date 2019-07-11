@@ -26,6 +26,7 @@ import com.kh.cc.common.Pagination;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Controller
@@ -402,7 +403,13 @@ public class AdminController {
 	
 	//통계관리 - 정산내역
 	@RequestMapping("showStatisticCalculate.ad")
-	public String showStatisticCalculate() {
+	public String showStatisticCalculate(Model model) {
+		//전체 매출 평균 조회
+		HashMap<String, Object> hmap = as.selectAllAvg();
+		
+		System.out.println(hmap);
+		model.addAttribute("hmap", hmap);
+		
 		return "admin/adminStatisticCalculate";
 	}
 	
@@ -439,9 +446,11 @@ public class AdminController {
 		int listCount = 0;
 		
 		listCount = as.getReportAjaxCount(statusVal);
+		
+		System.out.println(listCount);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		list = as.reportStatus(statusVal, pi);
-		
+		System.out.println(list);
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
 		for(int i = 0; i < list.size(); i++) {
@@ -793,12 +802,105 @@ public class AdminController {
 		return "admin/adminBoardDetail";
 	}
 	
+	//휴재 신청 내역 조회
+	@RequestMapping(value="showWorkClose.ad")
+	public String showWorkClose(HttpServletRequest request, Model model) {
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getCloseListCount();
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		System.out.println("휴재 신청 내역 개수 : " + listCount);
+		
+		ArrayList<Closed> list = as.selectCloseList(pi);
+		
+		System.out.println("휴재신청 내역 : " + list);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		return "admin/adminWorkClose";	
+	}
 	
+	//휴재신청 내역 상세보기
+	@RequestMapping(value="showWorkCloseDetail.ad")
+	public String showWorkCloseDetail(HttpServletRequest request, Model model) {
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		int cCode = Integer.parseInt(request.getParameter("cCode"));
+		
+		System.out.println("휴재 신청 코드 : " + cCode);
+		Closed c = as.selectOneClosed(cCode);
+		
+		System.out.println("조회해온 휴재내역  : " + c);
+		
+		model.addAttribute("c", c);
+		model.addAttribute("currentPage", currentPage);		
+		
+		return "admin/adminWorkCloseDetail";
+	}
 	
+	//휴재 신청 승인완료
+	@RequestMapping("completeClosed.ad")
+	public String completeClosed(HttpServletRequest request) {
+		int cCode = Integer.parseInt(request.getParameter("cCode"));
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		int result = as.completeClosed(cCode);
+		
+		System.out.println("휴재 승인 결과  : " + result);
+		
+		
+		
+		return "redirect:showWorkClose.ad?currentPage=" + currentPage;
+	}
 	
+	//휴재 신청 내역 조건 검색 ajax
+	@RequestMapping(value="closeType.ad")
+	public ResponseEntity<HashMap<String, Object>> closeType(HttpServletRequest request) {
+		int type = Integer.parseInt(request.getParameter("type"));
+		
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int listCount = as.getCloseListCount(type);
+		
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		
+		System.out.println("listCount : " + listCount);
+		System.out.println("pi : " + pi);
+		
+		ArrayList<HashMap<String, Object>> list = as.selectClosedTypeList(pi, type);
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		System.out.println("type : " + type);
+		System.out.println("조건 따라 받아온 휴재 list : " + list);
+		list2.put("list", list);
+		list2.put("pi", pi);
+		
+		
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+		
+	}
 	
-	
-	
+	//공지사항 수정하기
+	@RequestMapping(value="noticeChange.ad")
+	public String noticeChange(HttpServletRequest request) {
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		String bContent = request.getParameter("bContent");
+		
+		System.out.println("bid : " + bId);
+		System.out.println("bContent : " + bContent);
+		
+		int result = as.noticeChange(bId, bContent);
+		
+		System.out.println("게시글 수정 결과 : " + result);
+		
+		return "redirect:showBoard.ad";
+	}
 	
 	
 	

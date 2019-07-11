@@ -18,6 +18,7 @@ import com.kh.cc.admin.model.vo.Refund;
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.mypage.model.vo.Closed;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -349,6 +350,56 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public Board selectOneBoard(int bId) {
 		return ad.selectOneBoard(sqlSession, bId);
+	}
+
+	//휴재신청 내역 전체 개수 조회
+	@Override
+	public int getCloseListCount() {
+		return ad.getCloseListCount(sqlSession);
+	}
+
+	//휴재신청 내역 전체 조회
+	@Override
+	public ArrayList<Closed> selectCloseList(AdminPageInfo pi) {
+		return ad.selectCloseList(sqlSession, pi);
+	}
+
+	//휴재신청 내역 상세보기
+	@Override
+	public Closed selectOneClosed(int cCode) {
+		return ad.selectOneClosed(sqlSession, cCode);
+	}
+
+	//휴재신청 승인
+	@Override
+	public int completeClosed(int cCode) {
+		return ad.completeClosed(sqlSession, cCode);
+	}
+
+	
+	//휴재신청 조건검색 개수 조회
+	@Override
+	public int getCloseListCount(int type) {
+		return ad.getClosedListCount(sqlSession, type);
+	}
+
+	
+	//휴재신청 조건검색 전체 조회
+	@Override
+	public ArrayList<HashMap<String, Object>> selectClosedTypeList(AdminPageInfo pi, int type) {
+		return ad.selectClosedTypeList(sqlSession, pi, type);
+	}
+
+	//공지사항 수정
+	@Override
+	public int noticeChange(int bId, String bContent) {
+		return ad.noticeChange(sqlSession, bId, bContent);
+	}
+
+	//전체 매출 통계 조회
+	@Override
+	public HashMap<String, Object> selectAllAvg() {
+		return ad.selectAllAvg(sqlSession);
 	}
 
 	

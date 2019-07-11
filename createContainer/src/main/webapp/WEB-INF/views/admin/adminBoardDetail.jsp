@@ -8,7 +8,42 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
-
+	//선택된 사이드 메뉴바 표시
+	$(function(){
+		var selectedUl = $("#board").parent().children();
+		var selectedLi = selectedUl.children().children().eq(0);
+		selectedUl.css({"display":"block"});
+		selectedLi.css({"color":"skyblue"});
+		
+		var subCategory = "<c:out value='${b.subCategory}'/>";
+		var caSpan = $("#subCategory");
+		
+		console.log(subCategory);
+		if(subCategory == 'ETC'){
+			caSpan.text("기타");
+		}else if(subCategory == 'WT'){
+			caSpan.text("웹툰");
+		}else if(subCategory == 'WN'){
+			caSpan.text("웹소설");
+		}else{
+			caSpan.text("일러스트");
+		}
+	});
+	
+	//답변하기
+	function respond(){
+		console.log("답변!");
+	}
+	
+	//공지사항 수정
+	function NoticeChange(){
+		var bContent = $("#bContent").val();
+		var bId = "<c:out value='${b.bId}'/>";
+		console.log(bContent);
+		console.log(bId);
+		
+		location.href="noticeChange.ad?bContent=" + bContent + "&bId=" + bId;
+	}
 </script>
 </head>
 
@@ -37,22 +72,17 @@
 								<div class="card">
 									<!-- 1:1 문의 인경우 -->
 									<c:if test="${b.boardCategory eq  'OTO'}">
-										<div class="card-header">1:1 문의 상세보기</div>
+										<div class="card-header">1:1 문의 상세보기  <span id="subCategory" style="float: right;"></span></div>
 											<div class="card-body card-block">
 										<form action="writeBoard.ad" method="post" 
 											class="form-horizontal">
 											<div class="row form-group">
 												<div class="col col-md-3">
-													<label for="select" class=" form-control-label">카테고리</label>
+													<label for="text-input" class=" form-control-label">작성자</label>
 												</div>
 												<div class="col-12 col-md-9">
-													<select name="subCategory" id="subCategory" class="form-control">
-														<option value="0">카테고리를 선택하세요</option>
-														<option value="WT">웹툰</option>
-														<option value="WN">웹소설</option>
-														<option value="ILL">일러스트</option>
-														<option value="ETC">기타</option>
-													</select>
+													<input type="text" id="text-input" name="bTitle"
+														placeholder="Text" class="form-control" value="${b.userId }" readonly>
 												</div>
 											</div>
 											<div class="row form-group">
@@ -61,7 +91,7 @@
 												</div>
 												<div class="col-12 col-md-9">
 													<input type="text" id="text-input" name="bTitle"
-														placeholder="Text" class="form-control">
+													 	placeholder="Text" class="form-control" value="${b.bTitle }" readonly>
 												</div>
 											</div>
 											<div class="row form-group">
@@ -72,47 +102,43 @@
 												<div class="col-12 col-md-9">
 													<textarea name="bContent" id="bContent"
 														rows="9" placeholder="내용을 적어주세요 관리자님!"
-														class="form-control" style="resize: none;"></textarea>
+														class="form-control" style="resize: none;" readonly>${b.bContent }
+														</textarea>
 												</div>
 											</div>
-											<div class="row">
-												<div class="col-lg-12" style="text-align: right">
-													<button class="btn btn-primary" id="completeNotice" type="submit">등록</button>
+											<div class="row form-group">
+												<div class="col-12 col-md-12">
+													<label for="respond">답변내용</label><br>
+													<textarea name="respond" id="respond"
+														rows="4" placeholder="답변 내용을 적어주세요 관리자님!"
+														class="form-control" style="resize: none;">
+														</textarea>
 												</div>
-	
 											</div>
 										</form>
+										<div class="row">
+											<div class="col-lg-12" style="text-align: right">
+												<button class="btn btn-primary" id="completeNotice" onclick="respond();">답변하기</button>
+											</div>
+
+										</div>
 
 									</div>
 									</c:if>
 									
 									<!-- 공지사항 인경우 -->
 									<c:if test="${b.boardCategory eq 'NTC' }">
-										<div class="card-header">공지사항 상세보기</div>
+										<div class="card-header">공지사항 상세보기 <span id="subCategory" style="float: right;"></span></div>
 											<div class="card-body card-block">
 										<form action="writeBoard.ad" method="post" 
 											class="form-horizontal">
-											<div class="row form-group">
-												<div class="col col-md-3">
-													<label for="select" class=" form-control-label">카테고리</label>
-												</div>
-												<div class="col-12 col-md-9">
-													<select name="subCategory" id="subCategory" class="form-control">
-														<option value="0">카테고리를 선택하세요</option>
-														<option value="WT">웹툰</option>
-														<option value="WN">웹소설</option>
-														<option value="ILL">일러스트</option>
-														<option value="ETC">기타</option>
-													</select>
-												</div>
-											</div>
 											<div class="row form-group">
 												<div class="col col-md-3">
 													<label for="text-input" class=" form-control-label">제목</label>
 												</div>
 												<div class="col-12 col-md-9">
 													<input type="text" id="text-input" name="bTitle"
-														placeholder="Text" class="form-control">
+														placeholder="Text" class="form-control" value="${b.bTitle }" readonly>
 												</div>
 											</div>
 											<div class="row form-group">
@@ -123,17 +149,16 @@
 												<div class="col-12 col-md-9">
 													<textarea name="bContent" id="bContent"
 														rows="9" placeholder="내용을 적어주세요 관리자님!"
-														class="form-control" style="resize: none;"></textarea>
+														class="form-control" style="resize: none;">${b.bContent }</textarea>
 												</div>
-											</div>
-											<div class="row">
-												<div class="col-lg-12" style="text-align: right">
-													<button class="btn btn-primary" id="completeNotice" type="submit">등록</button>
-												</div>
-	
 											</div>
 										</form>
+										<div class="row">
+											<div class="col-lg-12" style="text-align: right">
+												<button class="btn btn-primary" id="completeNotice" type="submit" onclick="NoticeChange();">수정</button>
+											</div>
 
+										</div>
 									</div>
 									</c:if>
 								

@@ -18,6 +18,63 @@
 		var selectedLi = selectedUl.children().children().eq(2);
 		selectedUl.css({"display":"block"});
 		selectedLi.css({"color":"skyblue"});
+		
+		//Pie Chart
+		
+		var wtAvg = "<c:out value='${hmap.WT}'/>";
+		var wnAvg = "<c:out value='${hmap.WN}'/>";
+		var illAvg = "<c:out value='${hmap.ILL}'/>";
+		try {
+	
+		    var ctx = document.getElementById("pieChart");
+		    if (ctx) {
+		      ctx.height = 200;
+		      var myChart = new Chart(ctx, {
+		        type: 'pie',
+		        data: {
+		          datasets: [{
+		            data: [wtAvg, wnAvg, illAvg],
+		            backgroundColor: [
+		              "rgba(0, 123, 255,0.9)",
+		              "rgba(0, 123, 255,0.7)",
+		              "rgba(0, 123, 255,0.5)"
+		            ],
+		            hoverBackgroundColor: [
+		              "rgba(0, 123, 255,0.9)",
+		              "rgba(0, 123, 255,0.7)",
+		              "rgba(0, 123, 255,0.5)"
+		            ]
+		
+		          }],
+		          labels: [
+		            "웹툰",
+		            "웹소설",
+		            "일러스트"
+		          ]
+		        },
+		        options: {
+		          legend: {
+		            position: 'top',
+		            labels: {
+		              fontFamily: 'Poppins',
+		              fontSize : 20,
+		              padding: 25,
+		              fontColor: 'rgb(051, 051, 255)'
+		            }
+		
+		          },
+		          responsive: true
+		        }
+		        
+		      });
+		    }
+		
+
+	  } catch (error) {
+	    console.log(error);
+	  }
+			
+		
 	})
 </script>
 </head>
@@ -44,14 +101,14 @@
                     <div class="container-fluid">
                     
                     <div class="row">
-                   	  <div class="col-lg-12">
-                  		 <div class="au-card m-b-30">
-                                <div class="au-card-inner">
-                                    <h3 class="title-2 m-b-40">Bar chart</h3>
-                                    <canvas id="barChart"></canvas>
+                   	      <div class="col-lg-12">
+                                <div class="au-card m-b-30">
+                                    <div class="au-card-inner">
+                                        <h3 class="title-2 m-b-40">Pie Chart</h3>
+                                        <canvas id="pieChart"></canvas>
+                                    </div>
                                 </div>
-                         </div>
-                       </div>
+                            </div>
                     </div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -127,7 +184,7 @@
 
     </div>
     <!-- Main JS-->
-    <script src="${contextPath }/resources/js/admin/main.js"></script>
+    <script src="${contextPath }/resources/js/admin/main2.js"></script>
 
 </body>
 
