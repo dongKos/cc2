@@ -16,7 +16,7 @@
    <resultMap type="com.kh.cc.admin.model.vo.Report" id="reportResultSet">
       <id property="reportId" column="REPORT_ID"/>            
       <result property="reportType" column="REPORT_TYPE"/>   
-      <result property="reportDate" column="REPORT_DATE"/>
+      <result property="reportDate" column="REPROT_DATE"/>
       <result property="reportReason" column="REPORT_REASON"/>
       <result property="reportCategory" column="REPORT_CATEGORY"/>
       <result property="status" column="STATUS"/>
@@ -135,6 +135,17 @@
 		<result property="mno" column="MNO"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 		<result property="userId" column="USER_ID"/>
+	</resultMap>
+	<resultMap type="com.kh.cc.mypage.model.vo.Closed" id="closedResultSet">
+		<id property="closedCode" column="CLOSED_CODE"/>
+		<result property="wid" column="WID"/>
+		<result property="startDate" column="START_DATE"/>
+		<result property="closedDate" column="CLOSED_DATE"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="status" column="CLOSED_STATUS"/>
+		<result property="closedReason" column="CLOSED_REASON"/>
+		<result property="wTitle" column="WTITLE"/>
+		<result property="workType" column="WORK_TYPE"/>
 	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
@@ -624,6 +635,78 @@
 		SELECT * 
 		FROM BOARD
 		WHERE B_ID = #{bId}
+	</select>
+
+	<!-- 후원 내역 전체 개수 조회 -->
+	<select id="selectCloseListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM CLOSED
+		WHERE CLOSED_STATUS = 'N'
+	</select>
+	
+	<!-- 휴재 신청 내역 전체 조회 -->
+	<select id="selectCloseList" resultMap="closedResultSet">
+		SELECT * 
+		FROM CLOSED C
+		JOIN WORK W ON(C.WID = W.WID)
+		WHERE C.CLOSED_STATUS = 'N'
+	</select>
+	
+	<!-- 휴재 신청 내역 상세보기 -->
+	<select id="selectOneClosed" parameterType="_int" resultMap="closedResultSet">
+		SELECT *
+		FROM CLOSED C
+		JOIN WORK W ON (C.WID = W.WID)
+		WHERE C.CLOSED_STATUS = 'N'
+		AND CLOSED_CODE = #{cCode}
+	</select>
+	
+	<!-- 휴재 신청 승인하기 -->
+	<update id="completeClosed" parameterType="_int">
+		UPDATE CLOSED SET CLOSED_STATUS = 'Y'
+		WHERE CLOSED_CODE = #{cCode} 
+	</update>
+	
+	<!-- 휴재 신청 조건검색 개수 조회 -->
+	<select id="getClosedListCount" parameterType="String" resultType="_int">
+		SELECT COUNT(*)
+		FROM CLOSED C
+		JOIN WORK W ON(W.WID = C.WID)
+		WHERE W.WORK_TYPE LIKE '%' || #{str} || '%'
+		AND C.CLOSED_STATUS = 'N'
+	</select>
+	
+	<!-- 휴재신청 조건검색 전체 조회 -->
+	<select id="selectClosedTypeList" parameterType="String" resultMap="closedResultSet">
+		SELECT *
+		FROM CLOSED C
+		JOIN WORK W ON(W.WID = C.WID)
+		WHERE W.WORK_TYPE LIKE '%' || #{str} || '%'
+		AND C.CLOSED_STATUS = 'N'	
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="noticeChange" parameterType="java.util.HashMap">
+		UPDATE BOARD SET BCONTENT = #{bContent}
+		WHERE B_ID = #{bId}
+	</update>
+	
+	<!-- 전체 매출 통계 조회 -->
+	<select id="selectAllAvg" resultType="java.util.HashMap">
+		SELECT (SELECT ROUND(AVG(COIN_COUNT))
+		        FROM COIN C
+		        LEFT JOIN WORK_ROUND WR ON(C.RID = WR.RID)
+		        LEFT JOIN WORK W ON(WR.WID = W.WID)
+		        WHERE W.WORK_TYPE = 'WT') AS WT, 
+	           (SELECT ROUND(AVG(COIN_COUNT))
+	            FROM COIN C
+	            LEFT JOIN WORK_ROUND WR ON(C.RID = WR.RID)
+	            LEFT JOIN WORK W ON(WR.WID = W.WID)
+	            WHERE W.WORK_TYPE = 'WN') AS WN,
+	           (SELECT ROUND(AVG(C.COIN_COUNT))
+	            FROM COIN C
+	            LEFT JOIN ILLUSTRATION ILL ON (C.ILL_CODE = ILL.ILL_CODE)) AS ILL
+		FROM DUAL
 	</select>
 	
 </mapper>

@@ -119,6 +119,9 @@
                            <li>
                                <a href="showWorkDormant.ad">후원 대기 내역 조회</a>
                            </li>
+                             <li>
+                               <a href="showWorkClose.ad">휴재 신청 내역 조회</a>
+                           </li>
                        </ul>
                    </li>
                    
