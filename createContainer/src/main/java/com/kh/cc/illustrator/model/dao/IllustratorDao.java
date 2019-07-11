@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -68,6 +69,8 @@ public interface IllustratorDao {
 	int selectRecommend(SqlSessionTemplate sqlSession, int illCode);
 
 	int insertSponsor(SqlSessionTemplate sqlSession, int sPrice, int mno, int sCode);
+
+	int IllustReport(SqlSessionTemplate sqlSession, Report r);
 	
 
 	

@@ -23,14 +23,17 @@
   </style>
   <script>
   	function support(){
-  		var sCode = ${scode};
-  		var sPrice = $("#price").val();
+  		var wallet = Number("<c:out value='${sessionScope.loginUser.wallet}'/>");
+  		var sPrice = Number($("#price").val());
+  		var sCode = "<c:out value='${scode}'/>";
   		var mno = "<c:out value='${sessionScope.loginUser.mno}'/>";
-  		console.log(mno);
-  		console.log(sCode);
-  		console.log(sPrice);
+  		console.log(wallet);
+  		if(wallet < sPrice){
+  			alert("보유 코인 부족!");
+  		}else{
+	  		location.href="insertSponsor.ill?sPrice=" + sPrice + "&mno=" + mno + "&sCode=" + sCode;
+  		}
   		
-  		location.href="insertSponsor.ill?sPrice=" + sPrice + "&mno=" + mno + "&sCode=" + sCode;
   	}
   </script>
 </head>
@@ -56,7 +59,7 @@
 	</div>
 	<br><br>
 	<div align="center">
-		<button class="btn btn-primary" onclick="support()">후원하기</button>
+		<button class="btn btn-primary" onclick="support();">후원하기</button>
 	</div>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </body>

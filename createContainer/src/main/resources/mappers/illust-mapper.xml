@@ -234,4 +234,11 @@
 		INSERT INTO SPONSOR 
 		VALUES (#{sCode}, #{mno}, #{sPrice})
 	</insert>
+	
+	<!-- 일러스트 신고하기 -->
+	<insert id="insertReport" parameterType="Report">
+		INSERT INTO REPORT
+		VALUES(RPID_SEQ.NEXTVAL, #{rType}, SYSDATE, #{rReason}, 
+				'WORK', DEFAULT, #{userId}, NULL, NULL, NULL, NULL, #{illCode})
+	</insert>
 </mapper>

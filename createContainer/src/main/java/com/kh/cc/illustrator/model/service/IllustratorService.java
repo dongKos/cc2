@@ -3,6 +3,7 @@ package com.kh.cc.illustrator.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -63,6 +64,8 @@ public interface IllustratorService {
 	int selectRecommend(int illCode);
 
 	int insertSponsor(int sPrice, int mno, int sCode);
+
+	int IllustReport(Report r);
 	
 
 

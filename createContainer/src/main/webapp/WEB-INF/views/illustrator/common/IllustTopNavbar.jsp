@@ -107,5 +107,18 @@
   	
   	
   </nav>
+    <!-- Bootstrap core JavaScript -->
+  <script src="${contextPath }/resources/vendor/illust/jquery/jquery.min.js"></script>
+  <script src="${contextPath }/resources/vendor/illust/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="${contextPath }/resources/vendor/illust/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Contact Form JavaScript -->
+  <script src="${contextPath }/resources/js/illust/jqBootstrapValidation.js"></script>
+  <script src="${contextPath }/resources/js/illust/contact_me.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="${contextPath }/resourcesjs/illust/freelancer.min.js"></script>
 </body>
 </html>
