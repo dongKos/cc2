@@ -221,6 +221,16 @@ public class IllustratorDaoImpl implements IllustratorDao{
 	public int IllustReport(SqlSessionTemplate sqlSession, Report r) {
 		return sqlSession.insert("Illustrator.insertReport", r);
 	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeRequest(SqlSessionTemplate sqlSession, Illustrator ill) {
+		
+		ArrayList<Illustrator> rclist = null;
+		
+		rclist = (ArrayList) sqlSession.selectList("Illustrator.selectIllChallengeRequest", ill);
+		
+		return rclist;
+	}
 	
 	
 

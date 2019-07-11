@@ -171,6 +171,11 @@ public class IllustratorServiceImpl implements IllustratorService{
 	public int IllustReport(Report r) {
 		return id.IllustReport(sqlSession, r);
 	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeRequest(Illustrator ill) {
+		return id.selectIllChallengeRequest(sqlSession, ill);
+	}
 	
 	
 	
