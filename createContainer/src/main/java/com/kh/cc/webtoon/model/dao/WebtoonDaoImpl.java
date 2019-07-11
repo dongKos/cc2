@@ -344,6 +344,26 @@ public class WebtoonDaoImpl implements WebtoonDao {
 		return newList;
 	}
 
+	@Override
+	public int premiumListCount(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.selectOne("Webtoon.premiumListCount", wt);
+				
+	}
+
+	@Override
+	public ArrayList<Webtoon> totalList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt) {
+		ArrayList<Webtoon> totalList = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		totalList = (ArrayList) sqlSession.selectList("Webtoon.totalList", wt, rowBounds);
+				
+		
+		return totalList;
+	}
+
 	
 
 	

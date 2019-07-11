@@ -146,6 +146,11 @@ background-color: red;
     width: 120px;
 }
 
+.challengeArea{
+	    width: 90%;
+    height: 130px;
+	border: 1px solid black;
+}
 
 
 </style>
@@ -238,7 +243,6 @@ background-color: red;
 							</c:url>
 							<button type="button" onclick="location.href='${ wtBack }'">다음</button>
 						</c:if>
-						
 					</div>
 					
 				</div>
@@ -253,45 +257,12 @@ background-color: red;
 						</ul>
 					</div>
 				</div>
-				
-
-				
-				
-				
-				
-				
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			<div class="col-sm-2 sidenav">
-				<h2>베스트도전만화</h2>
-				<div id="challengeArea">
-					<h3>도전만화 이미지</h3>
-				</div>
-				<br> <br> <br> <br>
-				<div id="event">
-					<br>
-					<h4 align="center">이벤트</h4>
-				</div>
+				<h2>베스트&nbsp;&nbsp;도전만화</h2>
+			<div id="challengeArea1">
+				<img class="challengeArea" src="${contextPath}/resources/uploadFiles/webtoonMain/real.JPG"/>
+			</div>
 				<br> <br> <br> <br>
 				<div id="todayWebtoon">
 					<br>
@@ -318,14 +289,27 @@ background-color: red;
 	</div>
 	<script>
 	$(function(){
+		
 		$(".recommendImg").click(function(){
 			var wid = $(this).siblings().val();
 			console.log(wid);
 			location.href = "roundList.wt?wid=" + wid;
 		});
+		
+		$(".newThumbnail").click(function(){
+			var wid = $(this).parents().children("input").val();
+			console.log(wid);
+			location.href = "roundList.wt?wid=" + wid;
+		});
+
+		$(".challengeArea").click(function(){
+			console.log("클릭");
+			location.href="insertWork.wt";
+		});
 
 	});
 	</script>
 	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
 </body>
 </html>

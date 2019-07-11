@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@ footer {
 }
 
 #todayWebtoon {
-	width: 57%;
+	width: 63%;
 	height: 150px;
 	background-color: red;
 	margin: 0 auto;
@@ -59,12 +59,6 @@ footer {
 	display: inline;
 }
 
-#challengeArea {
-	background-color: red;
-	width: 80%;
-	height: 170px;
-	margin: 0 auto;
-}
 
 #event {
 	background-color: red;
@@ -100,6 +94,12 @@ footer {
     width: 90%;
     height: 85%;
 }
+.challengeArea{
+	    width: 90%;
+    height: 130px;
+	border: 1px solid black;
+}
+
 </style>
 </head>
 <body>
@@ -109,8 +109,8 @@ footer {
 	<jsp:include page="common/djcNavbar.jsp" />
 	<br>
 	<div class="container-fluid">
-		<div class="col-sm-2"></div>
-		<div class="col-sm-6 topContent" style="display: inline-block;">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-8 topContent" style="display: inline-block;">
 			<div style="display: inline-block;">
 				<h2>오늘의 웹툰</h2>
 				<br>
@@ -129,29 +129,13 @@ footer {
 			<hr>
 			<h4>장르별 추천</h4>
 			<hr>
-			<jsp:include page="common/genreNavbar.jsp" />
-			<table id="genreRecommed">
-			<c:forEach var="wtr" items="${ list }">
-			<tbody>
-				<tr>
-					<td>
-						<div id="area">
-							<img class="thumbnail" src="${contextPath}/resources/uploadFiles/webtoonMain/${ wtr.changeName }"/>
-							<h4>${ wtr.wTitle }</h4>
-						</div>
-					</td>
-				</tr>
-				</tbody>
-			</c:forEach>
-			</table>
-			<hr>
-		
+
 		</div>
 		<div class="col-sm-2 sidenav">
 
-			<h2>베스트도전만화</h2>
-			<div id="challengeArea">
-				<h3>도전만화 이미지</h3>
+			<h2>베스트&nbsp;&nbsp;도전만화</h2>
+			<div id="challengeArea1">
+				<img class="challengeArea" src="${contextPath}/resources/uploadFiles/webtoonMain/real.JPG"/>
 			</div>
 			<br> <br> <br> <br>
 		
@@ -176,19 +160,7 @@ footer {
 			</h4>
 		</div>
 	</div>
-	<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	
 	<br>
 	<br>
 	<br>
@@ -199,8 +171,15 @@ footer {
 				location.href = "webtoonWork.wt";
 				//alert("hello");
 			});
+			
+			$(".challengeArea").click(function(){
+				console.log("클릭");
+				location.href="insertWork.wt";
+			});
+			
 		});
 	</script>
+	<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
 </body>
 </html>
 

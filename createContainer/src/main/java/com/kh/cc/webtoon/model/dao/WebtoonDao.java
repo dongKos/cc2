@@ -107,6 +107,10 @@ public interface WebtoonDao {
 
 	ArrayList<Webtoon> WebtoonNewChallenge(SqlSessionTemplate sqlSession, Webtoon wt);
 
+	int premiumListCount(SqlSessionTemplate sqlSession, Webtoon wt);
+
+	ArrayList<Webtoon> totalList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+
 
 
 	

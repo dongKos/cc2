@@ -87,6 +87,10 @@ public interface WebtoonService {
 
 	ArrayList<Webtoon> newChallenge(Webtoon wt);
 
+	int premiumListCount(Webtoon wt);
+
+	ArrayList<Webtoon> totalList(WebtoonPageInfo pi, Webtoon wt);
+
 
 
 

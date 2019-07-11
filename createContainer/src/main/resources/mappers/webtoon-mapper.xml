@@ -271,6 +271,7 @@
 		AND W.WCYCLE = 'MON'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		 AND W.GRADE_TYPE = 2
 	</select>
 	<select id="tuesList" resultMap="webtoonResultSet">
 		SELECT *
@@ -280,6 +281,7 @@
 		AND W.WCYCLE = 'TUES'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		 AND W.GRADE_TYPE = 2
 	</select>
 	<select id="wedList" resultMap="webtoonResultSet">
 		SELECT *
@@ -289,6 +291,7 @@
 		AND W.WCYCLE = 'WED'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+        AND W.GRADE_TYPE = 2
 	</select>
 	<select id="thurList" resultMap="webtoonResultSet">
 		SELECT *
@@ -298,6 +301,7 @@
 		AND W.WCYCLE = 'THUR'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		AND W.GRADE_TYPE = 2
 	</select>
 	<select id="friList" resultMap="webtoonResultSet">
 		SELECT *
@@ -307,6 +311,7 @@
 		AND W.WCYCLE = 'FRI'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		AND W.GRADE_TYPE = 2
 	</select>
 	<select id="satList" resultMap="webtoonResultSet">
 		SELECT *
@@ -316,6 +321,7 @@
 		AND W.WCYCLE = 'SAT'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		AND W.GRADE_TYPE = 2
 	</select>
 	<select id="sunList" resultMap="webtoonResultSet">
 		SELECT *
@@ -325,6 +331,7 @@
 		AND W.WCYCLE = 'SUN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.WORK_STATUS != 'COMP'
+		AND W.GRADE_TYPE = 2
 	</select>
 
 	<select id="newList" resultMap="webtoonResultSet">
@@ -334,6 +341,7 @@
 		JOIN WORK W ON(A.WID = W.WID)
 		WHERE W.WORK_TYPE = 'WT'
 		AND W.WORK_STATUS = 'RUN'
+		AND W.GRADE_TYPE = 2
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY W.WUPLOAD_DATE DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 5
@@ -345,6 +353,7 @@
 		JOIN WORK W ON(A.WID = W.WID)
 		WHERE W.WORK_TYPE = 'WT'
 		AND W.WORK_STATUS = 'RUN'
+		AND W.GRADE_TYPE = 2
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY W.WUPLOAD_DATE DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 5
@@ -373,7 +382,7 @@
 	</select>
 	
 	<insert id="insertAttention" parameterType="WebtoonAttention">
-		INSERT INTO ATTENTION VALUES(ATT_SEQ.NEXTVAL,#{wid},)
+		INSERT INTO ATTENTION VALUES(ATT_SEQ.NEXTVAL,#{wid},#{userId})
 	</insert>
 
 	<select id="challengeListCount" resultType="_int">
@@ -428,6 +437,29 @@
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY W.WUPLOAD_DATE DESC)
 		WHERE ROWNUM <![CDATA[ <= ]]> 5
+	</select>
+
+	<select id="premiumListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE W.GRADE_TYPE = 2
+		AND W.WORK_STATUS = 'RUN'
+		AND WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+
+	<select id="totalList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M
+		ON(M.USER_ID = W.USER_ID)
+		WHERE W.GRADE_TYPE = 2
+		AND W.WORK_STATUS = 'RUN'
+		AND WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
 	</select>
 	
 </mapper>
