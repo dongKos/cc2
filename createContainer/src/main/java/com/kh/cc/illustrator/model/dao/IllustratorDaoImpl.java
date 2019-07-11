@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -213,6 +214,12 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		
 		
 		return sqlSession.insert("Illustrator.insertSponsor", hmap);
+	}
+
+	//일러스트 신고하기
+	@Override
+	public int IllustReport(SqlSessionTemplate sqlSession, Report r) {
+		return sqlSession.insert("Illustrator.insertReport", r);
 	}
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.IllustratorPagination;
 import com.kh.cc.illustrator.model.service.IllustratorService;
@@ -78,9 +79,9 @@ public class IllustratorController {
 	//일러스트 후원하기 페이지로 이동
 	@RequestMapping(value="illustSupport.ill")
 	public String illustSupport(HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
-		
+		System.out.println("ill : " + ill);
 		ArrayList<Illustrator> slist = is.selectIllSupportList(ill);
-		
+		System.out.println("후원 목록 조회 : " + slist);
 		model.addAttribute("slist", slist);
 		
 		return "illustrator/illust_Support";
@@ -134,8 +135,10 @@ public class IllustratorController {
 	
 	//일러스트 후원 신청 페이지 이동
 	@RequestMapping("illustRewardApply.ill")
-	public String illustRewardApply(String scode, Model model) {
-		
+	public String illustRewardApply(String scode, Model model, HttpSession session) {
+		Member m = (Member) session.getAttribute("loginUser");
+		System.out.println("세션의 로그인 유저" + m);
+		System.out.println("보유 코인 : " + m.getWallet());
 		model.addAttribute("scode", scode);
 		return "illustrator/illustSupportApply";
 	}
@@ -468,8 +471,6 @@ public class IllustratorController {
 			System.out.println("result1 : " + result);
 			
 			if(result > 0) {
-//				int result2 = is.IllRequestCoin(m, totalPrice);
-//				System.out.println("코인감소 : " + result2);
 				int result2 = IllRequestCoin(m, totalPrice);
 				System.out.println("result2 : " + result2);
 			}
@@ -482,29 +483,52 @@ public class IllustratorController {
 		@RequestMapping(value="IllRequestCoin")
 		public int IllRequestCoin(Member m, String totalPrice) {
 			int result = is.IllRequestCoin(m, totalPrice);
-			
-			System.out.println("코인감소 : " + result);
-			
 			return result;
 		}
 		
 		//후원 하기
 		@RequestMapping("insertSponsor.ill")
-		public String insertSponsor(HttpServletRequest request, Model model) {
+		public String insertSponsor(HttpServletRequest request, Model model, HttpSession session) {
+			Member m = (Member) session.getAttribute("loginUser");
+			
 			int sPrice = Integer.parseInt(request.getParameter("sPrice"));
 			int mno = Integer.parseInt(request.getParameter("mno"));
 			int sCode = Integer.parseInt(request.getParameter("sCode"));
 			
-			System.out.println("sprice : "+ sPrice);
-			System.out.println("회원번호 : " +mno);
-			System.out.println("일러스트 번호 : " + sCode);
+			String sPrice2 = sPrice + "";
 			
 			int result = is.insertSponsor(sPrice, mno, sCode);
-			
-			System.out.println("후원 삽입 결과 : " + result);
+			int result2 = IllRequestCoin(m, sPrice2);
 			
 			model.addAttribute("url", "illustRewardApply.ill");
 			return "common/redirect";
+		}
+		
+		//신고하기
+		@RequestMapping(value="IllustReport.ill")
+		public String IllustReport(HttpServletRequest request, Model model, HttpSession session) {
+			Member m = (Member) session.getAttribute("loginUser");
+			String rType = request.getParameter("rType");
+			String rReason = request.getParameter("rReason");
+			int illCode = Integer.parseInt(request.getParameter("illCode"));
+			
+			System.out.println(rType + rReason);
+			System.out.println(illCode);
+			
+			Report r = new Report();
+			
+			r.setReportCategory(rType);
+			r.setReportType("WORK");
+			r.setUserId(m.getUserId());
+			r.setReportReason(rReason);
+			r.setIllCode(illCode);
+			
+			int result = is.IllustReport(r);
+			
+			System.out.println("신고 결과 : " + result);
+			
+			
+			return "illustrator/illustPortpolioDetail";
 		}
 		
 }
