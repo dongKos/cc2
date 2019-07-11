@@ -235,10 +235,20 @@
 		VALUES (#{sCode}, #{mno}, #{sPrice})
 	</insert>
 	
-	<!-- 일러스트 신고하기 -->
+	<!-- 신고하기 -->
 	<insert id="insertReport" parameterType="Report">
 		INSERT INTO REPORT
-		VALUES(RPID_SEQ.NEXTVAL, #{rType}, SYSDATE, #{rReason}, 
-				'WORK', DEFAULT, #{userId}, NULL, NULL, NULL, NULL, #{illCode})
+		VALUES(RPID_SEQ.NEXTVAL, 'WORK', SYSDATE, #{reportReason}, #{reportCategory}, DEFAULT, #{userId}, NULL, NULL, NULL, NULL, #{illCode})
 	</insert>
+	
+	<!-- 일러스트 도전 의뢰 조회 -->
+	<select id="selectIllChallengeRequest" parameterType="Illustrator" resultMap="IllustratorResultSet">
+		SELECT *
+		FROM MEMBER M
+        JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
+		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
+		WHERE ILL.ILL_CODE = #{ illCode }
+		AND ILL.ILL_TYPE = 'chall'
+	</select>
+	
 </mapper>

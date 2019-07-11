@@ -45,7 +45,7 @@ public interface IllustratorService {
 	//일러스트 후원 상세페이지 조회
 	ArrayList<Illustrator> selectIllSupportDetail(Illustrator ill);
 
-	//일러스트 의뢰하기 조회
+	//일러스트 포트폴리오 의뢰 조회
 	ArrayList<Illustrator> selectIllRequest(Illustrator ill);
 
 	//일러스트 후원하기 리워드 조회
@@ -63,9 +63,14 @@ public interface IllustratorService {
 	//추천수 가져오기
 	int selectRecommend(int illCode);
 
+	//후원 신청 등록
 	int insertSponsor(int sPrice, int mno, int sCode);
 
+	//신고하기
 	int IllustReport(Report r);
+	
+	//일러스트 도전하기 의뢰 조회
+	ArrayList<Illustrator> selectIllChallengeRequest(Illustrator ill);
 	
 
 

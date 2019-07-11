@@ -6,15 +6,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/5.7.0/css/font-awesome.min.css"> -->
   <script>
-		function request(){
-			console.log("리퀘스트!");
-			location.href="illustRequest.ill";
-		}
+  function request() {
+		var illCode = "<c:out value='${clist[0].illCode}'/>";
+		console.log("리퀘스트!");
+		location.href = "illChallengeRequest.ill?illCode=" + illCode;
+	}
 		
 		function updateRecommendCount(){
 			console.log("추천눌림");
@@ -112,8 +114,9 @@
   
 </div> -->
 
-
-	<div class="container">
+<section class="page-section challenge" id="challenge">
+	<div class="container" style="margin-top:-10%">
+	<section style="width:86%; margin-left:7%">
 			<div class="row">
 			<div class="col-md-6">
 			<c:forEach var="ill" items="${clist }">
@@ -124,13 +127,21 @@
 			</div>
 			<div class="col-md-6">
 				<h2 style="display:inline-block;">${clist[0].illTitle}</h2>
-				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:30%; font-size:12px;">쪽지보내기</button><br><br><br>
+				<!-- <button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; margin-left:20%; font-size:12px;">쪽지보내기</button><br><br><br> -->
+				<br><br>
 				<i class="fas fa-user-circle" style="font-size:20px;"> ${clist[0].nickName}</i><br><br>
 				<a onclick="illustratorDetail()"><i class="fas fa-home" style="font-size:20px;"> 작가페이지 보러가기</i></a><br><br><br>
-				<br><br><br><br><br>
+				
+				<c:if test="${ sessionScope.loginUser.userId == null }">
+				<p style="font-size:27px; font-family: 'Do Hyeon', sans-serif;">모든 기능은 <a href="${ contextPath }/loginForm.me" style="text-decoration:none">로그인</a> 후 사용 가능합니다.</p>
+				</c:if>
+				<c:if test="${ sessionScope.loginUser.userId != null }">
 				<button type="button" class="btn" onclick="updateRecommendCount();" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button><br><br>
 				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%" onclick="request();">의뢰하기</button><br><br>
-				<button type="button" class="btn" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">신고하기</button>
+				<button type="button" class="btn"
+						style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%"
+						data-toggle="modal" data-target="#portfolioModal4">신고하기</button>
+				</c:if>
 				<script>
 				function illustratorDetail(){
 					var userId = "<c:out value='${clist[0].userId}'/>";
@@ -141,10 +152,11 @@
 				</script>
 			</div>
 		</div>
-		<br><br><br>
+	</section>
+		<br><br>
 		<div class="row">
-			<div class="col-md-12">
-				<h4>작가 신고 횟수 : 3</h4>
+			<div style="margin-left:8%; width:83.3%; font-size:13px">
+				<h4>작품 신고 내역</h4>
 			
 				<table class="table table-bordered">
 					<thead>
@@ -169,7 +181,7 @@
 			</div>
 		</div>
 		<!-- 서비스 설명 ~~ -->
-		<div class="row">
+		<!-- <div class="row">
 		
 			<div class="service">
 			
@@ -187,11 +199,11 @@
 			</div>
 			
 			<hr>
-		</div>
+		</div> -->
 		
 		<!-- 상세 설명 -->
 		<div class="row">
-		<div class="col-lg-12">
+		<div style="margin-left:8%; width:83.3%; font-size:13px">
 		<h2>서비스 설명</h2><br><br><br>
 		</div>
 			<div class="col-lg-10 content" style="font-size:13px;">
@@ -228,31 +240,33 @@
 				*작업에 사용되는 폰트는 대부분 무료 폰트나 직접 적어 사용 하고 있습니다.<br>
 				*비상업용 작업물은 완성 피드백 직후부터, 상업용 작업물은 상업작 공개 후(공개 날짜 협의 가능) 저의 포트폴리오로 용도로 사용 될 수 있습니다.
 			</div>
-			<hr>
 		</div>
-		
-		
-		<br><br>
-		<h1>${ ill}</h1>
+		<br>
+			<hr style="width:86%">
+		<br>
+		<div style="margin-left:6.5%; width:83.3%">
+		<h2>작품</h2>
+		</div><br>
 		<c:forEach var="ill" items="${ clist }">
 		<c:if test="${ill.aCategory eq 'sub' }">
 		<div class="row">
-			<div class="img-content">
+			<div style="margin-left:8%; width:83.3%">
 				<img src="${contextPath }/resources/uploadFiles/illustrator/illChallenge/${ill.changeName}" style="width:100%; height:100%;">
 			</div>
 		</div>
 		<br><br>
 		</c:if>
 		</c:forEach>
-		<br><br>
-				
-				
+		
+				<hr style="width:86%">
+				<br>
 				<!-- 텍스트 설명 -->
-				
 				<div class="row">
+				<div style="margin-left:8%; width:83.3%; font-size:13px">
 					<h2>수정 및 재진행 안내</h2>
+				</div>
 					<br><br><br>
-					<div class="text" style="font-size:13px">
+					<div style="margin-left:8%; width:83.3%; font-size:13px">
 				01. 전문가와 의뢰인 간의 상호 협의 후 청약철회가 가능합니다.<br><br>
 
 				02. 전문가의 귀책사유로 디자인작업을 시작하지 않았거나 혹은 이에 준하는 보편적인 관점에서 심각하게 잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.<br><br>
@@ -276,8 +290,13 @@
 					</div>
 				</div>
 				<br><br>
+				<hr style="width:86%">
+				<br>
 				<div class="row">
+				<div style="margin-left:8%; width:83.3%; font-size:13px">
 					<h2>후기</h2>
+				</div>
+				<div style="margin-left:8%; width:83.3%; font-size:13px">
 					<table class="table table-bordered">
 					<thead>
 						<tr>
@@ -295,10 +314,143 @@
 					</tbody>
 				</table>
 				</div>
+				</div>
 				
 				<div class="fixed-area">
-					<a href="#">TOP</a>
+				<a href="#"
+					style="text-decoration: none; font-size: 40px; font-family: 'Do Hyeon', sans-serif;">TOP</a>
+			</div>
+	</div>
+	</section>
+	<footer class="footer text-center">
+    <div class="container">
+      <div class="row">
+
+        <!-- Footer Location -->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Location</h4>
+          <p class="lead mb-0">2215 John Daniel Drive
+            <br>Clark, MO 65243</p>
+        </div>
+
+        <!-- Footer Social Icons -->
+        <div class="col-lg-4 mb-5 mb-lg-0">
+          <h4 class="text-uppercase mb-4">Around the Web</h4>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fab fa-fw fa-facebook-f"></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fab fa-fw fa-twitter"></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fab fa-fw fa-linkedin-in"></i>
+          </a>
+          <a class="btn btn-outline-light btn-social mx-1" href="#">
+            <i class="fab fa-fw fa-dribbble"></i>
+          </a>
+        </div>
+
+        <!-- Footer About Text -->
+        <div class="col-lg-4">
+          <h4 class="text-uppercase mb-4">About Freelancer</h4>
+          <p class="lead mb-0">Freelance is a free to use, MIT licensed Bootstrap theme created by
+            <a href="http://startbootstrap.com">Start Bootstrap</a>.</p>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- Copyright Section -->
+  <section class="copyright py-4 text-center text-white">
+    <div class="container">
+      <small>Copyright &copy; Your Website 2019</small>
+    </div>
+  </section>
+	<!-- 모달 -->
+	<div class="portfolio-modal modal fade" id="portfolioModal4"
+		tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label"
+		aria-hidden="true">
+		<div class="modal-dialog modal-xl" role="document" style="max-width:600px !important">
+			<div class="modal-content">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true"> <i class="fas fa-times" style="color: #2c3e50;"></i>
+					</span>
+				</button>
+				<div class="modal-body text-center">
+					<div class="container">
+						<div class="row justify-content-center">
+							<div class="col-lg-8">
+								<!-- Portfolio Modal - Title -->
+								<h4
+									class="portfolio-modal-title text-secondary text-uppercase mb-0" style="font-size: 2rem;">신고하기</h4>
+								<div class="row">
+									<div class="col-md-12">
+										<form name="sentMessage" id="contactForm"
+											novalidate="novalidate">
+											<div class="control-group">
+												<div
+													class="form-group floating-label-form-group controls mb-0 pb-2"  style="border: none;">
+													<label>신고유형</label> <input class="form-control" id="name"
+														type="text" placeholder="신고유형" required="required" style="background: white;"
+														data-validation-required-message="Please enter your name." readonly>
+														
+														<select class="form-control mt-4" id="reportType">
+															<option value="RE_CTG1">욕설</option>
+															<option value="RE_CTG2">비방</option>
+															<option value="RE_CTG3">인격모독</option>
+															<option value="RE_CTG4">저작권침해</option>
+															<option value="RE_CTG5">명예회손</option>
+															<option value="RE_CTG6">청소년유해</option>
+															<option value="RE_CTG7">불법음란</option>
+															<option value="RE_CTG8">기타</option>
+														</select>
+													<p class="help-block text-danger"></p>
+												</div>
+											</div>
+											<div class="control-group">
+												<div
+													class="form-group floating-label-form-group controls mb-0 pb-2">
+													<label>신고사유</label>
+													<textarea class="form-control" id="reportReason" rows="5"
+														placeholder="신고사유" required="required"
+														data-validation-required-message="Please enter a message."></textarea>
+													<p class="help-block text-danger"></p>
+												</div>
+											</div>
+											<br>
+											<div id="success"></div>
+										</form>
+									</div>
+								</div>
+
+
+								<button class="btn btn-primary" href="#" data-dismiss="modal" style="background: #2c3e50; border: none;">
+									<i class="fas fa-times fa-fw"></i> 닫기
+								</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<button class="btn btn-primary" style="background: #2c3e50; border: none" onclick="report()">
+									신고하기</button>
+									<script>
+										function report(){
+											var reportType= $("#reportType").val();
+											var reportReason = $("#reportReason").val();
+											var illCode = "<c:out value='${clist[0].illCode}'/>";
+											var userId = "<c:out value='${clist[0].userId}'/>";
+											console.log(reportType);
+											console.log(reportReason);
+											console.log(illCode);
+											location.href="IllChallengeReport.ill?rType=" + reportType + "&rReason=" + reportReason + "&illCode=" + illCode + "&userId=" + userId;
+												
+										}
+									</script>
+							</div>
+						</div>
+					</div>
 				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

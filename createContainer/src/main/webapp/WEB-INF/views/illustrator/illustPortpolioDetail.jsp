@@ -17,6 +17,26 @@
 		console.log("리퀘스트!");
 		location.href = "illustRequest.ill?illCode=" + illCode;
 	}
+	
+	function updateRecommendCount(){
+		console.log("추천눌림");
+		var illCode = "<c:out value='${list[0].illCode}'/>";
+		var userId = "<c:out value='${list[0].userId}'/>";
+		console.log(illCode);
+		
+		$.ajax({
+			url:"IllRecommendCount.ill",
+			data:{illCode:illCode, userId:userId},
+			success:function(data){
+				console.log(data);
+				$("#recommendCount").val("추천수 : " + data);
+				
+			},
+			error:function(){
+				console.log("실패!");
+			}
+		})
+	}
 </script>
 <style>
 td {
@@ -127,8 +147,7 @@ td {
 					<br>
 					<br> <br>
 					<br>
-					<button type="button" class="btn"
-						style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%">추천하기</button>
+					<button type="button" class="btn" onclick="updateRecommendCount();" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button>
 					<br>
 					<br>
 					<button type="button" class="btn"
@@ -174,8 +193,8 @@ td {
 						</tbody>
 					</table>
 					<div align="center">
-						<input type="text" value="추천수 : ${list[0].viewCount}">
-					</div>
+					<input type="text" value="추천수 : ${list[0].recommendCount}" id="recommendCount">
+				</div>
 					<hr>
 				</div>
 			</div>
@@ -491,10 +510,11 @@ td {
 											var reportType= $("#reportType").val();
 											var reportReason = $("#reportReason").val();
 											var illCode = "<c:out value='${list[0].illCode}'/>";
+											var userId = "<c:out value='${list[0].userId}'/>";
 											console.log(reportType);
 											console.log(reportReason);
 											console.log(illCode);
-											location.href="IllustReport.ill?rType=" + reportType + "&rReason=" + reportReason + "&illCode=" + illCode;
+											location.href="IllPortfolioReport.ill?rType=" + reportType + "&rReason=" + reportReason + "&illCode=" + illCode + "&userId=" + userId;
 												
 										}
 									</script>

@@ -143,7 +143,7 @@ public class IllustratorController {
 		return "illustrator/illustSupportApply";
 	}
 	
-	//일러스트 의뢰하기 페이지 이동
+	//일러스트 포트폴리오 의뢰하기 페이지 이동
 	@RequestMapping("illustRequest.ill")
 	public String illustRequest(String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
 		
@@ -151,6 +151,16 @@ public class IllustratorController {
 		model.addAttribute("rlist", rlist);
 		
 		return "illustrator/illustRequest";
+	}
+	
+	//일러스트 포트폴리오 의뢰하기 페이지 이동
+	@RequestMapping("illChallengeRequest.ill")
+	public String illChallengeRequest(String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
+			
+		ArrayList<Illustrator> rclist = is.selectIllChallengeRequest(ill);
+		model.addAttribute("rclist", rclist);
+			
+		return "illustrator/illChallengeRequest";
 	}
 	
 	//일러스트 포트폴리오 글등록 페이지 이동
@@ -460,7 +470,7 @@ public class IllustratorController {
 			return new ResponseEntity<Integer>(recommend, HttpStatus.OK);
 		}
 		
-		//일러스트 의뢰하기
+		//일러스트 포트폴리오 의뢰하기
 		@RequestMapping("IllRequest.ill")
 		public String IllRequest(IllReq illReq, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m, String totalPrice) {
 			System.out.println(totalPrice);
@@ -480,6 +490,21 @@ public class IllustratorController {
 			return "common/redirect";
 		}
 		
+		//일러스트 도전하기 의뢰하기
+		@RequestMapping("IllChallengeRequest.ill")
+		public String IllChallengeRequest(IllReq illReq, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
+			m = (Member) session.getAttribute("loginUser");
+			illReq.setUserId(m.getUserId());
+			System.out.println("illReq : " + illReq);
+			int result = is.IllRequest(illReq);
+			System.out.println("result1 : " + result);
+			
+			model.addAttribute("msg","의뢰 신청이 완료 되었습니다.");
+	    	model.addAttribute("url", "illChallengeRequest.ill?illCode="+illReq.getIllCode());
+			return "common/redirect";
+		}
+		
+		//포트폴리오 의뢰하기 코인 감소
 		@RequestMapping(value="IllRequestCoin")
 		public int IllRequestCoin(Member m, String totalPrice) {
 			int result = is.IllRequestCoin(m, totalPrice);
@@ -504,13 +529,16 @@ public class IllustratorController {
 			return "common/redirect";
 		}
 		
-		//신고하기
-		@RequestMapping(value="IllustReport.ill")
-		public String IllustReport(HttpServletRequest request, Model model, HttpSession session) {
+		//포트폴리오 신고하기
+		@RequestMapping(value="IllPortfolioReport.ill")
+		public String IllPortfolioReport(HttpServletRequest request, Model model, HttpSession session, Illustrator ill) {
 			Member m = (Member) session.getAttribute("loginUser");
 			String rType = request.getParameter("rType");
 			String rReason = request.getParameter("rReason");
 			int illCode = Integer.parseInt(request.getParameter("illCode"));
+			
+			String userId = request.getParameter("userId");
+			ill.setUserId(userId);
 			
 			System.out.println(rType + rReason);
 			System.out.println(illCode);
@@ -523,12 +551,46 @@ public class IllustratorController {
 			r.setReportReason(rReason);
 			r.setIllCode(illCode);
 			
+			model.addAttribute("userId", userId);
+			
 			int result = is.IllustReport(r);
 			
 			System.out.println("신고 결과 : " + result);
 			
 			
-			return "illustrator/illustPortpolioDetail";
+			return "redirect:selectIllPortfolioDetail.ill?illCode=" + illCode;
+		}
+		
+		//도전하기 신고하기
+		@RequestMapping(value="IllChallengeReport.ill")
+		public String IllChallengeReport(HttpServletRequest request, Model model, HttpSession session, Illustrator ill) {
+			Member m = (Member) session.getAttribute("loginUser");
+			String rType = request.getParameter("rType");
+			String rReason = request.getParameter("rReason");
+			int illCode = Integer.parseInt(request.getParameter("illCode"));
+			
+			String userId = request.getParameter("userId");
+			ill.setUserId(userId);
+					
+			System.out.println(rType + rReason);
+			System.out.println(illCode);
+				
+			Report r = new Report();
+			
+			r.setReportCategory(rType);
+			r.setReportType("WORK");
+			r.setUserId(m.getUserId());
+			r.setReportReason(rReason);
+			r.setIllCode(illCode);
+					
+			model.addAttribute("userId", userId);
+				
+			int result = is.IllustReport(r);
+				
+			System.out.println("신고 결과 : " + result);
+					
+					
+			return "redirect:selectIllChallengeDetail.ill?illCode=" + illCode;
 		}
 		
 }

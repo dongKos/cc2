@@ -66,7 +66,9 @@
 		  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link" href="${ contextPath }/logout.me" style="font-size:20px;">로그아웃</a></li>
           </c:if>
           
-          <div class="dropdown" style="margin-top:4%;">
+          <div class="dropdown" style="margin-top:-4%;">
+				<br><img src="${contextPath }/resources/images/icon/coin.png" style="width:25px; height:25px;">
+				<p style="color:white; display:inline-block; font-size:20px;">${ sessionScope.loginUser.wallet }CC</p>
 		  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="font-size:13px;">
 		    다른페이지로 이동
 		  </button>

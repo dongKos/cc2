@@ -71,6 +71,9 @@ public interface IllustratorDao {
 	int insertSponsor(SqlSessionTemplate sqlSession, int sPrice, int mno, int sCode);
 
 	int IllustReport(SqlSessionTemplate sqlSession, Report r);
+
+	//일러스트 도전 의뢰 조회
+	ArrayList<Illustrator> selectIllChallengeRequest(SqlSessionTemplate sqlSession, Illustrator ill);
 	
 
 	
