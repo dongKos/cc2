@@ -2,6 +2,7 @@ package com.kh.cc
 .webtoon.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -264,7 +265,7 @@ public class WebtoonDaoImpl implements WebtoonDao {
 
 	@Override
 	public int challengeListCount(SqlSessionTemplate sqlSession) {
-		return null;
+		return 0;
 	}
 
 	@Override
@@ -295,6 +296,52 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	@Override
 	public int attentionWork(SqlSessionTemplate sqlSession, Webtoon wt) {
 		return sqlSession.insert("Webtoon.insertAttention",wt);
+	}
+
+	@Override
+	public int challengeListCount(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.selectOne("Webtoon.challengeListCount", wt);
+	}
+
+	@Override
+	public ArrayList<Webtoon> challengeList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt) {
+		ArrayList<Webtoon> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.challengeList", wt, rowBounds);
+				
+		
+		return list;
+	}
+	//도전 장르 리스트 카운트
+	@Override
+	public int WebtoonGenreCount(SqlSessionTemplate sqlSession, Webtoon wt) {
+		return sqlSession.selectOne("Webtoon.WebtoonGenreCount", wt);
+	}
+	//도전 장르 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> WebtoonGenreList(SqlSessionTemplate sqlSession, Webtoon wt, WebtoonPageInfo pi) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webtoon.WebtoonGenreList", wt, rowBounds);
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<Webtoon> WebtoonNewChallenge(SqlSessionTemplate sqlSession, Webtoon wt) {
+		ArrayList<Webtoon> newList = null;
+		
+		newList = (ArrayList) sqlSession.selectList("Webtoon.WebtoonNewChallenge", wt);
+		
+		return newList;
 	}
 
 	

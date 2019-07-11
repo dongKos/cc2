@@ -1,6 +1,7 @@
 package com.kh.cc.webtoon.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -268,6 +269,31 @@ public class WebtoonServiceImpl implements WebtoonService{
 	@Override
 	public int attentionWork(Webtoon wt) {
 		return wd.attentionWork(sqlSession, wt);
+	}
+
+	@Override
+	public int challengeListCount(Webtoon wt) {
+		return wd.challengeListCount(sqlSession, wt);
+	}
+
+	@Override
+	public ArrayList<Webtoon> challengeList(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.challengeList(sqlSession, pi, wt);
+	}
+	//도전 장르 리스트 카운트
+	@Override
+	public int WebtoonGenreCount(Webtoon wt) {
+		return wd.WebtoonGenreCount(sqlSession, wt);
+	}
+	//도전 장르 리스트
+	@Override
+	public ArrayList<HashMap<String, Object>> WebtoonGenreList(WebtoonPageInfo pi, Webtoon wt) {
+		return wd.WebtoonGenreList(sqlSession, wt, pi);
+	}
+
+	@Override
+	public ArrayList<Webtoon> newChallenge(Webtoon wt) {
+		return wd.WebtoonNewChallenge(sqlSession, wt);
 	}
 
 

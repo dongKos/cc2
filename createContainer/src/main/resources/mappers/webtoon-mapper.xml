@@ -375,6 +375,60 @@
 	<insert id="insertAttention" parameterType="WebtoonAttention">
 		INSERT INTO ATTENTION VALUES(ATT_SEQ.NEXTVAL,#{wid},)
 	</insert>
+
+	<select id="challengeListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.GRADE_TYPE = 1
+	</select>
+
+	<select id="challengeList" resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+		WHERE A.ATTACHMENT_CATEGORY = 'ma'
+		AND W.GRADE_TYPE = 1
+	</select>
+	
+	<!-- 웹툰 도전/프리미엄 장르 목록 카운트 -->
+	<select id="WebtoonGenreCount" parameterType="Webtoon" resultType="_int">
+		SELECT COUNT(*)
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.GENRE = #{genre}
+		AND W.WORK_STATUS = 'RUN'
+		AND WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+	<!-- 웹툰 도전/프리미엄 장르 목록 리스트 -->
+	<select id="WebtoonGenreList" parameterType="Webtoon" resultMap="webtoonResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(A.WID = W.WID)
+		JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+		WHERE W.GRADE_TYPE = #{gradeType}
+		AND W.GENRE = #{genre}
+		AND W.WORK_STATUS = 'RUN'
+		AND WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+	</select>
+
+	<select id="WebtoonNewChallenge" resultMap="webtoonResultSet">
+		SELECT *
+		FROM (SELECT *
+		FROM ATTACHMENT A
+		JOIN WORK W ON(A.WID = W.WID)
+		WHERE W.WORK_TYPE = 'WT'
+		AND W.GRADE_TYPE = 1
+		AND W.WORK_STATUS = 'RUN'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY W.WUPLOAD_DATE DESC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 5
+	</select>
 	
 </mapper>
 
