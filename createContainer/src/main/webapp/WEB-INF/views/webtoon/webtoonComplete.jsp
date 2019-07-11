@@ -115,6 +115,19 @@ background-color: red;
 	width:100%;
 	table-layout:fixed;
 }
+.thumbnailComp{
+	
+	    width: 133px;
+    height: 118px;
+    padding-left: 21px;
+}
+
+.challengeArea{
+	    width: 90%;
+    height: 130px;
+	border: 1px solid black;
+}
+
 
 </style>
 </head>
@@ -128,8 +141,8 @@ background-color: red;
 	<br>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-2"></div>
-			<div class="col-sm-6 content">
+			<div class="col-sm-1"></div>
+			<div class="col-sm-8 content">
 				<div id="middleTopCategory" >
 					<div style="display: inline; margin-top: 0px; float:left;">
 						<h4>완결웹툰</h4>
@@ -163,15 +176,10 @@ background-color: red;
 			</div>
 
 			<div class="col-sm-2 sidenav">
-				<h2>베스트도전만화</h2>
-				<div id="challengeArea">
-					<h3>도전만화 이미지</h3>
-				</div>
-				<br> <br> <br> <br>
-				<div id="event">
-					<br>
-					<h4 align="center">이벤트</h4>
-				</div>
+				<h2>베스트&nbsp;&nbsp;도전만화</h2>
+			<div id="challengeArea1">
+				<img class="challengeArea" src="${contextPath}/resources/uploadFiles/webtoonMain/real.JPG"/>
+			</div>
 				<br> <br> <br> <br>
 				<div id="todayWebtoon">
 					<br>
@@ -204,6 +212,12 @@ background-color: red;
 				console.log(wid);
 				location.href="roundList.wt?wid=" + wid;
 			});
+			
+			$(".challengeArea").click(function(){
+				console.log("클릭");
+				location.href="insertWork.wt";
+			});
+
 			
 		});
 	</script>

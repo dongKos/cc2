@@ -53,7 +53,7 @@ public class WebtoonController {
 	  System.out.println("genre : " + genre);
 	  
 	  int currentPage = 1;
-	  int limit = 3;
+	  int limit = 6;
 	  int buttonCount = 5;
 		
 		if(request.getParameter("currentPage")!= null) {
@@ -82,10 +82,27 @@ public class WebtoonController {
 	@RequestMapping(value = "webtoonTop5.wt")
 	public String webtoonTop5(HttpServletRequest request, HttpSession session, Model model, Webtoon wt) {
 		
+		//프리미엄작품 전체조회
+		
+		int currentPage = 1;
+		int limit = 8;
+		int buttonCount = 5;
+
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+
+		int listCount = ws.premiumListCount(wt);
+		System.out.println("listCount : " + listCount);
+
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		//top 5 리스트
 		ArrayList<Webtoon> topList = ws.topList();
-		
-		
+		ArrayList<Webtoon> totalList = ws.totalList(pi, wt);
+		System.out.println("totalList : " + totalList);
 		model.addAttribute("topList", topList);
+		model.addAttribute("totalList", totalList);
+				
 		
 		return "webtoon/webtoonTop5";
 	}
@@ -678,9 +695,7 @@ public class WebtoonController {
 			wp1.setUserId(userId);
 			System.out.println("파일정보 잘들어갔나 wp1 : " + wp1);
 			
-
 			try {
-				
 				
 				photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
 				photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
@@ -713,8 +728,6 @@ public class WebtoonController {
 				 
 			}
 
-			
-
 			}else if(!photo1.isEmpty()) {
 				wp1.setFid(contFid);
 				
@@ -738,7 +751,6 @@ public class WebtoonController {
 					System.out.println("wp : " + wp1);
 
 					new File(filePath + "\\" + contChangeName).delete();
-
 					
 					model.addAttribute("wid", wid);
 					model.addAttribute("fid", contFid);
@@ -754,11 +766,6 @@ public class WebtoonController {
 					return "common/errorPage";
 					
 				}
-				
-				
-				
-				
-				
 				
 		} else if (!photo.isEmpty()) {
 			wp.setFid(subFid);
@@ -880,6 +887,7 @@ public class WebtoonController {
 		
 		wt.setWid(wid);
 		wt.setUserId(m.getUserId());
+		wt.setUserId(m.getUserId());
 		
 		ws.attentionWork(wt);
 		
@@ -889,13 +897,16 @@ public class WebtoonController {
 		
 	}
 	
-	//도전 장르 리스트
+	//도전 장르 리스트 도전 작품
 	@RequestMapping(value="challengeGenre.wt")
 	public ResponseEntity<HashMap<String, Object>> challengeGenre(Webtoon wt, HttpServletRequest request, HttpServletResponse response, Model model) {
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		String genre = request.getParameter("genre");
 		wt.setGradeType(gradeType);
 		wt.setGenre(genre);
+		
+		System.out.println("genre : " + genre);
+		System.out.println("gradeType : " + gradeType);
 		
 		int buttonCount = 10;
 		int limit = 12;
@@ -911,12 +922,17 @@ public class WebtoonController {
 		ArrayList<HashMap<String, Object>> list = ws.WebtoonGenreList(pi, wt);
 		HashMap<String, Object> wtList = new HashMap<String, Object>();
 		
+		System.out.println("list : " + list);
+		
 		wtList.put("list", list);
 		wtList.put("pi", pi);
 		
 		
 		return new ResponseEntity<HashMap<String, Object>>(wtList,HttpStatus.OK);
 	}
+	
+	//프리미엄 작품
+	
 	 
 }
 

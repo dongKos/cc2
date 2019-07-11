@@ -385,16 +385,7 @@ table td {
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	
 	<br>
 	<br>
 <script>
@@ -413,6 +404,7 @@ table td {
 
 	});
 </script>
+<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
 </body>
 </html>
 

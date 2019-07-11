@@ -126,5 +126,6 @@
 			});
 		});
 	</script>
+	<jsp:include page="../webnovel/common/webnovelFooter.jsp" />
 </body>
 </html>

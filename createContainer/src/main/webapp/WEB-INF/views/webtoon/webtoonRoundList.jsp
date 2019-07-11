@@ -245,11 +245,19 @@ p{
 									<button class="wnrBtn" type="button" onclick="location.href='updateRest.wt?wid='+ ${wt.wid}">휴재 신청</button>
 								</c:if>
 							<!-- 로그인유저와 작가의 아이디와 다를 경우 -->
-								<c:if test="${ sessionScope.loginUser == null || loginUser.userId ne wt.userId }">
+								<c:if test="${loginUser.userId ne wt.userId }">
 									<button class="wnrBtn" type="button" id="nullUser">관심작품등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
 									<button class="wnrBtn" type="button" id="nullUser1" >작품 신고</button>
+									<input type="hidden" value="${wt.wid }"/>
 								</c:if>
+								
+								<c:if test="${ sessionScope.loginUser == null}">
+									<button class="wnrBtn" type="button" id="nullUser2">관심작품등록</button>
+									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
+									<button class="wnrBtn" type="button" id="nullUser3" >작품 신고</button>
+								</c:if>
+								
 							</td>
 						</tr>
 					</table>
@@ -331,6 +339,8 @@ p{
 						});
 						
 						$('.wnrListArea').find('td').children('p').click(function(){
+							
+							
 							var rid = $(this).parents().parents().children().children("input").eq(0).val();
 							
 							location.href = "selectDetailedWebnovel.wn?rid=" + rid;
@@ -349,16 +359,28 @@ p{
 						});
 						
 						$("#nullUser").click(function(){
-							alert("로그인이 필요한 서비스입니다");
-							location.href = "loginForm.me";
-						});
+							var wid = $(this).siblings("input").val();
+							console.log("관심등록 성공!!")
+							location.href = "attention.wt?wid=" + wid;
+					
+							});
+
+						$("#nullUser1").click(function() {
+								//신고로 메소드로 갈예정
+								
+							});
 						
-						$("#nullUser1").click(function(){
-							alert("로그인이 필요한 서비스입니다");
+						$("#nullUser2").click(function(){
+							alert("로그인이필요합니다")
 							location.href = "loginForm.me";
+							});
+
+						$("#nullUser3").click(function() {
+							alert("로그인이필요합니다")
+							location.href = "loginForm.me";	
+							});
 						});
-					});
-				</script>
+					</script>
 				</div>
 				
 				
