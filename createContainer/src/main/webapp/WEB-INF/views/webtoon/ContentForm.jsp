@@ -239,7 +239,7 @@
 }
 
 .roundImg{
-	width: 110%;
+	width: 140px;
     height: 150px;
 }
 .roundTable{

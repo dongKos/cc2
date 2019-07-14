@@ -331,6 +331,32 @@ input[type=checkbox]:checked+label:before {
 				console.log("reader구문");
 			}
 		}
+		
+		
+		$(function(){
+			$(".insertwtrBtn").on("click", function(){
+				var wTitle = $("input[name=rTitle]").val();
+				var photo = $("input[name=photo]").val();
+				var photo1 = $("input[name=photo1]").val();
+				var wrComment = $("textArea[name=wrComment]").val();
+				console.log("fsdafdsa");
+				if(wTitle==""){
+					alert("회차 제목을 입력하세요.");
+					return false;
+				}else if(!photo){
+					alert("썸내일을 등록해주세요.");
+					return false;
+				}else if(!photo1){
+					alert("내용을 등록해주세요.");
+					return false;
+				}else if(wrComment==""){
+					alert("한마디의 말을 해주십쇼.");
+					return false;
+				}else{
+					return true;
+				}
+			});
+		});
 	</script>
 </body>
 </html>

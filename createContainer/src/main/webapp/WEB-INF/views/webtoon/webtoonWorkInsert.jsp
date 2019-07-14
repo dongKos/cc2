@@ -123,35 +123,28 @@
 						<h4>
 							장르&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG1">현대</label>
+								<label for="cb1"><input type="radio" id="cb1" name="genre"value="GR_CTG1">현대</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG2">개그</label>
+								<label for="cb2"><input type="radio" id="cb2" name="genre" value="GR_CTG2">개그</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG3">판타지</label>
+								<label for="cb3"><input type="radio" id="cb3" name="genre" value="GR_CTG3">판타지</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG4">액션</label>
+								<label for="cb4"><input type="radio" id="cb4" name="genre" value="GR_CTG4">액션</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG5">순정</label>
+								<label for="cb5"><input type="radio" id="cb5" name="genre" value="GR_CTG5">순정</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG6">공포</label>
+								<label for="cb6"><input type="radio" id="cb6" name="genre" value="GR_CTG6">공포</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="genre"
-									value="GR_CTG7">스포츠</label>
+								<label for="cb7"><input type="radio" id="cb7" name="genre" value="GR_CTG7">스포츠</label>
 							</div>
-						</h4> <br>
 				<hr>
+						</h4> <br>
 					</td>
 				</tr>
 				<tr>
@@ -168,27 +161,27 @@
 						<h4>
 							연재주기&nbsp;&nbsp;&nbsp;
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="MON">월요일</label>
+								<label><input type="radio" name="wCycle" value="MON">월요일</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="TUES">화요일</label>
+								<label><input type="radio" name="wCycle" value="TUES">화요일</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="WED">수요일</label>
+								<label><input type="radio" name="wCycle" value="WED">수요일</label>
 							</div>
 							
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="THUR">목요일</label>
+								<label><input type="radio" name="wCycle" value="THUR">목요일</label>
 							</div>
 						
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="FRI">금요일</label>
+								<label><input type="radio" name="wCycle" value="FRI">금요일</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="SAT">토요일</label>
+								<label><input type="radio" name="wCycle" value="SAT">토요일</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="wCycle" value="SUN">일요일</label>
+								<label><input type="radio" name="wCycle" value="SUN">일요일</label>
 							</div>
 						</h4> <br><hr>
 					</td>
@@ -212,13 +205,13 @@
 						<h4>
 							연령제한&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="ageGrade" value="T">전연령</label>
+								<label><input type="radio" name="ageGrade" value="T">전연령</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="ageGrade" value="T">15세</label>
+								<label><input type="radio" name="ageGrade" value="T">15세</label>
 							</div>
 							<div class="checkbox-inline">
-								<label><input type="checkbox" name="ageGrade" value="AD">19세</label>
+								<label><input type="radio" name="ageGrade" value="AD">19세</label>
 							</div>
 						</h4><hr>
 					</td>
@@ -231,7 +224,7 @@
 			&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<button type="submit"  class="btn btn-primary btn-sm">등록하기</button>
+			<button type="submit" id="insertWnBtn" class="btn btn-primary btn-sm">등록하기</button>
 		</form>
 	</div>
 	<br>
@@ -259,6 +252,39 @@
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
+		
+		$(function(){
+			$("#insertWnBtn").on("click", function(){
+				var wTitle = $("input[name=wTitle]").val();
+				var photo = $("input[name=photo]").val();
+				var wIntro = $("textArea[name=wIntro]").val();
+				var wCycle = $("input[name=wCycle]").val();
+				var genre = $("input[name=genre]").val();
+				var ageGrade = $("input[name=ageGrade]").val();
+				console.log("fsdafdsa");
+				if(wTitle==""){
+					alert("작품 제목을 입력하세요.");
+					return false;
+				}else if(!photo){
+					alert("사진을 등록해주세요.");
+					return false;
+				}else if(wIntro==""){
+					alert("작품 소개를 입력하세요.");
+					return false;
+				}else if($(':radio[name="wCycle"]:checked').length < 1){
+					alert("연재주기 를 입력하세요.");
+					return false;
+				}else if($(':radio[name="genre"]:checked').length < 1){
+					alert("장르를 선택하시오");
+					return false;
+				}else if($(':radio[name="ageGrade"]:checked').length < 1){
+					alert("연령제한 선택하시오");
+					return false;
+				}else{
+					return true;
+				}
+			});
+		});
 	</script>
 </body>
 </html>
