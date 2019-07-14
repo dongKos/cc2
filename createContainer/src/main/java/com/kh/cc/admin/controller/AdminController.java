@@ -27,6 +27,7 @@ import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.Closed;
+import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
 @Controller
@@ -37,7 +38,20 @@ public class AdminController {
 	
 	//관리자 메인페이지로 이동시켜주는 메소드
 	@RequestMapping(value="adminMain.ad")
-	public String showAdminMain() {
+	public String showAdminMain(HttpServletRequest request, Model model) {
+		//작품 랭킹 10개 조회
+		ArrayList<Webnovel> list = as.selectWorkRankList();
+		
+		//작가 랭킹 10위 조회
+		ArrayList<Member> list2 = as.selectMemberRankList();		
+		
+		//전체 매출 통계
+		HashMap<String, Object> hmap = as.selectAllAvg();
+		
+		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
+		model.addAttribute("hmap", hmap);
+		
 		return "admin/adminMain";
 	}
 	
@@ -107,11 +121,8 @@ public class AdminController {
 	@RequestMapping("showRefundDetail.ad")
 	public String showRefundDetail(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		
 		Refund reqRefund = as.selectOneRefund(num);
-		
 		model.addAttribute("reqRefund", reqRefund);
-		
 		return "admin/adminRefundDetail";
 	}
 	
@@ -119,8 +130,7 @@ public class AdminController {
 	@RequestMapping("refundComplete.ad")
 	public String refundComplete(HttpServletRequest request) {
 		int refundCode = Integer.parseInt(request.getParameter("refundCode"));
-		
-		int result = as.refundComplte(refundCode);
+		as.refundComplte(refundCode);
 		
 		return "redirect:showRefund.ad";
 	}
@@ -129,15 +139,12 @@ public class AdminController {
 	@RequestMapping(value="showMember.ad")
 	public String showMember(HttpServletRequest request, Model model) {
 		int currentPage = 1;
-		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
 		int listCount = as.getMemberListCount();
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
 		
 		ArrayList<Member> list = as.selectMemberList(pi);
 		model.addAttribute("list", list);
@@ -157,19 +164,12 @@ public class AdminController {
 		}
 		
 		int listCount = as.getMemberTypeListCount(type);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		System.out.println("listCount : " + listCount);
-		System.out.println("pi : " + pi);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectmemberTypeList(pi, type);
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
-		System.out.println("type : " + type);
-		System.out.println("조건 따라 받아온 맴버 list : " + list.size());
 		list2.put("list", list);
 		list2.put("pi", pi);
-		
 		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 		
@@ -179,11 +179,11 @@ public class AdminController {
 	@RequestMapping("showMemberDetail.ad")
 	public String showMemberDetail(HttpServletRequest request, Model model) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		Member reqMember = as.selectOneMember(num);
 		
 		model.addAttribute("userId", reqMember.getUserId());
-		System.out.println(reqMember.getUserId());
+		model.addAttribute("currentPage", currentPage);
 		//올린 작품이 있는지 조회
 		int work = as.workCount(reqMember.getUserId());
 		
@@ -191,20 +191,17 @@ public class AdminController {
 			//작품이 있다면 그 작품을 조회해온다
 			//작품은 컬럼이 다 같아서 그냥 웹소설로 다 조회해옴
 			ArrayList<Webnovel> list = as.selectWorkList(reqMember.getUserId());
-			System.out.println("작품 조회 : " + list);
 			model.addAttribute("list", list);
 		}
 		//올린 일러스트가 있는지 조회
 		int ill = as.illustCount(reqMember.getUserId());
 		
 		if(ill > 0) {
-			//일러스트가 있으면 일러스트 조회
-			//일러스트 VO수정 의뢰 할것 - 광섭
-			//ArrayList<Illustrator> list2 = as.selectIllustList(reqMember.getUserId());
+			ArrayList<Illustrator> list2 = as.selectIllustList(reqMember.getUserId());
+			System.out.println("해당 회원의 일러스트 list : " + list2);
+			model.addAttribute("list2", list2);
 		}
 		
-		System.out.println("work : " + work);
-		System.out.println("ill : " + ill);
 		model.addAttribute("reqMember", reqMember);
 		return "admin/adminMemberDetail";
 	}
@@ -212,8 +209,7 @@ public class AdminController {
 	//회원 강퇴하기
 	@RequestMapping(value="deleteMember.ad")
 	public String deleteMember(String userId) {
-		int result = as.deleteMember(userId);
-		
+		as.deleteMember(userId);
 		return "redirect:showMember.ad";
 	}
 	
@@ -227,17 +223,12 @@ public class AdminController {
 		}
 		
 		int listCount = as.getBoardListCount();
-		
-		System.out.println("게시물 전체 개수 : " + listCount);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
 		
 		ArrayList<Member> list = as.selectBoardList(pi);
 		
-		System.out.println("boardList : " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
 		
 		return "admin/adminBoard";
 	}
@@ -257,9 +248,7 @@ public class AdminController {
 		}
 		
 		int listCount = as.getBoardTypeListCount(select1, select2);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
 		
 		ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,  select2);
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
@@ -267,7 +256,6 @@ public class AdminController {
 		list2.put("pi", pi);
 		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-		
 	}
 	
 	//게시판 관리 - 댓글 관리 페이지
@@ -280,17 +268,12 @@ public class AdminController {
 		}
 		
 		int listCount = as.getBoardReplyListCount();
-		
-		System.out.println("댓글 전체 개수 : " + listCount);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
 		
 		ArrayList<Member> list = as.selectBoardReplyList(pi);
 		
-		System.out.println("boardReplyList : " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
 		
 		return "admin/adminBoardReply";
 	}
@@ -312,18 +295,16 @@ public class AdminController {
 		}
 		
 		int listCount = as.getBoardTypeListCount(select1, select2);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1,
-				select2); HashMap<String, Object> list2 = new HashMap<String, Object>();
-				list2.put("list", list); list2.put("pi", pi);
+		ArrayList<HashMap<String, Object>> list = as.selectBoardTypeList(pi, select1, select2); 
+		HashMap<String, Object> list2 = new HashMap<String, Object>();
+		list2.put("list", list); 
+		list2.put("pi", pi);
 				
-				return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
+		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 				
 	}
-	
-	
 	
 	//통계관리 - 작가통계 페이지
 	@RequestMapping("showStatistic.ad")
@@ -335,15 +316,11 @@ public class AdminController {
 		}
 		
 		int listCount = as.getPriMemberListCount();
-		
-		System.out.println("프리미엄 회원 전체 수  : " + listCount);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Member> list = as.selectPriMemberList(pi);
-		System.out.println("list : " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
 		
 		return "admin/adminStatistic";
 	}
@@ -353,9 +330,8 @@ public class AdminController {
 	public String showStatisticDetail(HttpServletRequest request, Model model) {
 		int mno = Integer.parseInt(request.getParameter("mno"));
 		
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		Member reqMember = as.selectOneMember(mno);
-		
-		System.out.println("해당 회원 정보 : " + reqMember);
 		
 		int workCtn = as.workCount(reqMember.getUserId());
 		int illCtn = as.illustCount(reqMember.getUserId());
@@ -374,41 +350,51 @@ public class AdminController {
 			//작가의 작품 조회
 			work = as.selectWorkList(reqMember.getUserId());
 			model.addAttribute("work", work);
-			System.out.println("작품 조회 : " + work);
-			
-			System.out.println("월별 통계 : " + list);
 		}
 		if(illCtn > 0) {
 			ill = as.selectIllustList(reqMember.getUserId());
 			model.addAttribute("ill", ill);
-			System.out.println("일러스트 조회 : " + ill);
 		}
 		
 		model.addAttribute("reqMember", reqMember);
 		model.addAttribute("wholeList", wholeList);
 		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
 		
 		return "admin/adminStatisticDetail";
 	}
 	
-	//통계관리 - 포인트 내역 
-	@RequestMapping("showStatisticPoint.ad")
-	public String showStatisticPoint(HttpServletRequest request, Model model) {
-		
-		
-		
-		
-		return "admin/adminStatisticPoint";
-	}
-	
 	//통계관리 - 정산내역
 	@RequestMapping("showStatisticCalculate.ad")
-	public String showStatisticCalculate(Model model) {
+	public String showStatisticCalculate(HttpServletRequest request, Model model) {
 		//전체 매출 평균 조회
+		int currentPage = 1;
+		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		//웹툰, 웹소설, 일러스트 총 매출 통계
 		HashMap<String, Object> hmap = as.selectAllAvg();
 		
-		System.out.println(hmap);
+		//전체 매출 내역 조회
+		int listCount = as.getCoinListCount();
+		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
+		ArrayList<Coin> list = as.selectCoinList(pi);
+		
+		//월별 웹툰 매출 통계
+		ArrayList<Integer> wtList = as.selectWtAvg();
+		//월별 웹소설 매출 통계
+		ArrayList<Integer> wnList = as.selectWnAvg();
+		//월별 일러스트 매출 통계
+		ArrayList<Integer> illList = as.selectIllAvg();
+		
+		model.addAttribute("wtList", wtList);
+		model.addAttribute("wnList", wnList);
+		model.addAttribute("illList", illList);
+		
 		model.addAttribute("hmap", hmap);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
 		
 		return "admin/adminStatisticCalculate";
 	}
@@ -423,7 +409,6 @@ public class AdminController {
 		}
 		
 		int listCount = as.getReportListCount();
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Report> list = as.selectReportList(pi);
@@ -436,23 +421,23 @@ public class AdminController {
 	//신고 관리 페이지 처리대기 / 완료 조건검색 ajax
 	@RequestMapping(value="reportStatus.ad")
 	public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
-		ArrayList<Report> list = null;
 		response.setContentType("text/html; charset=UTF-8");
+
 		String statusVal = request.getParameter("statusVal");
 		int currentPage = 1;
+		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		int listCount = 0;
 		
-		listCount = as.getReportAjaxCount(statusVal);
-		
-		System.out.println(listCount);
+		int listCount = as.getReportAjaxCount(statusVal);
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		list = as.reportStatus(statusVal, pi);
-		System.out.println(list);
+		
+		ArrayList<Report> list = as.reportStatus(statusVal, pi);
+		
 		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 		ArrayList<HashMap<String, Object>> list2 = new ArrayList<HashMap<String, Object>>();
+		
 		for(int i = 0; i < list.size(); i++) {
 			HashMap<String, Object> hmap = new HashMap<String, Object>();
 			
@@ -508,9 +493,7 @@ public class AdminController {
 		int num = Integer.parseInt(request.getParameter("num"));
 		
 		Report reqReport = as.selectOneReport(num);
-		
 		model.addAttribute("reqReport", reqReport);
-		System.out.println("reqReport" + reqReport);
 		
 		return "admin/adminReportDetail";
 	}
@@ -525,14 +508,11 @@ public class AdminController {
 		}
 		
 		int listCount = as.getWorkListCount();
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Webnovel> list = as.selectAllWorkList(pi);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
-		System.out.println("전체 작품  list : " + list);
 		
 		return "admin/adminWork";
 	}
@@ -545,8 +525,6 @@ public class AdminController {
 		//일반인지 프리미엄 인지
 		int select2 = Integer.parseInt(request.getParameter("select2"));
 		
-		System.out.println("작품 관리 에이잭스 조건 값 : " + select1 + "" + select2);
-		
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) { 
@@ -554,14 +532,10 @@ public class AdminController {
 		}
 		
 		int listCount = as.getWorkTypeListCount(select1, select2);
-		
-		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectWorkTypeList(pi, select1, select2); 
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
-		System.out.println("작품 리스트 : " + list);
 		list2.put("list", list); 
 		list2.put("pi", pi);
 				
@@ -579,15 +553,11 @@ public class AdminController {
 		}
 		
 		int listCount = as.getIllustListCount();
-		System.out.println("일러스트 작품 전체 개수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Illustrator> list = as.selectIllustList(pi);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
-		System.out.println("전체 일러스트 list : " + list);
 		
 		return "admin/adminWorkIllust";
 	}
@@ -598,8 +568,6 @@ public class AdminController {
 		//일반인지 프리미엄 인지
 		int select1 = Integer.parseInt(request.getParameter("select1")); 
 		
-		System.out.println("작품 관리 에이잭스 조건 값 : " + select1);
-		
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) { 
@@ -607,14 +575,10 @@ public class AdminController {
 		}
 		
 		int listCount = as.getIllustTypeListCount(select1);
-		
-		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectIllustTypeList(pi, select1); 
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
-		System.out.println("일러스트 리스트 : " + list);
 		list2.put("list", list); 
 		list2.put("pi", pi);
 				
@@ -631,15 +595,11 @@ public class AdminController {
 		}
 		
 		int listCount = as.getApproveListCount();
-		System.out.println("승인 대기 내역전체 개수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Approve> list = as.selectApproveList(pi);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
-		System.out.println("전체 승인대기 내역 list : " + list);
 		
 		return "admin/adminWorkApprove";
 	}
@@ -650,8 +610,6 @@ public class AdminController {
 		//일반인지 프리미엄 인지
 		int select1 = Integer.parseInt(request.getParameter("select1")); 
 		
-		System.out.println("승인 대기 에이잭스 조건 값 : " + select1);
-		
 		int currentPage = 1;
 		
 		if(request.getParameter("currentPage") != null) { 
@@ -659,14 +617,10 @@ public class AdminController {
 		}
 		
 		int listCount = as.getApproveTypeListCount(select1);
-		
-		System.out.println("조건 따라 가져온 결과 수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectApproveTypeList(pi, select1); 
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
-		System.out.println("승인대기 리스트 : " + list);
 		list2.put("list", list); 
 		list2.put("pi", pi);
 				
@@ -681,8 +635,6 @@ public class AdminController {
 		
 		ArrayList<Approve> list = as.selectApproveDetailList(id);		
 		
-		System.out.println("승인 대기 상세 보기 리스트 : " + list);
-		
 		model.addAttribute("list", list);
 		model.addAttribute("currentPage", currentPage);
 		
@@ -693,17 +645,10 @@ public class AdminController {
 	@RequestMapping(value="completeApprove.ad")
 	public ResponseEntity<Integer> completeApprove(String aCode) {
 		int approvalCode = Integer.parseInt(aCode);
-		
-		System.out.println("승인 내역 코드 : " + approvalCode);
-		
 		int result = as.completeApprove(approvalCode);
 		
-		System.out.println("승인 결과  : " + result);
-		
 		if(result > 0) {
-			int result2 = as.completeApprove2(approvalCode);
-			
-			System.out.println("워크 테이블 grade_type 변경 : " + result2);
+			as.completeApprove2(approvalCode);
 		}
 		
 		return new ResponseEntity<Integer>(result, HttpStatus.OK);
@@ -719,15 +664,11 @@ public class AdminController {
 		}
 		
 		int listCount = as.getDormantListCount();
-		System.out.println("후원 대기 내역전체 개수 : " + listCount);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Support> list = as.selectDormantList(pi);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
-		
-		System.out.println("전체 후원대기 내역 list : " + list);
 		
 		return "admin/adminWorkDormant";
 	}
@@ -737,11 +678,8 @@ public class AdminController {
 	public String showWorkDormantDetail(HttpServletRequest request, Model model) {
 		int sCode = Integer.parseInt(request.getParameter("scode"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		System.out.println(sCode);
 		
 		Support reqSup = as.selectOneDormant(sCode);
-		
-		System.out.println("요청한 후원 : " + reqSup);
 		
 		model.addAttribute("reqSup", reqSup);
 		model.addAttribute("currentPage", currentPage);
@@ -753,18 +691,10 @@ public class AdminController {
 	@RequestMapping(value="completeDormant.ad")
 	public String completeDormant(HttpServletRequest request) {
 		int sCode = Integer.parseInt(request.getParameter("sCode"));
-		
-		System.out.println("후원 코드 : " + sCode);
-		
-		int result = as.completeDormant(sCode);
-		
-		System.out.println("후원 승인 결과 : " + result);
-		
+		as.completeDormant(sCode);
 		
 		return "admin/adminWorkDormant";
 	}
-	
-	
 	
 	//게시글 관리에서 게시글 작성 폼으로 이동
 	@RequestMapping(value="boardWrite.ad")
@@ -775,16 +705,12 @@ public class AdminController {
 	//공지사항 글 작성
 	@RequestMapping(value="writeBoard.ad")
 	public String insertNotice(HttpServletRequest request, Board b, HttpSession session) {
-		System.out.println(b);
 		Member m = (Member) session.getAttribute("loginUser");
 		
 		b.setUserId(m.getUserId());
 		b.setBoardCategory("NTC");
 		
-		int result = as.insertBoard(b);
-		
-		System.out.println("공지사항 작성 결과 : " + result);
-		
+		as.insertBoard(b);
 		
 		return "redirect:showBoard.ad";
 	}
@@ -794,9 +720,7 @@ public class AdminController {
 	public String showBoardDetail(HttpServletRequest request, Model model) {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		Board b = as.selectOneBoard(bId);
-			
-		
-		System.out.println("조회 해온 게시판 글 : " + b);
+
 		model.addAttribute("b", b);
 		
 		return "admin/adminBoardDetail";
@@ -814,14 +738,11 @@ public class AdminController {
 		int listCount = as.getCloseListCount();
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
-		System.out.println("휴재 신청 내역 개수 : " + listCount);
-		
 		ArrayList<Closed> list = as.selectCloseList(pi);
-		
-		System.out.println("휴재신청 내역 : " + list);
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
+		
 		return "admin/adminWorkClose";	
 	}
 	
@@ -831,10 +752,7 @@ public class AdminController {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int cCode = Integer.parseInt(request.getParameter("cCode"));
 		
-		System.out.println("휴재 신청 코드 : " + cCode);
 		Closed c = as.selectOneClosed(cCode);
-		
-		System.out.println("조회해온 휴재내역  : " + c);
 		
 		model.addAttribute("c", c);
 		model.addAttribute("currentPage", currentPage);		
@@ -848,11 +766,7 @@ public class AdminController {
 		int cCode = Integer.parseInt(request.getParameter("cCode"));
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		
-		int result = as.completeClosed(cCode);
-		
-		System.out.println("휴재 승인 결과  : " + result);
-		
-		
+		as.completeClosed(cCode);
 		
 		return "redirect:showWorkClose.ad?currentPage=" + currentPage;
 	}
@@ -868,22 +782,14 @@ public class AdminController {
 		}
 		
 		int listCount = as.getCloseListCount(type);
-		
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
-		
-		System.out.println("listCount : " + listCount);
-		System.out.println("pi : " + pi);
 		
 		ArrayList<HashMap<String, Object>> list = as.selectClosedTypeList(pi, type);
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
-		System.out.println("type : " + type);
-		System.out.println("조건 따라 받아온 휴재 list : " + list);
 		list2.put("list", list);
 		list2.put("pi", pi);
 		
-		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-		
 	}
 	
 	//공지사항 수정하기
@@ -892,26 +798,8 @@ public class AdminController {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		String bContent = request.getParameter("bContent");
 		
-		System.out.println("bid : " + bId);
-		System.out.println("bContent : " + bContent);
-		
-		int result = as.noticeChange(bId, bContent);
-		
-		System.out.println("게시글 수정 결과 : " + result);
+		as.noticeChange(bId, bContent);
 		
 		return "redirect:showBoard.ad";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

@@ -13,6 +13,7 @@ import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.Closed;
+import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -139,6 +140,20 @@ public interface AdminService {
 	int noticeChange(int bId, String bContent);
 
 	HashMap<String, Object> selectAllAvg();
+
+	int getCoinListCount();
+
+	ArrayList<Coin> selectCoinList(AdminPageInfo pi);
+
+	ArrayList<Member> selectMemberRankList();
+
+	ArrayList<Webnovel> selectWorkRankList();
+
+	ArrayList<Integer> selectWtAvg();
+
+	ArrayList<Integer> selectWnAvg();
+
+	ArrayList<Integer> selectIllAvg();
 
 
 	

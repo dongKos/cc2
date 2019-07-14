@@ -13,6 +13,7 @@ import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.Closed;
+import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.mypage.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -142,6 +143,20 @@ public interface AdminDao {
 	int noticeChange(SqlSessionTemplate sqlSession, int bId, String bContent);
 
 	HashMap<String, Object> selectAllAvg(SqlSessionTemplate sqlSession);
+
+	int getCoinListCount(SqlSessionTemplate sqlSession);
+
+	ArrayList<Coin> selectCoinList(SqlSessionTemplate sqlSession, AdminPageInfo pi);
+
+	ArrayList<Member> selectMemberRankList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Webnovel> selectWorkRankList(SqlSessionTemplate sqlSession);
+
+	ArrayList<Integer> selectWtAvg(SqlSessionTemplate sqlSession);
+
+	ArrayList<Integer> selectWnAvg(SqlSessionTemplate sqlSession);
+
+	ArrayList<Integer> selectIllAvg(SqlSessionTemplate sqlSession);
 
 
 }

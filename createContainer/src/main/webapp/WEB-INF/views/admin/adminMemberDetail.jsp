@@ -10,7 +10,9 @@
 <script>
 	//이전 페이지로 돌아가기
 	function goBack() {
-		var currentPage = location.search.split("=")[2];
+		//var currentPage = location.search.split("=")[2];
+		var currentPage = "<c:out value='${currentPage}'/>";
+		console.log(currentPage);
 		location.href = "showMember.ad?currentPage=" + currentPage;
 	}
 
@@ -43,11 +45,15 @@
 	});
 </script>
 <style>
-.work-div div {
-	display: table-cell;
-	vertical-align: middle;
-	text-align: center;
-}
+	.work-div div {
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+	}
+	
+	h2 {
+		text-align: left;
+	}
 </style>
 </head>
 
@@ -81,12 +87,12 @@
 									</div>
 									<div class="card-body">
 										<div class="mx-auto d-block">
-											<img class="rounded-circle mx-auto d-block"
-												src="images/icon/avatar-01.jpg" alt="Card image cap">
+											<!-- <img class="rounded-circle mx-auto d-block"
+												src="images/icon/avatar-01.jpg" alt="Card image cap"> -->
 											<h4 class="my-3">자기소개</h4>
 											<div class="location text-sm-center">
 												<input type="text" class="form-control"
-													value="${reqMember.intro }">
+													value="${reqMember.intro }" style="background: white;" readonly>
 											</div>
 											<br>
 										</div>
@@ -235,12 +241,87 @@
 															<br>
 															<hr>
 														</c:if>
-														<!-- 일러스트 일때 -->
-														<c:if test=''>
 
-														</c:if>
 													</c:if>
 												</c:forEach>
+											</div>
+											<div class="mx-auto mt-5 d-block work-div">
+												<button class="btn form-control mb-3 fold-btn">
+													<h2 class="my-3">
+														작가의 일러스트 <span style="float: right;"> <font
+															color="pink">[도전하기]</font>
+														</span>
+													</h2>
+												</button>
+												<!-- 도전 일러스트 일때 -->
+												<c:if test="${list2 ne null }">
+													<c:forEach var="i" items="${list2 }">
+														<c:if test="${i.illType eq 'chall' }">
+															<br>
+															<div class="img-content mt-5">
+																<img
+																	src="${ contextPath }/resources/uploadFiles/illustrator/illChallenge/${i.changeName}"
+																	width="300px" height="200px">
+															</div>
+															<div class="info-content pl-5">
+																<p align="left">
+																	<font color="red">[도전]</font>
+																</p>
+																<p align="left" class="mb-2">
+																	<span class="mr-5"
+																		style="font-size: 24px; font-weight: bold; color: #333333;">${i.illTitle }</span><br>
+																	<span><strong>소요시간</strong> : ${ i.termDate}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><strong>조회수
+																	</strong>: ${i.viewCount }</span>
+																</p>	
+																<br>
+																<p align="left" class="mb-1">
+																	<strong>작품소개</strong>
+																</p>
+																<p align="left" class="card-text">${ i.illContent}</p>
+															</div>
+															<br>
+															<hr>
+
+														</c:if>
+											</div>
+											<div class="mx-auto mt-5 d-block work-div">
+												<button class="btn form-control mb-3 fold-btn">
+													<h2 class="my-3">
+														작가의 일러스트 <span style="float: right;"> <font
+															color="pink">[포트폴리오]</font>
+														</span>
+													</h2>
+												</button>
+												<!-- 프리미엄 일러스트 일때 -->
+												<c:if test="${i.illType eq 'pri' }">
+													<br>
+													<div class="img-content mt-5">
+														<img
+															src="${ contextPath }/resources/uploadFiles/illustrator/illPortfolio/${i.changeName}"
+															width="300px" height="200px">
+													</div>
+													<div class="info-content pl-5">
+																<p align="left">
+																	<font color="red">[포트폴리온]</font>
+																</p>
+																<p align="left" class="mb-2">
+																	<span class="mr-5"
+																		style="font-size: 24px; font-weight: bold; color: #333333;">${i.illTitle }</span><br>
+																	<span><strong>소요시간</strong> : ${ i.termDate}</span>&nbsp;&nbsp;&nbsp;&nbsp;<span><strong>조회수
+																	</strong>: ${i.viewCount }</span>
+																</p>	
+																<br>
+																<p align="left" class="mb-1">
+																	<strong>작품소개</strong>
+																</p>
+																<p align="left" class="card-text">${ i.illContent}</p>
+															</div>
+													<br>
+													<hr>
+
+												</c:if>
+												</c:forEach>
+												</c:if>
 											</div>
 
 
