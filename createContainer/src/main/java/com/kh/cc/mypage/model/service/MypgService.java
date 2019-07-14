@@ -78,6 +78,8 @@ public interface MypgService {
 	int insertClosed(Closed c);
 	//멤버가져오김
 	Member selectMember(String userId);
+	//일러스트 요청 목록
+	ArrayList showReqIllust(String userId);
 }
 
 

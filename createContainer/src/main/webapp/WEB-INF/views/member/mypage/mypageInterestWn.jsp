@@ -31,8 +31,8 @@
 
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li style="width:50%;"><a href="mypgIterestWt.mg">관심 웹툰</a></li>
-    					<li class="active" style="width:50%;"><a href="mypgInterestWn.mg">관심 소설</a></li>
+    					<li style="width:50%;"><a href="attentionListWt.mg">관심 웹툰</a></li>
+    					<li class="active" style="width:50%;"><a href="attentionListWn.mg">관심 소설</a></li>
     					
   					</ul>
   					<br>
@@ -45,7 +45,7 @@
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<img src="${ contextPath }/resources/uploadFiles/webnovelMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
 									<input type="hidden" value="${ wn.wid }">
 								</div>
 							</td>

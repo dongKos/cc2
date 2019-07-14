@@ -55,7 +55,7 @@
   					<br>
   					<table width="100%;">
   						<tr>
-  							<td colspan=3 align="center" style="text-align:center;"><div width=100%;><label>보유중인 CC : <label><label id="coin" value="0">${ date.wallet }</label><label>개</label></div><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">CC 환불 신청</button> </td>
+  							<td colspan=3 align="center" style="text-align:center;"><div width=100%;>보유중인 CC : <label id="coin2" value="0">${ data.wallet }</label>개</div><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal">CC 환불 신청</button> </td>
   						</tr>
   						<tr>
   						<td colspan=3>
@@ -91,7 +91,7 @@
   											</span>
   							</td>
   							<td style="padding-right:10px;" align="right">
-  								<input class="btnclass" type="button" value="1000">
+  								<input class="btnclass" type="button" value="1000" id="thou" onclick="gopay1000()">
   							</td>
   						</tr>
   						<tr>
@@ -102,7 +102,7 @@
   											</span>
   							</td>
   							<td style="padding-right:10px;" align="right">
-  								<input class="btnclass" type="button" value="3000">
+  								<input class="btnclass" type="button" value="3000" id="third" onclick="gopay3000()">
   							</td>
   						</tr>
   						<tr>
@@ -113,7 +113,7 @@
   											</span>
   							</td>
   							<td style="padding-right:10px;" align="right">
-  								<input class="btnclass" type="button" value="5000">
+  								<input class="btnclass" type="button" value="5000" id="fifth" onclick="gopay5000()">
   							</td>
   						</tr>
   						<tr>
@@ -213,31 +213,162 @@ function gopay100(){
 	     alert(msg); 
 	});
 }
+function gopay1000(){
+	IMP.init('imp41924715');
+	var userId = $("#userId").attr("value");
+	console.log(userId);
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : 'CC 코인 결제',
+	    amount : 1000, //판매 가격
+	    buyer_email : '${sessionScope.loginUser.email}',
+	    buyer_name : '${ sessionScope.loginUser.userName }',
+	    buyer_tel : '${ sessionScope.loginUser.phone }',
+	    buyer_addr : '0',
+	    buyer_postcode : '0'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        var price = rsp.paid_amount;
+	        var applynum = rsp.apply_num;
+	        var status = new Array();
+			
+	        
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+			location = "/cc/paycomplete.mg?userId=" + userId + "&price=" + price;
+	        console.log(rsp.apply_num);
+	        
+
+
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	     alert(msg); 
+	});
+}
+function gopay3000(){
+	IMP.init('imp41924715');
+	var userId = $("#userId").attr("value");
+	console.log(userId);
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : 'CC 코인 결제',
+	    amount : 3000, //판매 가격
+	    buyer_email : '${sessionScope.loginUser.email}',
+	    buyer_name : '${ sessionScope.loginUser.userName }',
+	    buyer_tel : '${ sessionScope.loginUser.phone }',
+	    buyer_addr : '0',
+	    buyer_postcode : '0'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        var price = rsp.paid_amount;
+	        var applynum = rsp.apply_num;
+	        var status = new Array();
+			
+	        
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+			location = "/cc/paycomplete.mg?userId=" + userId + "&price=" + price;
+	        console.log(rsp.apply_num);
+	        
+
+
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	     alert(msg); 
+	});
+}
+function gopay5000(){
+	IMP.init('imp41924715');
+	var userId = $("#userId").attr("value");
+	console.log(userId);
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : 'CC 코인 결제',
+	    amount : 5000, //판매 가격
+	    buyer_email : '${sessionScope.loginUser.email}',
+	    buyer_name : '${ sessionScope.loginUser.userName }',
+	    buyer_tel : '${ sessionScope.loginUser.phone }',
+	    buyer_addr : '0',
+	    buyer_postcode : '0'
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        var price = rsp.paid_amount;
+	        var applynum = rsp.apply_num;
+	        var status = new Array();
+			
+	        
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+			location = "/cc/paycomplete.mg?userId=" + userId + "&price=" + price;
+	        console.log(rsp.apply_num);
+	        
+
+
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	     alert(msg); 
+	});
+}
 	
 
 </script>
 <script>
-		$(document).ready(function(){
-			//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
-			//var userId = ${ sessionScope.loginUser.userId };
-			var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
-			console.log("userId : ", userId);
-		 	$.ajax({
-				url:"selectMemberMem.mg",
-				type:"get",
-				data:{userId:userId},
-				success:function(data){
-					console.log("data : " , data);	
-					$("#coin").text(data.wallet);
-				},
-				error:function(status){
-					console.log("status : " , status);
-					
-				}
+$(document).ready(function(){
+	//${contextPath}/resources/uploadFiles/writerProfile/fc430f965d9a4380aedc4eda0b4d92e0.PNG
+	//var userId = ${ sessionScope.loginUser.userId };
+	var userId = "<c:out value='${sessionScope.loginUser.userId}'/>";
+	console.log("userId : ", userId);
+ 	
+ 	$.ajax({
+		url:"selectMemberMem.mg",
+		type:"get",
+		data:{userId:userId},
+		success:function(data){
+			console.log("data : " , data.wallet);	
+			$("#coin2").text(data.wallet);
+		},
+		error:function(status){
+			console.log("status : " , status);
 			
-			});  
-			
-		})
+		}
+	
+	});  
+	
+	/* console.log("우에")
+	var userId = ${sessionScope.loginUser.userId}
+	$.ajax({
+		url:"selectMember.mg",
+		type:"post",
+		data:{userId:userId},
+		success:function(data){
+			console.log(data);
+		},
+		error:function(status){
+			console.log("우ㅇㄹㄴㄹㅇ에")
+		}
+	}) */
+})
 	</script>
 	<jsp:include page="common/mypgFooter.jsp"/>
 	
