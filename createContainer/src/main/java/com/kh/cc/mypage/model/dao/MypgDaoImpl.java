@@ -245,4 +245,9 @@ public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
 	public Member selectMember(SqlSessionTemplate sqlSession, String userId) {
 		return sqlSession.selectOne("Member.selectLoginUser", userId);
 	}
+	//일러스트 요청 목록
+	@Override
+	public ArrayList showReqIllust(SqlSessionTemplate sqlSession, String userId) {
+		return (ArrayList) sqlSession.selectList("Mypage.showReqIllust", userId);
+	}
 }

@@ -28,6 +28,7 @@ import com.kh.cc.approval.model.vo.Approval;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.common.WebtoonPagination;
+import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.exception.MypgException;
 import com.kh.cc.mypage.model.service.MypgService;
@@ -171,6 +172,7 @@ public class MypgController {
 	public String selectWnList(HttpServletRequest request, HttpSession session, Webnovel m, Member mm, Model model) {
 		mm = (Member) session.getAttribute("loginUser");
 		m.setUserId(mm.getUserId());
+		m.setGradeType(1);
 		int currentPage = 1;
 		int buttonCount = 10;
 		
@@ -220,7 +222,9 @@ public class MypgController {
 	}
 	//작가페이지 - 일러스트 요청 목록
 	@RequestMapping("writerReqIllust.mg")
-	public String showReqIllust() {
+	public String showReqIllust(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, IllReq ir) {
+		m = (Member) session.getAttribute("loginUser");
+		ArrayList list = ms.showReqIllust(m.getUserId());
 		return "member/mypage/writerReqIllust";
 	}
 	//작가페이지 - 휴재 내역
@@ -568,6 +572,30 @@ public class MypgController {
        
        return "member/mypage/mypageInterestWt";
     }
+  //관심작품 목록
+    @RequestMapping("attentionListWn.mg")
+    public String attentionListWn(Model model, Member m, HttpServletRequest request, HttpSession session) {
+       m = (Member) session.getAttribute("loginUser");
+       
+       int currentPage = 1;
+       int buttonCount = 10;
+       
+       int limit = 12;
+       if(request.getParameter("currentPage") != null) {
+          currentPage = Integer.parseInt(request.getParameter("currentPage"));
+       }
+       
+       int listCount = wts.selectListCount(m);
+       
+       
+       WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+       
+       ArrayList list = ms.attentionListWn(pi, m);
+       model.addAttribute("list", list);
+       model.addAttribute("pi", pi);
+       
+       return "member/mypage/mypageInterestWn";
+    }
     
     
     //관심작가 목록(웹툰)
@@ -683,16 +711,9 @@ public class MypgController {
              int result = ms.insertSupport(m, mphoto, sp);
              
              
-             /*int count = ms.countProfilePic(mp);
-             
-             if(count > 1) {
-             changeFileName = ms.deletePhotoPath(userId);
-             System.out.println("파일 이름 : " + changeFileName);
-             new File(filePath + "\\" + changeFileName).delete();
-             System.out.println(filePath + "\\" + changeFileName);
-             ms.deletePhoto(userId);
-             }*/
-             return "member/mypage/writeSupport"; // 성공했을 때 돌아가야하는곳
+             model.addAttribute("msg","후원 신청이 완료 되었습니다. \n관리자가 승인 하면 후원 작가 목록에 나타납니다.");
+          	model.addAttribute("url", "Support.mg");
+      		return "common/redirect";
           } catch (Exception e) {
              System.out.println(e.getMessage());
              new File(filePath + "\\" + changeFileName + ext).delete();

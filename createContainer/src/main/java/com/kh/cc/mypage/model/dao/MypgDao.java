@@ -59,7 +59,7 @@ public interface MypgDao {
 	
 	//마이 - 관심작품 목록
 	   ArrayList attentionListWt(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
-	   //마이 - 관심작품 목록(웹툰)
+	   //마이 - 관심작품 목록(웹소설)
 	   ArrayList attentionListWn(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, Member m);
 	   
 	   //마이 - 관심작가 목록(웹툰)
@@ -80,6 +80,8 @@ public interface MypgDao {
 	   int insertClosed(SqlSessionTemplate sqlSession, Closed c);
 	   //멤버가져오기
 	Member selectMember(SqlSessionTemplate sqlSession, String userId);
+	//일러스트 의뢰 요청 목록
+	ArrayList showReqIllust(SqlSessionTemplate sqlSession, String userId);
 }
 
 

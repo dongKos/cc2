@@ -127,6 +127,15 @@
 	<id property="status" column="CLOSED_REASON"/>
 	<id property="closedReason" column="CLOSED_STATUS"/>
 </resultMap>
+<resultMap id="IllReqResultSet" type="com.kh.cc.illustrator.model.vo.IllReq">
+	<id property="reqCode" column="REQUEST_CODE"/>
+	<id property="userId" column="USER_ID"/>
+	<id property="reqDate" column="REQUEST_DATE"/>
+	<id property="illCode" column="ILL_CODE"/>
+	<id property="illContent" column="ILL_CONTENT"/>
+	<id property="reqStatus" column="ILL_REQ_STATUS"/>
+	<id property="totalPrice" column="TOTALPRICE"/>
+</resultMap>
 	<!-- 작품 등록 메소드 -->
 	<insert id="insertWebnovel" parameterType="Webnovel">
 		INSERT INTO WORK 
@@ -190,6 +199,18 @@
 		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND W.WORK_TYPE = 'WT'
+		AND A.ATTACHMENT_CATEGORY = 'ma'
+		ORDER BY WUPLOAD_DATE DESC
+	</select>
+	<!-- 관심작품 목록 (웹소설)-->
+	<select id="attentionListWn" parameterType="String" resultMap="mypageResultSet">
+		SELECT *
+		FROM WORK W
+		JOIN ATTACHMENT A ON(W.WID = A.WID)
+        JOIN ATTENTION AT ON(W.WID = AT.WID)
+		JOIN MEMBER M ON(W.USER_ID = M.USER_ID)
+		WHERE AT.USER_ID = #{userId}
+		AND W.WORK_TYPE = 'WN'
 		AND A.ATTACHMENT_CATEGORY = 'ma'
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
@@ -328,6 +349,11 @@
       	SELECT *
       	FROM CLOSED
       	WHERE WID = #{wid}
+      	</select>
+      	<!-- 일러스트 의뢰 목록 -->
+      	<select id="showReqIllust" parameterType="String" resultMap="IllReqResultSet">
+      		SELECT * FROM ILLUSTRATION_REQUEST
+      		WHERE ILL_CODE = (SELECT ILL_CODE FROM ILLUSTRATION WHERE USER_ID = #{userId})
       	</select>
 </mapper>
 
