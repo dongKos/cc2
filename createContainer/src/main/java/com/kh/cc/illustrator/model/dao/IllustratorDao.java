@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.IllBoard;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -74,6 +75,13 @@ public interface IllustratorDao {
 
 	//일러스트 도전 의뢰 조회
 	ArrayList<Illustrator> selectIllChallengeRequest(SqlSessionTemplate sqlSession, Illustrator ill);
+
+	//일러스트 후기 등록
+	int insertIllBoard(SqlSessionTemplate sqlSession, IllBoard ib);
+
+	ArrayList<Illustrator> selectIllChallengeBoard(SqlSessionTemplate sqlSession, Illustrator ill);
+
+	ArrayList<Illustrator> selectIllBoard(SqlSessionTemplate sqlSession, IllBoard ib);
 	
 
 	

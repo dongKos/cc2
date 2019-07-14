@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.IllBoard;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -230,6 +231,33 @@ public class IllustratorDaoImpl implements IllustratorDao{
 		rclist = (ArrayList) sqlSession.selectList("Illustrator.selectIllChallengeRequest", ill);
 		
 		return rclist;
+	}
+
+	@Override
+	public int insertIllBoard(SqlSessionTemplate sqlSession, IllBoard ib) {
+		return sqlSession.insert("Illustrator.insertIllBoard", ib);
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeBoard(SqlSessionTemplate sqlSession, Illustrator ill) {
+		System.out.println("상세페이지 Dao로 넘어옴?");
+		
+		ArrayList<Illustrator> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("Illustrator.selectIllChallengeBoard", ill);
+		
+		System.out.println("상세페이지 Dao : " + list);
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllBoard(SqlSessionTemplate sqlSession, IllBoard ib) {
+		ArrayList<Illustrator> rlist = null;
+		
+		rlist = (ArrayList) sqlSession.selectList("Illustrator.selectIllBoard", ib);
+		
+		return rlist;
 	}
 	
 	
