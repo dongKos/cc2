@@ -58,20 +58,22 @@
 				<p style="font-size:20px;">#${sdlist[1].illCategory}</p>
 			</div><div hidden=true><input type="text" id="userIdspace"></div>
 			<c:if test="${sessionScope.loginUser.userId ne  sdlist[0].userId}">
-				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px">후원하기</button>
+				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px; height:50px;">후원하기</button>
 			</c:if>
 			<c:if test="${sessionScope.loginUser.userId eq  sdlist[0].userId}"> 	
-				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px" disabled>후원하기</button>
+				<button class="btn btn-primary form-control" onclick="reward();" style="margin-top:3%; font-size:15px; height:50px;" disabled>후원하기</button>
 			</c:if>
 		</div>
 		<br>
-		<div class="row">
-			<h2>작가소개<br><br>
-			${ sdlist[0].intro}</h2>
+		<hr>
+		<div class="row mt-5">
+			<h2>작가소개</h2>
+			
+			<input type="text" class="form-control mt-5" value="${ sdlist[0].intro}" style="height: 80px; font-size: 16px;"> 
 		</div>
 	</div>
 	
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br>
 	
 	<footer class="footer text-center">
 		<div class="container">

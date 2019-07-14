@@ -762,4 +762,10 @@ public class AdminDaoImpl implements AdminDao{
 		return (ArrayList)sqlSession.selectList("admin.selectIllAvg");
 	}
 
+	//1:1문의 답변해주기
+	@Override
+	public int respondOto(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap) {
+		return sqlSession.update("admin.respondOto", hmap);
+	}
+
 }

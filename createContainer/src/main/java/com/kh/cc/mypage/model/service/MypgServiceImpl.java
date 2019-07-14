@@ -228,5 +228,10 @@ public int countProfilePic(WriterProfile mp) {
 		
 		return md.showReqIllust(sqlSession, userId);
 	}
+	//휴재 내역 리스트
+	@Override
+	public ArrayList showClosedPage(int mno) {
+		return md.showClosedPage(sqlSession, mno);
+	}
 }
 

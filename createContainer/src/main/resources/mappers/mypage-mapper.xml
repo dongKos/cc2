@@ -126,6 +126,8 @@
 	<id property="uploadDate" column="UPLOAD_DATE"/>
 	<id property="status" column="CLOSED_REASON"/>
 	<id property="closedReason" column="CLOSED_STATUS"/>
+	<id property="wTitle" column="WTITLE"/>
+	<id property="changeName" column="CHANGE_NAME"/>
 </resultMap>
 <resultMap id="IllReqResultSet" type="com.kh.cc.illustrator.model.vo.IllReq">
 	<id property="reqCode" column="REQUEST_CODE"/>
@@ -345,16 +347,20 @@
          VALUES (CLOS_SEQ.NEXTVAL, #{wid} , #{startDate} , #{closedDate} , SYSDATE , #{closedReason}, 'N')
          </insert>
       	<!-- 휴재 가져오기 -->
-      	<select id="closeList" parameterType="int" resultMap="ClosedResultSet">
+      	<select id="showClosedPage" parameterType="int" resultMap="ClosedResultSet">
       	SELECT *
-      	FROM CLOSED
-      	WHERE WID = #{wid}
+      	FROM CLOSED C
+      	JOIN WORK W ON(W.WID = C.WID)
+      	JOIN MEMBER M ON(M.USER_ID = W.USER_ID)
+        JOIN ATTACHMENT A ON(W.WID = A.WID)
+      	WHERE MNO = #{mno}
       	</select>
       	<!-- 일러스트 의뢰 목록 -->
       	<select id="showReqIllust" parameterType="String" resultMap="IllReqResultSet">
       		SELECT * FROM ILLUSTRATION_REQUEST
       		WHERE ILL_CODE = (SELECT ILL_CODE FROM ILLUSTRATION WHERE USER_ID = #{userId})
       	</select>
+      	
 </mapper>
 
 

@@ -798,6 +798,13 @@
 		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
 	</select>	
 	
+	<!-- 1:1 문의 답변해주기 -->
+	<update id="respondOto" parameterType="java.util.HashMap">
+		UPDATE BOARD 
+		SET BCONTENT = BCONTENT || #{respond},
+			STATUS = 'Y'
+		WHERE B_ID = #{bId}
+	</update>
 </mapper>
 	
 

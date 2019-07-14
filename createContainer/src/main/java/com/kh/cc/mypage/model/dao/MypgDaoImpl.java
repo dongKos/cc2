@@ -250,4 +250,9 @@ public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
 	public ArrayList showReqIllust(SqlSessionTemplate sqlSession, String userId) {
 		return (ArrayList) sqlSession.selectList("Mypage.showReqIllust", userId);
 	}
+	//휴재 내역 목록
+	@Override
+	public ArrayList showClosedPage(SqlSessionTemplate sqlSession, int mno) {
+		return (ArrayList) sqlSession.selectList("Mypage.showClosedPage", mno);
+	}
 }

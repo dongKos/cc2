@@ -38,16 +38,16 @@
   					<br>
   					<table width="100%;" style="text-align:center;">
   					<tr>
-  						<th style="text-align:center;">날짜</th><th>내용</th><th>분류</th><th>상태</th>
+  						<th style="text-align:center;">날짜</th><th style="text-align:center;">제목</th><th style="text-align:center;">휴재 기간</th><th style="text-align:center;">승인 여부</th>
   					</tr>
-  					<c:forEach var="ch" items="${ chargeList }">
+  					<c:forEach var="ch" items="${ list }">
   					<tr>
-  						<td>${ ch.reportDate }</td><td>${ ch.reportReason }</td><td>${ ch.reportCategory }</td><td>${ ch.status }</td>
+  						<td>${ ch.uploadDate }</td><td>${ ch.wTitle }</td><td>${ ch.startDate }~${ ch.closedDate }</td><td>${ ch.closedReason }</td>
   					</tr>
   					</c:forEach>
-  					<c:if test="${ chargeList == null }">
+  					<c:if test="${ list == null }">
   					<tr>
-  						<td colspan=4 style="height:100px;">신고한 내역이 없습니다.</td>
+  						<td colspan=4 style="height:100px;">신청한 내역이 없습니다.</td>
   					</tr>
   					</c:if>
   					</table>
