@@ -80,6 +80,8 @@ public interface MypgService {
 	Member selectMember(String userId);
 	//일러스트 요청 목록
 	ArrayList showReqIllust(String userId);
+	//휴재 내역 리스트
+	ArrayList showClosedPage(int mno);
 }
 
 

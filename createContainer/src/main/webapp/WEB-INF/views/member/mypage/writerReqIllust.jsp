@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
+	th {
+		text-align:center;
+	}
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -34,6 +36,24 @@
     					
   					</ul>
   					<br>
+  					<div id="charge">
+  					<br>
+  					<table width="100%;" style="text-align:center;">
+  					<tr >
+  						<th style="text-align:center;">날짜</th><th style="text-align:center;">신청자</th><th style="text-align:center;">내용</th><th style="text-align:center;">의뢰 가격</th><th style="text-align:center;">상태</th>
+  					</tr>
+  					<c:forEach var="rq" items="${ list }">
+  					<tr style="text-align:center;">
+  						<td>${ rq.reqDate }</td><td>${ rq.userId }</td><td>${ rq.illContent }</td><td>${ rq.totalPrice }</td><td>${ rq.reqStatus }</td>
+  					</tr>
+  					</c:forEach>
+  					<c:if test="${ list == null }">
+  					<tr>
+  						<td colspan=4 style="height:100px;">요청한 내역이 없습니다.</td>
+  					</tr>
+  					</c:if>
+  					</table>
+  					</div>
 				</div>
     </div>
     <div class="col-sm-2">

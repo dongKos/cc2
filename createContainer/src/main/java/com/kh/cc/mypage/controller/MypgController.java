@@ -225,12 +225,10 @@ public class MypgController {
 	public String showReqIllust(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, IllReq ir) {
 		m = (Member) session.getAttribute("loginUser");
 		ArrayList list = ms.showReqIllust(m.getUserId());
+		System.out.println("일러스트 목록 : " + list);
+		model.addAttribute("list", list);
+		
 		return "member/mypage/writerReqIllust";
-	}
-	//작가페이지 - 휴재 내역
-	@RequestMapping("writerRest.mg")
-	public String showRest() {
-		return "member/mypage/writerRest";
 	}
 	//작가페이지 - 유료등록폼
 	@RequestMapping("selectReqForm.mg")
@@ -711,7 +709,7 @@ public class MypgController {
              int result = ms.insertSupport(m, mphoto, sp);
              
              
-             model.addAttribute("msg","후원 신청이 완료 되었습니다. \n관리자가 승인 하면 후원 작가 목록에 나타납니다.");
+             model.addAttribute("msg","후원 신청이 완료 되었습니다. 관리자가 승인을 하면 후원 작가 목록에 나타납니다.");
           	model.addAttribute("url", "Support.mg");
       		return "common/redirect";
           } catch (Exception e) {
@@ -832,4 +830,15 @@ public class MypgController {
           }
           
        }
+     
+    	//작가페이지 - 휴재 내역
+    	@RequestMapping("writerRest.mg")
+    	public String showClosedPage(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m) {
+     		m = (Member) session.getAttribute("loginUser");
+     		ArrayList list = ms.showClosedPage(m.getMno());
+     		System.out.println("휴재 내역 가져오기 : "+ list);
+     		model.addAttribute("list", list);
+     		return "member/mypage/writerRest";
+     	}
+
 }

@@ -82,6 +82,8 @@ public interface MypgDao {
 	Member selectMember(SqlSessionTemplate sqlSession, String userId);
 	//일러스트 의뢰 요청 목록
 	ArrayList showReqIllust(SqlSessionTemplate sqlSession, String userId);
+	//휴재 내역 리스트
+	ArrayList showClosedPage(SqlSessionTemplate sqlSession, int mno);
 }
 
 
