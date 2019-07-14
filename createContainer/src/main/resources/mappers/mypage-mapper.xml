@@ -90,6 +90,7 @@
 		<result property="cCategory" column="COIN_CATEGORY"/>
 		<result property="cCount" column="COIN_COUNT"/>
 		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
 		<result property="cDate" column="C_DATE"/>
 	</resultMap>
 	<resultMap type="com.kh.cc.admin.model.vo.Report" id="reportResultSet">

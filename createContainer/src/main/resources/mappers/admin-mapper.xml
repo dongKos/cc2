@@ -147,6 +147,15 @@
 		<result property="wTitle" column="WTITLE"/>
 		<result property="workType" column="WORK_TYPE"/>
 	</resultMap>
+	<resultMap type="com.kh.cc.mypage.model.vo.Coin" id="coinResultSet">
+		<id property="coid" column="COIN_CODE"/>
+		<result property="mno" column="MNO"/>
+		<result property="cCategory" column="COIN_CATEGORY"/>
+		<result property="cCount" column="COIN_COUNT"/>
+		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
+		<result property="cDate" column="C_DATE"/>
+	</resultMap>
 
 	<!-- 환불 목록 전체 개수 조회 -->
    <select id="selectRefundListCount" resultType="_int">
@@ -267,11 +276,13 @@
 		ORDER BY WUPLOAD_DATE DESC
 	</select>
 	<!-- 회원이 올린 일러스트 전체 조회 -->
-	<!-- <select id="selectIllustList" parameterType="String" resultMap="illustResultSet">
+	<select id="selectIllustList" parameterType="String" resultMap="illustResultSet">
 		SELECT *
-		FROM ILLUSTRATION
-		WHERE USER_ID = #{userId}
-	</select> -->
+		FROM ILLUSTRATION ILL 
+		JOIN ATTACHMENT A ON(ILL.ILL_CODE = A.ILL_CODE)
+		WHERE A.ATTACHMENT_CATEGORY = 'ma'	
+		AND ILL.USER_ID =  #{userId}
+	</select>
 	<!-- 회원 강퇴 하기 -->
 	<update id="deleteMember" parameterType="String">
 		UPDATE MEMBER 
@@ -708,6 +719,84 @@
 	            LEFT JOIN ILLUSTRATION ILL ON (C.ILL_CODE = ILL.ILL_CODE)) AS ILL
 		FROM DUAL
 	</select>
+
+	<!-- 전체 통계 내역 개수 조회 -->
+	<select id="selectCoinListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM COIN
+	</select>	
+	
+	<!-- 전체 통계 내역 조회 -->
+	<select id="selectCoinList" resultMap="coinResultSet">
+		SELECT *
+		FROM COIN
+	</select>
+	
+	<!-- 작가 상위 랭킹 10명 조회 -->
+	<select id="selectMemberRankList" resultMap="memberResultSet">
+		SELECT * FROM
+            (SELECT  DISTINCT M.USER_ID, SUM(C.COIN_COUNT) AS SUM
+             FROM MEMBER M
+             LEFT JOIN WORK W ON(M.USER_ID = W.USER_ID)
+             LEFT JOIN WORK_ROUND WR ON(W.WID = WR.WID)
+             LEFT JOIN ILLUSTRATION ILL ON (M.USER_ID = ILL.USER_ID)
+             LEFT JOIN COIN C ON(WR.RID = C.RID OR ILL.ILL_CODE = C.ILL_CODE)
+             GROUP BY (M.USER_ID)
+             ORDER BY SUM ASC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 10
+	</select>
+	
+	<!-- 작품 상위 랭킹 10개 조회 -->
+	<select id="selectWorkRankList" resultMap="workResultSet">
+		SELECT * FROM
+			(SELECT DISTINCT W.WTITLE, W.WORK_TYPE, W.USER_ID, SUM(C.COIN_COUNT) AS SUM
+			 FROM WORK W
+			 LEFT JOIN WORK_ROUND WR ON(W.WID = WR.WID)
+			 LEFT JOIN COIN C ON(WR.RID = C.RID)
+			 GROUP BY (W.WTITLE, W.WORK_TYPE, W.USER_ID)
+			 ORDER BY SUM ASC)
+		WHERE ROWNUM <![CDATA[ <= ]]> 10
+	</select>
+	
+	<!-- 웹툰 월별 통계 조회 -->
+	<select id="selectWtAvg" resultType="_int">
+		SELECT ROUND(AVG(COIN_COUNT))
+		FROM COIN C
+		LEFT JOIN WORK_ROUND WR ON(C.RID = WR.RID)
+		LEFT JOIN WORK W ON(WR.WID = W.WID)
+		WHERE C.C_DATE 
+		BETWEEN TO_DATE('2019-01-01', 'yyyy-mm-dd') 
+		AND TO_DATE('2020-01-31', 'yyyy-mm-dd')
+		AND W.WORK_TYPE = 'WT'
+		GROUP BY TO_CHAR(C_DATE, 'YYYY-MM')
+		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
+	</select>
+
+	<!-- 웹소설 월별 통계 조회 -->
+	<select id="selectWnAvg" resultType="_int">
+		SELECT ROUND(AVG(COIN_COUNT))
+		FROM COIN C
+		LEFT JOIN WORK_ROUND WR ON(C.RID = WR.RID)
+		LEFT JOIN WORK W ON(WR.WID = W.WID)
+		WHERE C.C_DATE 
+		BETWEEN TO_DATE('2019-01-01', 'yyyy-mm-dd') 
+		AND TO_DATE('2020-01-31', 'yyyy-mm-dd')
+		AND W.WORK_TYPE = 'WN'
+		GROUP BY TO_CHAR(C_DATE, 'YYYY-MM')
+		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
+	</select>
+	
+	<!-- 일러스트 월별 통계 조회 -->
+	<select id="selectIllAvg" resultType="_int">
+		SELECT ROUND(AVG(C.COIN_COUNT))
+		FROM COIN C
+		LEFT JOIN ILLUSTRATION ILL ON (C.ILL_CODE = ILL.ILL_CODE)
+		WHERE C.C_DATE
+		BETWEEN TO_DATE('2019-01-01', 'yyyy-mm-dd') 
+		AND TO_DATE('2020-01-31', 'yyyy-mm-dd')
+		GROUP BY TO_CHAR(C_DATE, 'YYYY-MM')
+		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
+	</select>	
 	
 </mapper>
 	

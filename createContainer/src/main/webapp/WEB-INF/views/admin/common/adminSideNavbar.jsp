@@ -1,154 +1,154 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <!-- Required meta tags-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Title Page-->
-    <title>관리자 페이지</title>
+<!-- Required meta tags-->
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Title Page-->
+<title>관리자 페이지</title>
 
-    <!-- Fontfaces CSS-->
-    <link href="${contextPath }/resources/vendor/admin/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<!-- Fontfaces CSS-->
+<link
+	href="${contextPath }/resources/vendor/admin/font-awesome-4.7/css/font-awesome.min.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/font-awesome-5/css/fontawesome-all.min.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/mdi-font/css/material-design-iconic-font.min.css"
+	rel="stylesheet" media="all">
 
-    <!-- Bootstrap CSS-->
-    <link href="${contextPath }/resources/vendor/admin/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+<!-- Bootstrap CSS-->
+<link
+	href="${contextPath }/resources/vendor/admin/bootstrap-4.1/bootstrap.min.css"
+	rel="stylesheet" media="all">
 
-    <!-- Vendor CSS-->
-    <link href="${contextPath }/resources/vendor/admin/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/wow/animate.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/slick/slick.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="${contextPath }/resources/vendor/admin/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+<!-- Vendor CSS-->
+<link
+	href="${contextPath }/resources/vendor/admin/animsition/animsition.min.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css"
+	rel="stylesheet" media="all">
+<link href="${contextPath }/resources/vendor/admin/wow/animate.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/css-hamburgers/hamburgers.min.css"
+	rel="stylesheet" media="all">
+<link href="${contextPath }/resources/vendor/admin/slick/slick.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/select2/select2.min.css"
+	rel="stylesheet" media="all">
+<link
+	href="${contextPath }/resources/vendor/admin/perfect-scrollbar/perfect-scrollbar.css"
+	rel="stylesheet" media="all">
 
-    <!-- Main CSS-->
-    <link href="${contextPath }/resources/css/admin/theme.css" rel="stylesheet" media="all">
-  
-    
-    
-    
+<!-- Main CSS-->
+<link href="${contextPath }/resources/css/admin/theme.css"
+	rel="stylesheet" media="all">
+
+
+
+
 </head>
 <body>
-       <div class="logo">
-           <a href="adminMain.ad">관리자 페이지</a>
-       </div>
-       <div class="menu-sidebar__content js-scrollbar1">
-           <nav class="navbar-sidebar">
-               <ul class="list-unstyled navbar__list">
-               <!-- 환불관리 -->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="refund">환불관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showRefund.ad">환불 내역 관리</a>
-                           </li>
-                           
-                       </ul>
-                   </li>
-                  
-                  <!-- 회원관리 -->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="member">회원관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showMember.ad">회원 목록 조회</a>
-                           </li>
-                          
-                       </ul>
-                   </li>
-                   <!-- 게시판관리 -->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="board">게시판관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showBoard.ad">게시글 관리</a>
-                           </li>
-                           <li>
-                               <a href="showBoardReply.ad">댓글 관리</a>
-                           </li>
-                           
-                       </ul>
-                   </li>
-                   
-                   <!-- 통계관리 -->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="statistic">통계관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showStatistic.ad">작가 통계</a>
-                           </li>
-                           <li>
-                               <a href="showStatisticPoint.ad">코인 내역</a>
-                           </li>
-                           <li>
-                               <a href="showStatisticCalculate.ad">정산 관리</a>
-                           </li>
-                       </ul>
-                   </li>
-                       
-                   <!-- 신고관리 -->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="report">신고관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showReport.ad">신고 조회</a>
-                           </li>
-                       </ul>
-                   </li>
-                   
-	<!-- 작품관리-->
-                   <li class="has-sub">
-                       <a class="js-arrow" href="#" id="work">작품관리</a>
-                       <ul class="list-unstyled navbar__sub-list js-sub-list">
-                           <li>
-                               <a href="showWork.ad">작품 조회</a>
-                           </li>
-                           <li>
-                               <a href="showIllust.ad">일러스트 조회</a>
-                           </li>
-                           <li>
-                               <a href="showWorkApprove.ad">승인 대기 내역 조회</a>
-                           </li>
-                           <li>
-                               <a href="showWorkDormant.ad">후원 대기 내역 조회</a>
-                           </li>
-                             <li>
-                               <a href="showWorkClose.ad">휴재 신청 내역 조회</a>
-                           </li>
-                       </ul>
-                   </li>
-                   
-           
-               </ul>
-           </nav>
-       </div>
-        <!-- Jquery JS-->
-        
-   <script src="${contextPath }/resources/vendor/admin/jquery-3.2.1.min.js"></script>
-    <!-- Bootstrap JS-->
-    <script src="${contextPath }/resources/vendor/admin/bootstrap-4.1/popper.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/bootstrap-4.1/bootstrap.min.js"></script>
-    <!-- Vendor JS       -->
-    <script src="${contextPath }/resources/vendor/admin/slick/slick.min.js">
-    </script>
-    <script src="${contextPath }/resources/vendor/admin/wow/wow.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/animsition/animsition.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/bootstrap-progressbar/bootstrap-progressbar.min.js">
-    </script>
-    <script src="${contextPath }/resources/vendor/admin/counter-up/jquery.waypoints.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/counter-up/jquery.counterup.min.js">
-    </script>
-    <script src="${contextPath }/resources/vendor/admin/circle-progress/circle-progress.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/chartjs/Chart.bundle.min.js"></script>
-    <script src="${contextPath }/resources/vendor/admin/select2/select2.min.js">
-    </script>
+	<div class="logo">
+		<img style="width: 45px;" class="mr-3"
+			src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNjAgNjAiIHdpZHRoPSI1MTJweCI+PGcgaWQ9IjAxMC0tLUNvbnRhY3RzIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGlkPSJJY29ucyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxKSI+PGcgZmlsbC1ydWxlPSJub256ZXJvIj48cGF0aCBpZD0iU2hhcGUiIGQ9Im01OC43IDQ1LjI2Yy0uNjIxIDQuNjMxLS4yODMgMi4xMTMtMS43IDEyLjc0aC01NGMtMS40MjQtMTAuNjgyLTEuMDkxLTguMi0xLjctMTIuNzQtLjA3NDc4MDgxLS41NzAzNTA0LjA5OTYzNTM5LTEuMTQ1Mjg0OS40Nzg2OTkyNy0xLjU3Nzk1MzcuMzc5MDYzODgtLjQzMjY2ODkuOTI2MDY5NDYtLjY4MTE3NTUgMS41MDEzMDA3My0uNjgyMDQ2M2guMjdsLTIuNTMtMjQuNTdjLS4xMjU0MzA2Mi0xLjE3MzUwMzQuMjcyMzIxMDUtMi4zNDI2OTEzIDEuMDg3MzQ5NTEtMy4xOTYyNTU0LjgxNTAyODQ3LS44NTM1NjQxIDEuOTY0NjA3NzctMS4zMDQ4NjcgMy4xNDI2NTA0OS0xLjIzMzc0NDZsLS4zMi0xLjI3Yy0uMjI0OTA1NTEtLjg5NjQ4ODItLjAyNDAyMjA0LTEuODQ2NjAwNC41NDQ1MDU3OC0yLjU3NTMzMi41Njg1Mjc4Mi0uNzI4NzMxNDkgMS40NDEyMjUwMy0xLjE1NDcyMDk0IDIuMzY1NDk0MjItMS4xNTQ2NjhoMS4xNmwtLjktMi4yNmMtLjI0NDgzMjUyLS42MTQ3MzM1NC0uMTY5NzY5MTctMS4zMTA3NzExLjIwMDQ5OTk3LTEuODU5MTY5NzMuMzcwMjY5MTUtLjU0ODM5ODYyLjk4NzgxMDM5LS44NzgxNjQ2MiAxLjY0OTUwMDAzLS44ODA4MzAyN2gxLjY1bC0uNS0xLjI2Yy0uMjQ0ODMyNS0uNjE0NzMzNTQtLjE2OTc2OTItMS4zMTA3NzExLjIwMDUtMS44NTkxNjk3My4zNzAyNjkxLS41NDgzOTg2Mi45ODc4MTA0LS44NzgxNjQ2MiAxLjY0OTUtLjg4MDgzMDI3aDM0LjFjLjY2MTY4OTYuMDAyNjY1NjUgMS4yNzkyMzA5LjMzMjQzMTY1IDEuNjQ5NS44ODA4MzAyNy4zNzAyNjkyLjU0ODM5ODYzLjQ0NTMzMjUgMS4yNDQ0MzYxOS4yMDA1IDEuODU5MTY5NzNsLS41IDEuMjZoMS42NWMuNjYxNjg5Ni4wMDI2NjU2NSAxLjI3OTIzMDkuMzMyNDMxNjUgMS42NDk1Ljg4MDgzMDI3LjM3MDI2OTIuNTQ4Mzk4NjMuNDQ1MzMyNSAxLjI0NDQzNjE5LjIwMDUgMS44NTkxNjk3M2wtLjkgMi4yNmgxLjE2Yy45MjQyNjkyLS4wMDAwNTI5NCAxLjc5Njk2NjQuNDI1OTM2NTEgMi4zNjU0OTQyIDEuMTU0NjY4LjU2ODUyNzguNzI4NzMxNi43Njk0MTEzIDEuNjc4ODQzOC41NDQ1MDU4IDIuNTc1MzMyLS4wMTYuMDY1LS4zMTQgMS4yNTUtLjMzIDEuMzIgMi4wOTk4NDc2LjMzOTMyMDkgMy41NjQ1NjUgMi4yNjU4ODYxIDMuMzMgNC4zOGwtMi41MiAyNC41N2gxLjE3Yy41NzUyMzEzLjAwMDg3MDggMS4xMjIyMzY5LjI0OTM3NzQgMS41MDEzMDA3LjY4MjA0NjMuMzc5MDYzOS40MzI2Njg4LjU1MzQ4MDEgMS4wMDc2MDMzLjQ3ODY5OTMgMS41Nzc5NTM3eiIgZmlsbD0iIzAwODM4ZiIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTU1LjcgNDUuMjZjLS42MjEgNC42MzEtLjI4MyAyLjExMy0xLjcgMTIuNzRoLTUxYy0xLjQyNC0xMC42ODItMS4wOTEtOC4yLTEuNy0xMi43NC0uMDc0NzgwODEtLjU3MDM1MDQuMDk5NjM1MzktMS4xNDUyODQ5LjQ3ODY5OTI3LTEuNTc3OTUzNy4zNzkwNjM4OC0uNDMyNjY4OS45MjYwNjk0Ni0uNjgxMTc1NSAxLjUwMTMwMDczLS42ODIwNDYzaC4yN2wtMi41My0yNC41N2MtLjEyNTQzMDYyLTEuMTczNTAzNC4yNzIzMjEwNS0yLjM0MjY5MTMgMS4wODczNDk1MS0zLjE5NjI1NTQuODE1MDI4NDctLjg1MzU2NDEgMS45NjQ2MDc3Ny0xLjMwNDg2NyAzLjE0MjY1MDQ5LTEuMjMzNzQ0NmwtLjMyLTEuMjdjLS4yMjQ5MDU1MS0uODk2NDg4Mi0uMDI0MDIyMDQtMS44NDY2MDA0LjU0NDUwNTc4LTIuNTc1MzMyLjU2ODUyNzgyLS43Mjg3MzE0OSAxLjQ0MTIyNTAzLTEuMTU0NzIwOTQgMi4zNjU0OTQyMi0xLjE1NDY2OGgxLjE2bC0uOS0yLjI2Yy0uMjQ0ODMyNTItLjYxNDczMzU0LS4xNjk3NjkxNy0xLjMxMDc3MTEuMjAwNDk5OTctMS44NTkxNjk3My4zNzAyNjkxNS0uNTQ4Mzk4NjIuOTg3ODEwMzktLjg3ODE2NDYyIDEuNjQ5NTAwMDMtLjg4MDgzMDI3aDEuNjVsLS41LTEuMjZjLS4yNDQ4MzI1LS42MTQ3MzM1NC0uMTY5NzY5Mi0xLjMxMDc3MTEuMjAwNS0xLjg1OTE2OTczLjM3MDI2OTEtLjU0ODM5ODYyLjk4NzgxMDQtLjg3ODE2NDYyIDEuNjQ5NS0uODgwODMwMjdoMzEuMWMuNjYxNjg5Ni4wMDI2NjU2NSAxLjI3OTIzMDkuMzMyNDMxNjUgMS42NDk1Ljg4MDgzMDI3LjM3MDI2OTIuNTQ4Mzk4NjMuNDQ1MzMyNSAxLjI0NDQzNjE5LjIwMDUgMS44NTkxNjk3M2wtLjUgMS4yNmgxLjY1Yy42NjE2ODk2LjAwMjY2NTY1IDEuMjc5MjMwOS4zMzI0MzE2NSAxLjY0OTUuODgwODMwMjcuMzcwMjY5Mi41NDgzOTg2My40NDUzMzI1IDEuMjQ0NDM2MTkuMjAwNSAxLjg1OTE2OTczbC0uOSAyLjI2aDEuMTZjLjkyNDI2OTItLjAwMDA1Mjk0IDEuNzk2OTY2NC40MjU5MzY1MSAyLjM2NTQ5NDIgMS4xNTQ2NjguNTY4NTI3OC43Mjg3MzE2Ljc2OTQxMTMgMS42Nzg4NDM4LjU0NDUwNTggMi41NzUzMzItLjAxNi4wNjUtLjMxNCAxLjI1NS0uMzMgMS4zMiAyLjA5OTg0NzYuMzM5MzIwOSAzLjU2NDU2NSAyLjI2NTg4NjEgMy4zMyA0LjM4bC0yLjUyIDI0LjU3aDEuMTdjLjU3NTIzMTMuMDAwODcwOCAxLjEyMjIzNjkuMjQ5Mzc3NCAxLjUwMTMwMDcuNjgyMDQ2My4zNzkwNjM5LjQzMjY2ODguNTUzNDgwMSAxLjAwNzYwMzMuNDc4Njk5MyAxLjU3Nzk1Mzd6IiBmaWxsPSIjMDBiY2Q0Ii8+PHBhdGggaWQ9IlNoYXBlIiBkPSJtNTguNyA0NS4yNi0uNSAzLjc0aC01Ni40bC0uNS0zLjc0Yy0uMDc0NzgwODEtLjU3MDM1MDQuMDk5NjM1MzktMS4xNDUyODQ5LjQ3ODY5OTI3LTEuNTc3OTUzNy4zNzkwNjM4OC0uNDMyNjY4OS45MjYwNjk0Ni0uNjgxMTc1NSAxLjUwMTMwMDczLS42ODIwNDYzaDUzLjQ0Yy41NzUyMzEzLjAwMDg3MDggMS4xMjIyMzY5LjI0OTM3NzQgMS41MDEzMDA3LjY4MjA0NjMuMzc5MDYzOS40MzI2Njg4LjU1MzQ4MDEgMS4wMDc2MDMzLjQ3ODY5OTMgMS41Nzc5NTM3eiIgZmlsbD0iI2ZkZDgzNCIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTU1LjcgNDUuMjYtLjUgMy43NGgtNTMuNGwtLjUtMy43NGMtLjA3NDc4MDgxLS41NzAzNTA0LjA5OTYzNTM5LTEuMTQ1Mjg0OS40Nzg2OTkyNy0xLjU3Nzk1MzcuMzc5MDYzODgtLjQzMjY2ODkuOTI2MDY5NDYtLjY4MTE3NTUgMS41MDEzMDA3My0uNjgyMDQ2M2g1MC40NGMuNTc1MjMxMy4wMDA4NzA4IDEuMTIyMjM2OS4yNDkzNzc0IDEuNTAxMzAwNy42ODIwNDYzLjM3OTA2MzkuNDMyNjY4OC41NTM0ODAxIDEuMDA3NjAzMy40Nzg2OTkzIDEuNTc3OTUzN3oiIGZpbGw9IiNmZmViM2EiLz48cGF0aCBpZD0iU2hhcGUiIGQ9Im01OC4yIDQ5LTEuMiA5aC01NGwtMS4yLTl6IiBmaWxsPSIjZmVjMTA4Ii8+PHBhdGggaWQ9IlNoYXBlIiBkPSJtNTUuMiA0OS0xLjIgOWgtNTFsLTEuMi05eiIgZmlsbD0iI2ZmZGMwMCIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTU1LjA3IDEyLjczYy0uMDE2LjA2NS0uMzE0IDEuMjU1LS4zMyAxLjMyLS41NC0uMDc4IDIuODUyLS4wNS00OS40OS0uMDVsLS4zMi0xLjI3Yy0uMjI0OTA1NTEtLjg5NjQ4ODItLjAyNDAyMjA0LTEuODQ2NjAwNC41NDQ1MDU3OC0yLjU3NTMzMi41Njg1Mjc4Mi0uNzI4NzMxNDkgMS40NDEyMjUwMy0xLjE1NDcyMDk0IDIuMzY1NDk0MjItMS4xNTQ2NjhoNDQuMzJjLjkyNDI2OTItLjAwMDA1Mjk0IDEuNzk2OTY2NC40MjU5MzY1MSAyLjM2NTQ5NDIgMS4xNTQ2NjguNTY4NTI3OC43Mjg3MzE2Ljc2OTQxMTMgMS42Nzg4NDM4LjU0NDUwNTggMi41NzUzMzJ6IiBmaWxsPSIjMDM3N2JjIi8+PHBhdGggaWQ9IlNoYXBlIiBkPSJtNTIuMDcgMTIuNzNjLS40IDEuNjE4LS4zMiAxLjE3OC0uMzIgMS4yOC0uMDI1LjEuMDUtLjAxLS42NS0uMDFoLTQ1Ljg1bC0uMzItMS4yN2MtLjIyNDkwNTUxLS44OTY0ODgyLS4wMjQwMjIwNC0xLjg0NjYwMDQuNTQ0NTA1NzgtMi41NzUzMzIuNTY4NTI3ODItLjcyODczMTQ5IDEuNDQxMjI1MDMtMS4xNTQ3MjA5NCAyLjM2NTQ5NDIyLTEuMTU0NjY4aDQxLjMyYy45MjQyNjkyLS4wMDAwNTI5NCAxLjc5Njk2NjQuNDI1OTM2NTEgMi4zNjU0OTQyIDEuMTU0NjY4LjU2ODUyNzguNzI4NzMxNi43Njk0MTEzIDEuNjc4ODQzOC41NDQ1MDU4IDIuNTc1MzMyeiIgZmlsbD0iIzAyYTlmNCIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTUxLjkgNi43NC0uOSAyLjI2aC00MmwtLjktMi4yNmMtLjI0NDgzMjUyLS42MTQ3MzM1NC0uMTY5NzY5MTctMS4zMTA3NzExLjIwMDQ5OTk3LTEuODU5MTY5NzMuMzcwMjY5MTUtLjU0ODM5ODYyLjk4NzgxMDM5LS44NzgxNjQ2MiAxLjY0OTUwMDAzLS44ODA4MzAyN2g0MC4xYy42NjE2ODk2LjAwMjY2NTY1IDEuMjc5MjMwOS4zMzI0MzE2NSAxLjY0OTUuODgwODMwMjcuMzcwMjY5Mi41NDgzOTg2My40NDUzMzI1IDEuMjQ0NDM2MTkuMjAwNSAxLjg1OTE2OTczeiIgZmlsbD0iIzI4MzU5MyIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTQ4LjkgNi43NC0uOSAyLjI2aC0zOWwtLjktMi4yNmMtLjI0NDgzMjUyLS42MTQ3MzM1NC0uMTY5NzY5MTctMS4zMTA3NzExLjIwMDQ5OTk3LTEuODU5MTY5NzMuMzcwMjY5MTUtLjU0ODM5ODYyLjk4NzgxMDM5LS44NzgxNjQ2MiAxLjY0OTUwMDAzLS44ODA4MzAyN2gzNy4xYy42NjE2ODk2LjAwMjY2NTY1IDEuMjc5MjMwOS4zMzI0MzE2NSAxLjY0OTUuODgwODMwMjcuMzcwMjY5Mi41NDgzOTg2My40NDUzMzI1IDEuMjQ0NDM2MTkuMjAwNSAxLjg1OTE2OTczeiIgZmlsbD0iIzNmNTFiNSIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTQ4LjkgMi43NC0uNSAxLjI2aC0zNi44bC0uNS0xLjI2Yy0uMjQ0ODMyNS0uNjE0NzMzNTQtLjE2OTc2OTItMS4zMTA3NzExLjIwMDUtMS44NTkxNjk3My4zNzAyNjkxLS41NDgzOTg2Mi45ODc4MTA0LS44NzgxNjQ2MiAxLjY0OTUtLjg4MDgzMDI3aDM0LjFjLjY2MTY4OTYuMDAyNjY1NjUgMS4yNzkyMzA5LjMzMjQzMTY1IDEuNjQ5NS44ODA4MzAyNy4zNzAyNjkyLjU0ODM5ODYzLjQ0NTMzMjUgMS4yNDQ0MzYxOS4yMDA1IDEuODU5MTY5NzN6IiBmaWxsPSIjMjgzNTkzIi8+PHBhdGggaWQ9IlNoYXBlIiBkPSJtOSA0My0xLjgxMS0yMC44MjdjLS4wNDg0NzY2LS41NTgzMjI0LjEzOTUyMzM5LTEuMTExMzY5OC41MTgyMjM1OC0xLjUyNDQ4cy45MTMzNTM1LS42NDgzNzg5IDEuNDczNzc2NDItLjY0ODUyaDE2LjgxOWMxLjEwNDU2OTUgMCAyIC44OTU0MzA1IDIgMnYyMXoiIGZpbGw9IiMzZjUxYjUiLz48cGF0aCBpZD0iU2hhcGUiIGQ9Im01Mi4xOCAyNWgtMTguMThjLS41NTIyODQ3IDAtMS0uNDQ3NzE1My0xLTF2LTNjMC0uNTUyMjg0Ny40NDc3MTUzLTEgMS0xaDE4Ljc4Yy4zMDA0OTc4LS4wMDAzNjE5LjU4NTIyODYuMTM0NDI3NC43NzU0MjAyLjM2NzA3NzcuMTkwMTkxNi4yMzI2NTA0LjI2NTY3OTYuNTM4NDk1Ny4yMDU1Nzk4LjgzMjkyMjNsLS42IDNjLS4wOTUxMjg2LjQ2NjAzNDctLjUwNTM1NTguODAwNTcyNy0uOTgxLjh6IiBmaWxsPSIjM2Y1MWI1Ii8+PC9nPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTExLjA1NSA0My0uMDQtLjM1MmMtLjExMDk1NjQtLjkzODM5MTUuMzYxMzAzMi0xLjg0OTYzMDUgMS4xOTItMi4zLjA3Mi0uMDQxLjg5My0uNjI5IDIuOTQxLTEuODU5LjU3OTUxMzUtLjMxNjg3ODMuOTE0NTg1Ni0uOTQ4NDgxNC44NTItMS42MDZsLS4xNzUtMS41NjhjLS44OTA0MzE4LS43MDI4NjgzLTEuNTk2NzAwNC0xLjYxMTYxNDMtMi4wNTgtMi42NDgtLjEzNi0uMzQ3LS4wNTctLjIzOS0uMzYzLS40NTYtLjM5LS4yNzgtLjMyOC0uNTA4LS41LTIuMDY1LS4wMy0uMjY3LjI0OC0uNTE4LjM5My0uNjg2bC0uMjYyLTIuMzM1Yy0uMDE0LS40MDUuMDY1LTMuMTI1IDMuODY1LTMuMTI1IDMuNzc2IDAgNC40ODIgMi42ODggNC41NjggMy4xbC4yNjQgMi4zNTdjLjM4OS4zNTcuNTIyLjQ3LjU0Ni42ODUuMTY5IDEuNTA5LjMgMS43NzktLjA0MSAyLjA2NS0uMjU3LjIxNy0uMi4xMDktLjI2LjQ1Ni0uMjEzNzM4OCAxLjAwOTA4MzMtLjcyNDI2MjcgMS45MzEyMzAxLTEuNDY2IDIuNjQ4bC4xNzYgMS41NjhjLjExNDk1MzcuNjkwOTk0Ny41NTU2NzQ3IDEuMjg0MzMwMiAxLjE4NCAxLjU5NC4wNDEuMDIxIDMuMzY4IDEuODY2IDMuNDEgMS44ODYuOTExMDgyMy40Mjc0OTEgMS41NDMyMzc5IDEuMjg3ODA5OSAxLjY3OSAyLjI4NWwuMDQuMzU2eiIgZmlsbD0iIzlkMjdiMCIvPjwvZz48ZyBpZD0iTGF5ZXJfMiIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJub256ZXJvIj48cGF0aCBpZD0iU2hhcGUiIGQ9Im0yLjQ1NCA0My4xMzJjLTEuNDMxODk3Mi4zOTkwMDQ5LTIuMzQ3ODAwNzkgMS43OTU3MjU5LTIuMTQzIDMuMjY4bDEuNyAxMi43MzZjLjA2Nzg3NDM0LjQ5NDQ0NDQuNDg5OTE5MzcuODYzMTQ3MS45ODkuODY0aDU0Yy41MDExNzA0LS4wMDAxMjUyLjkyNDg0NTUtLjM3MTIxNDkuOTkxLS44NjhsMS43LTEyLjczNmMuMTE1NzIxMS0uODY3NjUwOC0uMTUzMjc4NS0xLjc0MjU2NzYtLjczNjQ2MzItMi4zOTUzMzQ3LS41ODMxODQ3LS42NTI3NjctMS40MjIzODAxLTEuMDE4MjY4OC0yLjI5NzUzNjgtMS4wMDA2NjUzbDIuNDEyLTIzLjQ2N2MuMjQ1ODA2Ny0yLjIzMDMwNDYtMS4wMzcyMDMzLTQuMzQ3NTk5Mi0zLjEyOC01LjE2MmwuMS0uNGMuMjg5MTg1OC0xLjE0MTA4ODguMDU3MDYyMi0yLjM1MTY3MTgtLjYzMzY5MTYtMy4zMDQ4NjE4cy0xLjc2ODg5ODQtMS41NTA2ODE5LTIuOTQzMzA4NC0xLjYzMTEzODJsLjM2OC0uOTJjLjM4MjI2NzctLjk1NjA3MTM5LjI0ODQwOTctMi4wNDEyOTYxNy0uMzU0NzIwOC0yLjg3NTgyMjc4LS42MDMxMzA2LS44MzQ1MjY2LTEuNTkxNTQ1Ny0xLjMwMjE0NDM3LTIuNjE5Mjc5Mi0xLjIzOTE3NzIyLjMzMjMyNzItLjkxNDk5MDg1LjE5NzExOTEtMS45MzQ1OTI4Ni0uMzYyMTk5OS0yLjczMTM0MzY2LS41NTkzMTkxLS43OTY3NTA4LTEuNDcyMzI4Ni0xLjI3MDMzNjIzLTIuNDQ1ODAwMS0xLjI2ODY1NjM0aC0zNC4xYy0uOTczMjkyNi0uMDAxMDczODItMS44ODU5NDcuNDcyNTkwOS0yLjQ0NTI5NjEgMS4yNjkxMDA5MS0uNTU5MzQ5Mi43OTY1MS0uNjk1MDkzODcgMS44MTU3NTk1Ni0uMzYzNzAzOSAyLjczMDg5OTA5LTEuMDI4MjI2NzMtLjA2NTIyMjc3LTIuMDE3OTg5OTIuNDAxNzU0NS0yLjYyMTQ1NDAzIDEuMjM2ODIwNTMtLjYwMzQ2NDEuODM1MDY2MDQtLjczNjE5NDc0IDEuOTIxMzgxNjItLjM1MTU0NTk3IDIuODc3MTc5NDdsLjM2OC45MmMtMS4yMDAyNjkxMi4wODAwMTYzMi0yLjI5OTM1MzcyLjcwMDQ2OTI5LTIuOTg4MDAyNzYgMS42ODY3ODExLS42ODg2NDkwNC45ODYzMTE5LS44OTI0MjcyNCAyLjIzMTg3MzMtLjU1Mzk5NzI0IDMuMzg2MjE4OS0yLjUyMTUxNjY5LjUxNDg2NTYtNC4yMzg2MzI0MiAyLjg2MTkzNjgtMy45NjYgNS40MjF6bTU0LjI2MiAxLjg2OGMuMjg4MTg4Mi4wMDAwNzIuNTYyMzM0OC4xMjQ0NzA5Ljc1MjE2MjMuMzQxMzA3Mi4xODk4Mjc0LjIxNjgzNjIuMjc2ODc4NS41MDUwMjYzLjIzODgzNzcuNzkwNjkyOGwtLjM4MyAyLjg2OGgtNDMuMzI0Yy0uNTUyMjg0NyAwLTEgLjQ0NzcxNTMtMSAxcy40NDc3MTUzIDEgMSAxaDQzLjA1OGwtLjkzNCA3aC01Mi4yNDhsLS45MzQtN2g2LjA1OGMuNTUyMjg0NzUgMCAxLS40NDc3MTUzIDEtMXMtLjQ0NzcxNTI1LTEtMS0xaC02LjMyNGwtLjM4My0yLjg2OGMtLjAzODA0MDg1LS4yODU2NjY1LjA0OTAxMDI1LS41NzM4NTY2LjIzODgzNzc0LS43OTA2OTI4LjE4OTgyNzQ5LS4yMTY4MzYzLjQ2Mzk3NDA4LS4zNDEyMzUyLjc1MjE2MjI2LS4zNDEzMDcyem0tMzkuNzI0LTcuMjI4Yy0uMTc0LTEuNTUzLS4xMjMtMS44Ny0uNTExLTIuMjEtLjc2NTUwNTMtLjYwMTIzNTktMS4zNzYxNTAzLTEuMzc2Nzk5Ni0xLjc4MS0yLjI2Mi0uMjI3LS41NzktLjIzNi0uNTY1LS42NDQtLjg1NmwtLjEzMi0xLjE4Yy41MS0uNTkzLjQyMS0uNDQyLjExMS0zLjE2MS0uMDAwODM5MS0uNTA5MjE1LjE4OTM1NDktMS4wMDAyMjI1LjUzMy0xLjM3Ni42NTAwMzUyLS41NDIyMzcgMS40ODg5ODY2LS44MDM3Nzk3IDIuMzMyLS43MjcgMi45NjEgMCAzLjUwOSAxLjkyMSAzLjU3NCAyLjIxNi4zMzIgMi45NjMuMTg2IDIuNjEzLjgzIDMuMjExbC4xMjggMS4xNTVjLS4yNzgwNzc1LjIyMzgwOTktLjQ0MDQ1MDguNTYxMDQ2OC0uNDQyLjkxOC0uMTU1NDYxNC43MDI2MDU0LS40OTM0OTg1IDEuMzUxNzc0Ny0uOTggMS44ODItLjY1NS43MTQtLjU0My41ODgtLjMxOCAyLjYxMy4xNDE2Njg3IDEuMDE4NTk0My43NzgxNzggMS45MDEwOTU4IDEuNyAyLjM1NyAzLjg1OCAyLjEzMyAzLjk0IDIuMDkgNC4zIDIuNjQ4aC0xMy42NGMuMDk3NzA2NC0uMzMzMDExMy4zMjY1NDQ3LS42MTIwMjA4LjYzNC0uNzczLjA3Ny0uMDQxLjgxMi0uNTEgMi45NTgtMS44NjguOTMzMDUzMS0uNTA4NTE2NiAxLjQ2NTc5NDUtMS41MzA5MjE1IDEuMzQ4LTIuNTg3em01LjMzMS44MTJjLS4zMjk0MTI5LS4xNTQ4NzcxLS41NjY4MzA4LS40NTU2MzEyLS42NDEtLjgxMmwtLjEyNS0xLjExOGMuNjg5NDMxNC0uNzc4ODIwMiAxLjE2ODI2NDMtMS43MjA5OTUzIDEuMzkxLTIuNzM3LjM3MDczMjYtLjM0NzczNjYuNTU1OTk1NS0uODQ5Nzk5MS41LTEuMzU1LS4yLTEuNzYzLS4xMjgtMi0uNzU2LTIuNTgzbC0uMjQ0LTIuMDc5Yy0uMDgzLS40LS45NC0zLjktNS41NDctMy45LTMuMzI3IDAtNC45MyAxLjk3MS00Ljg2NSA0LjIzNmwuMjE0IDEuOTA2Yy0uMjU2NTU0MS4zMTIxNTg3LS4zODA0MjU4LjcxMjQ5NzctLjM0NSAxLjExNWwuMTcxIDEuNTI3Yy4wNjE3MzAyLjUwMDExNDkuMzMyNDI4NC45NTA2NzI5Ljc0NSAxLjI0LjQ2NjQ1OTMgMS4wNjk5ODE3IDEuMTY2NTg3MSAyLjAyMTkzNjggMi4wNDkgMi43ODZsLjEzIDEuMTg1Yy4wMjExNTA0LjI3Nzc2ODItLjEzNTcwNDYuNTM4NTI0Ni0uMzkxLjY1bC0yLjg4NCAxLjgyNmMtLjk1MDIxNTYuNTA5MjQ0NS0xLjU4NTk0ODYgMS40NTY2NjI3LTEuNjk3IDIuNTI5LS4xNzEgMCAuMDI0IDEuNTYtMS44NDItMTkuOTE0LS4wMjQxNTE5NC0uMjc5NzczNS4wNzA0NDI5OC0uNTU2ODA5OC4yNjA2NjA2Mi0uNzYzMzg2Mi4xOTAyMTc2My0uMjA2NTc2My40NTg1MjcyNS0uMzIzNjU0My43MzkzMzkzOC0uMzIyNjEzOGgxNi44MTRjLjU1MjI4NDcgMCAxIC40NDc3MTUzIDEgMXYxOC40MzhjLS42NDItLjcyNi0uOTIzLS43NzYtNC42NzctMi44NTR6bS0xMC4xOTgtMzYuMTQ0Yy4xODI3OTY0LS4yNzY4NTQ5Ny40OTMyNTEyLS40NDI0MzA4Ny44MjUtLjQ0aDM0LjFjLjMzMTU1NDQtLjAwMDQyMzA1LjY0MTQ5MTcuMTY0NDk0MjEuODI2Mzc2OC40Mzk3MTQwNi4xODQ4ODUxLjI3NTIxOTg2LjIyMDM3NDEuNjI0NTAzOTQuMDk0NjIzMi45MzEyODU5NGwtLjI1LjYyOWgtMzUuNDQyYy0uMjk0LS43MzgtLjQ4OS0xLjA2My0uMTU0LTEuNTZ6bS0yLjE3MSAzLjU2aDQwLjA5MmMuMzMxODE0My0uMDAwMTIxODMuNjQyMDgwNi4xNjQzNTM2OS44MjgyMTM1LjQzOTA0NDk4cy4yMjM4ODk2LjYyMzgyMTMyLjEwMDc4NjUuOTMxOTU1MDJsLS42NTIgMS42MjloLTQwLjY0NmwtLjY1Mi0xLjYyOWMtLjEyMzEwMzE0LS4zMDgxMzM3LS4wODUzNDYzOS0uNjU3MjYzNzMuMTAwNzg2NTEtLjkzMTk1NTAycy40OTYzOTkxNy0uNDM5MTY2ODEuODI4MjEzNDktLjQzOTA0NDk4em0tMi4xMTQgNWg0NC4zMmMuNjE2MjU0NS0uMDAwMDYxMSAxLjE5ODEyNjcuMjgzOTc2NCAxLjU3NzE1OTguNzY5ODgxMnMuNTEyODk4MiAxLjExOTQxMy4zNjI4NDAyIDEuNzE3MTE4OGwtLjEyOC41MTNoLTQ3Ljk0NGwtLjEyOC0uNTFjLS4xNTExNDgwMi0uNTk4MTI4Mi0uMDE3Nzk4NjktMS4yMzI1Mzc1LjM2MTM2NTczLTEuNzE5MTk3cy45NjE3MDM5NS0uNzcxMDk3MiAxLjU3ODYzNDI3LS43NzA4MDN6bS0yLjg0IDVoNDkuMWMuODUxOTcyMS4wMDAxMjg2IDEuNjYzNzA3MS4zNjI0OTU3IDIuMjMyNjMzOC45OTY2NzE1LjU2ODkyNjYuNjM0MTc1OC44NDEzNzkyIDEuNDgwMzM5Ny43NDkzNjYyIDIuMzI3MzI4NWwtMi40MzYgMjMuNjc2aC0yNS42NDZ2LTIwYzAtMS42NTY4NTQyLTEuMzQzMTQ1OC0zLTMtM2gtMTYuODE4Yy0uODQwOTAzMzMtLjAwMDA4MDctMS42NDMyMzcxLjM1Mjc2ODItMi4yMTE1MjUwNy45NzI1ODA0LS41NjgyODc5Ni42MTk4MTIyLS44NTAzNTMyMiAxLjQ0OTY4MDMtLjc3NzQ3NDkzIDIuMjg3NDE5NmwxLjcxNiAxOS43NGgtMy40NThsLTIuNDMzLTIzLjY4MWMtLjA5MDQ4OTkzLS44NDYxNzczLjE4MjY1MjE1LTEuNjkwOTcwOC43NTE0MDQ5LTIuMzIzOTk5MS41Njg3NTI3Ni0uNjMzMDI4MyAxLjM3OTU5MzA4LS45OTQ3MTk2IDIuMjMwNTk1MS0uOTk1MDAwOXoiLz48cGF0aCBpZD0iU2hhcGUiIGQ9Im0zNCAyN2gxOC4xODFjLjk1MjUzNjktLjAwMjQzMjMgMS43NzIwMTQ2LS42NzQzOTU3IDEuOTYxLTEuNjA4bC42LTNjLjExNzQ1OTYtLjU4NzY1OTgtLjAzNDc5MTQtMS4xOTcwMjIzLS40MTQ4NDk3LTEuNjYwMzc1OHMtLjk0Nzg2NjgtLjczMTg2MTYtMS41NDcxNTAzLS43MzE2MjQyaC0xOC43OGMtMS4xMDQ1Njk1IDAtMiAuODk1NDMwNS0yIDJ2M2MwIDEuMTA0NTY5NS44OTU0MzA1IDIgMiAyem0wLTVoMTguNzhsLS42IDNjMCAxLjMgMCAxLjM3MiAwIDBoLTE4LjE4eiIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTMzIDMyaDJjLjU1MjI4NDcgMCAxLS40NDc3MTUzIDEtMXMtLjQ0NzcxNTMtMS0xLTFoLTJjLS41NTIyODQ3IDAtMSAuNDQ3NzE1My0xIDFzLjQ0NzcxNTMgMSAxIDF6Ii8+PHBhdGggaWQ9IlNoYXBlIiBkPSJtNTIgMzBoLTEzYy0uNTUyMjg0NyAwLTEgLjQ0NzcxNTMtMSAxcy40NDc3MTUzIDEgMSAxaDEzYy41NTIyODQ3IDAgMS0uNDQ3NzE1MyAxLTFzLS40NDc3MTUzLTEtMS0xeiIvPjxwYXRoIGlkPSJTaGFwZSIgZD0ibTMzIDM3aDEwYy41NTIyODQ3IDAgMS0uNDQ3NzE1MyAxLTFzLS40NDc3MTUzLTEtMS0xaC0xMGMtLjU1MjI4NDcgMC0xIC40NDc3MTUzLTEgMXMuNDQ3NzE1MyAxIDEgMXoiLz48cGF0aCBpZD0iU2hhcGUiIGQ9Im01MSAzNWgtNGMtLjU1MjI4NDcgMC0xIC40NDc3MTUzLTEgMXMuNDQ3NzE1MyAxIDEgMWg0Yy41NTIyODQ3IDAgMS0uNDQ3NzE1MyAxLTFzLS40NDc3MTUzLTEtMS0xeiIvPjwvZz48L2c+PC9zdmc+Cg==" />
+		<a href="adminMain.ad" style="font-size: 20px;"><b>Main</b></a>
+	</div>
+	<div class="menu-sidebar__content js-scrollbar1">
+		<nav class="navbar-sidebar">
+			<ul class="list-unstyled navbar__list">
+				<!-- 환불관리 -->
+				<li class="has-sub"><a class="js-arrow" href="#" id="refund">환불관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showRefund.ad">환불 내역 관리</a></li>
+
+					</ul></li>
+
+				<!-- 회원관리 -->
+				<li class="has-sub"><a class="js-arrow" href="#" id="member">회원관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showMember.ad">회원 목록 조회</a></li>
+
+					</ul></li>
+				<!-- 게시판관리 -->
+				<li class="has-sub"><a class="js-arrow" href="#" id="board">게시판관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showBoard.ad">게시글 관리</a></li>
+						<li><a href="showBoardReply.ad">댓글 관리</a></li>
+
+					</ul></li>
+
+				<!-- 통계관리 -->
+				<li class="has-sub"><a class="js-arrow" href="#" id="statistic">통계관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showStatistic.ad">작가 통계</a></li>
+						<li><a href="showStatisticCalculate.ad">매출 통계</a></li>
+					</ul></li>
+
+				<!-- 신고관리 -->
+				<li class="has-sub"><a class="js-arrow" href="#" id="report">신고관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showReport.ad">신고 조회</a></li>
+					</ul></li>
+
+				<!-- 작품관리-->
+				<li class="has-sub"><a class="js-arrow" href="#" id="work">작품관리</a>
+					<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li><a href="showWork.ad">작품 조회</a></li>
+						<li><a href="showIllust.ad">일러스트 조회</a></li>
+						<li><a href="showWorkApprove.ad">승인 대기 내역 조회</a></li>
+						<li><a href="showWorkDormant.ad">후원 대기 내역 조회</a></li>
+						<li><a href="showWorkClose.ad">휴재 신청 내역 조회</a></li>
+					</ul></li>
+
+
+			</ul>
+		</nav>
+	</div>
+	<!-- Jquery JS-->
+
+	<script
+		src="${contextPath }/resources/vendor/admin/jquery-3.2.1.min.js"></script>
+	<!-- Bootstrap JS-->
+	<script
+		src="${contextPath }/resources/vendor/admin/bootstrap-4.1/popper.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/bootstrap-4.1/bootstrap.min.js"></script>
+	<!-- Vendor JS       -->
+	<script src="${contextPath }/resources/vendor/admin/slick/slick.min.js">
+		
+	</script>
+	<script src="${contextPath }/resources/vendor/admin/wow/wow.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/animsition/animsition.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/bootstrap-progressbar/bootstrap-progressbar.min.js">
+		
+	</script>
+	<script
+		src="${contextPath }/resources/vendor/admin/counter-up/jquery.waypoints.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/counter-up/jquery.counterup.min.js">
+		
+	</script>
+	<script
+		src="${contextPath }/resources/vendor/admin/circle-progress/circle-progress.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/perfect-scrollbar/perfect-scrollbar.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/chartjs/Chart.bundle.min.js"></script>
+	<script
+		src="${contextPath }/resources/vendor/admin/select2/select2.min.js">
+		
+	</script>
 </body>
 </html>

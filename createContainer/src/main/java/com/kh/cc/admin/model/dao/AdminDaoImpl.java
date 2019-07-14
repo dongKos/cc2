@@ -17,6 +17,7 @@ import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.Closed;
+import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -32,15 +33,10 @@ public class AdminDaoImpl implements AdminDao{
 	//전체 환불내역 조회하는 메소드
 	@Override
 	public ArrayList<Refund> selectRefundList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
-		ArrayList<Refund> list = null;
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
-		list = (ArrayList) sqlSession.selectList("admin.selectRefundList", null, rowBounds);
-		
-		return list;
+		return (ArrayList) sqlSession.selectList("admin.selectRefundList", null, rowBounds);
 	}
 	
 	//환불내역 페이지 상세조회
@@ -66,7 +62,6 @@ public class AdminDaoImpl implements AdminDao{
 		}
 		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("admin.refundStatus", str, rowBounds);
@@ -75,7 +70,6 @@ public class AdminDaoImpl implements AdminDao{
 	//환불내역 애이젝스로 분기한거 개수 조회
 	@Override
 	public int getRefundAjaxCount(SqlSessionTemplate sqlSession, String statusVal) {
-		
 		String str = "";
 		if(statusVal.equals("1")) {
 			str = "N";
@@ -95,10 +89,9 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Member> selectMemberList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
-		return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
 		
+		return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
 	}
 	
 	//회원 관리 페이지 상세보기
@@ -117,8 +110,8 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Report> selectReportList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
 		return (ArrayList)sqlSession.selectList("admin.selectReportList", null, rowBounds);
 	}
 	
@@ -209,10 +202,10 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public int getMemberTypeListCount(SqlSessionTemplate sqlSession, int type) {
 		switch(type) {
-		case 1: case 2 : return sqlSession.selectOne("admin.selectMemberTypeListCount", type);
-		case 4 : return sqlSession.selectOne("admin.selectBlackMemberCount");
-		case 5 : return sqlSession.selectOne("admin.selectDeleteMember");
-		default: return sqlSession.selectOne("admin.selectMemberListCount");
+			case 1: case 2 : return sqlSession.selectOne("admin.selectMemberTypeListCount", type);
+			case 4 : return sqlSession.selectOne("admin.selectBlackMemberCount");
+			case 5 : return sqlSession.selectOne("admin.selectDeleteMember");
+			default: return sqlSession.selectOne("admin.selectMemberListCount");
 		}
 	}
 	
@@ -220,14 +213,13 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<HashMap<String, Object>> selectMemberTypeList(SqlSessionTemplate sqlSession, AdminPageInfo pi, int type) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		switch(type) {
-		case 1: case 2 : return (ArrayList)sqlSession.selectList("admin.selectMemberTypeList", type, rowBounds);
-		case 4 : return (ArrayList)sqlSession.selectList("admin.selectBlackMemberList", null, rowBounds);
-		case 5 : return (ArrayList)sqlSession.selectList("admin.selectDeleteMemberList", null, rowBounds);
-		default: return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
+			case 1: case 2 : return (ArrayList)sqlSession.selectList("admin.selectMemberTypeList", type, rowBounds);
+			case 4 : return (ArrayList)sqlSession.selectList("admin.selectBlackMemberList", null, rowBounds);
+			case 5 : return (ArrayList)sqlSession.selectList("admin.selectDeleteMemberList", null, rowBounds);
+			default: return (ArrayList)sqlSession.selectList("admin.selectMemberList", null, rowBounds);
 		}
 	}
 	
@@ -372,7 +364,6 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Member> getBoardReplyList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
 		return (ArrayList)sqlSession.selectList("admin.selectBoardReplyList", null, rowBounds);
@@ -388,7 +379,6 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public ArrayList<Webnovel> selectAllWorkList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit()); 
 		
 		return (ArrayList)sqlSession.selectList("admin.selectAllWorkList", null, rowBounds);
@@ -725,6 +715,51 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public HashMap<String, Object> selectAllAvg(SqlSessionTemplate sqlSession) {
 		return (HashMap<String, Object>)sqlSession.selectOne("admin.selectAllAvg");
+	}
+
+	//전체 통계 내역 개수 조회
+	@Override
+	public int getCoinListCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("admin.selectCoinListCount");
+	}
+
+	//전체 통계 내역 조회
+	@Override
+	public ArrayList<Coin> selectCoinList(SqlSessionTemplate sqlSession, AdminPageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		return (ArrayList)sqlSession.selectList("admin.selectCoinList", null, rowBounds);
+	}
+
+	//작가 상위 랭킹 10명 조회
+	@Override
+	public ArrayList<Member> selectMemberRankList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectMemberRankList");
+	}
+
+	//작품 상위 랭킹 10개 조회
+	@Override
+	public ArrayList<Webnovel> selectWorkRankList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectWorkRankList");
+	}
+
+	//웹툰 월별 통계 조회
+	@Override
+	public ArrayList<Integer> selectWtAvg(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectWtAvg");
+	}
+
+	//웹소설 월별 통계 조회
+	@Override
+	public ArrayList<Integer> selectWnAvg(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectWnAvg");
+	}
+
+	//일러스트 월별 통계 조회
+	@Override
+	public ArrayList<Integer> selectIllAvg(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("admin.selectIllAvg");
 	}
 
 }
