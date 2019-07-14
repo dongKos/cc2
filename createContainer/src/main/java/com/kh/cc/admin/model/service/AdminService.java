@@ -155,6 +155,8 @@ public interface AdminService {
 
 	ArrayList<Integer> selectIllAvg();
 
+	int respondOto(HashMap<String, Object> hmap);
+
 
 	
 }

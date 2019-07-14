@@ -445,6 +445,12 @@ public class AdminServiceImpl implements AdminService{
 		return ad.selectIllAvg(sqlSession);
 	}
 
+	//1:1 문의 답변해주기
+	@Override
+	public int respondOto(HashMap<String, Object> hmap) {
+		return ad.respondOto(sqlSession, hmap);
+	}
+
 	
 }
 

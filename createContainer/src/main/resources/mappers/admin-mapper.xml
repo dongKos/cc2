@@ -349,7 +349,7 @@
 	<select id="selectOTOBoardTypeListCount" parameterType="String" resultType="_int">
 		SELECT COUNT(*)
 		FROM BOARD
-		WHERE STATUS = 'Y'
+		WHERE STATUS = 'N'
 		AND BOARD_CATEGORY = 'OTO'
 		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
 	</select>
@@ -366,7 +366,7 @@
 	<select id="selectOTOBoardTypeList" parameterType="String" resultMap="BoardResultSet">
 		SELECT *
 		FROM BOARD
-		WHERE STATUS = 'Y'
+		WHERE STATUS = 'N'
 		AND BOARD_CATEGORY = 'OTO'
 		AND SUB_CATEGORY LIKE '%'|| #{str} ||'%'
 		ORDER BY B_ID DESC
@@ -798,6 +798,13 @@
 		ORDER BY TO_CHAR(C_DATE, 'YYYY-MM')
 	</select>	
 	
+	<!-- 1:1 문의 답변해주기 -->
+	<update id="respondOto" parameterType="java.util.HashMap">
+		UPDATE BOARD 
+		SET BCONTENT = BCONTENT || #{respond},
+			STATUS = 'Y'
+		WHERE B_ID = #{bId}
+	</update>
 </mapper>
 	
 
