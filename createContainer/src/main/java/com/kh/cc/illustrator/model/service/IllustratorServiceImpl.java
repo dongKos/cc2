@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.dao.IllustratorDao;
+import com.kh.cc.illustrator.model.vo.IllBoard;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -175,6 +176,21 @@ public class IllustratorServiceImpl implements IllustratorService{
 	@Override
 	public ArrayList<Illustrator> selectIllChallengeRequest(Illustrator ill) {
 		return id.selectIllChallengeRequest(sqlSession, ill);
+	}
+
+	@Override
+	public int insertIllBoard(IllBoard ib) {
+		return id.insertIllBoard(sqlSession, ib);
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllChallengeBoard(Illustrator ill) {
+		return id.selectIllChallengeBoard(sqlSession, ill);
+	}
+
+	@Override
+	public ArrayList<Illustrator> selectIllBoard(IllBoard ib) {
+		return id.selectIllBoard(sqlSession, ib);
 	}
 	
 	

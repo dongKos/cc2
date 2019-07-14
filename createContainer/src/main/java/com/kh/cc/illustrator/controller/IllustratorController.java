@@ -21,6 +21,7 @@ import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.IllustratorPagination;
 import com.kh.cc.illustrator.model.service.IllustratorService;
+import com.kh.cc.illustrator.model.vo.IllBoard;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -38,7 +39,7 @@ public class IllustratorController {
 	@RequestMapping(value="illustMain.ill")
 	public String illustMain(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
 		
-		System.out.println("컨트롤러 접근?");
+		////System.out.println("컨트롤러 접근?");
 		
 		int currentPage = 1;
 		int limit = 5;
@@ -58,8 +59,8 @@ public class IllustratorController {
 		  ArrayList<Illustrator> clist = is.selectIllChallengeList(pi, ill);
 		  model.addAttribute("clist", clist);
 		  
-		  System.out.println("listCount" + listCount);
-		  System.out.println("list" + list);
+		  ////System.out.println("listCount" + listCount);
+		  ////System.out.println("list" + list);
 		
 		return "illustrator/illust_main";
 	}
@@ -79,9 +80,9 @@ public class IllustratorController {
 	//일러스트 후원하기 페이지로 이동
 	@RequestMapping(value="illustSupport.ill")
 	public String illustSupport(HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
-		System.out.println("ill : " + ill);
+		////System.out.println("ill : " + ill);
 		ArrayList<Illustrator> slist = is.selectIllSupportList(ill);
-		System.out.println("후원 목록 조회 : " + slist);
+		////System.out.println("후원 목록 조회 : " + slist);
 		model.addAttribute("slist", slist);
 		
 		return "illustrator/illust_Support";
@@ -91,7 +92,7 @@ public class IllustratorController {
 	@RequestMapping(value="illustratorDetail.ill")
 	public String illustratorDatail(String userId) {
 		
-		System.out.println("userId : " + userId);
+		////System.out.println("userId : " + userId);
 		
 		
 		return "redirect:selectIllustratorDetail.ill";
@@ -105,15 +106,16 @@ public class IllustratorController {
 	
 	//일러스트 도전하기 상세페이지로 이동
 	@RequestMapping(value="illustChallengeDetail.ill")
-	public String illustChallengeDetail() {
-		return "illustrator/illustChallengeDetail";
+	public String illustChallengeDetail(HttpServletRequest request, HttpSession session) {
+		String userId = request.getParameter("userId");
+		return "selectIllChallengeDetail.ill?userId=" + userId;
 	}
 	
 	//일러스트 후원 페이지로 이동
 	@RequestMapping("illustSupportDetail.ill")
 	public String illustSupportDetail (String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
 		
-		System.out.println("supportDetail userId : " + userId);
+		////System.out.println("supportDetail userId : " + userId);
 		
 		ArrayList<Illustrator> sdlist = is.selectIllSupportDetail(ill);
 		model.addAttribute("sdlist", sdlist);
@@ -125,7 +127,7 @@ public class IllustratorController {
 	@RequestMapping("illustSupportReward.ill")
 	public String illustSupportReward(String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
 		
-		System.out.println("SupportReward userId : " + userId);
+		////System.out.println("SupportReward userId : " + userId);
 		
 		ArrayList<Illustrator> srlist = is.selectIllSupportReward(ill);
 		model.addAttribute("srlist", srlist);
@@ -137,8 +139,8 @@ public class IllustratorController {
 	@RequestMapping("illustRewardApply.ill")
 	public String illustRewardApply(String scode, Model model, HttpSession session) {
 		Member m = (Member) session.getAttribute("loginUser");
-		System.out.println("세션의 로그인 유저" + m);
-		System.out.println("보유 코인 : " + m.getWallet());
+		////System.out.println("세션의 로그인 유저" + m);
+		////System.out.println("보유 코인 : " + m.getWallet());
 		model.addAttribute("scode", scode);
 		return "illustrator/illustSupportApply";
 	}
@@ -242,7 +244,7 @@ public class IllustratorController {
 			
 			return "redirect:selectIllPortfolioList.ill";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			////System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
 			new File(filePath + "\\" + changeFileName1 + ext1).delete();
 			new File(filePath + "\\" + changeFileName2 + ext2).delete();
@@ -259,7 +261,7 @@ public class IllustratorController {
 	//일러스트 포트폴리오 목록 조회
 	@RequestMapping(value="selectIllPortfolioList.ill")
 	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
-		System.out.println("컨트롤러 접근?");
+		////System.out.println("컨트롤러 접근?");
 		
 		int currentPage = 1;
 		int limit = 5;
@@ -276,8 +278,8 @@ public class IllustratorController {
 		  model.addAttribute("list", list);
 		  model.addAttribute("pi", pi);
 		  
-		  System.out.println("listCount" + listCount);
-		  System.out.println("list" + list);
+		  ////System.out.println("listCount" + listCount);
+		  ////System.out.println("list" + list);
 		 
 		
 		
@@ -363,7 +365,7 @@ public class IllustratorController {
 				
 				return "redirect:selectIllChallengeList.ill";
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				////System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
 				new File(filePath + "\\" + changeFileName1 + ext1).delete();
 				new File(filePath + "\\" + changeFileName2 + ext2).delete();
@@ -380,7 +382,7 @@ public class IllustratorController {
 		//일러스트 챌린지 목록 조회
 		@RequestMapping(value="selectIllChallengeList.ill")
 		public String selectIllChallengeList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
-			System.out.println("컨트롤러 접근?");
+			////System.out.println("컨트롤러 접근?");
 			
 			int currentPage = 1;
 			int limit = 5;
@@ -397,8 +399,8 @@ public class IllustratorController {
 			  model.addAttribute("clist", clist);
 			  model.addAttribute("pi", pi);
 			  
-			  System.out.println("listCount" + listCount);
-			  System.out.println("list" + clist);
+			  ////System.out.println("listCount" + listCount);
+			  ////System.out.println("list" + clist);
 			 
 			
 			
@@ -408,11 +410,15 @@ public class IllustratorController {
 		//일러스트 포트폴리오 상세페이지 조회
 		@RequestMapping(value="selectIllPortfolioDetail.ill")
 		public String selectIllPortfolioDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
-			String userId = request.getParameter("userId");
-			System.out.println("컨트롤러 : " + userId);
-			ill.setUserId(userId);
+			Member m = (Member) session.getAttribute("loginUser");
+			if(session.getAttribute("loginUser") != null) {
+				String userId = m.getUserId();
+				ill.setUserId(userId);
+			}
 			ArrayList<Illustrator> list = is.selectIllPortfolioDetail(ill);
+			ArrayList<Illustrator> blist = is.selectIllChallengeBoard(ill);
 			model.addAttribute("list", list);
+			model.addAttribute("blist", blist);
 			
 			
 			return "illustrator/illustPortpolioDetail";
@@ -421,25 +427,33 @@ public class IllustratorController {
 		//일러스트 도전하기 상세페이지 조회
 		@RequestMapping(value="selectIllChallengeDetail.ill")
 		public String selectIllChallengeDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
-			String userId = request.getParameter("userId");
-			ill.setUserId(userId);
+			Member m = (Member) session.getAttribute("loginUser");
+			if(session.getAttribute("loginUser") != null) {
+				String userId = m.getUserId();
+				ill.setUserId(userId);
+			}
 			ArrayList<Illustrator> clist = is.selectIllChallengeDetail(ill);
-			model.addAttribute("clist", clist);
-			System.out.println("도전하기 상세 : " + clist);
 			
+			ArrayList<Illustrator> blist = is.selectIllChallengeBoard(ill);
+			
+			System.out.println("bList : " + blist);
+			////System.out.println("도전하기 상세 : " + clist);
+			model.addAttribute("clist", clist);
+			model.addAttribute("blist", blist);
+
 			return "illustrator/illustChallengeDetail";
 		}
 		
 		//일러스트 작가 상세페이지 조회
 		@RequestMapping(value="selectIllustratorDetail.ill")
 		public String selectIllustratorDetail(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
-			System.out.println("Controller 작가상세페이지로 넘어옴 ");
+			////System.out.println("Controller 작가상세페이지로 넘어옴 ");
 			String userId = request.getParameter("userId");
 			ill.setUserId(userId);
 			ArrayList<Illustrator> ilist = is.selectIllustratorDetail(ill);
 			model.addAttribute("ilist", ilist);
 			
-			System.out.println("작가의 작품 조회 : " + ilist );
+			////System.out.println("작가의 작품 조회 : " + ilist );
 			
 			return "illustrator/illustratorDetail";
 		}
@@ -459,12 +473,12 @@ public class IllustratorController {
 		public ResponseEntity<Integer> updateIllRecommendCount(int illCode, String userId, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
 //			int RecommendCount = Integer.parseInt(request.getParameter("recommendCount"));
 //			ill.setRecommendCount(RecommendCount);
-			System.out.println("컨트롤러!!!!!!!!!!!!!!!!!!!!" + illCode);
+			////System.out.println("컨트롤러!!!!!!!!!!!!!!!!!!!!" + illCode);
 			
 			is.updateRecommendCount(illCode);
 			int recommend = is.selectRecommend(illCode);
 			
-			System.out.println("recommend : " + recommend);
+			////System.out.println("recommend : " + recommend);
 			model.addAttribute("userId" , userId);
 			
 			return new ResponseEntity<Integer>(recommend, HttpStatus.OK);
@@ -473,16 +487,16 @@ public class IllustratorController {
 		//일러스트 포트폴리오 의뢰하기
 		@RequestMapping("IllRequest.ill")
 		public String IllRequest(IllReq illReq, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m, String totalPrice) {
-			System.out.println(totalPrice);
+			////System.out.println(totalPrice);
 			m = (Member) session.getAttribute("loginUser");
 			illReq.setUserId(m.getUserId());
-			System.out.println("illReq : " + illReq);
+			////System.out.println("illReq : " + illReq);
 			int result = is.IllRequest(illReq);
-			System.out.println("result1 : " + result);
+			////System.out.println("result1 : " + result);
 			
 			if(result > 0) {
 				int result2 = IllRequestCoin(m, totalPrice);
-				System.out.println("result2 : " + result2);
+				////System.out.println("result2 : " + result2);
 			}
 			
 			model.addAttribute("msg","의뢰 신청이 완료 되었습니다.");
@@ -495,9 +509,9 @@ public class IllustratorController {
 		public String IllChallengeRequest(IllReq illReq, HttpServletRequest request, HttpSession session, Illustrator ill, Model model, Member m) {
 			m = (Member) session.getAttribute("loginUser");
 			illReq.setUserId(m.getUserId());
-			System.out.println("illReq : " + illReq);
+			////System.out.println("illReq : " + illReq);
 			int result = is.IllRequest(illReq);
-			System.out.println("result1 : " + result);
+			////System.out.println("result1 : " + result);
 			
 			model.addAttribute("msg","의뢰 신청이 완료 되었습니다.");
 	    	model.addAttribute("url", "illChallengeRequest.ill?illCode="+illReq.getIllCode());
@@ -540,8 +554,8 @@ public class IllustratorController {
 			String userId = request.getParameter("userId");
 			ill.setUserId(userId);
 			
-			System.out.println(rType + rReason);
-			System.out.println(illCode);
+			////System.out.println(rType + rReason);
+			////System.out.println(illCode);
 			
 			Report r = new Report();
 			
@@ -555,7 +569,7 @@ public class IllustratorController {
 			
 			int result = is.IllustReport(r);
 			
-			System.out.println("신고 결과 : " + result);
+			////System.out.println("신고 결과 : " + result);
 			
 			
 			return "redirect:selectIllPortfolioDetail.ill?illCode=" + illCode;
@@ -572,8 +586,8 @@ public class IllustratorController {
 			String userId = request.getParameter("userId");
 			ill.setUserId(userId);
 					
-			System.out.println(rType + rReason);
-			System.out.println(illCode);
+			////System.out.println(rType + rReason);
+			////System.out.println(illCode);
 				
 			Report r = new Report();
 			
@@ -587,10 +601,54 @@ public class IllustratorController {
 				
 			int result = is.IllustReport(r);
 				
-			System.out.println("신고 결과 : " + result);
+			////System.out.println("신고 결과 : " + result);
 					
 					
 			return "redirect:selectIllChallengeDetail.ill?illCode=" + illCode;
+		}
+		
+		//일러스트 게시판 글쓰기 이동
+		@RequestMapping(value="insertIllBoard.ill")
+		public String insertIllBoard(HttpServletRequest request, Model model, HttpSession session, Illustrator ill, IllBoard ib) {
+			Member m = (Member) session.getAttribute("loginUser");
+			int illCode = Integer.parseInt(request.getParameter("illCode"));
+			String userId = request.getParameter("userId");
+			ill.setUserId(userId);
+			
+			model.addAttribute("illCode", illCode);
+			
+			return "illustrator/illInsertBoard";
+		}
+		
+		//일러스트 게시판 글쓰기
+		@RequestMapping(value="insertIllChallBoard.ill")
+		public String insertIllChallBoard(HttpServletRequest request, Member m, Model model, HttpSession session, Illustrator ill, IllBoard ib) {
+			m = (Member) session.getAttribute("loginUser");
+			String userId = m.getUserId();
+			int illCode = Integer.parseInt(request.getParameter("illCode"));
+			//System.out.println(userId);
+			ib.setUserId(userId);
+			//System.out.println(ib);
+			
+			model.addAttribute("userId", userId);
+			
+			int result = is.insertIllBoard(ib);
+			
+			//System.out.println("동록 결과 : " + result);
+					
+			return "redirect:selectIllChallengeDetail.ill?illCode="+illCode;
+		}
+		
+		//일러스트 게시판 상세 조회
+		@RequestMapping(value="selectIllBoard.ill")
+		public String selectIllBoard(HttpServletRequest request, Member m, Model model, HttpSession session, IllBoard ib) {
+			String bTitle = request.getParameter("bTitle");
+			ib.setbTitle(bTitle);
+			
+			ArrayList<Illustrator> rlist = is.selectIllBoard(ib);
+			model.addAttribute("rlist", rlist);
+			
+			return "illustrator/illSelectBoard";
 		}
 		
 }

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Cc 포트폴리오 상세페이지</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -39,18 +39,12 @@
 	}
 </script>
 <style>
-td {
-	border: 1px solid black;
-	width: 100px;
-	height: 40px;
-}
-
 .test {
 	width: 100%;
 	height: 400px;
 	border: 1px solid black;
 }
-
+ 	
 .service ul li {
 	display: inline-block;
 }
@@ -61,26 +55,27 @@ td {
 }
 
 .img-content {
-	margin-left: 7.9%;
 	width: 100%;
 	color: white;
 	height: 500px;
 }
 
 #priceTable {
-	margin-left: 8%;
 	width: 100%;
 }
 
 .fixed-area {
 	position: fixed;
 	top: 90%;
-	left: 90%;
+	left: 91.5%;
 }
 
 .fixed-area  a {
 	color: yellowgreen;
-	font-size: 4em;
+	font-size: 4em; 	
+}
+h2 {
+	font-size: 1.39rem !important;	 
 }
 </style>
 </head>
@@ -90,38 +85,9 @@ td {
 		scope="application" />
 	<jsp:include page="common/IllustTopNavbar.jsp" /><br>
 	<br>
-
-
-	<!-- <div class="container">
-  <h2>Modal Example</h2>
-  Trigger the modal with a button
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-
-  Modal
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      Modal content
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-  </div>
-  
-</div> -->
-
 	<section class="page-section portfolio" id="portfolio">
-		<div class="container">
+		<div class="container" style="margin-top: -10%">
+			<section style="width: 86%; margin-left: 7%">
 			<div class="row">
 				<div class="col-md-6">
 					<c:forEach var="ill" items="${list }">
@@ -134,30 +100,36 @@ td {
 				</div>
 				<div class="col-md-6">
 					<h2 style="display: inline-block;">${list[0].illTitle}</h2>
-					<button type="button" class="btn"
-						style="background: #f5d142; color: white; display: inline-block; margin-left: 30%; font-size: 12px;">쪽지보내기</button>
 					<br>
 					<br>
-					<br>
-					<h3>시작가 : ${list[0].illPrice}</h3>
+					<h3>시작가 : ${list[0].illPrice}CC</h3>
 					<br> <i class="fas fa-user-circle" style="font-size: 20px;">
 						${list[0].nickName}</i><br>
 					<br> <a onclick="illustratorDetail()"><i
 						class="fas fa-home" style="font-size: 20px;"> 작가페이지 보러가기</i></a><br>
 					<br>
-					<br> <br>
 					<br>
-					<button type="button" class="btn" onclick="updateRecommendCount();" style="background:#f5d142; color:white; display:inline-block; font-size:12px; width:100%">추천하기</button>
-					<br>
-					<br>
-					<button type="button" class="btn"
-						style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%"
-						onclick="request();">의뢰하기</button>
-					<br>
-					<br>
-					<button type="button" class="btn"
-						style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%"
-						data-toggle="modal" data-target="#portfolioModal4">신고하기</button>
+					<c:if test="${ sessionScope.loginUser.userId == null }">
+							<p style="font-size: 27px; font-family: 'Do Hyeon', sans-serif;">
+								모든 기능은 <a href="${ contextPath }/loginForm.me"
+									style="text-decoration: none">로그인</a> 후 사용 가능합니다.
+							</p>
+						</c:if>
+						<c:if test="${ sessionScope.loginUser.userId != null }">
+							<button type="button" class="btn"
+								onclick="updateRecommendCount();"
+								style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%">추천하기</button>
+							<br>
+							<br>
+							<button type="button" class="btn"
+								style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%"
+								onclick="request();">의뢰하기</button>
+							<br>
+							<br>
+							<button type="button" class="btn"
+								style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%"
+								data-toggle="modal" data-target="#portfolioModal4">신고하기</button>
+						</c:if>
 					<script>
 						function illustratorDetail() {
 							var userId = "<c:out value='${list[0].userId}'/>";
@@ -169,62 +141,21 @@ td {
 					</script>
 				</div>
 			</div>
+			</section>
 			<br>
 			<br>
 			<br>
 			<div class="row">
 				<div class="col-md-12">
-					<h4>작가 신고 횟수 : 3</h4>
-
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>No</th>
-								<th>신고내용</th>
-								<th>횟수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>지정한 기간을 안지킴</td>
-								<td>4</td>
-							</tr>
-						</tbody>
-					</table>
 					<div align="center">
-					<input type="text" value="추천수 : ${list[0].recommendCount}" id="recommendCount">
+						<input type="text" value="추천수 : ${list[0].recommendCount}" id="recommendCount">
+					</div>
 				</div>
-					<hr>
-				</div>
-			</div>
-			<!-- 서비스 설명 ~~ -->
-			<div class="row">
-
-				<div class="service">
-
-					<ul>
-						<li>
-							<button class="btn btn-primary">서비스 설명</button>
-						</li>
-						<li>
-							<button class="btn btn-primary">가격정보</button>
-						</li>
-						<li>
-							<button class="btn btn-primary">수정 및 재진행 안내</button>
-						</li>
-						<li>
-							<button class="btn btn-primary">취소 및 환불 규정</button>
-						</li>
-					</ul>
-				</div>
-
-				<hr>
 			</div>
 
 			<!-- 상세 설명 -->
 			<div class="row">
-				<div class="col-lg-12">
+				<div style="margin-left: 8%; width: 83.3%; font-size: 13px">
 					<hr style="border-color: black;">
 					<h2>서비스 설명</h2>
 					<br>
@@ -262,12 +193,16 @@ td {
 
 
 			<br>
-			<hr style="border-color: black;">
+			<hr style="width: 86%; border-color: black;">
+			<br>
+			<div style="margin-left: 6.5%; width: 83.3%">
+				<h2>작품</h2>
+			</div>
 			<br>
 			<c:forEach var="ill" items="${ list }">
 				<c:if test="${ill.aCategory eq 'sub' }">
 					<div class="row">
-						<div class="col-lg-10 img-content">
+						<div style="margin-left: 8%; width: 83.3%">
 							<img
 								src="${contextPath }/resources/uploadFiles/illustrator/illPortfolio/${ill.changeName}"
 								style="width: 100%; height: 100%;">
@@ -277,113 +212,17 @@ td {
 					<br>
 				</c:if>
 			</c:forEach>
-			<br>
-			<br>
-			<!-- <hr style="border-color:black;">
-		<div class="row">
-				<table class="col-lg-10 table table-bordered" id="priceTable">
-				<div class="col-lg-10">
-				<h2>가격정보</h2><br><br><br><br>
-				</div>
-					<thead align="center">
-					<tr style="background:lightgray; font-size:13px;">
-						<th></th>
-						<th>STANDARD<br>+70,000원</th>
-						<th>DELUXE<br>+150,000원</th>
-						<th>PREMIUM<br>+300,000원</th>
-					</tr>
-					</thead>
-					<tbody align="center" style="font-size:12px;">
-						<tr>
-							<td>패키지설명</td>
-							<td>소장용 일러스트(배경 X)<br><br>
-								상업적 이용을 하지 않는 목적<br>
-								기본 A4/600dpi<br>
-								* 사이즈 제시 가능 *<br>
-								*원본 편집 및 기타 사용 불가*</td>
-							<td>소장용 일러스트(배경 O)<br><br>
-								상업적 이용을 하지 않는 목적<br>
-								기본 A4/600dpi<br>
-								* 사이즈 제시 가능 *<br>
-								*원본 편집 및 기타 사용 불가*</td>
-							<td>상업적 이용<br><br>
-								상업적 이용 목적<br>
-								A4/300~600dpi<br>
-								* 사이즈 제시 가능 *<br>
-								* 계약서 작성 *</td>
-						</tr>
-						<tr>
-							<td>고해상도 파일 제공</td>
-							<td>V</td>
-							<td>V</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>채색</td>
-							<td>V</td>
-							<td>V</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>전신</td>
-							<td>V</td>
-							<td>-</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>원본파일 제공</td>
-							<td>-</td>
-							<td>-</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>배경</td>
-							<td>-</td>
-							<td>V</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>상업적 이용 가능</td>
-							<td>-</td>
-							<td>-</td>
-							<td>V</td>
-						</tr>
-						<tr>
-							<td>시안 개수</td>
-							<td>2</td>
-							<td>2</td>
-							<td>2</td>
-						</tr>
-						<tr>
-							<td>피사체 개수</td>
-							<td>1</td>
-							<td>-</td>
-							<td>-</td>
-						</tr>
-						<tr>
-							<td>수정 횟수</td>
-							<td>1</td>
-							<td>3</td>
-							<td>3</td>
-						</tr>
-					</tbody>
-				</table>
-				
-		</div>
-				<div>
-					<button class="btn btn-warning" style="margin-left:31%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-					<button class="btn btn-warning" style="margin-left:6.3%; width:15%; font-size:13px; font-weight:bold">의뢰</button>
-				</div><br><br> -->
 
 			<!-- 텍스트 설명 -->
-			<hr style="border-color: black;">
+			<hr style="border-color: black; width: 86%">
 			<div class="row">
-				<h2 style="margin-left: 9.5%">수정 및 재진행 안내</h2>
+				<div style="margin-left: 8%; width: 83.3%; font-size: 13px">
+					<h2>수정 및 재진행 안내</h2>
+				</div>
 				<br>
 				<br>
 				<br>
-				<div class="col-lg-10" style="font-size: 13px; margin-left: 8%">
+				<div style="margin-left: 8%; width: 83.3%; font-size: 13px">
 					01. 전문가와 의뢰인 간의 상호 협의 후 청약철회가 가능합니다.<br>
 					<br> 02. 전문가의 귀책사유로 디자인작업을 시작하지 않았거나 혹은 이에 준하는 보편적인 관점에서 심각하게
 					잘못 이행한 경우 결제 금액 전체 환불이 가능합니다.<br>
@@ -406,40 +245,89 @@ td {
 				</div>
 			</div>
 			<br>
-			<br>
-			<hr style="border-color: black;">
-			<div class="row">
-				<div class="col-lg-10" style="margin-left: 6.3%">
-					<h2>후기</h2>
-				</div>
-				<br>
-				<br>
-				<br>
-				<table class="col-lg-10 table table-bordered"
-					style="margin-left: 8%">
-					<thead>
-						<tr>
-							<th>No</th>
-							<th>이름</th>
-							<th>내용</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>지정한 기간을 안지킴</td>
-							<td>4</td>
-						</tr>
-					</tbody>
-				</table>
+			<hr style="width: 86%; border-color: black; margin-left:6%">
+			<div class="container">
+			<input type="hidden" value="bTitle">
+				<div style="margin-left: 5%; width: 88%; font-size: 13px">
+				<h2>문의</h2><br><br><br>
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>제목</th>
+								<th>작성자</th>
+								<th>날짜</th>
+								<th>조회수</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="IllBoard" items="${blist }" varStatus="status">
+								<tr onclick="BoardDetail();">
+									<td>${status.index + 1 }</td>
+									<td>${IllBoard.bTitle }</td>
+									<td>${IllBoard.userId }</td>
+									<td>${IllBoard.uploadDate }</td>
+									<td>${IllBoard.bCount }</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+
+					<div>
+						<a href='#' onClick='fn_write()' class="btn btn-success">글쓰기</a>
+					</div>
+			</div>
 			</div>
 
 			<div class="fixed-area">
 				<a href="#"
-					style="color: black; text-decoration: none; font-size: 30px;">TOP</a>
+					style="text-decoration: none; font-size: 40px; font-family: 'Do Hyeon', sans-serif;">TOP</a>
 			</div>
 		</div>
 	</section>
+	
+	<footer class="footer text-center">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">ADDRESS</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						서울특별시 강남구 테헤란로14길 6 <br>남도빌딩 2층, 3층, 4층
+					</p>
+				</div>
+
+				<!-- Footer Social Icons -->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">COMPANY</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						회사명 : CreateContainer<br>
+						대표이사 : 김동환 <br>
+					</p>
+				</div>
+
+				<!-- Footer About Text -->
+				<div class="col-lg-4">
+					<h4 class="text-uppercase mb-4">INFORMATION</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						카카오톡 : 김동환<br>
+						이메일 : CreateContainer@cc.kr <br>
+						대표번호 : 010 - 0123 - 4567<br>
+						고객센터 : AM 10:00 ~ PM 10:00
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+
+	<!-- Copyright Section -->
+	<section class="copyright py-4 text-center text-white">
+		<div class="container">
+			<small>Copyright &copy; CreateContainer 2019</small>
+		</div>
+	</section>
+	
 	<!-- 모달 -->
 	<div class="portfolio-modal modal fade" id="portfolioModal4"
 		tabindex="-1" role="dialog" aria-labelledby="portfolioModal1Label"
@@ -516,6 +404,17 @@ td {
 											console.log(illCode);
 											location.href="IllPortfolioReport.ill?rType=" + reportType + "&rReason=" + reportReason + "&illCode=" + illCode + "&userId=" + userId;
 												
+										}
+										
+										//글쓰기
+										function fn_write(){
+										    
+										    var illCode = "<c:out value='${list[0].illCode}'/>";
+										    var userId = "<c:out value='${list[0].userId}'/>";
+										    
+										    location.href="insertIllBoard.ill?illCode=" + illCode;
+										    
+										    
 										}
 									</script>
 							</div>

@@ -207,6 +207,49 @@
 			
 			})
 		</script>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
+	
+	<footer class="footer text-center">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">ADDRESS</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						서울특별시 강남구 테헤란로14길 6 <br>남도빌딩 2층, 3층, 4층
+					</p>
+				</div>
+
+				<!-- Footer Social Icons -->
+				<div class="col-lg-4 mb-5 mb-lg-0">
+					<h4 class="text-uppercase mb-4">COMPANY</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						회사명 : CreateContainer<br>
+						대표이사 : 김동환 <br>
+					</p>
+				</div>
+
+				<!-- Footer About Text -->
+				<div class="col-lg-4">
+					<h4 class="text-uppercase mb-4">INFORMATION</h4>
+					<p class="lead mb-0" style="font-size:18px; font-family: 'Do Hyeon', sans-serif;">
+						카카오톡 : 김동환<br>
+						이메일 : CreateContainer@cc.kr <br>
+						대표번호 : 010 - 0123 - 4567<br>
+						고객센터 : AM 10:00 ~ PM 10:00
+					</p>
+				</div>
+
+			</div>
+		</div>
+	</footer>
+	
+
+	<!-- Copyright Section -->
+	<section class="copyright py-4 text-center text-white">
+		<div class="container">
+			<small>Copyright &copy; CreateContainer 2019</small>
+		</div>
+	</section>
 </body>
 </html>

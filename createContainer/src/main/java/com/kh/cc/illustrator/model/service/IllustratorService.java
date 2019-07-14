@@ -4,6 +4,7 @@ package com.kh.cc.illustrator.model.service;
 import java.util.ArrayList;
 
 import com.kh.cc.admin.model.vo.Report;
+import com.kh.cc.illustrator.model.vo.IllBoard;
 import com.kh.cc.illustrator.model.vo.IllReq;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.illustrator.model.vo.IllustratorPageInfo;
@@ -71,6 +72,13 @@ public interface IllustratorService {
 	
 	//일러스트 도전하기 의뢰 조회
 	ArrayList<Illustrator> selectIllChallengeRequest(Illustrator ill);
+
+	//일러스트 후기 등록
+	int insertIllBoard(IllBoard ib);
+
+	ArrayList<Illustrator> selectIllChallengeBoard(Illustrator ill);
+
+	ArrayList<Illustrator> selectIllBoard(IllBoard ib);
 	
 
 
