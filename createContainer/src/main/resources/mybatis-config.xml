@@ -24,6 +24,7 @@
         <typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelReport" alias="WebnovelReport"/>
         <typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelReply" alias="WebnovelReply"/>
         <typeAlias type="com.kh.cc.webnovel.model.vo.WebnovelCoin" alias="WebnovelCoin"/>
+        <typeAlias type="com.kh.cc.webnovel.model.vo.AttentionAuthor" alias="AttentionAuthor"/>
         <typeAlias type="com.kh.cc.mypage.model.vo.WriterProfile" alias="WriterProfile"/>
         <typeAlias type="com.kh.cc.mypage.model.vo.Support" alias="Support"/>
         <typeAlias type="com.kh.cc.mypage.model.vo.Author" alias="Author"/>

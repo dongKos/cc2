@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.AttentionAuthor;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -118,6 +119,11 @@ public interface WebnovelDao {
 	//회차보기 구분하기
 	int selectCheckwRound(SqlSessionTemplate sqlSession, WebnovelRound wnr);
 	ArrayList<WebnovelRound> selectWnRoundListAll(SqlSessionTemplate sqlSession, WebnovelPageInfo pi, WebnovelRound wnr);
+	//관심작가등록
+	int insertAttentionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa);
+	//관심작가정보
+	AttentionAuthor selectAttionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa);
+	ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession);
 	
 	
 }

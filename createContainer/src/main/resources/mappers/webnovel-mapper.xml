@@ -63,6 +63,13 @@
 		<result property="wid" column="WID"/>
 		<result property="userId" column="USER_ID"/>
 	</resultMap>
+	<!-- 웹소설 관심 등록-->
+	<resultMap type="com.kh.cc.webnovel.model.vo.AttentionAuthor" id="AttentionAuthorResultSet">
+		<id property="aaId" column="AA_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="aaType" column="AA_TYPE"/>
+		<result property="authorId" column="AUTHOR_ID"/>
+	</resultMap>
 	<!-- 웹소설 별점-->
 	<resultMap type="com.kh.cc.webnovel.model.vo.WebnovelStarPoint" id="WebnovelStarPointResultSet">
 		<id property="starpId" column="STARP_ID"/>
@@ -119,7 +126,20 @@
 		<result property="coinCategory" column="COIN_CATEGORY"/>
 		<result property="coinCount" column="COIN_COUNT"/>
 		<result property="rid" column="RID"/>
+		<result property="illCode" column="ILL_CODE"/>
 		<result property="cDate" column="C_DATE"/>
+	</resultMap>
+    <resultMap type="com.kh.cc.webnovel.model.vo.Board" id="BoardWResultSet">
+		<id property="bId" column="B_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCategory" column="BOARD_CATEGORY"/>
+		<result property="bCount" column="B_COUNT"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="updateDate" column="UPDATE_DATE"/>
+		<result property="bContent" column="BCONTENT"/>
+		<result property="bTitle" column="BTITLE"/>
+		<result property="status" column="STATUS"/>
+		<result property="subCategory" column="SUB_CATEGORY"/>
 	</resultMap>
 	<!-- 재로그인용 -->
 	<select id="selectMember" resultMap="memberResultSet" parameterType="Member">
@@ -505,6 +525,24 @@
 		FROM COIN C
 		JOIN MEMBER M ON(C.MNO = M.MNO)
 		WHERE C.MNO = #{mno}
+	</select>
+	<!-- 웹소설 관심 등록-->
+	<insert id="insertAttentionAuthor" parameterType="AttentionAuthor">
+		INSERT INTO ATTENTION_AUTHOR VALUES (ATTA_SEQ.NEXTVAL, #{userId}, 'WN', #{authorId})
+	</insert>
+	<!-- 관심 등록 정보 메소드 -->
+	<select id="selectAttionAuthor" parameterType="AttentionAuthor" resultMap="AttentionAuthorResultSet">
+		SELECT * 
+		FROM ATTENTION_AUTHOR
+		WHERE AUTHOR_ID = #{authorId}
+		AND USER_ID = #{userId}
+	</select>
+	<select id="selectMainNotice" resultMap="BoardWResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE BOARD_CATEGORY LIKE 'NTC'
+		AND ROWNUM <![CDATA[ <= ]]> 10
+		ORDER BY UPLOAD_DATE DESC
 	</select>
 </mapper>
 

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.AttentionAuthor;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -362,6 +363,24 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		
 		return list;
 	}
+	//관심작가등록 정보 메소드
+	@Override
+	public int insertAttentionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa) {
+		return sqlSession.insert("Webnovel.insertAttentionAuthor", aa);
+	}
+	//관심등록 정보 메소드
 	
-
+	@Override
+	public AttentionAuthor selectAttionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa) {
+		return sqlSession.selectOne("Webnovel.selectAttionAuthor", aa);
+	}
+	@Override
+	public ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession) {
+		ArrayList<HashMap<String, Object>> list = null;
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectMainNotice");
+		
+		return list;
+	}
+	
 }

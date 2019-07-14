@@ -80,9 +80,8 @@
 	text-align:right;
 }
 .wnStarPoint{
-	width:80px;
 	display: inline-block;
-	width:80px;
+	width:175px;
 	height:15px;
 	padding-left:10px;
 	font-size:12px;
@@ -353,7 +352,6 @@
 		</div>
 		
 		
-		<jsp:include page="../common/webnovelFooter.jsp"/>
 		
 		
 		
@@ -363,6 +361,7 @@
 		
 		
 	</div>
+	<jsp:include page="../common/webnovelFooter.jsp"/>
 </body>
 </html>
 

@@ -71,7 +71,7 @@
 						var newRecommendSp3 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
 						var newRecommendSp4 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
 						var newRecommendSp5 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						
 						var list = new Array();
 						list[0] = newRecommendImgBox;
@@ -118,7 +118,8 @@
 					
 					$('.newchallengeList').find($(".nwnTable")).on('click',function(){
 						var wid = $(this).children().last().children().children('input').val();
-						location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=2";
+						var authorId = $(this).children().last().children().children('input').eq(1).val();
+						location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=2'+'&authorId='+authorId;
 					});
 					
 					
@@ -161,7 +162,7 @@
 						var newRecommendSp3 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
 						var newRecommendSp4 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
 						var newRecommendSp5 = $('<p class="newstarAvg">').append('&#11088; &#11088; &#11088; &#11088; &#11088; '+ data.list[i].spAvg + ' 점');
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						
 						var list = new Array();
 						list[0] = newRecommendImgBox;
@@ -215,7 +216,8 @@
 						
 						$('.newchallengeList').find($(".nwnTable")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
-							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=2";
+							var authorId = $(this).children().last().children().children('input').eq(1).val();
+							location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=2'+'&authorId='+authorId;
 						});
 					}
 					

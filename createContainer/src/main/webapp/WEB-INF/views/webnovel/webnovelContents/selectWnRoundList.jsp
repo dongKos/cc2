@@ -199,8 +199,8 @@ input[type=checkbox]:checked + label:before{
 }
 .wnStatus{ 
 	position:absolute;
-    top: 51px;
-    left: 41px;
+ 	top: 63px;
+    left: 48px;
 	width:60px;
 	line-height:40px;
 	z-index:100;
@@ -415,16 +415,16 @@ input[type=checkbox]:checked + label:before{
 									</button>
 									</c:if>
 									<c:if test="${ !empty sessionScope.loginUser }">
-										<c:if test="${wa.attentionId != null}">
-											<button class="attentionBtn" type="button" onclick="attentionId()">
-												<span class="glyphicon glyphicon-star"></span> 관심작가
-											</button>
-										</c:if>
-										<c:if test="${wa.attentionId == null}">
-											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid} + '&gradeType='+ ${ wn.gradeType }">
-												<span class="glyphicon glyphicon-star-empty"></span> 관심작가
-											</button>
-										</c:if>
+									<c:if test="${aa.aaId != null}">
+										<button class="attentionBtn" type="button" onclick="attentionAuthor()">
+											<span class="glyphicon glyphicon-star"></span> 관심작가
+										</button>
+									</c:if>
+									<c:if test="${aa.aaId == null}">
+									<button class="attentionBtn" type="button" onclick="location.href='insertAttentionAuthor.wn?wid=${wn.wid}&gradeType=${ wn.gradeType }&authorId=${wn.userId}'">
+										<span class="glyphicon glyphicon-star-empty"></span> 관심작가
+									</button>
+									</c:if>
 									</c:if>
 								</c:if>
 							</td>
@@ -450,7 +450,7 @@ input[type=checkbox]:checked + label:before{
 											</button>
 										</c:if>
 										<c:if test="${wa.attentionId == null}">
-											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=' + ${wn.wid} + '&gradeType='+ ${ wn.gradeType }">
+											<button class="attentionBtn" type="button" onclick="location.href='insertAttention.wn?wid=${wn.wid}&gradeType=${ wn.gradeType }&authorId=${wn.userId}'">
 												<span class="glyphicon glyphicon-star-empty"></span> 관심작품
 											</button>
 										</c:if>
@@ -659,6 +659,7 @@ input[type=checkbox]:checked + label:before{
 									</div>
 									<div class="modal-footer">
 										<input type="hidden" class="wid" value="${ wnr.rid }">
+										
 										<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
 										<button type="button" class="deleteBtn" name="deleteBtn">삭제하기</button>
 									</div>
@@ -1036,7 +1037,7 @@ input[type=checkbox]:checked + label:before{
 							}
 						});
 						
-						var gradeType = ${ gradeType1 };
+						var gradeType = 1;
 						console.log(gradeType);
 						$.ajax({
 							url:"selectBestWnList.wn",
@@ -1052,7 +1053,7 @@ input[type=checkbox]:checked + label:before{
 									var bestTitle = $('<td  class="bestTitle">').text(data.list[i].wTitle);
 									var bestGenre = $('<td class="bestGenre">').text('장르 - ' + data.list[i].genreExplain);
 									var stpAvg = data.list[i].spAvg;
-									var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+									var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 									var bestSpTd = $('<td class="bestSp">');
 									
 									var bestSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
@@ -1091,7 +1092,10 @@ input[type=checkbox]:checked + label:before{
 								
 								$('.wnBestArea').find($(".bestWn")).on('click',function(){
 									var wid = $(this).children().last().children().children('input').val();
-									location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType="+${ wn.gradeType };
+									var authorId = $(this).children().last().children().children('input').eq(1).val();
+									console.log(wid);
+									console.log(authorId);
+									location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=1'+'&authorId='+authorId;
 								});
 								
 							},
@@ -1164,6 +1168,9 @@ input[type=checkbox]:checked + label:before{
 	<script>
 		function attentionId(){
 			alert("이미 관심작품을 하셨습니다.");
+		}
+		function attentionAuthor(){
+			alert("이미 관심작가 등록을 하셨습니다.");
 		}
 		function fisrtWnr(){
 			$('.wnrListArea').find('td').children('p').click(function(){

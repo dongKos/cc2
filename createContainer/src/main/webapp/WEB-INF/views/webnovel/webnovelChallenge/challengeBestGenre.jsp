@@ -43,7 +43,7 @@
 						var recommendTitle = $('<td  class="recommendTitle">').text(data.list[i].wTitle);
 						var recommendGenre = $('<td class="recommendGenre">').text('장르 - ' + data.list[i].genreExplain);
 						var stpAvg = data.list[i].spAvg;
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						var recommendSp = $('<td class="recommendSp">');
 						var nickname = $('<td class="recommendNickname">').text(data.list[i].nickname + ' 작가');
 						var recommendSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
@@ -94,7 +94,8 @@
 						$rPagingBtn.append('<button class="piRbtn" onclick="rPaging('+ (currentPage + 1) + ')">></button>');
 						$('.recommendGenreArea').find($(".recommendWn")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
-							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
+							var authorId = $(this).children().last().children().children('input').eq(1).val();
+							location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=1'+'&authorId='+authorId;
 						});
 					}
 				},
@@ -137,7 +138,7 @@
 						var recommendTitle = $('<td  class="recommendTitle">').text(data.list[i].wTitle);
 						var recommendGenre = $('<td class="recommendGenre">').text('장르 - ' + data.list[i].genreExplain);
 						var stpAvg = data.list[i].spAvg;
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						var recommendSp = $('<td class="recommendSp">');
 						var nickname = $('<td class="recommendNickname">').text(data.list[i].nickname + ' 작가');
 						var recommendSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
@@ -186,7 +187,8 @@
 						$rPagingBtn.append('<button class="piRbtn" onclick="rPaging('+ (currentPage + 1) + ')">></button>');
 						$('.recommendGenreArea').find($(".recommendWn")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
-							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
+							var authorId = $(this).children().last().children().children('input').eq(1).val();
+							location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=1'+'&authorId='+authorId;
 						});
 					}
 				},
@@ -230,7 +232,7 @@
 						var recommendTitle = $('<td  class="recommendTitle">').text(data.list[i].wTitle);
 						var recommendGenre = $('<td class="recommendGenre">').text('장르 - ' + data.list[i].genreExplain);
 						var stpAvg = data.list[i].spAvg;
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						var recommendSp = $('<td class="recommendSp">');
 						var nickname = $('<td class="recommendNickname">').text(data.list[i].nickname + ' 작가');
 						var recommendSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
@@ -286,7 +288,8 @@
 						}
 						$('.recommendGenreArea').find($(".recommendWn")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
-							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=1";
+							var authorId = $(this).children().last().children().children('input').eq(1).val();
+							location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=1'+'&authorId='+authorId;
 						});
 					}
 				},

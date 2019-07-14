@@ -1,5 +1,8 @@
 package com.kh.cc.member.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.member.model.dao.MemberDao;
 import com.kh.cc.member.model.exception.LoginException;
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.Webnovel;
+import com.kh.cc.webnovel.model.vo.WebnovelPageInfo;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -40,6 +45,14 @@ public class MemberServiceImpl implements MemberService{
 		}
 		
 		return loginUser;
+	}
+	@Override
+	public int selectCheckId(Member m) {
+		return md.selectCheckId(sqlSession, m);
+	}
+	@Override
+	public int duplicationCheckNick(Member m) {
+		return md.duplicationCheckNick(sqlSession, m);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.kh.cc.member.model.vo.Member;
+import com.kh.cc.webnovel.model.vo.AttentionAuthor;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -100,4 +101,9 @@ public interface WebnovelService {
 	Member loginMember(Member m);
 	//상세보기 페이징 유료작품 구분
 	WebnovelRound selectCheckWnr(WebnovelRound wnr);
+	//관심 작가 등록
+	int insertAttentionAuthor(AttentionAuthor aa);
+	//관심 작가 정보
+	AttentionAuthor selectAttionAuthor(AttentionAuthor aa);
+	ArrayList<HashMap<String, Object>> selectmainNotice();
 }

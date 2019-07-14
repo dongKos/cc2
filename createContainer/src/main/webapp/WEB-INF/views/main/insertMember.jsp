@@ -36,7 +36,7 @@
 			<div class="signUpBox">
 				<label><span class="star">*</span>아이디</label>
 				<input class="insertInput" type="text" name="userId" placeholder="아이디를 입력해주세요." maxlength="20" autofocus required>
-				<button class="dcBtn" type="button" onclick="return duplicationCheckId()">중복확인</button><br><br><br>
+				<label class="control-label " id="userIdResult"></label><br><br><br>
 				
 				<label><span class="star">*</span>비밀번호</label>
 				<input class="password" id="password" type="password" name="userPwd" placeholder="비밀번호를 입력해주세요." maxlength="20" required>
@@ -48,7 +48,7 @@
 				
 				<label><span class="star">*</span>닉네임</label>
 				<input class="insertInput" type="tel" name="nickName" placeholder="닉네임을 입력해주세요." maxlength="20"  required>
-				<button class="dcBtn" type="button" onclick="return duplicationCheckNn()">중복확인</button><br><br><br>
+				<label class="control-label " id="nickNameResult"></label><br><br><br>
 				
 				<label><span class="star">*</span>전화번호</label>
 				<input class="insertInput" type="text" name="phone" placeholder="01012345678  ( - 를 제외하고 입력하세요.)" maxlength="20"  required><br><br>
@@ -86,7 +86,7 @@
 			
 			<br>
 			<div class="divBox">
-				<button id="submit" class="signUpBtn signUp">회원가입</button>
+				<button id="submit" onsubmit="return check()" class="signUpBtn signUp">회원가입</button>
 			</div>
 		</form>
 	</div>
@@ -94,7 +94,48 @@
 	
 	
 	<script>
+		$(".signUpBtn").on("click", function(){
+			var userId = $("input[name=userId]").val();
+			var userPwd = $("input[name=userPwd]").val();
+			var userPwd2 = $("input[name=userPwd2]").val();
+			var userName = $("input[name=userName]").val();
+			var nickName = $("input[name=nickName]").val();
+			var phone = $("input[name=phone]").val();
+			var email = $("input[name=email]").val();
+			if(userId==""){
+				alert("아이디를 입력하세요.");
+				return false;
+			}else if(userPwd==""){
+				alert("비밀번호를 입력하세요.");
+				return false;
+			}else if(userPwd2==""){
+				alert("비밀번호확인를 입력하세요.");
+				return false;
+			}else if(userName==""){
+				alert("이름을 입력하세요.");
+				return false;
+			}else if(nickName==""){
+				alert("닉네임을 입력하세요.");
+				return false;
+			}else if(phone==""){
+				alert("전화번호를 입력하세요.");
+				return false;
+			}else if(email==""){
+				alert("이메일 입력하세요.");
+				return false;
+			}else if($("input:checkbox[id=cb2]").is(":checked") == false){
+	    		alert("이용약관 동의 확인");
+	    		return false;
+	    	}else if($("input:checkbox[id=cb3]").is(":checked") == false){
+	    		alert("개인정보 취급방침 동의 확인");
+	    		return false;
+	    	}
+		});
+		
 		$(function(){
+			
+			
+			
 		    $("#cb1").click(function(){
 		        var chk = $(this).is(":checked");//.attr('checked');
 		        if(chk) $(".subCheck").prop('checked', true);
@@ -102,15 +143,51 @@
 		    });
 		    
 		    $(".signUp").click(function(){
-		    	if($("input:checkbox[id=cb2]").is(":checked") == false){
-		    		alert("이용약관 동의 확인");
-		    	}
-		    	if($("input:checkbox[id=cb3]").is(":checked") == false){
-		    		alert("개인정보 취급방침 동의 확인");
-		    	}
+		    	
 		    });
 		});
 		
+		$("input[name=userId]").change(function(){
+			var userId = $("input[name=userId]").val();
+			$.ajax({
+				url:"duplicationCheck.me",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					if(data > 0){
+						$("#userIdResult").text("사용 불가능한 아이디 입니다.").css("color", "#FCACAC");
+					}else if(data == 0){
+						$("#userIdResult").text("사용 가능한 아이디 입니다.").css("color", "#45A5FA");
+					}
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+		});
+		$("input[name=nickName]").change(function(){
+			var nickName = $("input[name=nickName]").val();
+			console.log("젠장");
+			$.ajax({
+				url:"duplicationCheckNick.me",
+				type:"post",
+				data:{nickName:nickName},
+				success:function(data){
+					console.log(data);
+					if(data > 0){
+						console.log(data);
+						$("#nickNameResult").text("사용 불가능한 닉네임 입니다.").css("color", "#FCACAC");
+					}else if(data == 0){
+						console.log(data);
+						$("#nickNameResult").text("사용 가능한 닉네임 입니다.").css("color", "#45A5FA");
+					}
+				},
+				error:function(status){
+					alert(status);
+				}
+			});
+		});
+	
 		
 		
 		$("#password2").change(function(){

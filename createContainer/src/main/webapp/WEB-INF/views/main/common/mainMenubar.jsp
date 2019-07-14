@@ -18,38 +18,39 @@
 		height:60px !important;
 	}
 	.navbar{
-		background:#9ED7F8;
+		background:#2c3e50;
 		height:60px !important;
 	}
 	.navbar-nav{
 		margin-top:5px;
 		font-size:15px;
-		background:#9ED7F8;
+		background:#2c3e50;
 	}
 	.navbar-header{
-		background:#9ED7F8;
+		background:#2c3e50;
 	}
 	.navbar-nav li>a{
 		color:white !important;
 	}
 	.navbar-nav li>a:hover{
-		color:gray !important;
-		background: linear-gradient( to bottom, transparent, #84CEFA  );
+		color:skyblue !important;
+		background: #2c3e50;
 		border-radius:5px;
 	}
 	.navbar-collapse {
-	    background: #9ED7F8;
+	    background: #2c3e50;
 	    padding-right:20px !important;
 	}
 	.navbar-toggle{
 		margin-top:13px;
+		height: 35px;
 	}
 	.navbar-default .navbar-toggle {
-		background-color:#9ED7F8 !important;
+		background-color:#2c3e50;
 	    border-color: white;
 	}
 	.navbar-toggle:hover {
-    	background-color: #84CEFA  !important;
+    	background-color: #2c3e50 !important;
 	}
 	.icon-bar{
 		background-color:gray !important;
@@ -72,9 +73,9 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
+				<li><a href="#mainMenubar">SERVICES</a></li>
+				<li><a href="#notice">NOTICE</a></li>
 				<li><a href="#about">ABOUT</a></li>
-				<li><a href="#services">SERVICES</a></li>
-				<li><a href="NoticeList.mg">BOARD</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->
