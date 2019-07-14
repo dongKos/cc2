@@ -158,5 +158,7 @@ public interface AdminDao {
 
 	ArrayList<Integer> selectIllAvg(SqlSessionTemplate sqlSession);
 
+	int respondOto(SqlSessionTemplate sqlSession, HashMap<String, Object> hmap);
+
 
 }

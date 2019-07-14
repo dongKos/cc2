@@ -32,7 +32,12 @@
 	
 	//답변하기
 	function respond(){
-		console.log("답변!");
+		var respond = $("#respond").val();
+		var bId = "<c:out value='${b.bId}'/>";
+		console.log(respond);
+		console.log(bId);
+		location.href="respondOto.ad?respond=" + respond + "&bId=" + bId; 
+		
 	}
 	
 	//공지사항 수정

@@ -226,7 +226,7 @@ public class AdminController {
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Member> list = as.selectBoardList(pi);
-		
+		System.out.println("list : " + list);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -800,6 +800,25 @@ public class AdminController {
 		
 		as.noticeChange(bId, bContent);
 		
+		return "redirect:showBoard.ad";
+	}
+	
+	//1:1문의 답변해주기
+	@RequestMapping("respondOto.ad")
+	public String respondOto(HttpServletRequest request, Model model) {
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		String respond = request.getParameter("respond");
+		
+		System.out.println("bid : " + bId);
+		System.out.println("respond : " + respond);
+		
+		HashMap<String, Object> hmap = new HashMap<String, Object>();
+		hmap.put("bId", bId);
+		hmap.put("respond", respond);
+		
+		int result = as.respondOto(hmap);
+		
+		System.out.println("result : " + result);
 		return "redirect:showBoard.ad";
 	}
 }
