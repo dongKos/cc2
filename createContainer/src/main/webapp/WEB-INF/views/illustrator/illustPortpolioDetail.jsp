@@ -115,7 +115,7 @@ h2 {
 									style="text-decoration: none">로그인</a> 후 사용 가능합니다.
 							</p>
 						</c:if>
-						<c:if test="${ sessionScope.loginUser.userId != null }">
+						<c:if test="${ sessionScope.loginUser.userId != null}">
 							<button type="button" class="btn"
 								onclick="updateRecommendCount();"
 								style="background: #f5d142; color: white; display: inline-block; font-size: 12px; width: 100%">추천하기</button>

@@ -64,9 +64,17 @@
 
       <!-- Portfolio Section Heading -->
       <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">포트폴리오</h2>
-      <div style="width:100%; height:auto;">
-      <button type="button"; class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">글등록</button>
-      </div>
+      <c:choose>
+      	<c:when test="${ sessionScope.loginUser.userId != null && sessionScope.loginUser.memberType == 2}">
+      	<div style="width:100%; height:auto;">
+      		<button type="button"; class="btn btn-warning" onclick="portfolioWrite()" style="font-size:18px; color:black; font-weight:middle; font-family: 'Nanum Gothic', sans-serif; align:right">글등록</button>
+      	</div>
+      	</c:when>
+      <c:otherwise>
+      	<p>글등록은 프리미엄 작가부터 가능합니다.</p>
+      </c:otherwise>
+      </c:choose>
+	 
       <!-- Icon Divider -->
       <div class="divider-custom">
         <div class="divider-custom-line"></div>

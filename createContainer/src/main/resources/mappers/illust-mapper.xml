@@ -134,8 +134,7 @@
 		FROM MEMBER M
         JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
 		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
-		WHERE ILL.USER_ID = #{ userId }
-        AND ILL.ILL_CODE = #{ illCode }
+        WHERE ILL.ILL_CODE = #{ illCode }
 		AND ILL.ILL_TYPE = 'pri'
 	</select>
 	
