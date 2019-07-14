@@ -227,6 +227,8 @@ public class AdminController {
 		
 		ArrayList<Member> list = as.selectBoardList(pi);
 		
+		System.out.println("list : " + list);
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

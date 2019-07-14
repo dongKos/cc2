@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.AttentionAuthor;
+import com.kh.cc.webnovel.model.vo.Board;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -375,12 +376,23 @@ public class WebnovelDaoImpl implements WebnovelDao{
 		return sqlSession.selectOne("Webnovel.selectAttionAuthor", aa);
 	}
 	@Override
-	public ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession) {
+	public ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession, WebnovelPageInfo pi) {
 		ArrayList<HashMap<String, Object>> list = null;
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
 		
-		list = (ArrayList) sqlSession.selectList("Webnovel.selectMainNotice");
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+		
+		list = (ArrayList) sqlSession.selectList("Webnovel.selectMainNotice", pi.getLimit(), rowBounds);
 		
 		return list;
+	}
+	@Override
+	public Board selectDetailedNotice(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.selectOne("Webnovel.selectDetailedNotice", bId);
+	}
+	@Override
+	public int selectmainNoticeCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("Webnovel.selectmainNoticeCount");
 	}
 	
 }

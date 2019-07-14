@@ -18,16 +18,16 @@
 		height:60px !important;
 	}
 	.navbar{
-		background:#9ED7F8;
+		background:#2c3e50;
 		height:60px !important;
 	}
 	.navbar-nav{
 		margin-top:5px;
 		font-size:15px;
-		background:#9ED7F8;
+		background:#2c3e50;
 	}
 	.navbar-header{
-		background:#9ED7F8;
+		background:#2c3e50;
 	}
 	.navbar-nav li>a{
 		color:white !important;
@@ -38,7 +38,7 @@
 		border-radius:5px;
 	}
 	.navbar-collapse {
-	    background: #9ED7F8;
+	    background: #2c3e50;
 	    padding-right:20px !important;
 	}
 	.navbar-toggle{
@@ -72,10 +72,10 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#about">WEBTOON</a></li>
-				<li><a href="#services">WEBNOVEL</a></li>
-				<li><a href="#BOARD">ILLUSTRATION</a></li>
-			</ul>
+            <li><a href="webtoonMain.wt">웹툰</a></li>
+            <li><a href="webnovelMain.wn">웹소설</a></li>
+            <li><a href="illustMain.ill">일러스트</a></li>
+         </ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->
 				<c:if test="${ empty sessionScope.loginUser }">

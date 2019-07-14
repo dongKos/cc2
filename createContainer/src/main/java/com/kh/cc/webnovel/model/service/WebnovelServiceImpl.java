@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.dao.WebnovelDao;
 import com.kh.cc.webnovel.model.vo.AttentionAuthor;
+import com.kh.cc.webnovel.model.vo.Board;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -339,8 +340,16 @@ public class WebnovelServiceImpl implements WebnovelService{
 		return  wd.selectAttionAuthor(sqlSession, aa);
 	}
 	@Override
-	public ArrayList<HashMap<String, Object>> selectmainNotice() {
-		return wd.selectmainNotice(sqlSession);
+	public ArrayList<HashMap<String, Object>> selectmainNotice(WebnovelPageInfo pi) {
+		return wd.selectmainNotice(sqlSession, pi);
+	}
+	@Override
+	public Board selectDetailedNotice(int bId) {
+		return wd.selectDetailedNotice(sqlSession, bId);
+	}
+	@Override
+	public int selectmainNoticeCount() {
+		return wd.selectmainNoticeCount(sqlSession);
 	}
 	
 	

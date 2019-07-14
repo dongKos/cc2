@@ -26,22 +26,29 @@
 			}
 			.noticeArea{
 				text-align:center;
-				padding:20px;
 				background-color:black;
-				cursor:pointer;
+			}
+			.noticeImg:hover{
+				transform:scale(1.05);
+				transform:all 1s ease-in-out;
+				transition-duration: 1s;
 			}
 			.noticeTable tr td{
+				cursor:pointer;
 				background:white;
-				line-height:40px  !important;
+				line-height:25px  !important;
 			}
 			.noticeTitle{
 				margin-bottom:30px;
 				color:white;
 			}
-			.noticeTable:hover{
+			.noticeTable tr:hover{
 				cursor:pointer;
 				transform:scale(1.01);
 				transition-duration: 1s;
+			}
+			.noticeTable tr>td{
+				border:1px solid lightgray;
 			}
 			.titleTd{
 				font-size:18px;
@@ -69,8 +76,8 @@
 	<body style="background:white;">
 	<div>
 	<c:if test="${sessionScope.loginUser.memberType eq 3 }">
-	<jsp:forward page="../admin/adminMain.jsp"/>
-</c:if>
+		<c:redirect url="adminMain.ad"></c:redirect>
+	</c:if>
 	<jsp:include page="common/mainMenubar.jsp"/>
 	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
 	</div>
@@ -130,6 +137,7 @@
 								</div>
 							</div>
 						</div>
+					<div id="service"></div>
 					</section>
 
 				<!-- Three -->
@@ -155,10 +163,13 @@
 								<h3>ILLUSTRATION</h3>
 								<p>당신만의 독특한 그림체가 필요합니다.<br>뛰어난 그림 솜씨를 알리고 싶으신가요?<br>일러스트 포트폴리오에 프로필을 올려 의뢰를 받고 독자에게 전달 해 주세요. 정말 멋진 일이에요.</p>
 							</div>
+							<div id="notice"></div>
 						</div>					
-						
+						<br><br>
 						<div class="noticeArea">
-							<h3 class="noticeTitle">NOTICE</h3>
+							<div class="image fit flush">
+								<img class="noticeImg" src="${contextPath }/resources/images/notice.jpg" alt="" />
+							</div>
 							<table class="noticeTable">
 								<tr>
 									<td class="titleTd" width="80">No.</td>
@@ -167,7 +178,11 @@
 									<td class="titleTd" width="120">등록일</td>
 								</tr>
 								<tbody class="bTbody"></tbody>
-							</table>	
+							</table>
+							<div id="npagingArea" align="center">
+								<ul class="pagination" id="nPaging">
+								</ul>
+							</div>
 						</div>
 					</section>
 
@@ -246,16 +261,13 @@
 					location.href='illustMain.ill';
 				})
 				$("#wt").click(function(){
-					location.href='webtoonMain.wt';
+					location.href='webtoonTop5.wt';
 				})
 				$("#wn").click(function(){
 					location.href='webnovelMain.wn';
 				})
 			</script>
 			<script>
-				$('.noticeTable').on('click',function(){
-					location.href='NoticeList.mg';
-				});
 				Date.prototype.format = function(f) {
 				    if (!this.valueOf()) return " ";
 				 
@@ -284,11 +296,15 @@
 				Number.prototype.zf = function(len){return this.toString().zf(len);};
 				
 				$(document).ready(function(){
+					var currentPage=1;
 					$.ajax({
 						url:"selectmainNotice.wn",
 						type:"get",
-						data:{},
+						data:{currentPage:currentPage},
 						success:function(data){
+							$("#pagingArea").append(
+									
+							);
 							for(var i = 0; i < data.list.length; i++){
 								var updateDate = new Date(data.list[i].updateDate).format("yyyy-MM-dd");
 								var category = '';
@@ -301,9 +317,9 @@
 								}else if(data.list[i].subCategory == 'ETC'){
 									category = '기타';
 								}
-								
+								//'<tr onclick=location.href="showBoardDetail.ad?bId="'+ data.list[i].bId + '' + 
 								$(".bTbody").append(
-									'<tr>' + 
+									'<tr onclick="detailNotice('+data.list[i].bId+')">' + 
 										'<td>' + (i+1) + '</td>' +
 										'<td>' + data.list[i].bTitle + '</td>' +
 										'<td>' + category + '</td>' +
@@ -311,15 +327,51 @@
 									'</tr>'
 								);
 								
+								
+								
+								
 							}
-							console.log(updateDate);
-							console.log(data);
+							
+							$paging = $("#nPaging");
+							$paging.html('');
+							var currentPage = data.pi.currentPage;
+							var startPage = data.pi.startPage;
+							var endPage = data.pi.endPage;
+							var maxPage = data.pi.maxPage;
+							var wnGenre = '"'+genre+'"';
+						         
+							//이전
+							if(currentPage <= 1){
+								$paging.append("<li class='page-item'><a class='page-link'>이전</a></li>");
+							}else{
+								$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage -1) + ")'>이전</a></li>");
+							}
+							
+							//숫자
+							for(var i = startPage; i <= endPage; i++){
+								if(i == currentPage){
+									$paging.append("<li class='page-item'><a class='page-link'>" + i + "</a></li>");
+								}else{
+									$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ i + ")'>" + i + "</a></li>");
+								}
+							}
+							
+							//다음
+							if(currentPage >= maxPage){
+								$paging.append("<li class='page-item'><a class='page-link'>다음</a></li>");
+							}else{
+								$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage + 1) + ")'>다음</a></li>");
+							}
+							
 						},
 						error:function(status){
 							alert(status);
 						}
 					});	
 				});
+				function detailNotice(bid){
+					location.href='selectDetailedNotice.wn?bId='+ bid;
+				}
 	
 			</script>
 

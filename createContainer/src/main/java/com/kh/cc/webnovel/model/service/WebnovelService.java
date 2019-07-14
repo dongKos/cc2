@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.AttentionAuthor;
+import com.kh.cc.webnovel.model.vo.Board;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -105,5 +106,7 @@ public interface WebnovelService {
 	int insertAttentionAuthor(AttentionAuthor aa);
 	//관심 작가 정보
 	AttentionAuthor selectAttionAuthor(AttentionAuthor aa);
-	ArrayList<HashMap<String, Object>> selectmainNotice();
+	ArrayList<HashMap<String, Object>> selectmainNotice(WebnovelPageInfo pi);
+	Board selectDetailedNotice(int bId);
+	int selectmainNoticeCount();
 }

@@ -10,7 +10,7 @@
 	margin-top:0px;
 	text-align: center;
 	border-bottom:1px solid #E0E0E0;
-	/* background-color:#F0F0F0; */
+	background-color: #2c3e50;
 }
 .genreMenu{
 	margin:0 auto;
@@ -20,7 +20,7 @@
 	width:100px;
 	font-weight:bold;
 	font-size:13px;
-	color:gray;
+	color:white;
 }
 .genreItem:hover{
 	cursor:pointer;

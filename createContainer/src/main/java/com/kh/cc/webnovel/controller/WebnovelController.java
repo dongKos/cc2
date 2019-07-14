@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
@@ -28,6 +29,7 @@ import com.kh.cc.member.model.service.MemberService;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.service.WebnovelService;
 import com.kh.cc.webnovel.model.vo.AttentionAuthor;
+import com.kh.cc.webnovel.model.vo.Board;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -944,14 +946,35 @@ public class WebnovelController {
 	//메인 공지사항 리스트
 	@RequestMapping(value="selectmainNotice.wn")
 	public ResponseEntity<HashMap<String, Object>> selectmainNotice(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
+		int buttonCount = 10;
+		int currentPage = 1;
+		int limit = 5;
 		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int listCount = ws.selectmainNoticeCount();
 		
-		ArrayList<HashMap<String, Object>> list = ws.selectmainNotice();
+		WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectmainNotice(pi);
 		HashMap<String, Object> wnList = new HashMap<String, Object>();
 		
 		wnList.put("list", list);
+		wnList.put("pi", pi);
 		
 		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
+	//메인 공지사항 상세페이지
+	@RequestMapping("selectDetailedNotice.wn")
+	public String selectDetailedNotice(@ModelAttribute Member m, HttpServletRequest request, HttpServletResponse response, Model model) {
+		int bId = Integer.parseInt(request.getParameter("bId"));
+		Board board = new Board();
+		board = ws.selectDetailedNotice(bId);
+		
+		model.addAttribute("board", board);
+		
+		return "main/selectDetailedNotice";
 	}
 
 	
