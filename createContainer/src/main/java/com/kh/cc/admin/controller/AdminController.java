@@ -226,7 +226,7 @@ public class AdminController {
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Member> list = as.selectBoardList(pi);
-		System.out.println("list : " + list);
+
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		

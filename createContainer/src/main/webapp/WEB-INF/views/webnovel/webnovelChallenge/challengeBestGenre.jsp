@@ -185,6 +185,8 @@
 						$rPagingBtn.append('<button class="piRbtn" onclick="rPaging('+ (maxPage) + ')"><</button>');
 						//다음
 						$rPagingBtn.append('<button class="piRbtn" onclick="rPaging('+ (currentPage + 1) + ')">></button>');
+						
+						
 						$('.recommendGenreArea').find($(".recommendWn")).on('click',function(){
 							var wid = $(this).children().last().children().children('input').val();
 							var authorId = $(this).children().last().children().children('input').eq(1).val();

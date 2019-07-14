@@ -67,15 +67,15 @@
 				<span class="icon-bar"></span> 
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#mainMenubar"> 
+			<a class="navbar-brand" href="${ contextPath }/mainHome.me"> 
 				<img class="mainLogo" src="${ contextPath }/resources/images/logo.png">
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="#mainMenubar">SERVICES</a></li>
+				<li><a href="#mainMenubar">ABOUT</a></li>
+				<li><a href="#service">SERVICE</a></li>
 				<li><a href="#notice">NOTICE</a></li>
-				<li><a href="#about">ABOUT</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<!-- 로그인 비활성화 상태 -->

@@ -61,7 +61,7 @@
 					$(".recommendGenreArea").remove();
 					$(".challengeList").append(
 							'<p class="challengeMenu">장르별 도전 작품</p>'+
-							'<div class="wnListArea"></div><div id="npagingArea" align="center"><ul class="pagination" id="nPaging"></ul></div>'		
+							'<div class="wnListArea"></div>nPaging'		
 					);
 					for(var i = 0; i < data.list.length; i++){
 						console.log(data.list[i].spAvg + "fsda");
@@ -113,13 +113,11 @@
 					var startPage = data.pi.startPage;
 					var endPage = data.pi.endPage;
 					var maxPage = data.pi.maxPage;
-					var wnGenre = '"'+genre+'"';
-				         
 					//이전
 					if(currentPage <= 1){
 						$paging.append("<li class='page-item'><a class='page-link'>이전</a></li>");
 					}else{
-						$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage -1) + ")'>이전</a></li>");
+						$paging.append("<li class='page-item'><a class='page-link' >이전</a></li>");
 					}
 					
 					//숫자
@@ -127,7 +125,7 @@
 						if(i == currentPage){
 							$paging.append("<li class='page-item'><a class='page-link'>" + i + "</a></li>");
 						}else{
-							$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ i + ")'>" + i + "</a></li>");
+							$paging.append("<li class='page-item'><a class='page-link'>" + i + "</a></li>");
 						}
 					}
 					
@@ -135,7 +133,7 @@
 					if(currentPage >= maxPage){
 						$paging.append("<li class='page-item'><a class='page-link'>다음</a></li>");
 					}else{
-						$paging.append("<li class='page-item'><a class='page-link' onclick='genreMenu("+ wnGenre +', '+ (currentPage + 1) + ")'>다음</a></li>");
+						$paging.append("<li class='page-item'><a class='page-link'");
 					}
 					
 					

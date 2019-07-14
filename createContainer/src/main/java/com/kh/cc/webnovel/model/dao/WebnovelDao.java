@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.vo.AttentionAuthor;
+import com.kh.cc.webnovel.model.vo.Board;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -123,7 +124,9 @@ public interface WebnovelDao {
 	int insertAttentionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa);
 	//관심작가정보
 	AttentionAuthor selectAttionAuthor(SqlSessionTemplate sqlSession, AttentionAuthor aa);
-	ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession);
+	ArrayList<HashMap<String, Object>> selectmainNotice(SqlSessionTemplate sqlSession, WebnovelPageInfo pi);
+	Board selectDetailedNotice(SqlSessionTemplate sqlSession, int bId);
+	int selectmainNoticeCount(SqlSessionTemplate sqlSession);
 	
 	
 }

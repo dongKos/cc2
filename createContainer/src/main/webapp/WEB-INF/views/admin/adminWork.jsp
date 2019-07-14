@@ -234,8 +234,10 @@
 	}
 	//상세보기 페이지 이동
 	function trClick(num){
-		console.log(num);
-	};
+		var wid = num;
+	}
+	
+	
 </script>
 </head>
 
@@ -287,6 +289,7 @@
                                         <tbody>
                                         	<c:forEach var="w" items="${list }">
                                         		<tr onclick="trClick(${w.wid})">
+                                        			<td style="display: none;"> ${w.wid }</td>
 	                                                <td>${w.userId }</td>
 	                                                <td>${w.wTitle }</td>
 	                                                <c:if test="${w.workType eq 'WT' }">

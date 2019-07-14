@@ -426,6 +426,7 @@
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
 		WHERE A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.GRADE_TYPE = 1
+		AND W.WORK_TYPE = 'WT'
 	</select>
 
 	<select id="challengeList" resultMap="webtoonResultSet">
@@ -434,6 +435,7 @@
 		JOIN ATTACHMENT A ON(W.WID = A.WID)
 		WHERE A.ATTACHMENT_CATEGORY = 'ma'
 		AND W.GRADE_TYPE = 1
+		AND W.WORK_TYPE = 'WT'
 	</select>
 	
 	<!-- 웹툰 도전/프리미엄 장르 목록 카운트 -->
