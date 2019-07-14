@@ -67,7 +67,6 @@
 			<li id="menuTitle">작가페이지</li>
 			<li><button class="btn btn-primary" onclick="goWriteMyWt();">My 웹툰</button></li>
             <li><button class="btn btn-primary" onclick="goWriteMyNo()">My 웹소설</button></li>
-         	<li><button class="btn btn-primary" onclick="goAdministration();">정산 관리</button></li>
          	<li><button class="btn btn-primary" onclick="goSupport();">후원 신청</button></li>
 			<li><button class="btn btn-primary" onclick="gowriterProfile()">작가 프로필</button></li>
 			<li><button class="btn btn-primary" onclick="goReqPremium();">유료 작품 신청</button></li>
