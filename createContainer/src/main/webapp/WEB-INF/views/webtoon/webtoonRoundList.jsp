@@ -191,6 +191,40 @@ p{
 	width:50%;
 	height:50%;
 }
+
+.reportTable{
+	margin:0 auto;
+	width:90%;
+}
+.reportRe{
+	width:150px;
+	
+}
+.reportContents{
+	padding-top:20px;
+}
+.reportCa{
+	text-align:right;
+	height:50px;
+	border-bottom:1px solid lightgray;
+}
+.reportSelect{
+	width:120px;
+}
+.reportTextArea{
+	background-color:white;
+	padding:10px 10px 10px 10px;
+	width:100%;
+    height:140px;
+    border:1px solid skyblue;
+    border-radius: 10px;
+}
+.reportText{
+	width:100%;
+	height:100px;
+	border:none;
+	resize:none;
+}
 </style>
 </head>
 <body>
@@ -239,6 +273,9 @@ p{
 							<td colspan="2">
 							<!-- 로그인 유저가 작가의 아이랑 동일 할경우 -->
 							
+							
+							
+							<c:if test="${ !empty sessionScope.loginUser}">
 								<c:if test="${ loginUser.userId eq wt.userId}">
 									<button class="wnrBtn" type="button" onclick="location.href='insertRoundFrom.wt?wid=' + ${wt.wid}">신규 회차 등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='workUpdateForm.wt?wid=' + ${wt.wid}">작품 정보 수정</button>
@@ -248,20 +285,89 @@ p{
 								<c:if test="${loginUser.userId ne wt.userId }">
 									<button class="wnrBtn" type="button" id="nullUser">관심작품등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
-									<button class="wnrBtn" type="button" id="nullUser1" >작품 신고</button>
+									<button class="wnrBtn" type="button" id="nullUser1" data-toggle="modal" data-target="#myModal1" >작품 신고</button>
 									<input type="hidden" value="${wt.wid }"/>
 								</c:if>
-								
-								<c:if test="${ sessionScope.loginUser == null}">
+							</c:if>	
+								<c:if test="${ empty sessionScope.loginUser}">
 									<button class="wnrBtn" type="button" id="nullUser2">관심작품등록</button>
 									<button class="wnrBtn" type="button" onclick="location.href='anthorWork.wt?wid=' + ${wt.wid}">다른작품보기</button>
-									<button class="wnrBtn" type="button" id="nullUser3" >작품 신고</button>
+									<button class="wnrBtn" type="button" id="nullUser3">작품 신고</button>
 								</c:if>
 								
 							</td>
 						</tr>
 					</table>
 				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				<div class="modal fade" id="myModal1" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">신고하기</h4>
+							</div>
+							<div class="modal-body">
+								<table class="reportTable">
+									<tr>
+										<td class="reportCa" colspan="2">
+											신고유형 &nbsp;
+											<select class="reportSelect" name="reportCategory">
+												<option value="RE_CTG1">욕설</option>
+												<option value="RE_CTG2">비방</option>
+												<option value="RE_CTG3">인격모독</option>
+												<option value="RE_CTG4">저작권침해</option>
+												<option value="RE_CTG5">명예회손</option>
+												<option value="RE_CTG6">청소년유해</option>
+												<option value="RE_CTG7">불법음란</option>
+												<option value="RE_CTG8">기타</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td class="reportRe">
+											신고사유
+										</td>
+										<td class="reportContents">
+											<div class="reportTextArea">
+												<textarea class="reportText" name="reportText" cols="25" rows="20" placeholder="내용을 입력하세요."></textarea>
+												<p class="cntrArea"><span class="cntrText">0 </span>/ 500</p>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="cancleBtn" data-dismiss="modal">취소하기</button>
+								<button type="button" class="insertStarP" onclick="insertWorkReport()">신고하기</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				 <input type="hidden" name="wid" value="${wt.wid }">
 				<div class="wnrListArea">
 					<c:forEach var="wtr" items="${ list }" varStatus="status">
@@ -274,8 +380,7 @@ p{
 									<img src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
 								</c:if> --%>
 										<%-- <c:if test="${ workStatus eq 'COMPLTE'}"> --%>
-										<img class="roundThumbnail"
-											src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
+										<img class="roundThumbnail" src="${ contextPath }/resources/uploadFiles/webtoonSub/${ wtr.changeName }">
 										<%-- </c:if> --%>
 									</div>
 								</td>
@@ -324,7 +429,9 @@ p{
 							</div>
 						</div>
 					</c:forEach>
+					
 					<script>
+					
 					$(function(){
 						$('.wnrListArea').find($("button[name=deleteBtn]")).click(function(){
 							var rid = $(this).parents().children("input").val();
@@ -350,24 +457,23 @@ p{
 							var rid = $(this).parents().parents().parents().parents()
 							.children("tr").children("td").children("input").val();
 							console.log(rid);
-							
+							console.log("test");
 							var wid = $(this).parents().parents().parents().
 							parents().parents().parents().children("input").val();
 							console.log("wid : " + wid);
-							
 							location.href = "contentView.wt?rid=" + rid + "&wid=" + wid;
+							
 						});
 						
 						$("#nullUser").click(function(){
 							var wid = $(this).siblings("input").val();
-							console.log("관심등록 성공!!")
+							alert("관심등록 성공!!")
 							location.href = "attention.wt?wid=" + wid;
 					
 							});
 
 						$("#nullUser1").click(function() {
 								//신고로 메소드로 갈예정
-								
 							});
 						
 						$("#nullUser2").click(function(){
@@ -379,7 +485,49 @@ p{
 							alert("로그인이필요합니다")
 							location.href = "loginForm.me";	
 							});
+						
+						//작품신고 
+						$('.reportText').keyup(function(){
+							var inputLength=$(this).val().length;
+							var remain=0+inputLength;
+							
+							$('.cntrText').html(remain);
+							if(remain > 500){
+								console.log("500자 이상!");
+							 $('.cntrText').css('color','red');
+							}
 						});
+						
+						
+						//작품신고
+						
+					});
+				
+					function insertWorkReport(){
+					 	var reportType = 'WORK';
+						var reportCategory = $(".reportSelect option:selected").val();
+						var status = 'wait';
+						var reportReason = $(".reportText").val();
+						var wid = ${ wt.wid };
+						console.log(reportType);
+						console.log(reportCategory);
+						console.log(status);
+						console.log(reportReason);
+						console.log(wid); 
+						
+						 $.ajax({
+							url:"insertWorkReport.wt",
+							type:"post",
+							data:{reportType:reportType, reportCategory:reportCategory,
+								  status:status, reportReason:reportReason, wid:wid},
+							success:function(data){
+								location.reload();
+							},
+							error:function(status){
+								alert(status);
+							}
+						}); 
+					}
 					</script>
 				</div>
 				
@@ -389,8 +537,8 @@ p{
 						[이전] &nbsp;
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="wnrListBack" value="/selectWnRoundList.wn?">
-							<c:param name="wid" value="${ wn.wid }"/>
+						<c:url var="wnrListBack" value="/contentView.wt?">
+							<c:param name="wid" value="${ wt.wid }"/>
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 						</c:url>
 						<a href="${ wnrListBack }">[이전]</a> &nbsp;
@@ -401,8 +549,8 @@ p{
 							<font color="red" size="4"><b>[${ p }]</b></font>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="wnrListCheck" value="/selectWnRoundList.wn">
-								<c:param name="wid" value="${ wn.wid }"/>
+							<c:url var="wnrListCheck" value="/contentView.wt">
+								<c:param name="wid" value="${ wt.wid }"/>
 								<c:param name="currentPage" value="${ p }"/>
 							</c:url>
 							<a href="${ wnrListCheck }">${ p }</a>
@@ -412,11 +560,12 @@ p{
 					<c:if test="${ pi.currentPage >= pi.maxPage }">
 						&nbsp; [다음]
 					</c:if>
+					
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="wnrListEnd" value="/selectWnRoundList.wn">
-							<c:param name="wid" value="${ wn.wid }"/>
+						<c:url var="wnrListEnd" value="/contentView.wt">
+							<c:param name="wid" value="${ wt.wid }"/>
 							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
-						</c:url>
+						</c:url>						
 						<a href="${ wnrListEnd }">&nbsp;[다음]</a>
 					</c:if>
 					
@@ -427,3 +576,18 @@ p{
 	</div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

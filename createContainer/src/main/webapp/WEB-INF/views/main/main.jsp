@@ -45,7 +45,7 @@
 		
 					<div class="carousel-inner">
 						<div class="item active">
-							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='webtoonMain.wt'" alt="웹툰 메인">
+							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='webtoonTop5.wt'" alt="웹툰 메인">
 						</div>
 						<div class="item">
 							<img class="noticeImg" src="${ contextPath }/resources/images/" onclick="location.href='webnovelMain.wn'" alt="웹소설 메인">

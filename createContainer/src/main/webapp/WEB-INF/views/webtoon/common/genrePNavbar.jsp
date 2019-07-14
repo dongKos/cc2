@@ -63,7 +63,7 @@
 	<div class="genreNav">
 		<table class="genreMenu">
 			<tr>
-				<td class="middleItem">추천</td>
+				<!-- <td class="middleItem" onClick="location.href='webtoonTop5.wt'">추천</td> -->
 				<td class="genreItem" id="2" onClick="genreMenu('GR_CTG1',2)">일상</td>
 				<td class="genreItem" id="3" onClick="genreMenu('GR_CTG2',2)">개그</td>
 				<td class="genreItem" id="4" onClick="genreMenu('GR_CTG3',2)">판타지</td>
@@ -78,7 +78,7 @@
 	<script>
 	function genreMenu(genre, currentPage){
 		var gradeType = 2;
-		
+		var currentPage = 1;
 		$.ajax({
 			url:"challengeGenre.wt",
 			type:"get",
@@ -86,8 +86,9 @@
 			success:function(data){
 				$("#middleTopCategory").remove();
 				$(".premium").children().remove();
+				$(".genreArea").children().remove();
 				$(".pagination").children().remove();
-				
+				$("#pagingArea").children().remove();
 				for(var i = 0; i < data.list.length; i++){
 					var genreArea = $(".genreArea");	
 					var genreTable =$('<table class="genreTable">');

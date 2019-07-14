@@ -9,7 +9,10 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonReply;
+import com.kh.cc.webtoon.model.vo.WebtoonReport;
 import com.kh.cc.webtoon.model.vo.WebtoonRound;
+import com.kh.cc.webtoon.model.vo.WebtoonStarPoint;
 
 public interface WebtoonDao {
 
@@ -110,6 +113,16 @@ public interface WebtoonDao {
 	int premiumListCount(SqlSessionTemplate sqlSession, Webtoon wt);
 
 	ArrayList<Webtoon> totalList(SqlSessionTemplate sqlSession, WebtoonPageInfo pi, Webtoon wt);
+
+	int insertWorkReport(SqlSessionTemplate sqlSession, WebtoonReport wtre);
+
+	int insertWebtoonReply(SqlSessionTemplate sqlSession, WebtoonReply wtReply);
+
+	int webtoonReplyListCount(SqlSessionTemplate sqlSession, WebtoonReply wtReply);
+
+	ArrayList<WebtoonReply> selectReplyList(SqlSessionTemplate sqlSession,  WebtoonPageInfo pi,WebtoonReply wtReply);
+
+	int insertStarPoint(SqlSessionTemplate sqlSession, WebtoonStarPoint wsp);
 
 
 
