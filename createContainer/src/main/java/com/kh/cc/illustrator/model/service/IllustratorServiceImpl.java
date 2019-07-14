@@ -90,6 +90,7 @@ public class IllustratorServiceImpl implements IllustratorService{
 	@Override
 	public ArrayList<Illustrator> selectIllPortfolioDetail(Illustrator ill) {
 		System.out.println("상세페이지 서비스로 넘어옴?");
+		System.out.println("포트폴리오 상세페이지 : " + ill);
 		
 		return id.selectIllPortfolioDetail(sqlSession, ill);
 	}

@@ -260,8 +260,7 @@ public class IllustratorController {
 	
 	//일러스트 포트폴리오 목록 조회
 	@RequestMapping(value="selectIllPortfolioList.ill")
-	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Member m, Model model) {
-		////System.out.println("컨트롤러 접근?");
+	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
 		
 		int currentPage = 1;
 		int limit = 5;
@@ -420,6 +419,8 @@ public class IllustratorController {
 			model.addAttribute("list", list);
 			model.addAttribute("blist", blist);
 			
+			System.out.println("포트폴리오 상세페이지 : " + list);
+			
 			
 			return "illustrator/illustPortpolioDetail";
 		}
@@ -432,6 +433,8 @@ public class IllustratorController {
 				String userId = m.getUserId();
 				ill.setUserId(userId);
 			}
+			ill.setIllCode(Integer.parseInt(request.getParameter("illCode")));
+			
 			ArrayList<Illustrator> clist = is.selectIllChallengeDetail(ill);
 			
 			ArrayList<Illustrator> blist = is.selectIllChallengeBoard(ill);
