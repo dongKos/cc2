@@ -36,8 +36,8 @@
 	<div class="middleNav">
 		<table class="middleMenu">
 			<tr>
-				<td class="middleItem" onClick="location.href='webtoonMain.wt'">웹툰</td>
-				<td class="middleItem" onClick="location.href='webtoonTop5.wt'">TOP5</td>
+				<td class="middleItem" onClick="location.href='webtoonTop5.wt'">웹툰</td>
+				<!-- <td class="middleItem" onClick="location.href='webtoonTop5.wt'">TOP5</td> -->
 				<td class="middleItem" onClick="location.href='webtoonChallenge.wt'">도전!!</td>
 				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
 				<td class="line">&#x2758;</td>

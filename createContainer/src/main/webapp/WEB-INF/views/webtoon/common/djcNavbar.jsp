@@ -34,7 +34,7 @@
 	<div class="djcNav">
 		<table class="djcMenu">
 			<tr>	
-				<td class="middleItem" onClick="location.href='webtoonMain.wt'">추천</td>
+				<!-- <td class="middleItem" onClick="location.href='webtoonMain.wt'">추천</td> -->
 				<td class="djcItem" onClick="location.href='webtoonDaily.wt'">요일별</td>
 				<td class="djcItem" onClick="location.href='webtoonComplete.wt'">완결</td>
 				

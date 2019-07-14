@@ -37,6 +37,9 @@
         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonRound" alias="WebtoonRound"/>
         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonPhoto" alias="WebtoonPhoto"/>
          <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonAttention" alias="WebtoonAttention"/>
+         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonReport" alias="WebtoonReport"/>
+         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonReply" alias="WebtoonReply"/>
+         <typeAlias type="com.kh.cc.webtoon.model.vo.WebtoonStarPoint" alias="WebtoonStarPoint"/>
         <typeAlias type="com.kh.cc.approval.model.vo.Approval" alias="Approval"/>
      </typeAliases>
      <mappers>

@@ -12,7 +12,10 @@ import com.kh.cc.webtoon.model.dao.WebtoonDao;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonReply;
+import com.kh.cc.webtoon.model.vo.WebtoonReport;
 import com.kh.cc.webtoon.model.vo.WebtoonRound;
+import com.kh.cc.webtoon.model.vo.WebtoonStarPoint;
 
 @Service
 public class WebtoonServiceImpl implements WebtoonService{
@@ -304,6 +307,31 @@ public class WebtoonServiceImpl implements WebtoonService{
 	@Override
 	public ArrayList<Webtoon> totalList(WebtoonPageInfo pi, Webtoon wt) {
 		return wd.totalList(sqlSession, pi, wt);
+	}
+
+	@Override
+	public int insertWorkReport(WebtoonReport wtre) {
+		return wd.insertWorkReport(sqlSession, wtre);
+	}
+
+	@Override
+	public int insertWebtoonReply(WebtoonReply wtReply) {
+		return wd.insertWebtoonReply(sqlSession, wtReply);
+	}
+
+	@Override
+	public int webtoonReplyListCount(WebtoonReply wtReply) {
+		return wd.webtoonReplyListCount(sqlSession, wtReply);
+	}
+
+	@Override
+	public ArrayList<WebtoonReply> selectReplyList(WebtoonPageInfo pi, WebtoonReply wtReply) {
+		return wd.selectReplyList(sqlSession,pi, wtReply);
+	}
+
+	@Override
+	public int insertStarPoint(WebtoonStarPoint wsp) {
+		return wd.insertStarPoint(sqlSession, wsp);
 	}
 
 

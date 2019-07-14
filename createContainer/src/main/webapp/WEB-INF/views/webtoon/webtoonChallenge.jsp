@@ -70,21 +70,18 @@ table td {
 }
 
 #challengeArea {
-	background-color: red;
 	width: 80%;
 	height: 170px;
 	margin: 0 auto;
 }
 
 #event {
-	background-color: red;
 	width: 80%;
 	height: 200px;
 	margin: 0 auto;
 }
 
 #notice {
-	background-color: red;
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
@@ -94,7 +91,6 @@ table td {
 	display: inline;
 }
 #todayWebtoon{
-background-color: red;
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
@@ -263,26 +259,20 @@ background-color: red;
 			<div id="challengeArea1">
 				<img class="challengeArea" src="${contextPath}/resources/uploadFiles/webtoonMain/real.JPG"/>
 			</div>
+				
 				<br> <br> <br> <br>
 				<div id="todayWebtoon">
 					<br>
-					<h4 align="center">오늘 업데이트 된 웹툰</h4>
 				</div>
 				<br> <br> <br> <br>
 				<div id="notice">
 					<br>
-					<h4 align="center">공지사항</h4>
-					<ul>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-					</ul>
+					<h4 align="center">
+					<a href="NoticeList.mg">공지사항</a></h4>
+					<h4 align="center"><a href="#">만화FAQ</a></h4>
 				</div>
 				<br> <br>
-				<h4>
-					<a href="#">만화FAQ</a>
-				</h4>
+				
 			</div>
 		<div class="col-sm-1"></div>
 		</div>

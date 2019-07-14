@@ -2,7 +2,6 @@ package com.kh.cc.webtoon.controller;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,12 +21,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.cc.common.CommonUtils;
 import com.kh.cc.common.WebtoonPagination;
 import com.kh.cc.member.model.vo.Member;
-import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webtoon.model.service.WebtoonService;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonReply;
+import com.kh.cc.webtoon.model.vo.WebtoonReport;
 import com.kh.cc.webtoon.model.vo.WebtoonRound;
+import com.kh.cc.webtoon.model.vo.WebtoonStarPoint;
 
 @Controller
 public class WebtoonController {
@@ -50,7 +51,7 @@ public class WebtoonController {
 	  String genre = request.getParameter("genre");
 	  wt.setGenre(genre);
 	  
-	  System.out.println("genre : " + genre);
+	  ////System.out.println("genre : " + genre);
 	  
 	  int currentPage = 1;
 	  int limit = 6;
@@ -61,14 +62,14 @@ public class WebtoonController {
 		}
 		
 		int listCount = ws.genreListCount(wt);
-		System.out.println("genrelistCount : " + listCount);
+		////System.out.println("genrelistCount : " + listCount);
 		
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 	  
 	  ArrayList<Webtoon> list = ws.genreList(pi, wt);
 	  
-	  System.out.println("pi : " + pi);
-	  System.out.println("장르 list확인 : " + list);
+	  ////System.out.println("pi : " + pi);
+	  ////System.out.println("장르 list확인 : " + list);
 	  
 	  model.addAttribute("pi", pi);
 	  model.addAttribute("list", list);
@@ -93,14 +94,15 @@ public class WebtoonController {
 		}
 
 		int listCount = ws.premiumListCount(wt);
-		System.out.println("listCount : " + listCount);
+		////System.out.println("listCount : " + listCount);
 
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
 		//top 5 리스트
 		ArrayList<Webtoon> topList = ws.topList();
 		ArrayList<Webtoon> totalList = ws.totalList(pi, wt);
-		System.out.println("totalList : " + totalList);
+		////System.out.println("totalList : " + totalList);
 		model.addAttribute("topList", topList);
+		model.addAttribute("pi", pi);
 		model.addAttribute("totalList", totalList);
 				
 		
@@ -135,7 +137,7 @@ public class WebtoonController {
 		
 		ArrayList<Webtoon> newList = ws.newChallenge(wt);
 		 
-		System.out.println("newList : " + newList);
+		////System.out.println("newList : " + newList);
 		
 		
 		
@@ -198,14 +200,14 @@ public class WebtoonController {
 		
 		int listCount = ws.completeListCount(wt);
 		
-		System.out.println("완결리스트카운트 : " + listCount);
+		////System.out.println("완결리스트카운트 : " + listCount);
 		
 		
 		  WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		  
 		  ArrayList<Webtoon> list = ws.completeWtList(pi, wt);
 		  
-		  System.out.println("완결작품list : " + list);
+		  ////System.out.println("완결작품list : " + list);
 		  
 		  model.addAttribute("pi", pi);
 		  model.addAttribute("list", list);
@@ -256,7 +258,7 @@ public class WebtoonController {
 	// 메뉴바에서 눌렀을떄 웹툰 Work등록폼으로 가기
 	@RequestMapping(value = "insertWork.wt")
 	public String webtoonWorkInsert(HttpServletRequest request, HttpSession session, Member m, Model model) {
-		System.out.println("웹툰 작품등록포 가기전 리스트 셀렉트");
+		////System.out.println("웹툰 작품등록포 가기전 리스트 셀렉트");
 		
 		m = (Member) session.getAttribute("loginUser");
 		
@@ -274,13 +276,13 @@ public class WebtoonController {
 		}
 		
 		int listCount = ws.selectListCount(m);
-		System.out.println("listCount : " + listCount);
+		////System.out.println("listCount : " + listCount);
 		
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		
 		ArrayList<Webtoon> list = ws.selectWtList(pi, m);
-		System.out.println("pi : " + pi);
-		System.out.println("list : " + list);
+		////System.out.println("pi : " + pi);
+		////System.out.println("list : " + list);
 		
 		model.addAttribute("list",list);
 		model.addAttribute("pi", pi);
@@ -326,8 +328,8 @@ public class WebtoonController {
 			ws.insertWebtoon(wt, wp);
 			
 			photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
-			System.out.println("UploadFile");
-			System.out.println("작품 사진이랑 work등록 완료");
+			////System.out.println("UploadFile");
+			////System.out.println("작품 사진이랑 work등록 완료");
 			
 			return "redirect:insertWork.wt";
 			
@@ -343,9 +345,9 @@ public class WebtoonController {
 	//작품 리스트에서 회차등록을 누를시 페이지 이동 시키는 메소드
 	@RequestMapping(value = "insertRoundFrom.wt")
 	public String insertRoundForm(Model model,HttpServletRequest request, HttpSession session, Webtoon wt ) {
-		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		////System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		System.out.println("wid : " + wid);
+		////System.out.println("wid : " + wid);
 		
 		model.addAttribute("wid", wid);
 		
@@ -364,7 +366,7 @@ public class WebtoonController {
 		
 		String userId = m.getUserId();
 		
-		System.out.println("회차 컨트롤러 들어옴");
+		////System.out.println("회차 컨트롤러 들어옴");
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		
@@ -384,20 +386,20 @@ public class WebtoonController {
 			wt3.setWid(wid);
 			
 			ws.updateComp(wt3);
-			System.out.println("완결 ws : " + ws);
+			////System.out.println("완결 ws : " + ws);
 		}
 		
-		System.out.println("workStatus : " + workStatus);
-		System.out.println("wid : " + wid);
-		System.out.println("wt : " + wt);
-		System.out.println("wr : " + wr);
-		System.out.println("userId : " + userId);
+		////System.out.println("workStatus : " + workStatus);
+		////System.out.println("wid : " + wid);
+		////System.out.println("wt : " + wt);
+		////System.out.println("wr : " + wr);
+		////System.out.println("userId : " + userId);
 		
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		
 		String filePath1 = root + "\\uploadFiles\\webtoonSub";
 		String filePath2 = root + "\\uploadFiles\\webtoonContent";
-		System.out.println("filePath1 : " + filePath1);
+		////System.out.println("filePath1 : " + filePath1);
 		
 		
 		String originFileName = photo.getOriginalFilename();
@@ -429,14 +431,14 @@ public class WebtoonController {
 			photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
 			
 			ws.insertWorkRound(wr, wp, wp1);
-			System.out.println("wr : " + wr);
-			System.out.println("wp : " + wp);
-			System.out.println("wp1 : " + wp1);
-			System.out.println("회차 썸내일, 내용 등록완료");
+			////System.out.println("wr : " + wr);
+			////System.out.println("wp : " + wp);
+			////System.out.println("wp1 : " + wp1);
+			//System.out.println("회차 썸내일, 내용 등록완료");
 			return "redirect:insertWork.wt";
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			new File(filePath1 + "\\" + changeFileName + ext).delete();
 			new File(filePath2 + "\\" + changeFileName1 + ext1).delete();
 
@@ -450,7 +452,7 @@ public class WebtoonController {
 	//회차 리스트에서 휴재신청을 했을때 실행하는 메소드
 	@RequestMapping(value="updateRest.wt")
 	public String updateRest(Model model,HttpServletRequest request, HttpSession session, Webtoon wt) {
-		System.out.println("휴재 신청 메소드 실행");
+		//System.out.println("휴재 신청 메소드 실행");
 		
 		
 		
@@ -467,14 +469,15 @@ public class WebtoonController {
 	//리스트에서 회차 등록버튼을 눌렀을때 동작되는 메소드
 	@RequestMapping(value = "roundList.wt")
 	public String roundList(Model model,HttpServletRequest request, HttpSession session, Webtoon wt, Member m) {
-		System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
+		//System.out.println("리스트에서 회차등록 버튼을 눌렀을때 wid");
 		
 		 //m = (Member) session.getAttribute("loginUser"); 
 		 
-		 System.out.println("userId : " + m.getUserId());
+		 //System.out.println("userId : " + m.getUserId());
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		System.out.println("wid : " + wid);
+		
+		//System.out.println("wid : " + wid);
 		
 		wt = ws.selectMainPhoto(wid);
 		
@@ -485,16 +488,16 @@ public class WebtoonController {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		System.out.println("wr : " + wid);
+		//System.out.println("wr : " + wid);
 		int listCount = ws.selectListCount(wid);
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
 		
 		
 		ArrayList<WebtoonRound> list = ws.selectWtRoundList(pi, wt);
-		System.out.println("list : " + list);
+		//System.out.println("list : " + list);
 		
-		System.out.println("listCount :" + listCount);
-		System.out.println("wt : " + wt);
+		//System.out.println("listCount :" + listCount);
+		//System.out.println("wt : " + wt);
 		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
@@ -510,7 +513,7 @@ public class WebtoonController {
 		m = (Member) session.getAttribute("loginUser");
 		
 		wt = ws.selectWork(wid);
-		System.out.println("수정버튼눌렀을떄wt : " + wt);
+		//System.out.println("수정버튼눌렀을떄wt : " + wt);
 		
 		model.addAttribute("wt", wt);
 		model.addAttribute("m", m);
@@ -532,13 +535,13 @@ public class WebtoonController {
 		wt.setFid(fid);
 		wt.setUserId(userId);
 
-		System.out.println("@wt@ : " + wt);
+		//System.out.println("@wt@ : " + wt);
 
 		
 		String changeName = request.getParameter("changeName");
 		
 		if(!photo.isEmpty()) {
-			System.out.println("사진정보 수정할떄");
+			//System.out.println("사진정보 수정할떄");
 			String root = request.getSession().getServletContext().getRealPath("resources");
 			
 			String filePath = root + "\\uploadFiles\\webtoonMain";
@@ -575,10 +578,10 @@ public class WebtoonController {
 			} 
 			
 		}else {
-				System.out.println("사진변경 안할떄");
+				//System.out.println("사진변경 안할떄");
 				
 				ws.updateWork(wt);
-				System.out.println("result : " + ws);
+				//System.out.println("result : " + ws);
 				
 						
 				return "redirect:insertWork.wt";
@@ -588,16 +591,16 @@ public class WebtoonController {
 	//회차 리스트에서 정보 수정을 누르면 동작하는 메소드
 	@RequestMapping(value="updateRoundForm.wt")
 	public String updateRoundForm(Model model,HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr) {
-		System.out.println("회차 폼이동 컨트롤러");
+		//System.out.println("회차 폼이동 컨트롤러");
 		int rid = Integer.parseInt(request.getParameter("rid"));
 		
-		System.out.println("rid : " + rid);
+		//System.out.println("rid : " + rid);
 		
 		wr = ws.selectOneRound(rid);
 		ArrayList<WebtoonPhoto> list = ws.selectOneRoundPhoto(rid);
 		
-		System.out.println("wr : " + wr);
-		System.out.println("list : " + list);
+		//System.out.println("wr : " + wr);
+		//System.out.println("list : " + list);
 		
 		WebtoonPhoto subChangeName = list.get(0);
 		
@@ -629,10 +632,10 @@ public class WebtoonController {
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int subFid = Integer.parseInt(request.getParameter("subFid"));
 		int contFid = Integer.parseInt(request.getParameter("contFid"));
-		System.out.println("rid : " + rid);
-		System.out.println("wid : " + wid);
-		System.out.println("subFid : " + subFid);
-		System.out.println("contFid : " + contFid);
+		//System.out.println("rid : " + rid);
+		//System.out.println("wid : " + wid);
+		//System.out.println("subFid : " + subFid);
+		//System.out.println("contFid : " + contFid);
 
 		wr.setRid(rid);
 		wr.setWid(wid);
@@ -650,8 +653,8 @@ public class WebtoonController {
 		// 안바꿨을때 띄울려고
 		String contChangeName = request.getParameter("contChangeName");
 
-		System.out.println("subChangeName : " + subChangeName);
-		System.out.println("contChangeName : " + contChangeName);
+		//System.out.println("subChangeName : " + subChangeName);
+		//System.out.println("contChangeName : " + contChangeName);
 
 		// 회차썸내일 을 바꿨을때
 		if ((!photo1.isEmpty()) && (!photo.isEmpty())) {
@@ -659,12 +662,12 @@ public class WebtoonController {
 			
 			
 			
-			System.out.println("썸내일과 내용 이미지를 둘다 수정");
+			//System.out.println("썸내일과 내용 이미지를 둘다 수정");
 			String root = request.getSession().getServletContext().getRealPath("resources");
 
 			String filePath1 = root + "\\uploadFiles\\webtoonSub";
 			String filePath2 = root + "\\uploadFiles\\webtoonContent";
-			System.out.println("filePath1 : " + filePath1);
+			//System.out.println("filePath1 : " + filePath1);
 
 			String originFileName = photo.getOriginalFilename();
 			String ext = originFileName.substring(originFileName.lastIndexOf("."));
@@ -675,9 +678,9 @@ public class WebtoonController {
 			String changeFileName1 = CommonUtils.getRandomString();
 			
 			wp.setFid(subFid);
-			System.out.println("wp(fid) : " + wp);
+			//System.out.println("wp(fid) : " + wp);
 			wp1.setFid(contFid);
-			System.out.println("wp1(fid) : " + wp1);
+			//System.out.println("wp1(fid) : " + wp1);
 
 			// 썸내일
 			wp.setOriginName(originFileName);
@@ -685,7 +688,7 @@ public class WebtoonController {
 			wp.setFilePath(filePath1);
 			wp.setWid(wid);
 			wp.setUserId(userId);
-			System.out.println("파일정보 잘들어갔나 wp : " + wp);
+			//System.out.println("파일정보 잘들어갔나 wp : " + wp);
 
 			// 웹툰 내용 사진
 			wp1.setOriginName(originFileName1);
@@ -693,19 +696,19 @@ public class WebtoonController {
 			wp1.setFilePath(filePath2);
 			wp1.setWid(wid);
 			wp1.setUserId(userId);
-			System.out.println("파일정보 잘들어갔나 wp1 : " + wp1);
+			//System.out.println("파일정보 잘들어갔나 wp1 : " + wp1);
 			
 			try {
 				
 				photo.transferTo(new File(filePath1 + "\\" + changeFileName + ext));
 				photo1.transferTo(new File(filePath2 + "\\" + changeFileName1 + ext1));
 				
-				System.out.println("커트롤에서 서비스로 보내는 wp : " + wp.getFid());
-				System.out.println("커트롤에서 서비스로 보내는 wp1 : " + wp1.getFid());
+				//System.out.println("커트롤에서 서비스로 보내는 wp : " + wp.getFid());
+				//System.out.println("커트롤에서 서비스로 보내는 wp1 : " + wp1.getFid());
 				ws.updateRoundWps(wr, wp, wp1);
-				System.out.println("wr : " + wr);
-				System.out.println("wp : " + wp);
-				System.out.println("wp1 : " + wp1);
+				//System.out.println("wr : " + wr);
+				//System.out.println("wp : " + wp);
+				//System.out.println("wp1 : " + wp1);
 
 				new File(filePath1 + "\\" + subChangeName).delete();
 				new File(filePath2 + "\\" + contChangeName).delete();
@@ -718,7 +721,7 @@ public class WebtoonController {
 
 			} catch (Exception e) {
 				
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 				new File(filePath1 + "\\" + changeFileName + ext).delete();
 				new File(filePath2 + "\\" + changeFileName1 + ext1).delete();
 
@@ -731,7 +734,7 @@ public class WebtoonController {
 			}else if(!photo1.isEmpty()) {
 				wp1.setFid(contFid);
 				
-				System.out.println("켄텐츠사진정보 수정할떄 fid :" + wp1.getFid());
+				//System.out.println("켄텐츠사진정보 수정할떄 fid :" + wp1.getFid());
 				String root = request.getSession().getServletContext().getRealPath("resources");
 
 				String filePath = root + "\\uploadFiles\\webtoonContent";
@@ -748,7 +751,7 @@ public class WebtoonController {
 					photo1.transferTo(new File(filePath + "\\" + changeFileName + ext));
 
 					ws.updateWorkRound(wr, wp1);
-					System.out.println("wp : " + wp1);
+					//System.out.println("wp : " + wp1);
 
 					new File(filePath + "\\" + contChangeName).delete();
 					
@@ -781,8 +784,8 @@ public class WebtoonController {
 			wp.setChangeName(changeFileName + ext);
 			wp.setFilePath(filePath);
 			wp.setUserId(userId);
-			System.out.println("썸내일사진정보 수정할떄 fid :" + wp.getFid());
-			System.out.println("썸내일 수정 wp : " + wp);
+			//System.out.println("썸내일사진정보 수정할떄 fid :" + wp.getFid());
+			//System.out.println("썸내일 수정 wp : " + wp);
 
 			try {
 				photo.transferTo(new File(filePath + "\\" + changeFileName + ext));
@@ -807,39 +810,89 @@ public class WebtoonController {
 			}
 			
 		} else {
-			System.out.println("사진변경 안할떄");
+			//System.out.println("사진변경 안할떄");
 
 			ws.updateWorkRound(wr);
-			System.out.println("result : " + ws);
+			//System.out.println("result : " + ws);
 
 			return "redirect:insertWork.wt";
 		}
 
 	}
 	
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="contentView.wt")
-	public String contentView(Model model, HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr, Webtoon wt) {
-		System.out.println("웹툰 보기페이지 옴");
+	public String contentView(Model model, HttpServletRequest request, HttpSession session, Member m, WebtoonRound wr, Webtoon wt, WebtoonReply wtReply) {
+		//System.out.println("웹툰 보기페이지 옴");
 
 		m = (Member) session.getAttribute("loginUser");
 
 		int rid = Integer.parseInt(request.getParameter("rid"));
-		System.out.println("rid : " + rid);
+		//System.out.println("rid : " + rid);
 
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		System.out.println("wid : " + wid);
+		//System.out.println("wid : " + wid);
 
 		wr = ws.content(rid);
 		wt = ws.content1(wid);
 		
-		System.out.println("wr : " + wr);
+		//System.out.println("wr : " + wr);
+		int currentPage = 1;
+		int limit = 4;
+		int buttonCount = 10;
 		
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		//System.out.println("wr : " + wid);
+		int listCount = ws.selectListCount(wid);
+		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
+		
+		ArrayList<WebtoonRound> list = ws.selectWtRoundList(pi, wt);
+		
+		
+		model.addAttribute("list", list);
 		model.addAttribute("wr", wr);
 		model.addAttribute("wt", wt);
+		model.addAttribute("pi", pi);
 		
 		
+		
+		wtReply.setRid(rid);
+		
+
+
+		int rButtonCount = 5;
+		int rLimit = 5;
+		int rCurrentPage = 1;
+
+		if (request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		int rListCount = ws.webtoonReplyListCount(wtReply);
+
+		WebtoonPageInfo rPi = WebtoonPagination.getPageInfo(rCurrentPage, rListCount, rLimit, rButtonCount);
+
+		ArrayList<WebtoonReply> rList = ws.selectReplyList(pi, wtReply);
+		System.out.println("listCount : " + rListCount);
+		System.out.println("list : " + rList);
+
+		model.addAttribute("rList", rList);
+		model.addAttribute("rPi", rPi);
 		
 		return "webtoon/ContentForm";
+		
+		
+		
+		
+		
+		
 		
 	}
 	
@@ -848,7 +901,7 @@ public class WebtoonController {
 	public String anothorWork(Model model, HttpServletRequest request, HttpSession session, Webtoon wt) {
 		
 		int wid = Integer.parseInt(request.getParameter("wid"));
-		System.out.println("wid : " + wid);
+		//System.out.println("wid : " + wid);
 		
 		wt.setWid(wid);
 		
@@ -859,14 +912,14 @@ public class WebtoonController {
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
-		System.out.println("wr : " + wid);
+		//System.out.println("wr : " + wid);
 		int listCount = ws.anothorListCount(wid);
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
-		System.out.println("listCount(다른작품 조회) : " + listCount);
+		//System.out.println("listCount(다른작품 조회) : " + listCount);
 		
 		ArrayList<Webtoon> list = ws.anthorWork(pi, wt);
 		list.get(0);
-		System.out.println("list: " + list);
+		//System.out.println("list: " + list);
 		
 		model.addAttribute("list1", list.get(0));
 		
@@ -887,13 +940,12 @@ public class WebtoonController {
 		
 		wt.setWid(wid);
 		wt.setUserId(m.getUserId());
-		wt.setUserId(m.getUserId());
 		
 		ws.attentionWork(wt);
 		
-		System.out.println("관심등록 ws : " + ws);
+		//System.out.println("관심등록 ws : " + ws);
 		
-		return null;
+		return "redirect:roundList.wt?wid="+wid;
 		
 	}
 	
@@ -902,11 +954,13 @@ public class WebtoonController {
 	public ResponseEntity<HashMap<String, Object>> challengeGenre(Webtoon wt, HttpServletRequest request, HttpServletResponse response, Model model) {
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		String genre = request.getParameter("genre");
-		wt.setGradeType(gradeType);
-		wt.setGenre(genre);
 		
 		System.out.println("genre : " + genre);
 		System.out.println("gradeType : " + gradeType);
+		
+		wt.setGradeType(gradeType);
+		wt.setGenre(genre);
+		
 		
 		int buttonCount = 10;
 		int limit = 12;
@@ -918,11 +972,13 @@ public class WebtoonController {
 		
 		int listCount = ws.WebtoonGenreCount(wt);
 		WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount, limit, buttonCount);
-		
 		ArrayList<HashMap<String, Object>> list = ws.WebtoonGenreList(pi, wt);
-		HashMap<String, Object> wtList = new HashMap<String, Object>();
 		
+		System.out.println("listCount : " + listCount);
+		System.out.println("pi : " + pi);
 		System.out.println("list : " + list);
+		
+		HashMap<String, Object> wtList = new HashMap<String, Object>();
 		
 		wtList.put("list", list);
 		wtList.put("pi", pi);
@@ -931,7 +987,108 @@ public class WebtoonController {
 		return new ResponseEntity<HashMap<String, Object>>(wtList,HttpStatus.OK);
 	}
 	
-	//프리미엄 작품
+	//작품신고
+	@RequestMapping(value="insertWorkReport.wt")
+	public String insertWorkReport(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, Member m, WebtoonReport wtre) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		String reportCategory = request.getParameter("reportCategory");
+		String reportReason = request.getParameter("reportReason");
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wtre.setWid(wid);
+		wtre.setReportReason(reportReason);
+		wtre.setReportCategory(reportCategory);
+		wtre.setUserId(m.getUserId());
+		System.out.println("wtre : " + wtre);
+		
+		ws.insertWorkReport(wtre);
+		
+		System.out.println("신고 들어 갔나확인ws : " + ws);
+		
+		
+		return "redirect:roundList.wt?wid="+wid;
+		
+		
+	}
+	
+	@RequestMapping(value="insertWebtoonReply.wt")
+	public String insertWebtoonReply(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, Member m, WebtoonRound wr, WebtoonReply wtReply) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		String replyContent = request.getParameter("replyContent");
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		
+		wtReply.setReplyContent(replyContent);
+		wtReply.setRid(rid);
+		wtReply.setUserId(m.getUserId());
+		
+		ws.insertWebtoonReply(wtReply);
+		
+		System.out.println("wtReply : " + wtReply);
+		
+		
+		return "redirect:contentView.wt?rid="+rid+"&wid="+wid;
+		
+	}
+	
+	/*
+	 * @RequestMapping(value="selectWebtoonReply.wt") public String
+	 * webtoonReplyList(Model model, HttpServletRequest request, HttpSession
+	 * session, Webtoon wt, Member m, WebtoonRound wr, WebtoonReply wtReply) {
+	 * 
+	 * int rid = Integer.parseInt(request.getParameter("rid"));
+	 * 
+	 * wtReply.setRid(rid);
+	 * 
+	 * 
+	 * int buttonCount = 5; int limit = 10; int currentPage = 1;
+	 * 
+	 * if(request.getParameter("currentPage") != null) { currentPage =
+	 * Integer.parseInt(request.getParameter("currentPage")); } int listCount =
+	 * ws.webtoonReplyListCount(wtReply);
+	 * 
+	 * WebtoonPageInfo pi = WebtoonPagination.getPageInfo(currentPage , listCount,
+	 * limit, buttonCount);
+	 * 
+	 * 
+	 * ArrayList<WebtoonReply> list = ws.selectReplyList(pi, wtReply);
+	 * System.out.println("listCount : " + listCount); System.out.println("list : "
+	 * + list);
+	 * 
+	 * model.addAttribute("list", list); model.addAttribute("pi", pi); return null;
+	 * }
+	 */
+	
+	
+	
+	
+	@RequestMapping(value="insertStarPoint.wt")
+	public String insertStarPoint(Model model, HttpServletRequest request, HttpSession session, Webtoon wt, Member m, WebtoonRound wr, WebtoonStarPoint wsp) {
+		
+		m = (Member) session.getAttribute("loginUser");
+		
+		int starPoint = Integer.parseInt(request.getParameter("starPoint"));
+		
+		int rid = Integer.parseInt(request.getParameter("rid"));
+		
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		
+		int wid = Integer.parseInt(request.getParameter("wid"));
+				
+		
+		wsp.setUserId(m.getUserId());
+		wsp.setRid(rid);
+		wsp.setStarPoint(starPoint);
+		
+		System.out.println("starPoint : " + starPoint);
+		
+		ws.insertStarPoint(wsp);
+		
+		return "redirect:contentView.wt?rid="+rid+"&wid="+ wid;
+	}
 	
 	 
 }

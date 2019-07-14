@@ -7,7 +7,10 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonReply;
+import com.kh.cc.webtoon.model.vo.WebtoonReport;
 import com.kh.cc.webtoon.model.vo.WebtoonRound;
+import com.kh.cc.webtoon.model.vo.WebtoonStarPoint;
 
 public interface WebtoonService {
 
@@ -90,6 +93,16 @@ public interface WebtoonService {
 	int premiumListCount(Webtoon wt);
 
 	ArrayList<Webtoon> totalList(WebtoonPageInfo pi, Webtoon wt);
+
+	int insertWorkReport(WebtoonReport wtre);
+
+	int insertWebtoonReply(WebtoonReply wtReply);
+
+	int webtoonReplyListCount(WebtoonReply wtReply);
+
+	ArrayList<WebtoonReply> selectReplyList(WebtoonPageInfo pi, WebtoonReply wtReply);
+
+	int insertStarPoint(WebtoonStarPoint wsp);
 
 
 
