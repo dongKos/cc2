@@ -29,7 +29,7 @@
 	
 	<beans:bean id="multipartResolver"
 			class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<beans:property name="maxUploadSize" value="10000000"/>		
+		<beans:property name="maxUploadSize" value="10000000000000000"/>		
 	</beans:bean>
 		<!-- ajax할 때 JsonView 설정 -->
 	<beans:bean id="jsonView" 

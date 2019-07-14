@@ -31,8 +31,8 @@
 
       <div class="point">
 					<ul class="nav nav-tabs">
-    					<li class="active" style="width:50%;"><a href="mypgIterestWt.mg">관심 웹툰</a></li>
-    					<li style="width:50%;"><a href="mypgInterestWn.mg">관심 소설</a></li>
+    					<li class="active" style="width:50%;"><a href="attentionListWt.mg">관심 웹툰</a></li>
+    					<li style="width:50%;"><a href="attentionListWn.mg">관심 소설</a></li>
     					
   					</ul>
   					<br>

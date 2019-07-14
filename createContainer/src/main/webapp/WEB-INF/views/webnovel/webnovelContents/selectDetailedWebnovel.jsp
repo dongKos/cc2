@@ -738,9 +738,12 @@
 			<div class="col-sm-1"></div>
 		</div>
 	</div>
+	
 	<script>
 		var rid = 4011;
 		console.log(4011);
+		
+		
 		$(document).ready(function(){
 			console.log(rid);
 			var currentPage = 1;

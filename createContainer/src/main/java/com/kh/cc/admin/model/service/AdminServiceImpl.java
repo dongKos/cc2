@@ -19,6 +19,7 @@ import com.kh.cc.admin.model.vo.Report;
 import com.kh.cc.illustrator.model.vo.Illustrator;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.mypage.model.vo.Closed;
+import com.kh.cc.mypage.model.vo.Coin;
 import com.kh.cc.illustrator.model.vo.Support;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 
@@ -400,6 +401,48 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public HashMap<String, Object> selectAllAvg() {
 		return ad.selectAllAvg(sqlSession);
+	}
+
+	//전체 통계 내역 개수 조회
+	@Override
+	public int getCoinListCount() {
+		return ad.getCoinListCount(sqlSession);
+	}
+
+	//전체 통계 내역 조회
+	@Override
+	public ArrayList<Coin> selectCoinList(AdminPageInfo pi) {
+		return ad.selectCoinList(sqlSession, pi);
+	}
+
+	//작가 상위 랭킹 10명 조회
+	@Override
+	public ArrayList<Member> selectMemberRankList() {
+		return ad.selectMemberRankList(sqlSession);
+	}
+
+	//작품 상위 랭킹 10개 조회
+	@Override
+	public ArrayList<Webnovel> selectWorkRankList() {
+		return ad.selectWorkRankList(sqlSession);
+	}
+
+	//웹툰 월별 통계 리스트
+	@Override
+	public ArrayList<Integer> selectWtAvg() {
+		return ad.selectWtAvg(sqlSession);
+	}
+
+	//웹소설 월별 통계 리스트
+	@Override
+	public ArrayList<Integer> selectWnAvg() {
+		return ad.selectWnAvg(sqlSession);
+	}
+
+	//일러스트 월별 통계 리스트
+	@Override
+	public ArrayList<Integer> selectIllAvg() {
+		return ad.selectIllAvg(sqlSession);
 	}
 
 	

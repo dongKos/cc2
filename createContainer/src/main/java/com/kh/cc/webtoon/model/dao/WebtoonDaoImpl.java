@@ -12,7 +12,10 @@ import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webtoon.model.vo.Webtoon;
 import com.kh.cc.webtoon.model.vo.WebtoonPageInfo;
 import com.kh.cc.webtoon.model.vo.WebtoonPhoto;
+import com.kh.cc.webtoon.model.vo.WebtoonReply;
+import com.kh.cc.webtoon.model.vo.WebtoonReport;
 import com.kh.cc.webtoon.model.vo.WebtoonRound;
+import com.kh.cc.webtoon.model.vo.WebtoonStarPoint;
 
 @Repository
 public class WebtoonDaoImpl implements WebtoonDao {
@@ -319,18 +322,19 @@ public class WebtoonDaoImpl implements WebtoonDao {
 	//도전 장르 리스트 카운트
 	@Override
 	public int WebtoonGenreCount(SqlSessionTemplate sqlSession, Webtoon wt) {
-		return sqlSession.selectOne("Webtoon.WebtoonGenreCount", wt);
+		int result = sqlSession.selectOne("Webtoon.WebtoonGenreCount", wt);
+		return result;
 	}
 	//도전 장르 리스트
 	@Override
 	public ArrayList<HashMap<String, Object>> WebtoonGenreList(SqlSessionTemplate sqlSession, Webtoon wt, WebtoonPageInfo pi) {
 		ArrayList<HashMap<String, Object>> list = null;
-		
 		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
-		
 		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
 		
+		System.out.println("장르리스트 wt : " + wt);
 		list = (ArrayList) sqlSession.selectList("Webtoon.WebtoonGenreList", wt, rowBounds);
+		System.out.println("Daolist : " + list);
 		
 		return list;
 	}
@@ -362,6 +366,39 @@ public class WebtoonDaoImpl implements WebtoonDao {
 				
 		
 		return totalList;
+	}
+
+	@Override
+	public int insertWorkReport(SqlSessionTemplate sqlSession, WebtoonReport wtre) {
+		return sqlSession.insert("Webtoon.insertWorkReport", wtre);
+	}
+
+	@Override
+	public int insertWebtoonReply(SqlSessionTemplate sqlSession, WebtoonReply wtReply) {
+		return sqlSession.insert("Webtoon.insertWebtoonReply", wtReply);
+	}
+
+	@Override
+	public int webtoonReplyListCount(SqlSessionTemplate sqlSession, WebtoonReply wtReply) {
+		return sqlSession.selectOne("Webtoon.webtoonReplyListCount", wtReply);
+	}
+
+	@Override
+	public ArrayList<WebtoonReply> selectReplyList(SqlSessionTemplate sqlSession,  WebtoonPageInfo pi, WebtoonReply wtReply) {
+		ArrayList<WebtoonReply> replyList = null;
+
+		int offset = (pi.getCurrentPage() - 1) * pi.getLimit();
+
+		RowBounds rowBounds = new RowBounds(offset, pi.getLimit());
+
+		replyList = (ArrayList) sqlSession.selectList("Webtoon.replyList", wtReply, rowBounds);
+
+		return replyList;
+	}
+
+	@Override
+	public int insertStarPoint(SqlSessionTemplate sqlSession, WebtoonStarPoint wsp) {
+		return sqlSession.insert("Webtoon.webtoonStarPoint", wsp);
 	}
 
 	

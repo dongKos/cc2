@@ -84,7 +84,7 @@ table td {
 }
 
 #notice {
-	background-color: red;
+	/* background-color: red; */
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
@@ -94,7 +94,6 @@ table td {
 	display: inline;
 }
 #todayWebtoon{
-background-color: red;
 	width: 80%;
 	height: 150px;
 	margin: 0 auto;
@@ -173,6 +172,7 @@ background-color: red;
 	<jsp:include page="../main/common/serviceNavbar.jsp" />
 	<jsp:include page="common/webtoonMenubar.jsp" />
 	<jsp:include page="common/genrePNavbar.jsp"/>
+	<jsp:include page="common/djcNavbar.jsp"/>
 	<br>
 	<div class="container-fluid">
 		<div class="row">
@@ -221,6 +221,8 @@ background-color: red;
 							</tr>
 						</table>
 					</c:forEach>
+					
+					
 					</div>
 					<div id="totlaAtrea">
 				<div id="pagingArea" align="center">
@@ -256,6 +258,19 @@ background-color: red;
 							<button type="button" onclick="location.href='${ wtBack }'">다음</button>
 						</c:if>
 					</div>
+					
+					<div class="genreList">
+					<div class="genreArea">
+					
+					</div>
+					<div id="npagingArea" align="center">
+						<ul class="pagination" id="nPaging">
+						</ul>
+					</div>
+				</div>
+					
+					
+					
 					</div>
 			</div>
 
@@ -268,23 +283,16 @@ background-color: red;
 				<br> <br> <br> <br>
 				<div id="todayWebtoon">
 					<br>
-					<h4 align="center">오늘 업데이트 된 웹툰</h4>
 				</div>
 				<br> <br> <br> <br>
 				<div id="notice">
 					<br>
-					<h4 align="center">공지사항</h4>
-					<ul>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-						<li><a herf="#">공지사항1</a></li>
-					</ul>
+					<h4 align="center">
+					<a href="NoticeList.mg">공지사항</a></h4>
+					<h4 align="center"><a href="#">만화FAQ</a></h4>
 				</div>
 				<br> <br>
-				<h4>
-					<a href="#">만화FAQ</a>
-				</h4>
+				
 			</div>
 
 		</div>

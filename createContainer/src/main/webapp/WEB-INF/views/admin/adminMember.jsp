@@ -46,13 +46,11 @@
 	function mType(currentPage){
 		var type = $("#mType").val();
 		var currentPage = currentPage;
-		console.log(currentPage);		
 		$.ajax({
 			url:"memberType.ad",
 			data:{type:type, currentPage:currentPage},
 			type:"get",
 			success:function(data){
-				console.log(data);
 				var table = $("#memberTable");
 				var tbody = $("#memberTable tbody");
 				tbody.html(" ");
@@ -61,7 +59,7 @@
 				for(var i = 0; i < data.list.length;i++){
 					
 					var date = new Date(data.list[i].joinDate).format("yyyy-MM-dd");
-					var tr = $("<tr>");
+					var tr = $("<tr onclick='trClick(" + data.list[i].mno + ", "+ data.pi.currentPage +  ")'>");
 					var userIdTd = $("<td>").text(data.list[i].userId);
 					var userNameTd = $("<td>").text(data.list[i].userName);
 					
@@ -96,9 +94,6 @@
 				var endPage = data.pi.endPage;
 				var maxPage = data.pi.maxPage;
 				
-				console.log("페이징 할때 currentPage" + currentPage);
-				
-				
 				//이전 버튼 
 				if(currentPage <= 1){
 					pagingArea.text("[이전]");
@@ -108,7 +103,6 @@
 					});
 					pagingArea.append($button);
 					//pagingArea.append("<button onclick='mType("+ (currentPage -1)+")'>[이전]</button>");
-					console.log("이전 버튼 어디 갔니?");
 				}
 				
 				//숫자 페이지 버튼
@@ -138,14 +132,6 @@
 	};
 	
 	$(function(){
-		$("#memberTable tr").click(function(){
-			var num = $(this).children().eq(0).text();
-			if(num == '아이디'){
-				console.log("뿌엥");
-			}else{
-				location.href = "showMemberDetail.ad?num=" + num + "&currentPage=" + ${pi.currentPage};
-			}
-		});
 		
 		//선택된 사이드 메뉴바 표시
 		var selectedUl = $("#member").parent().children();
@@ -155,15 +141,14 @@
 		
 		$("#keySearch").on("keyup", function(){
 			var value = $(this).val();
-			console.log(value);
 			
+			 //키워드 조건검색
 			 $("#memberTable tr").each(function(index) {
 			         if (index !== 0) {
 			            $row = $(this);
 
 			            var $tdElement = $row.find("td:nth-child(3)");
 			            var id = $tdElement.text();
-			            console.log(id);
 			            var matchedIndex = id.indexOf(value);
 
 			            if (matchedIndex != 0) {
@@ -179,7 +164,15 @@
 		});
 	
 	});
+	
+	function trClick(num, currentPage){
+		location.href = "showMemberDetail.ad?num=" + num + "&currentPage=" + currentPage;
+	}
 </script>
+<style>
+	body {
+	     }
+</style>
 </head>
 
 <body class="animsition">
@@ -215,7 +208,7 @@
                                 	<input type="text" id="keySearch">
                                 	<button class="btn btn-primary" type="submit">검색</button>
                                 </div>
-                                <div class="table-responsive table--no-card m-b-40">
+                                <div class="table-responsive table--no-card m-b-40" style="   overflow-x: hidden;">
                                     <table class="table table-borderless table-striped table-earning" id="memberTable">
                                         <thead>
                                             <tr>
@@ -229,8 +222,7 @@
                                         <tbody>
                                             <c:forEach var="m" items="${list }" end="${pi.limit }">
                                             	<c:if test="${m.memberType ne 3 }">
-		                                            <tr>
-		                                            	<td style="display:none">${m.mno }</td>
+		                                            <tr onclick="trClick(${m.mno}, ${pi.currentPage })">
 		                                                <td>${m.userId}</td>
 		                                                <td>${m.userName }</td>
 		                                                

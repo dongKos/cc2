@@ -70,7 +70,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
-				<li><a href="webtoonMain.wt">웹툰</a></li>
+				<li><a href="webtoonTop5.wt">웹툰</a></li>
 				<li><a href="webnovelMain.wn">웹소설</a></li>
 				<li><a href="illustMain.ill">일러스트</a></li>
 			</ul>

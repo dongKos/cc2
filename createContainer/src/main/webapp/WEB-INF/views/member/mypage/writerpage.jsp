@@ -29,11 +29,7 @@
     </div>
     <div class="col-sm-7">
       <div class="point">
-					<ul class="nav nav-tabs">
-    					<li class="active"><a href="#">관심 웹툰</a></li>
-    					<li style="width:50%;"><a href="#">관심 소설</a></li>
-    					
-  					</ul>
+					<img src="${ contextPath }/resources/images/mypage/writerMain.JPG" width="100%">
   					<br>
 				</div>
     </div>

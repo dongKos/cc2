@@ -222,5 +222,11 @@ public int countProfilePic(WriterProfile mp) {
 	public Member selectMember(String userId) {
 		return md.selectMember(sqlSession, userId);
 	}
+
+	@Override
+	public ArrayList showReqIllust(String userId) {
+		
+		return md.showReqIllust(sqlSession, userId);
+	}
 }
 

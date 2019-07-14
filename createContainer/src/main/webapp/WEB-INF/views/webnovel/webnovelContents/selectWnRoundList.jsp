@@ -500,7 +500,7 @@ input[type=checkbox]:checked + label:before{
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
 								<h4 class="modal-title">신고하기</h4>
-							</div>
+							</div> 
 							<div class="modal-body">
 								<table class="reportTable">
 									<tr>

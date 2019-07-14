@@ -54,6 +54,19 @@
 		<result property="userId" column="USER_ID"/>
 		<result property="changeName" column="CHANGE_NAME"/>
 	</resultMap>
+	
+	<resultMap type="com.kh.cc.illustrator.model.vo.IllBoard" id="IllBoardResultSet">
+		<id property="bId" column="B_ID"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="boardCategory" column="BOARD_CATEGORY"/>
+		<result property="bCount" column="B_COUNT"/>
+		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="updateDate" column="UPDATE_DATE"/>
+		<result property="bContent" column="BCONTENT"/>
+		<result property="bTitle" column="BTITLE"/>
+		<result property="status" column="STATUS"/>
+		<result property="subCategory" column="SUB_CATEGORY"/>
+	</resultMap>
 
 	<!-- 일러스트 포트폴리오 작품 등록 메소드 -->
 	<insert id="insertIllustrator" parameterType="Illustrator">
@@ -132,8 +145,7 @@
 		FROM MEMBER M
         JOIN ILLUSTRATION ILL ON(M.USER_ID = ILL.USER_ID)
 		JOIN ATTACHMENT A ON(A.ILL_CODE = ILL.ILL_CODE)
-		WHERE ILL.USER_ID = #{ userId }
-        AND ILL.ILL_CODE = #{ illCode }
+        WHERE ILL.ILL_CODE = #{ illCode }
 		AND ILL.ILL_TYPE = 'chall'
 	</select>
 	
@@ -251,4 +263,22 @@
 		AND ILL.ILL_TYPE = 'chall'
 	</select>
 	
+	<!-- 일러스트 글등록 -->
+	<insert id="insertIllBoard" parameterType="IllBoard">
+		INSERT INTO BOARD
+		VALUES (BID_SEQ.NEXTVAL, #{userId}, 'OTO', 0, SYSDATE, SYSDATE, #{bContent}, #{bTitle}, DEFAULT, 'ILL' )
+	</insert>
+	
+	<select id="selectIllChallengeBoard" parameterType="Illustrator" resultMap="IllBoardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE USER_ID =  #{userId}
+		AND SUB_CATEGORY = 'ILL'
+	</select>
+	
+	<select id="selectIllBoard" parameterType="Illustrator" resultMap="IllBoardResultSet">
+		SELECT *
+		FROM BOARD
+		WHERE SUB_CATEGORY = 'ILL'
+	</select>
 </mapper>

@@ -33,6 +33,8 @@
 	.secondNav li {
 		width: 33%;
 	}
+	.navbar-nav>li>a {
+	 	}
 </style>
 </head>
 
@@ -66,20 +68,26 @@
 		  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link" href="${ contextPath }/logout.me" style="font-size:20px;">로그아웃</a></li>
           </c:if>
           
-          <div class="dropdown" style="margin-top:-4%;">
-				<br><img src="${contextPath }/resources/images/icon/coin.png" style="width:25px; height:25px;">
-				<p style="color:white; display:inline-block; font-size:20px;">${ sessionScope.loginUser.wallet }CC</p>
-		  	<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="font-size:13px;">
-		    다른페이지로 이동
-		  </button>
-		  <div class="dropdown-menu">
+					<img src="${contextPath }/resources/images/icon/coin.png" style="width:25px; height:25px; margin-top: 11px;	">
+          <li class="nav-item mx-0 mx-lg-1">
+			<a class="nav-link" href="mypgMain.mg" style="font-size:20px;">
+				${ sessionScope.loginUser.wallet }CC
+			</a>
+		  </li>
+		  
+		 <div>
+		  	 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="font-size:13px; margin-top:9px;">다른페이지로 이동</button>
+		    
+		  <div class="dropdown-menu" style="top: 59%; left: 81.3%;">
 		    <a class="dropdown-item" href="webtoonMain.wt" style="font-size:13px;">웹툰</a>
 		    <a class="dropdown-item" href="webnovelMain.wn" style="font-size:13px;">웹소설</a>
 		  </div>
+		  </div>
+		  
+		
+	        </ul>
 		</div>
-        </ul>
       </div>
-    </div>
   </nav>
   
   <nav style="margin-top:14.4%; margin-bottom:0;background-color:gray;" class="navbar navbar-expand-lg">
