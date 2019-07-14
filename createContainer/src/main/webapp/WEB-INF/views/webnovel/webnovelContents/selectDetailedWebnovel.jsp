@@ -310,6 +310,20 @@
 .cntrArea{
 	float:right;
 }
+.wnListGo{
+	position: fixed;
+    top: 19%;
+    left: 91.5%;
+    width: 60px;
+    line-height: 30px;
+    border-radius: 8px 8px 8px 8px;
+    background-color: white;
+    color: skyblue;
+    border: 1px solid skyblue;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
 </style>
 </head>
 <body oncontextmenu='return false' ondragstart='return false' onselectstart='return false'>
@@ -570,8 +584,6 @@
 								</script>
 							</td>
 							<td class="tdRight">
-								<h1>${sessionScope.loginUser.userId}</h1>
-								<h1>${wn.userId}</h1>
 								<c:if test="${sessionScope.loginUser.userId == wn.userId}">
 								</c:if>
 								<c:if test="${sessionScope.loginUser.userId != wn.userId}">
@@ -683,8 +695,7 @@
 				</div>
 			</div>
 			
-			
-			<div class="col-sm-1"></div>
+			<div class="col-sm-1"><button class="wnListGo" onclick="location.href='selectWnRoundList.wn?wid=${ wn.wid }&gradeType=${ wn.gradeType}&authorId=${ wn.userId }'">목록</button></div>
 		</div>
 			
 		<div class="row">

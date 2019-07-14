@@ -1,9 +1,11 @@
 package com.kh.cc.member.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kh.cc.common.WebnovelPagination;
 import com.kh.cc.member.model.exception.LoginException;
 import com.kh.cc.member.model.service.MemberService;
@@ -75,30 +80,39 @@ public class MemberController {
 			return "common/errorPage";
 		}
 	}
-	//메인 공지사항 리스트
-	public ResponseEntity<HashMap<String, Object>> selectmainNotice(Model model, HttpServletRequest request, Webnovel wn, HttpSession session, Member m) {
 	
-	
-	int buttonCount = 5;
-	int limit = 8;
-	int currentPage = 1;
-	if(request.getParameter("currentPage") != null) {
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
-	int listCount = 24;
-	
-	WebnovelPageInfo pi = WebnovelPagination.getPageInfo(currentPage, listCount, limit, buttonCount);
-	
-	ArrayList<HashMap<String, Object>> list = ms.selectmainNotice(pi, wn);
-	
-	HashMap<String, Object> wnList = new HashMap<String, Object>();
-	
-	wnList.put("list", list);
-	wnList.put("pi", pi);
-	
-	return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	@RequestMapping(value="duplicationCheck.me")
+	public void duplicationCheck(@RequestParam("userId")String id, HttpServletResponse response) {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Member m = new Member();
+		m.setUserId(id);
+		int result = ms.selectCheckId(m);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
+	@RequestMapping(value="duplicationCheckNick.me")
+	public void duplicationCheckNick(HttpServletRequest request, HttpServletResponse response) {
+		String nickName = request.getParameter("nickName");
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Member m = new Member();
+		m.setNickName(nickName);
+		int result = ms.duplicationCheckNick(m);
+		
+		try {
+			response.getWriter().print(mapper.writeValueAsString(result));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 	
 	//로그인 홈페이지 이동

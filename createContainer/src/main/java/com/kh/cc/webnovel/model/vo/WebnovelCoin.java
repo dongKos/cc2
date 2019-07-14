@@ -8,17 +8,19 @@ public class WebnovelCoin implements java.io.Serializable{
 	private String coinCategory;
 	private int coinCount;
 	private int rid;
+	private int illCode;
 	private Date cDate;
 	
 	public WebnovelCoin() {}
 
-	public WebnovelCoin(int coinCode, int mno, String coinCategory, int coinCount, int rid, Date cDate) {
+	public WebnovelCoin(int coinCode, int mno, String coinCategory, int coinCount, int rid, int illCode, Date cDate) {
 		super();
 		this.coinCode = coinCode;
 		this.mno = mno;
 		this.coinCategory = coinCategory;
 		this.coinCount = coinCount;
 		this.rid = rid;
+		this.illCode = illCode;
 		this.cDate = cDate;
 	}
 
@@ -40,6 +42,10 @@ public class WebnovelCoin implements java.io.Serializable{
 
 	public int getRid() {
 		return rid;
+	}
+
+	public int getIllCode() {
+		return illCode;
 	}
 
 	public Date getcDate() {
@@ -66,6 +72,10 @@ public class WebnovelCoin implements java.io.Serializable{
 		this.rid = rid;
 	}
 
+	public void setIllCode(int illCode) {
+		this.illCode = illCode;
+	}
+
 	public void setcDate(Date cDate) {
 		this.cDate = cDate;
 	}
@@ -73,8 +83,9 @@ public class WebnovelCoin implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "WebnovelCoin [coinCode=" + coinCode + ", mno=" + mno + ", coinCategory=" + coinCategory + ", coinCount="
-				+ coinCount + ", rid=" + rid + ", cDate=" + cDate + "]";
+				+ coinCount + ", rid=" + rid + ", illCode=" + illCode + ", cDate=" + cDate + "]";
 	}
+
 
 	
 	

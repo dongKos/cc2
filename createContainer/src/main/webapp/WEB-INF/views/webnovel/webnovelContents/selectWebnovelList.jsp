@@ -176,7 +176,6 @@
 							</td>
 							<td class="contentTd">
 								<p class="titleArea">작품을 등록하세요</p>
-								<input type="hidden" class="wid" value="">
 							</td>
 							<td>
 							</td>
@@ -201,6 +200,7 @@
 							<td class="contentTd">
 								<p class="titleArea">${ wn.wTitle }</p>
 								<input type="hidden" class="wid" value="${ wn.wid }">
+								<input type="hidden" class="wid" value="${ wn.userId }">
 								<div class="modal fade" id="myModal<c:out value="${status.index}" />" role="dialog">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -240,8 +240,8 @@
 						$('.wnListDiv').find($("button[name=deleteBtn]")).click(function(){
 							var wid = $(this).parents().children("input").val();
 							console.log(wid);
-							
-							location.href = "deleteWebnovel.wn?wid="+wid+"&gradeType=" + gradeType;
+							var authorId = "${list[0].userId}";
+							location.href = "deleteWebnovel.wn?wid="+wid+"&gradeType=" + gradeType+"&authorId=" + '${ list[0].userId}';
 						});
 						
 						$('.wnListDiv').find($("button[name=wnUpdateBtn]")).click(function(){
@@ -252,11 +252,14 @@
 						
 						$('.wnListDiv').find('td').children('div').children('img').click(function(){
 							var wid = $(this).parents().parents().parents().children("td").eq(1).children("input").val();
-							
+							var authorId = "${list[0].userId}";
+							console.log(authorId);
 							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 						});
 						$('.wnListDiv').find('tr').children().children('p').click(function(){
 							var wid = $(this).parents().children("input").val();
+							var authorId = "${list[0].userId}";
+							console.log(authorId);
 							location.href = "selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
 						});
 					});

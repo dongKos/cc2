@@ -1,5 +1,9 @@
 package com.kh.cc.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +41,16 @@ public class MemberDaoImpl implements MemberDao{
 	public Member selectMember(SqlSessionTemplate sqlSession, Member m) {
 		return sqlSession.selectOne("Member.selectLoginUser", m);
 	}
+
+	@Override
+	public int selectCheckId(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Member.selectCheckId", m);
+	}
+
+	@Override
+	public int duplicationCheckNick(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("Member.duplicationCheckNick", m);
+	}
+
 
 }

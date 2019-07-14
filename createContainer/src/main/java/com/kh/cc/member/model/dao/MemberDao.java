@@ -1,5 +1,8 @@
 package com.kh.cc.member.model.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.kh.cc.member.model.exception.LoginException;
@@ -15,5 +18,10 @@ public interface MemberDao {
 	String selectEncPassword(SqlSessionTemplate sqlSession, Member m);
 	//로그인용 메소드
 	Member selectMember(SqlSessionTemplate sqlSession, Member m);
+
+	int selectCheckId(SqlSessionTemplate sqlSession, Member m);
+
+	int duplicationCheckNick(SqlSessionTemplate sqlSession, Member m);
+
 
 }

@@ -14,8 +14,10 @@ public interface MemberService {
 	
 	//회원가입용 메소드
 	int insertMember(Member m);
+
+	int selectCheckId(Member m);
+
+	int duplicationCheckNick(Member m);
 	
-	//메인 공지사항
-	ArrayList<HashMap<String, Object>> selectmainNotice(WebnovelPageInfo pi, Webnovel wn);
 
 }

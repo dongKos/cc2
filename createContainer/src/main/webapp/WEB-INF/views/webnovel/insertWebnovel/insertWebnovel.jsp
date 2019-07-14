@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
 			<div class="col-sm-10 col-md-10 col-xs-10">
-				<form action="insertNovel.wn" method="post" enctype="multipart/form-data">
+				<form id="insertWebnovel" action="insertNovel.wn" method="post" enctype="multipart/form-data">
 					<div class="insertWnForm">
 						<div class="title">
 							<div class="webnovelTitle">새 작품 등록</div>
@@ -86,7 +86,7 @@
 										</div>
 										<div class="wnBtn">
 											<button class="cancelWnBtn" type="button" onclick="location='cancelWebnovel.wn'">등록 취소</button>&nbsp;&nbsp;&nbsp;
-											<button class="insertWnBtn" type="submit">작품 등록</button>
+											<button class="insertWnBtn" onsubmit="return check()" type="submit">작품 등록</button>
 										</div>
 									</td>
 								</tr>
@@ -107,6 +107,32 @@
 				$("#wnMainThumbnail").click();
 			});
 		});
+		$(".insertWnBtn").on("click", function(){
+			var wTitle = $("input[name=wTitle]").val();
+			var photo = $("input[name=photo]").val();
+			var wIntro = $("textArea[name=wIntro]").val();
+			var wCycle = $("textArea[name=wCycle]").val();
+			console.log("fsdafdsa");
+			if(wTitle==""){
+				alert("작품 제목을 입력하세요.");
+				return false;
+			}else if(!photo){
+				alert("사진을 등록해주세요.");
+				return false;
+			}else if($(':radio[name="genre"]:checked').length < 1){
+				alert("장르를 선택하세요.");
+				return false;
+			}else if(wIntro==""){
+				alert("작품 소개를 입력하세요.");
+				return false;
+			}else if(wCycle==""){
+				alert("연재주기 를 입력하세요.");
+				return false;
+			}else{
+				return true;
+			}
+		});
+		
 		
 		function loadImg(value, num){
 			if(value.files && value.files[0]){

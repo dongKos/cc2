@@ -10,7 +10,9 @@
 .middleNav{
 	margin-top:60px;
 	text-align: center;
+	border-top:1px solid #E0E0E0;
 	border-bottom:1px solid #E0E0E0;
+	background: #2c3e50;
 }
 .middleMenu{
 	margin:0 auto;
@@ -20,7 +22,7 @@
 	width:130px;
 	font-weight:bold;
 	font-size:15px;
-	color:gray;
+	color:white;
 }
 .middleItem:hover{
 	cursor:pointer;

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.dao.WebnovelDao;
+import com.kh.cc.webnovel.model.vo.AttentionAuthor;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -326,6 +327,20 @@ public class WebnovelServiceImpl implements WebnovelService{
 	@Override
 	public WebnovelRound selectCheckWnr(WebnovelRound wnr) {
 		return  wd.selectCheckWnr(sqlSession, wnr);
+	}
+	//관심 작가 등록
+	@Override
+	public int insertAttentionAuthor(AttentionAuthor aa) {
+		return  wd.insertAttentionAuthor(sqlSession, aa);
+	}
+	//관심 작가 정보
+	@Override
+	public AttentionAuthor selectAttionAuthor(AttentionAuthor aa) {
+		return  wd.selectAttionAuthor(sqlSession, aa);
+	}
+	@Override
+	public ArrayList<HashMap<String, Object>> selectmainNotice() {
+		return wd.selectmainNotice(sqlSession);
 	}
 	
 	

@@ -15,37 +15,39 @@
 		height:60px !important;
 	}
 	.navbar{
-		background:white;
+		background:#2c3e50;
 		height:60px !important;
 	}
 	.navbar-nav{
 		margin-top:5px;
 		font-size:15px;
+		background:#2c3e50;
 	}
 	.navbar-header{
-		background:white;
+		background:#2c3e50;
 	}
 	.navbar-nav li>a{
-		color:black !important;
+		color:white !important;
 	}
 	.navbar-nav li>a:hover{
-		color:#84CEFA !important;
+		color:skyblue !important;
+		background: #2c3e50;
 		border-radius:5px;
 	}
 	.navbar-collapse {
+	    background: #2c3e50;
 	    padding-right:20px !important;
-	    border-bottom:1px solid #E0E0E0 !important;
-	}
-	.navbar-default {
-    	border: none;
 	}
 	.navbar-toggle{
 		margin-top:13px;
+		height: 35px;
 	}
 	.navbar-default .navbar-toggle {
+		background-color:#2c3e50;
 	    border-color: white;
 	}
 	.navbar-toggle:hover {
+    	background-color: #2c3e50 !important;
 	}
 	.icon-bar{
 		background-color:gray !important;

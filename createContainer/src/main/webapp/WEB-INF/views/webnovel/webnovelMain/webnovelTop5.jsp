@@ -34,7 +34,7 @@
 						var bestTitle = $('<td  class="bestTitle">').text(data.list[i].wTitle);
 						var bestGenre = $('<td class="bestGenre">').text('장르 - ' + data.list[i].genreExplain);
 						var stpAvg = data.list[i].spAvg;
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						var bestSpTd = $('<td class="bestSp">');
 						
 						
@@ -92,8 +92,9 @@
 					
 					
 					$('.wnBestArea').find($(".bestWn")).on('click',function(){
-						var wid = $(this).children().last().children().children('input').val();
-						location.href = "selectWnRoundList.wn?wid="+wid+'&gradeType=2';
+						var wid = $(this).children().last().children().children('input').eq(0).val();
+						var authorId = $(this).children().last().children().children('input').eq(1).val();
+						location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=2'+'&authorId='+authorId;
 					});
 					
 				},
@@ -120,7 +121,7 @@
 						var bestTitle = $('<td  class="bestTitle">').text(data.list[i].wTitle);
 						var bestGenre = $('<td class="bestGenre">').text('장르 - ' + data.list[i].genreExplain);
 						var stpAvg = data.list[i].spAvg;
-						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'">')
+						var hiddenWid = $('<input type="hidden" id="wnWid" value="'+data.list[i].wid+'"><input type="hidden" id="wnUserId" value="'+data.list[i].userId+'">')
 						var bestSpTd = $('<td class="bestSp">');
 						
 						var bestSp0 = $('<p class="starAvg">').append('<br>'+ data.list[i].spAvg + ' 점');
@@ -185,8 +186,9 @@
 					
 					
 					$('.wnBestArea').find($(".bestWn")).on('click',function(){
-						var wid = $(this).children().last().children().children('input').val();
-						location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=2';
+						var wid = $(this).children().last().children().children('input').eq(0).val();
+						var authorId = $(this).children().last().children().children('input').eq(1).val();
+						location.href = "selectWnRoundList.wn?wid="+wid +'&gradeType=2'+'&authorId='+authorId;
 					});
 					
 				},

@@ -27,6 +27,7 @@ import com.kh.cc.member.model.exception.LoginException;
 import com.kh.cc.member.model.service.MemberService;
 import com.kh.cc.member.model.vo.Member;
 import com.kh.cc.webnovel.model.service.WebnovelService;
+import com.kh.cc.webnovel.model.vo.AttentionAuthor;
 import com.kh.cc.webnovel.model.vo.Webnovel;
 import com.kh.cc.webnovel.model.vo.WebnovelAttention;
 import com.kh.cc.webnovel.model.vo.WebnovelCoin;
@@ -233,14 +234,13 @@ public class WebnovelController {
 	
 	//웹소설 회차 리스트 이동
 	@RequestMapping("selectWnRoundList.wn")
-	public String selectWnRoundList(Member m, WebnovelAttention wa, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
+	public String selectWnRoundList(Member m, WebnovelAttention wa, AttentionAuthor aa, HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Webnovel wn, WebnovelRound wnr) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
-		
+		String authorId = request.getParameter("authorId");
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
-		
 		if(session.getAttribute("loginUser") != null) {
 			wnr.setMno(m.getMno());
 		}
@@ -265,8 +265,11 @@ public class WebnovelController {
 				
 				wa.setUserId(m.getUserId());
 				wa.setWid(wid);
+				aa.setUserId(m.getUserId());
+				aa.setAuthorId(authorId);
 				
 				wa = ws.selectAttention(wa);
+				aa = ws.selectAttionAuthor(aa);
 			}
 		}
 		
@@ -277,6 +280,7 @@ public class WebnovelController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("wn", wn);
 		model.addAttribute("wa", wa);
+		model.addAttribute("aa", aa);
 		model.addAttribute("gradeType1", gradeType);
 		
 		return "webnovel/webnovelContents/selectWnRoundList";
@@ -510,13 +514,37 @@ public class WebnovelController {
 	public String insertAttention(HttpServletRequest request, HttpSession session, Member m, WebnovelAttention wa) {
 		m = (Member) session.getAttribute("loginUser");
 		int wid = Integer.parseInt(request.getParameter("wid"));
+		String authorId = request.getParameter("authorId");
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
 		wa.setUserId(m.getUserId());
 		wa.setWid(wid);
 		
-		ws.insertAttention(wa);
+		int result = ws.insertAttention(wa);
 		
-		return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType;
+		String userId = m.getUserId();
+		String password = m.getUserPwd();
+		if(result > 0) {
+			session.removeAttribute("loginUser");
+			m.setUserId(userId);
+			m.setUserPwd(password);
+			Member loginUser = ws.loginMember(m);
+			session.setAttribute("loginUser", loginUser);
+		}
+		return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType + "&authorId=" + authorId;
+	}
+	//관심 작가 등록
+	@RequestMapping(value="insertAttentionAuthor.wn")
+	public String insertAttentionAuthor(HttpServletRequest request, HttpSession session, Member m, AttentionAuthor aa) {
+		m = (Member) session.getAttribute("loginUser");
+		String authorId = request.getParameter("authorId");
+		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		int wid = Integer.parseInt(request.getParameter("wid"));
+		aa.setUserId(m.getUserId());
+		aa.setAuthorId(authorId);
+		
+		ws.insertAttentionAuthor(aa);
+		
+		return "redirect:selectWnRoundList.wn?wid=" + wid + "&gradeType=" + gradeType + "&authorId=" + authorId;
 	}
 	//별점주기 메소드
 	@RequestMapping(value="insertStarPoint.wn")
@@ -913,6 +941,19 @@ public class WebnovelController {
 		return "redirect:selectDetailedWebnovel.wn?wid=" + wid +"&rid="+rid+ "&gradeType=" + gradeType + "&currentPage="+currentPage;
 	}
 	
+	//메인 공지사항 리스트
+	@RequestMapping(value="selectmainNotice.wn")
+	public ResponseEntity<HashMap<String, Object>> selectmainNotice(Model model, HttpServletRequest request, WebnovelReply wReply, HttpSession session, Member m) {
+		
+		
+		ArrayList<HashMap<String, Object>> list = ws.selectmainNotice();
+		HashMap<String, Object> wnList = new HashMap<String, Object>();
+		
+		wnList.put("list", list);
+		
+		return new ResponseEntity<HashMap<String, Object>>(wnList, HttpStatus.OK);
+	}
+
 	
 	//웹소설 메인홈 이동 
 	@RequestMapping("webnovelMain.wn")
