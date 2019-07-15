@@ -42,7 +42,7 @@
 				<td class="middleItem" onClick="location.href='webnovelMain.wn'">홈</td>
 				<td class="middleItem" onClick="location.href='webnovelCategory.wn'">웹소설</td>
 				<td class="middleItem" onClick="location.href='webnovelChallenge.wn?gradeType=1'">도전!!</td>
-				<td class="middleItem" onClick="location.href='NoticeDetail.mg'">공지사항/FAQ</td>
+				<td class="middleItem" onClick="location.href='Faq.mg'">고객센터</td>
 				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
 				<td class="line">&#x2758;</td>
 				<c:if test="${ !empty sessionScope.loginUser }">

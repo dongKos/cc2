@@ -477,7 +477,7 @@ public class MypgController {
           System.out.println(filePath + "\\" + changeFileName);
           ms.deletePhoto(userId);
           }
-          return "member/mypage/writeWt"; // 성공했을 때 돌아가야하는곳
+          return "member/mypage/writerpage"; // 성공했을 때 돌아가야하는곳
        } catch (Exception e) {
           System.out.println(e.getMessage());
           new File(filePath + "\\" + changeFileName + ext).delete();

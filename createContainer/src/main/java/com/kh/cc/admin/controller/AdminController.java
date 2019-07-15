@@ -1,3 +1,4 @@
+
 package com.kh.cc.admin.controller;
 
 import java.text.SimpleDateFormat;
@@ -226,7 +227,7 @@ public class AdminController {
 		AdminPageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		
 		ArrayList<Member> list = as.selectBoardList(pi);
-
+		
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
@@ -301,9 +302,9 @@ public class AdminController {
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
 		list2.put("list", list); 
 		list2.put("pi", pi);
-				
+		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-				
+		
 	}
 	
 	//통계관리 - 작가통계 페이지
@@ -422,7 +423,7 @@ public class AdminController {
 	@RequestMapping(value="reportStatus.ad")
 	public ModelAndView reportStatus(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) {
 		response.setContentType("text/html; charset=UTF-8");
-
+		
 		String statusVal = request.getParameter("statusVal");
 		int currentPage = 1;
 		
@@ -538,9 +539,9 @@ public class AdminController {
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
 		list2.put("list", list); 
 		list2.put("pi", pi);
-				
+		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
-				
+		
 	}
 	
 	//작품 관리 페이지 - 일러스트 조회
@@ -581,7 +582,7 @@ public class AdminController {
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
 		list2.put("list", list); 
 		list2.put("pi", pi);
-				
+		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 	}
 	
@@ -623,7 +624,7 @@ public class AdminController {
 		HashMap<String, Object> list2 = new HashMap<String, Object>();
 		list2.put("list", list); 
 		list2.put("pi", pi);
-				
+		
 		return new ResponseEntity<HashMap<String, Object>>(list2,HttpStatus.OK);
 	}
 	
@@ -720,7 +721,7 @@ public class AdminController {
 	public String showBoardDetail(HttpServletRequest request, Model model) {
 		int bId = Integer.parseInt(request.getParameter("bId"));
 		Board b = as.selectOneBoard(bId);
-
+		
 		model.addAttribute("b", b);
 		
 		return "admin/adminBoardDetail";

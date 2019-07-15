@@ -487,7 +487,7 @@
 	<!-- 신고 등록 -->
 	<insert id="insertReport" parameterType="WebnovelReport">
 		INSERT INTO REPORT
-		VALUES (RPID_SEQ.NEXTVAL, #{reportType}, SYSDATE, #{reportReason}, #{reportCategory}, 'WAIT', #{userId}, #{wid}, #{rid}, #{commentId}, #{bid})
+		VALUES (RPID_SEQ.NEXTVAL, #{reportType}, SYSDATE, #{reportReason}, #{reportCategory}, 'WAIT', #{userId}, #{wid}, #{rid}, #{commentId}, #{bid}, NULL)
 	</insert>
 	<!-- 회차 신고 로그인/비로그인, 등록인/미등록인 구분 -->
 	<select id="selectwReportOne" parameterType="WebnovelReport" resultMap="WebnovelReportResultSet">

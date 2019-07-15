@@ -268,7 +268,7 @@ table td {
 				<div id="notice">
 					<br>
 					<h4 align="center">
-					<a href="NoticeList.mg">공지사항</a></h4>
+					<a href="Faq.mg">공지사항</a></h4>
 					<h4 align="center"><a href="#">만화FAQ</a></h4>
 				</div>
 				<br> <br>

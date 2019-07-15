@@ -21,20 +21,20 @@
   <!-- Theme CSS -->
   <link href="${contextPath }/resources/css/illust/freelancer.min.css" rel="stylesheet">
 <style>
-	.secondNav {
-		text-align: center;
-	}
-	
-	.secondNav ul {
-		width: 70%;
-		text-align: center;
-		margin: 0 auto;
-	}
-	.secondNav li {
-		width: 33%;
-	}
-	.navbar-nav>li>a {
-	 	}
+   .secondNav {
+      text-align: center;
+   }
+   
+   .secondNav ul {
+      width: 70%;
+      text-align: center;
+      margin: 0 auto;
+   }
+   .secondNav li {
+      width: 33%;
+   }
+   .navbar-nav>li>a {
+       }
 </style>
 </head>
 
@@ -61,46 +61,46 @@
           
           <c:if test="${ !empty sessionScope.loginUser }">
           <li class="nav-item mx-0 mx-lg-1">
-			<a class="nav-link" href="mypgMain.mg" style="font-size:20px;">
-				<c:out value="${ sessionScope.loginUser.userName }님"/>
-			</a>
-		  </li>
-		  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link" href="${ contextPath }/logout.me" style="font-size:20px;">로그아웃</a></li>
+         <a class="nav-link" href="mypgMain.mg" style="font-size:20px;">
+            <c:out value="${ sessionScope.loginUser.userName }님"/>
+         </a>
+        </li>
+        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link" href="${ contextPath }/logout.me" style="font-size:20px;">로그아웃</a></li>
           </c:if>
           
-					<img src="${contextPath }/resources/images/icon/coin.png" style="width:25px; height:25px; margin-top: 11px;	">
+               <img src="${contextPath }/resources/images/icon/coin.png" style="width:25px; height:25px; margin-top: 11px;   ">
           <li class="nav-item mx-0 mx-lg-1">
-			<a class="nav-link" href="mypgMain.mg" style="font-size:20px;">
-				${ sessionScope.loginUser.wallet }CC
-			</a>
-		  </li>
-		  
-		 <div>
-		  	 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="font-size:13px; margin-top:9px;">다른페이지로 이동</button>
-		    
-		  <div class="dropdown-menu" style="top: 59%; left: 81.3%;">
-		    <a class="dropdown-item" href="webtoonMain.wt" style="font-size:13px;">웹툰</a>
-		    <a class="dropdown-item" href="webnovelMain.wn" style="font-size:13px;">웹소설</a>
-		  </div>
-		  </div>
-		  
-		
-	        </ul>
-		</div>
+         <a class="nav-link" href="mypgMain.mg" style="font-size:20px;">
+            ${ sessionScope.loginUser.wallet }CC
+         </a>
+        </li>
+        
+       <div>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="font-size:13px; margin-top:9px;">다른페이지로 이동</button>
+          
+        <div class="dropdown-menu" style="top: 59%; left: 81.3%;">
+          <a class="dropdown-item" href="webtoonMain.wt" style="font-size:13px;">웹툰</a>
+          <a class="dropdown-item" href="webnovelMain.wn" style="font-size:13px;">웹소설</a>
+        </div>
+        </div>
+        
+      
+           </ul>
+      </div>
       </div>
   </nav>
   
-  <nav style="margin-top:14.4%; margin-bottom:0;background-color:gray;" class="navbar navbar-expand-lg">
- <!--  	<div style="float:left; margin-left:23%; margin-top:-1%;">
-  		<h2><a href="illustPortpolio.ill" style="color:white">포트폴리오</a></h2>
-  	</div>
-  	<div style="float:left; margin-left:10%; margin-top:-1%;">
-  		<h2><a href="illustChallenge.ill" style="color:white">도전</a></h2>
-  	</div>
-  	<div style="float:left; margin-left:10%; margin-top:-1%;">
-  		<h2><a href="illustSupport.ill" style="color:white">후원하기</a></h2>
-  	</div> -->
-  	<div class="collapse navbar-collapse secondNav" id="navbarResponsive">
+  <nav style="margin-top:14.4%; margin-bottom:0; background-color:#dda058; background:repeating-linear-gradient(90deg, #986428, #986428 1px, #986428 5px);" class="navbar navbar-expand-lg">
+ <!--     <div style="float:left; margin-left:23%; margin-top:-1%;">
+        <h2><a href="illustPortpolio.ill" style="color:white">포트폴리오</a></h2>
+     </div>
+     <div style="float:left; margin-left:10%; margin-top:-1%;">
+        <h2><a href="illustChallenge.ill" style="color:white">도전</a></h2>
+     </div>
+     <div style="float:left; margin-left:10%; margin-top:-1%;">
+        <h2><a href="illustSupport.ill" style="color:white">후원하기</a></h2>
+     </div> -->
+     <div class="collapse navbar-collapse secondNav" id="navbarResponsive">
         <ul class="navbar-nav">
           <li class="nav-item mx-0 mx-lg-1">
             <a class="nav-link" href="selectIllChallengeList.ill" style="color:white; font-size:40px; font-family: 'Do Hyeon', sans-serif;">도전하기</a>
@@ -114,8 +114,8 @@
         </ul>
       </div>
     </div>
-  	
-  	
+     
+     
   </nav>
     <!-- Bootstrap core JavaScript -->
   <script src="${contextPath }/resources/vendor/illust/jquery/jquery.min.js"></script>
