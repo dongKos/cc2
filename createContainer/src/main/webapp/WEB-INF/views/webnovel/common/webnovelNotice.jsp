@@ -7,8 +7,20 @@
 <title>Insert title here</title>
 <style>
 	.noticeImg{
-		
+		height:100% !important;
+	    margin: auto;
 	}
+.carousel-control.left {
+	background-image: linear-gradient(to right,rgb(202, 205, 208) 0,rgba(0,0,0,.0001) 100%);
+}
+.carousel-control.right {
+    background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(202, 205, 208) 100%);
+}
+#myCarousel{
+	width:565px;
+	margin:auto;
+}
+
 </style>
 </head>
 <body>
@@ -23,13 +35,13 @@
 
 			<div class="carousel-inner">
 				<div class="item active">
-					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="1">
+					<img class="noticeImg" src="${ contextPath }/resources/images/novelcarucel01.jpg" alt="1">
 				</div>
 				<div class="item">
-					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="2">
+					<img class="noticeImg" src="${ contextPath }/resources/images/novelcarucel02.jpg" alt="2">
 				</div>
 				<div class="item">
-					<img class="noticeImg" src="${ contextPath }/resources/images/logo.png" alt="3">
+					<img class="noticeImg" src="${ contextPath }/resources/images/novelcarucel03.jpg" alt="3">
 				</div>
 			</div>
 

@@ -20,15 +20,15 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="${contextPath }/resources/images/logo.png" alt="Los Angeles" style="width:766px; height:400px;">
+      <img src="${contextPath }/resources/images/illust/illCar1.jpg">
     </div>
 
     <div class="item">
-      <img src="${contextPath }/resources/images/logo.png" alt="Los Angeles" style="width:766px; height:400px;">
+      <img src="${contextPath }/resources/images/illust/illCar2.jpg">
     </div>
 
     <div class="item">
-      <img src="${contextPath }/resources/images/logo.png" alt="Los Angeles" style="width:766px; height:400px;">
+      <img src="${contextPath }/resources/images/illust/illCar3.jpg">
     </div>
   </div>
 

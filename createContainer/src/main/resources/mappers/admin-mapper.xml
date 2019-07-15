@@ -128,7 +128,7 @@
 		<result property="sprice" column="S_PRICE"/>
 		<result property="reward" column="REWARD"/>
 		<result property="fid" column="FID"/>
-		<result property="uploadDate" column="UPLOAD_DATE"/>
+		<result property="uploaddate" column="UPLOAD_DATE"/>
 		<result property="status" column="STATUS"/>
 		<result property="stitle" column="STITLE"/>
 		<result property="scontent" column="SCONTENT"/>

@@ -42,7 +42,7 @@ public class IllustratorController {
 		////System.out.println("컨트롤러 접근?");
 		
 		int currentPage = 1;
-		int limit = 5;
+		int limit = 3;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -263,7 +263,7 @@ public class IllustratorController {
 	public String selectIllPortfolioList(HttpServletRequest request, HttpSession session, Illustrator ill, Model model) {
 		
 		int currentPage = 1;
-		int limit = 5;
+		int limit = 60;
 		
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -384,7 +384,7 @@ public class IllustratorController {
 			////System.out.println("컨트롤러 접근?");
 			
 			int currentPage = 1;
-			int limit = 5;
+			int limit = 60;
 			
 			if(request.getParameter("currentPage") != null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));

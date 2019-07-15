@@ -61,7 +61,7 @@
 					$(".challengeList").children().remove();
 					$(".recommendGenreArea").remove();
 					$(".challengeList").append(
-							'<p class="challengeMenu">장르별 프리미엄 작품 도전 작품</p>'+
+							'<p class="challengeMenu">장르별 프리미엄 작품</p>'+
 							'<div class="wnListArea"></div><div id="npagingArea" align="center"><ul class="pagination" id="nPaging"></ul></div>'		
 					);
 					for(var i = 0; i < data.list.length; i++){

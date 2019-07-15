@@ -66,10 +66,10 @@
 	<div id="menus">
 		<ul>
 			
-			<li><button class="btn btn-primary" onclick="goNotice();">공지사항</button></li>
          	<li><button class="btn btn-primary" onclick="goFaq();">FAQ</button></li>
-			<li><button class="btn btn-primary" onclick="goGuide();">사이트 이용안내 / 약관</button></li>
 			<li><button class="btn btn-primary" onclick="goQue();">일대일 문의</button></li>
+			<li><button class="btn btn-primary" onclick="goGuide();">사이트 이용안내 / 약관</button></li>
+			<li><button class="btn btn-primary" onclick="goNotice();">공지사항</button></li>
 		
 		</ul>
 	</div>

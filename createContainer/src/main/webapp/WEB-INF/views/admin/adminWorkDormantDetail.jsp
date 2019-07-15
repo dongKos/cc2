@@ -76,7 +76,7 @@
                                                 </div>
                                                 <div class="col-12 col-md-9">
                                                     <input type="email" id="email-input" name="email-input" placeholder="Enter Email" class="form-control"
-                                                    		value="${reqSup.uploadDate }">
+                                                    		value="${reqSup.uploaddate }">
                                                 </div>
                                             </div>
                                             <div class="row form-group">

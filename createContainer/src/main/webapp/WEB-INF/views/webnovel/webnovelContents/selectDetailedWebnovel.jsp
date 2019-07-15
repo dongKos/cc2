@@ -763,11 +763,16 @@
 						var hiddenReplayId = $('<input type="hidden" id="replyId" value="'+data.list[i].replyId+'">')
 						var userIdCk = data.list[0].userId;
 						var replyId = data.list[i].replyId;
-						var commentId = data.list[i].commentId
+						var commentId = data.list[i].commentId;
+						var loginId = '${sessionScope.loginUser.userId}';
 						var userId = '${wn.userId}';
 						var list = new Array();
 						
+						console.log(loginId);
+						console.log(userIdCk);
 						if(userId == userIdCk){
+							list[0] = replyNicknameNo;
+						}else if(loginId == commentId){
 							list[0] = replyNicknameNo;
 						}else if(replyId == userIdCk){
 							list[0] = replyNicknameOk;

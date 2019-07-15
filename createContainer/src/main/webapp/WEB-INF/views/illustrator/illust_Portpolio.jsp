@@ -53,11 +53,6 @@
 <jsp:include page="common/illustCarousel.jsp"/>
 
 
-<select>
-	<option>카테고리선택</option>
-	<option>일러스트</option>
-	<option>만화</option>
-</select>
   <!-- Portfolio Section -->
   <section class="page-section portfolio" id="portfolio">
     <div class="container">

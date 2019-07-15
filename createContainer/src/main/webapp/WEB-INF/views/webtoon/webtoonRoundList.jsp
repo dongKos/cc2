@@ -445,13 +445,6 @@ p{
 							location.href = "updateRoundForm.wt?rid=" + rid;
 						});
 						
-						$('.wnrListArea').find('td').children('p').click(function(){
-							
-							
-							var rid = $(this).parents().parents().children().children("input").eq(0).val();
-							
-							location.href = "selectDetailedWebnovel.wn?rid=" + rid;
-						});
 						
 						$('.roundThumbnail').click(function(){
 							var rid = $(this).parents().parents().parents().parents()
@@ -537,7 +530,7 @@ p{
 						[이전] &nbsp;
 					</c:if>
 					<c:if test="${ pi.currentPage > 1 }">
-						<c:url var="wnrListBack" value="/contentView.wt?">
+						<c:url var="wnrListBack" value="/roundList.wt?">
 							<c:param name="wid" value="${ wt.wid }"/>
 							<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 						</c:url>
@@ -549,7 +542,7 @@ p{
 							<font color="red" size="4"><b>[${ p }]</b></font>
 						</c:if>
 						<c:if test="${ p ne pi.currentPage }">
-							<c:url var="wnrListCheck" value="/contentView.wt">
+							<c:url var="wnrListCheck" value="/roundList.wt?">
 								<c:param name="wid" value="${ wt.wid }"/>
 								<c:param name="currentPage" value="${ p }"/>
 							</c:url>
@@ -562,7 +555,7 @@ p{
 					</c:if>
 					
 					<c:if test="${ pi.currentPage < pi.maxPage }">
-						<c:url var="wnrListEnd" value="/contentView.wt">
+						<c:url var="wnrListEnd" value="/roundList.wt?">
 							<c:param name="wid" value="${ wt.wid }"/>
 							<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 						</c:url>						

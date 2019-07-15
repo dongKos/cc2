@@ -101,7 +101,7 @@
                                                 <td>${ s.userId}</td>
                                                 <td>${s.stitle }</td>
                                                 <td>${s.sprice } 원</td>
-                                                <td class="text-right">${s.uploadDate }</td>
+                                                <td class="text-right">${s.uploaddate }</td>
                                             </tr>
                                         </c:forEach>
                                         </tbody>

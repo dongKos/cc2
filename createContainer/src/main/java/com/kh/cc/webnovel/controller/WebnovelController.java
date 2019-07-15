@@ -472,7 +472,7 @@ public class WebnovelController {
 		if(genre.equals("CLOSE")) {
 			int buttonCount = 10;
 			int limit = 12;
-			int currentPage = 1;
+			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			
 			if(request.getParameter("currentPage") != null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));
