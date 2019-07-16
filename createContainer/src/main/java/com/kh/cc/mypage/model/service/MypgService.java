@@ -82,6 +82,8 @@ public interface MypgService {
 	ArrayList showReqIllust(String userId);
 	//휴재 내역 리스트
 	ArrayList showClosedPage(int mno);
+	//일대일 상세
+	Board getBoard(int bno);
 }
 
 

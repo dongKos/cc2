@@ -38,7 +38,7 @@
   					<br>
   					<div id="charge">
   					<br>
-  					<table width="100%;" style="text-align:center;">
+  					<table width="100%;" style="text-align:center;" class="table table-hover">
   					<tr >
   						<th style="text-align:center;">날짜</th><th style="text-align:center;">신청자</th><th style="text-align:center;">내용</th><th style="text-align:center;">의뢰 가격</th><th style="text-align:center;">상태</th>
   					</tr>

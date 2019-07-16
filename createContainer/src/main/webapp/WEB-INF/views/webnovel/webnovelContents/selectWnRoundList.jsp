@@ -915,7 +915,7 @@ input[type=checkbox]:checked + label:before{
 													<button type="button" class="payBtn" name="payBtn" onclick="updatePayWallet(${mno},${wnr.wid},${ wn.gradeType },${currentPage},${wnr.rid})">구매하기</button>
 												</div>
 											</div>
-										</div>
+										</div>x
 									</div>
 								</td>
 								<td class="wnrBtnArea">

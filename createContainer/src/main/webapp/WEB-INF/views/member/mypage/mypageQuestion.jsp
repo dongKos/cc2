@@ -151,7 +151,7 @@ background-color: #fd7b52;
 			<li class="active" style="width:100%;"><a href="#" style="font-weight:bold;">내 문의 내역</a></li> -->
 			
 			
-			 <table class="table">
+			 <table width="100%;" style="text-align:center;" class="table table-hover">
 			 
 			 <div style="float:right; margin-bottom:2%;">
 			 <select name="" onchange="" onclick="return false;" id=""  class="select_mate">
@@ -164,20 +164,32 @@ background-color: #fd7b52;
 			 </div>
     <thead>
       <tr class="info">
-        <th style="display:none;">게시글 번호</th>
-        <th>제목</th>
-        <th>작성일자</th>
-         <th>종류</th>
-        <th>상태</th> 
+        <th style="display:none; text-align:center;">게시글 번호</th>
+        <th style="text-align:center;">제목</th>
+        <th style="text-align:center;">작성일자</th>
+         <th style="text-align:center;">종류</th>
+        <th style="text-align:center;">상태</th> 
       </tr>
     </thead>
     <tbody>
     <c:forEach var="oto" items="${ list }">
-      <tr id="detail">
-        <td style="display:none;">${ oto.bId }</td>
+      <tr class="detail">
+        <td style="display:none;"><input type="text" value="${ oto.bId }"></td>
         <td>${ oto.bTitle }</td>
         <td>${ oto.uploadDate }</td>
-        <td>${ oto.subCategory }</td>
+        <c:if test="${ oto.subCategory == 'ETC'}">
+        <td>기타</td>
+        </c:if>
+        <c:if test="${ oto.subCategory == 'WT'}">
+        <td>웹툰</td>
+        </c:if>
+        <c:if test="${ oto.subCategory == 'WN'}">
+        <td>웹 소설</td>
+        </c:if>
+        <c:if test="${ oto.subCategory == 'ILL'}">
+        <td>일러스트</td>
+        </c:if>
+        
         <c:if test="${ oto.status == 'N' }">
         <td>답변 대기중</td>
         </c:if>
@@ -206,8 +218,9 @@ background-color: #fd7b52;
 
 </body>
 <script>
-	$("#detail").click(function(){
-		location.href="queList.mg"
+	$('.detail').click(function(){
+		var bid = $(this).children("td").children("input").eq(0).val();
+		location.href="queList.mg?bno="+bid;
 	})
 	</script>
 

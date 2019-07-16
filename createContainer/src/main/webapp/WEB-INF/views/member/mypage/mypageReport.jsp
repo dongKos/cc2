@@ -44,13 +44,29 @@
   					<br>
   					<div id="charge">
   					<br>
-  					<table width="100%;" style="text-align:center;">
+  					<table width="100%;" style="text-align:center;" class="table table-hover">
   					<tr>
   						<th style="text-align:center;">날짜</th><th>내용</th><th>분류</th><th>상태</th>
   					</tr>
   					<c:forEach var="ch" items="${ chargeList }">
   					<tr>
-  						<td>${ ch.reportDate }</td><td>${ ch.reportReason }</td><td>${ ch.reportCategory }</td><td>${ ch.status }</td>
+  						<td>${ ch.reportDate }</td><td>${ ch.reportReason }</td><td>${ ch.reportCategory }</td>
+  						
+  						<c:if test="${ ch.status == 'WAIT' }">
+  						<td>
+  						처리 대기 중
+  						</td>
+  						</c:if>
+  						<c:if test="${ ch.status == 'COMP' }">
+  						<td>
+  						신고 처리 완료
+  						</td>
+  						</c:if>
+  						<c:if test="${ ch.status == 'CANC' }">
+  						<td>
+  						신고 처리 취소
+  						</td>
+  						</c:if>
   					</tr>
   					</c:forEach>
   					<c:if test="${ chargeList == null }">

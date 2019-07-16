@@ -255,4 +255,9 @@ public int payComplete(SqlSessionTemplate sqlSession, PaymentCC pc) {
 	public ArrayList showClosedPage(SqlSessionTemplate sqlSession, int mno) {
 		return (ArrayList) sqlSession.selectList("Mypage.showClosedPage", mno);
 	}
+	//일대일 상세
+	@Override
+	public Board getBoard(SqlSessionTemplate sqlSession, int bno) {
+		return sqlSession.selectOne("Mypage.getBoard", bno);
+	}
 }

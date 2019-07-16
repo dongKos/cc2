@@ -233,7 +233,7 @@
 	<select id="attentionArtistWt" parameterType="String" resultMap="authorResultSet">
 		SELECT *
 		FROM MEMBER M
-		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.AUTHOR_ID)
 		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
@@ -245,7 +245,7 @@
 		<select id="attentionWnArtist" parameterType="String" resultMap="authorResultSet">
 		SELECT *
 		FROM MEMBER M
-		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.AUTHOR_ID)
 		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
@@ -257,7 +257,7 @@
 		<select id="attentionWlArtist" parameterType="String" resultMap="authorResultSet">
 		SELECT *
 		FROM MEMBER M
-		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.USER_ID)
+		JOIN ATTENTION_AUTHOR AT ON(M.USER_ID = AT.AUTHOR_ID)
 		JOIN ATTACHMENT A ON(AT.AUTHOR_ID = A.USER_ID)
 		WHERE AT.USER_ID = #{userId}
 		AND A.ATTACHMENT_CATEGORY = 'prf'
@@ -360,7 +360,11 @@
       		SELECT * FROM ILLUSTRATION_REQUEST
       		WHERE ILL_CODE = (SELECT ILL_CODE FROM ILLUSTRATION WHERE USER_ID = #{userId})
       	</select>
-      	
+      	<!-- 일대일 상세 -->
+      	<select id="getBoard" parameterType="int" resultMap="BoardResultSet">
+      		SELECT * FROM BOARD
+      		WHERE B_ID = #{bno}
+      	</select>
 </mapper>
 
 
