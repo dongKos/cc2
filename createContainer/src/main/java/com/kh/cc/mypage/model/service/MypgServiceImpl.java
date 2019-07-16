@@ -233,5 +233,10 @@ public int countProfilePic(WriterProfile mp) {
 	public ArrayList showClosedPage(int mno) {
 		return md.showClosedPage(sqlSession, mno);
 	}
+	//일대일 상세
+	@Override
+	public Board getBoard(int bno) {
+		return md.getBoard(sqlSession, bno);
+	}
 }
 

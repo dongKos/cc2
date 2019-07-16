@@ -251,9 +251,6 @@ input[type=checkbox]:checked + label:before{
 			if(rTitle==""){
 				alert("회차 제목을 입력하세요.");
 				return false;
-			}else if(!photo){
-				alert("사진을 등록해주세요.");
-				return false;
 			}else if(rContent==""){
 				alert("회차 내용을 입력하세요.");
 				return false;

@@ -7,7 +7,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
+	img:hover {
+		cursor:pointer;
+	}
 </style>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -47,8 +49,8 @@
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/writerProfile/${ m.changeName }" width="150px" height="150px" style="border-radius:15px;">
-									<input type="hidden" value="${ m.mno }">
+									<img class="writerImg" src="${ contextPath }/resources/uploadFiles/writerProfile/${ m.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<input type="hidden" value="${ m.userId }">
 								</div>
 							</td>
 						</tr>
@@ -57,7 +59,7 @@
 						</tr>
 						<tr>
 							<td class="contentTd" align="center">
-								${ m.nickName }
+								<span style="font-weight:bold;">${ m.nickName }</span> 작가
 							</td>
 						</tr>
 						<tr>
@@ -70,17 +72,12 @@
 				
 				
 				<script>
-					$(function(){
-						$('.wnListDiv').find('td').children('button').click(function(){
-							var wid = $(this).parents().parents().children("td").eq(1).children("input").val();
-							
-							location.href = "selectWnUpdateOne.wn?wid=" + wid;
-						});
-						$('.wnListDiv').find('td').children('div').children('img').click(function(){
-							var wid = $(this).parents().children("input").val();
-							location.href = "selectReqForm.mg?wid=" + wid;
-						});
-					});
+					$(".writerImg").click(function(){
+						var userId = $(this).parent().children("input").val();
+						console.log(userId);
+						location.href="selectWnList.wn?userId="+userId+"&gradeType=1";
+						//selectWnList.wn?userId="+userId+"&gradeType=1";
+					})
 			
 				</script>
 				</div>

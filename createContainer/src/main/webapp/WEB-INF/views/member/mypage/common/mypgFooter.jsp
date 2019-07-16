@@ -13,15 +13,14 @@
 	}
 	footer{
 		height:200px;
-		background-color:white;
+		background-color:#2c3e50;
 		margin-top:100px;
-		border:1px solid gray;
-		min-width:1000px;
+		width: 100%;
 	}
 	.footer{
 		height:100%;
 		width:100%;
-		color:gray;
+		color:white;
 		font-size:12px;
 		font-weight:bold;
 	}
@@ -30,6 +29,7 @@
 		text-align:left;
 		height:20px;
 	}
+	
 	
 </style>
 </head>

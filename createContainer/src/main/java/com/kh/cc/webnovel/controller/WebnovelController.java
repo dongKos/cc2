@@ -73,7 +73,7 @@ public class WebnovelController {
 			
 			ws.insertWebnovel(wn, wp);
 			
-			return "redirect:selectWnList.wn?gradeType=1";
+			return "redirect:selectWnList.wn?userId="+userId+"&gradeType=1";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			new File(filePath + "\\" + changeFileName + ext).delete();
@@ -124,7 +124,7 @@ public class WebnovelController {
 				session.removeAttribute("wid");
 				session.removeAttribute("fid");
 				
-				return "redirect:selectWnList.wn?gradeType="+gradeType;
+				return "redirect:selectWnList.wn?userId="+userId+"&gradeType="+gradeType;
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				new File(filePath + "\\" + changeFileName + ext).delete();
@@ -137,14 +137,16 @@ public class WebnovelController {
 			
 			ws.updateWebnovel(wn);
 			
-			return "redirect:selectWnList.wn?gradeType="+gradeType;
+			return "redirect:selectWnList.wn?userId="+userId+"&gradeType="+gradeType;
 		}
 	}
 	//웹소설 삭제
 	@RequestMapping(value="deleteWebnovel.wn")
-	public String deleteWebnovel(Model model, Webnovel wn, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
+	public String deleteWebnovel(Model model, Webnovel wn,Member m, WebnovelPhoto wp, WebnovelRound wnr, HttpServletRequest request, HttpSession session) {
 		int wid = Integer.parseInt(request.getParameter("wid"));
 		int gradeType = Integer.parseInt(request.getParameter("gradeType"));
+		m = (Member) session.getAttribute("loginUser");
+		String userId = m.getUserId();
 		wn.setWid(wid);
 		wn.setGradeType(gradeType);
 		wn = ws.selectWnOne(wn);
@@ -166,7 +168,7 @@ public class WebnovelController {
 				new File(subFilePath + "\\" + subChangeName).delete();
 			}
 		}
-		return "redirect:selectWnList.wn?gradeType=1";
+		return "redirect:selectWnList.wn?userId="+ userId +"&gradeType=1";
 	}
 	//웹소설 회차 삭제
 	@RequestMapping(value="deleteWnRound.wn")
@@ -191,7 +193,8 @@ public class WebnovelController {
 	@RequestMapping(value="selectWnList.wn")
 	public String selectWnList(HttpServletRequest request, Webnovel wn, HttpSession session, Member m, Model model) {
 		m = (Member) session.getAttribute("loginUser");
-		wn.setUserId(m.getUserId());
+		String userId = request.getParameter("userId");
+		wn.setUserId(userId);
 		int gradeType = (Integer.parseInt(request.getParameter("gradeType")));
 		wn.setGradeType(gradeType);
 		int buttonCount = 10;

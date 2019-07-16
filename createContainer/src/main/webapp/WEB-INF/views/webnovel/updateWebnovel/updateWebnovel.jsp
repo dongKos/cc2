@@ -129,9 +129,6 @@
 			if(wTitle==""){
 				alert("작품 제목을 입력하세요.");
 				return false;
-			}else if(!photo){
-				alert("사진을 등록해주세요.");
-				return false;
 			}else if($(':radio[name="genre"]:checked').length < 1){
 				alert("장르를 선택하세요.");
 				return false;

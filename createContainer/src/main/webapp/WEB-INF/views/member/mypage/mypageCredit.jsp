@@ -52,7 +52,7 @@
   					</div>
   					<div id="charge">
   					<br>
-  					<table width="100%;" style="text-align:center;">
+  					<table width="100%;" style="text-align:center;" class="table table-hover">
   					<tr>
   						<th style="text-align:center;" width="20%;">날짜</th><th width="60%;">내용</th><th width="10%;">개수</th><th>상태</th>
   					</tr>
@@ -71,7 +71,7 @@
   					<div id="use" hidden>
   					
   					<br>
-  					<table width="100%;" style="text-align:center;" >
+  					<table width="100%;" style="text-align:center;" class="table table-hover">
   					<tr>
   						<th style="text-align:center;" width="20%;">날짜</th><th width="60%;">내용</th><th width="10%;">개수</th><th>상태</th>
   					</tr>

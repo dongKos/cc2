@@ -36,7 +36,7 @@
   					<br>
   					<div id="charge">
   					<br>
-  					<table width="100%;" style="text-align:center;">
+  					<table width="100%;" style="text-align:center;" class="table table-hover">
   					<tr>
   						<th style="text-align:center;">날짜</th><th style="text-align:center;">제목</th><th style="text-align:center;">휴재 기간</th><th style="text-align:center;">승인 여부</th>
   					</tr>

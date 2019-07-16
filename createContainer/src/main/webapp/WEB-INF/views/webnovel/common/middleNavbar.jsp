@@ -45,8 +45,9 @@
 				<td class="middleItem" onClick="location.href='Faq.mg'">고객센터</td>
 				<td class="middleItem" onClick="location.href='mypgMain.mg'">마이페이지</td>
 				<td class="line">&#x2758;</td>
+				<c:set var="userId" value="${sessionScope.loginUser.userId }" />
 				<c:if test="${ !empty sessionScope.loginUser }">
-					<td class="middleItem" onClick="location.href='selectWnList.wn?gradeType=1'">작품 올리기</td>
+					<td class="middleItem" onClick="location.href='selectWnList.wn?userId=${userId}&gradeType=1'">작품 올리기</td>
 				</c:if>
 				<c:if test="${ empty sessionScope.loginUser }">
 					<td class="middleItem" onClick="location.href='loginForm.me'">작품 올리기</td>

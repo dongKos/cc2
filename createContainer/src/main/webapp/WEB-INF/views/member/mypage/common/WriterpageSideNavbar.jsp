@@ -92,7 +92,7 @@
 	        location.href="insertWork.wt"
 	    }
 	    function goWriteMyNo(){
-	        location.href="selectWnList.wn?gradeType=1"
+	        location.href="selectWnList.wn?userId=${ sessionScope.loginUser.userId }&gradeType=1"
 	    }
 	    function goAdministration(){
 	        location.href="Administration.mg"

@@ -84,6 +84,8 @@ public interface MypgDao {
 	ArrayList showReqIllust(SqlSessionTemplate sqlSession, String userId);
 	//휴재 내역 리스트
 	ArrayList showClosedPage(SqlSessionTemplate sqlSession, int mno);
+	//일대일 상세
+	Board getBoard(SqlSessionTemplate sqlSession, int bno);
 }
 
 

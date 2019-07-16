@@ -157,17 +157,21 @@
 		<div class="row">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-10 wnList">
+				<p style="margin-top:30px;color:gray;font-size:30px;">
+					<span style="color:skyblue; font-weight:bold;">${list[0].nickname}</span>
+					작가님 작품
+				</p>
 				<div class="wnMenu">
 					<table class="wnWork">
 						<tr>
-							<td onClick="location.href='selectWnList.wn?gradeType=1'">도전 작품</td>
-							<td onClick="location.href='selectWnList.wn?gradeType=2'">프리미엄 작품</td>
+							<td onClick="location.href='selectWnList.wn?userId=${list[0].userId}&gradeType=1'">도전 작품</td>
+							<td onClick="location.href='selectWnList.wn?userId=${list[0].userId}&gradeType=2'">프리미엄 작품</td>
 						</tr>
 					</table>
 				</div>
 				<div class="wnListDiv">
 				<c:if test="${list[0].wid == null}">
-					<table class="wnListTable">
+					<table class="wnListTable" onclick="location.href='insertWebnovel.wn'">
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
@@ -303,8 +307,12 @@
 				</div>
 				<br>
 				<br>
-				<c:if test="${gradeType == 1}">
-					<button class="insertWnBtn" onclick="location='insertWebnovel.wn'">새 작품 쓰기</button>
+				<c:set var="userId" value="${sessionScope.loginUser.userId }" />
+				<c:set var="authorId" value="${list[0].userId}" />
+				<c:if test="${userId == authorId }">
+					<c:if test="${gradeType == 1}">
+						<button class="insertWnBtn" onclick="location='insertWebnovel.wn'">새 작품 쓰기</button>
+					</c:if>
 				</c:if>
 			</div>
 			<div class="col-sm-1"></div>

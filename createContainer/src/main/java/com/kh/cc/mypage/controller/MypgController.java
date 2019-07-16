@@ -764,7 +764,10 @@ public class MypgController {
        
        //일대일문의 상세보기
        @RequestMapping("queList.mg")
-       public String showQueList() {
+       public String showQueList(HttpServletRequest request, HttpSession session, HttpServletResponse response, Model model, Member m, Board board) {
+    	   int bno = Integer.parseInt(request.getParameter("bno"));
+    	   board = ms.getBoard(bno);
+    	   model.addAttribute("board", board);
           return "cs/queList";
        }
      //내 문의 내역 페이지 이동

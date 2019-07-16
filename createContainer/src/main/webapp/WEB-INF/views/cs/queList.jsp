@@ -136,7 +136,7 @@ background-color: #fd7b52;
 <body>
 <div class="container">
   <div class="row">
-<jsp:include page="../main/common/mainMenubar.jsp"/>
+<jsp:include page="../member/mypage/common/mypageNavbar.jsp"/>
     <div class="col-sm-3">
   	 <jsp:include page="../cs/common/csSideNavbar.jsp"/>
     </div>
@@ -156,19 +156,18 @@ background-color: #fd7b52;
 	
  	
  	
- 	<div style="border:1px solid #ececec; width:100%; height:400px; margin-bottom:10%;">
+ 	<div style="border:1px solid #ececec; width:100%; height:400px; margin-bottom:10%; text-align:center;">
  	<table width="100%" style="text-align:center; height:100%;">
  	<tr style="border:1px solid #ececec; height:20px;">
- 	<td><input type="text"  style="border:none;" readonly value="날짜"></td>
- 	<td><input type="text" id="title" style="border:none; width:100%; height:30px; padding-left:30px;" placeholder="제목을 입력해주세요." readonly value="내제목"></td>
- 	<td style="border:1px solide #ececec">
- 	<input value="웹툰" readonly style="border:none; text-align:right;">
- 	
+ 	<td><input type="text"  style="border:none;" readonly value="${board.uploadDate }"></td>
+ 	<td><input type="text" id="title" style="border:none; width:100%; height:30px; padding-left:30px;" placeholder="제목을 입력해주세요." readonly value="${board.bTitle }"></td>
+ 	<td style="border:1px solide #ececec; text-align:center;">
+ 	<input value="${ board.subCategory }" readonly style="border:none; text-align:right;">
  	</td>
  	</tr>
  	<tr>
  		<td colspan=3>
- 		<textarea placeholder="내용을 입력해주세요" style="border:none; width:99%; height:95%; padding-left:30px;" readonly value="내용"></textarea>
+ 		<textarea placeholder="내용을 입력해주세요" style="border:none; width:99%; height:95%; padding-left:30px; padding:auto;" readonly value="내용">${board.bContent }</textarea>
  		
  		</td>
  	</tr>

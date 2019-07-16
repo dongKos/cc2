@@ -93,6 +93,7 @@
 							</table>
 						</div>
 					</div>
+					<input type="hidden" value="${sessionScope.loginUser.userId }">
 				</form>
 			</div>
 			<div class="col-sm-1 col-md-1 col-xs-1"></div>
