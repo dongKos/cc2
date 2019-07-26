@@ -134,7 +134,7 @@ background-color: #fd7b52;
 <body>
 <div class="container">
   <div class="row">
-<jsp:include page="../main/common/mainMenubar.jsp"/>
+<jsp:include page="../member/mypage/common/mypageNavbar.jsp"/>
     <div class="col-sm-3">
   	 <jsp:include page="../cs/common/csSideNavbar.jsp"/>
     </div>

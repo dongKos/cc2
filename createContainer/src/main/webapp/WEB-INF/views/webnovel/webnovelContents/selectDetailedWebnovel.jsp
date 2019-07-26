@@ -367,10 +367,6 @@
 										<c:param name="rid" value="${ list[0].rid }"/>
 										<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 									</c:url>
-									<%--<h2>${pi}</h2>
-									<h1>${ (pi.listCount - pi.currentPage) + 1 }</h1>
-									<h1>${ ((pi.listCount - pi.currentPage) + 1) == 10 }</h1>
-									<h1>${ checkWnr.mno }fdsafsdaA</h1> --%>
 									<button class="pageBtn" type="button" onclick="location.href='${ wnrListEnd }'"><</button>
 								</c:if>
 								&nbsp;&nbsp;${ wnr.rTitle }
@@ -384,9 +380,22 @@
 										<c:param name="rid" value="${ list[0].rid }"/>
 										<c:param name="currentPage" value="${ pi.currentPage - 1 }"/>
 									</c:url>
-									<button class="pageBtn" type="button" onclick="location.href='${ wnrListBack }'">></button>
+									<c:if test="${pi.maxPage - 9 == pi.currentPage}">
+										<button class="pageBtn" type="button" onclick="noMoney()">></button>
+									</c:if>
+									<c:if test="${pi.maxPage - 9 < pi.currentPage}">
+										<button class="pageBtn" type="button" onclick="location.href='${ wnrListBack }'">></button>
+									</c:if>
+									<c:if test="${pi.maxPage - 9 > pi.currentPage}">
+										<button class="pageBtn" type="button" onclick="location.href='${ wnrListBack }'">></button>
+									</c:if>
 								</c:if>
-								
+								<script>
+									function noMoney(){
+										alert("코인이 없습니다 결제페이지로 이동합니다.");
+										location.href="mypgCreditCharge.mg";
+									}
+								</script>
 								<c:if test="${ pi.currentPage >= 0  }">
 								<c:url var="wnrstartPage" value="/selectDetailedWebnovel.wn">
 									<c:param name="wid" value="${ wn.wid }"/>

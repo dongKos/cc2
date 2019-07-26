@@ -40,11 +40,9 @@
   					<tr>
   						<th style="text-align:center;">날짜</th><th style="text-align:center;">제목</th><th style="text-align:center;">휴재 기간</th><th style="text-align:center;">승인 여부</th>
   					</tr>
-  					<c:forEach var="ch" items="${ list }">
   					<tr>
-  						<td>${ ch.uploadDate }</td><td>${ ch.wTitle }</td><td>${ ch.startDate }~${ ch.closedDate }</td><td>${ ch.closedReason }</td>
+  						<td>${ list[0].uploadDate }</td><td>${ list[0].wTitle }</td><td>${ list[0].startDate }~${ list[0].closedDate }</td><td>${ list[0].closedReason }</td>
   					</tr>
-  					</c:forEach>
   					<c:if test="${ list == null }">
   					<tr>
   						<td colspan=4 style="height:100px;">신청한 내역이 없습니다.</td>

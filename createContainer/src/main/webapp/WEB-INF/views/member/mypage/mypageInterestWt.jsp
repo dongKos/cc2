@@ -45,7 +45,7 @@
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
-									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<img src="${ contextPath }/resources/uploadFiles/webtoonMain/${ wn.changeName }" width="120px" height="120px" style="border-radius:15px;">
 									<input type="hidden" value="${ wn.wid }">
 								</div>
 							</td>

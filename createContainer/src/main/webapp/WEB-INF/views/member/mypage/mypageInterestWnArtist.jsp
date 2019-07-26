@@ -49,7 +49,7 @@
 						<tr>
 							<td class="workImg">
 								<div class="titleImg">
-									<img class="writerImg" src="${ contextPath }/resources/uploadFiles/writerProfile/${ m.changeName }" width="150px" height="150px" style="border-radius:15px;">
+									<img class="writerImg" src="${ contextPath }/resources/uploadFiles/writerProfile/${ m.changeName }" width="120px" height="120px" style="border-radius:15px;">
 									<input type="hidden" value="${ m.userId }">
 								</div>
 							</td>

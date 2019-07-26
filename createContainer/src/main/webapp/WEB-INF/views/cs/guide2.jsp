@@ -55,7 +55,7 @@ height:150px;
 <body>
 <div class="container">
   <div class="row">
-<jsp:include page="../main/common/mainMenubar.jsp"/>
+<jsp:include page="../member/mypage/common/mypageNavbar.jsp"/>
     
     <div class="col-sm-12">
 

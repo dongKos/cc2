@@ -529,22 +529,23 @@ public class IllustratorController {
 		}
 		
 		//후원 하기
-		@RequestMapping("insertSponsor.ill")
-		public String insertSponsor(HttpServletRequest request, Model model, HttpSession session) {
-			Member m = (Member) session.getAttribute("loginUser");
-			
-			int sPrice = Integer.parseInt(request.getParameter("sPrice"));
-			int mno = Integer.parseInt(request.getParameter("mno"));
-			int sCode = Integer.parseInt(request.getParameter("sCode"));
-			
-			String sPrice2 = sPrice + "";
-			
-			int result = is.insertSponsor(sPrice, mno, sCode);
-			int result2 = IllRequestCoin(m, sPrice2);
-			
-			model.addAttribute("url", "illustRewardApply.ill");
-			return "common/redirect";
-		}
+	      @RequestMapping("insertSponsor.ill")
+	      public String insertSponsor(HttpServletRequest request, Model model, HttpSession session) {
+	         Member m = (Member) session.getAttribute("loginUser");
+	         
+	         int sPrice = Integer.parseInt(request.getParameter("sPrice"));
+	         int mno = Integer.parseInt(request.getParameter("mno"));
+	         int sCode = Integer.parseInt(request.getParameter("sCode"));
+	         
+	         String sPrice2 = sPrice + "";
+	         
+	         int result = is.insertSponsor(sPrice, mno, sCode);
+	         int result2 = IllRequestCoin(m, sPrice2);
+	         
+	         model.addAttribute("msg","후원이 완료 되었습니다. 리워드는 마이페이지에서 확인 가능합니다.");
+	         model.addAttribute("url", "illustRewardApply.ill");
+	         return "common/redirect";
+	      }
 		
 		//포트폴리오 신고하기
 		@RequestMapping(value="IllPortfolioReport.ill")

@@ -226,10 +226,11 @@
 								
 							</td>
 							<td>
+								<c:if test="${userId == authorId }">
 								<button class="wnUpdateBtn" name="wnUpdateBtn">작품 정보 수정</button><br><br>
 								
 								<button class="wnDeleteBtn" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal<c:out value="${status.index}" />">작품 삭제</button>
-								
+								</c:if>
 							</td>
 						</tr>
 					</table>

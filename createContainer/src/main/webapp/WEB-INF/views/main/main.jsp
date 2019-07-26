@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Caminar by TEMPLATED</title>
+<title>CC-createContainer</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="${contextPath }/resources/assets/css/main.css" />
@@ -324,7 +324,7 @@
 					var startPage = data.pi.startPage;
 					var endPage = data.pi.endPage;
 					var maxPage = data.pi.maxPage;
-				        d 
+				        
 					//이전
 					if(currentPage <= 1){
 						$paging.append("<li class='page-item'><a class='page-link'>이전</a></li>");
